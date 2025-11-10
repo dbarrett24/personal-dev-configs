@@ -1,0 +1,231 @@
+---
+# Form Patterns with React Hook Form + Zod
+
+## Basic Form Setup
+
+```typescript
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+// Define schema
+const schema = z.object({
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
+    age: z.number().min(18, 'Must be 18 or older'),
+});
+
+// Infer type from schema
+type FormData = z.infer<typeof schema>;
+
+export const MyForm = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            email: '',
+            password: '',
+            age: 18,
+        },
+    });
+
+    const onSubmit = (data: FormData) => {
+        console.log(data);
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register('email')} placeholder="Email" />
+            {errors.email && <span>{errors.email.message}</span>}
+            
+            <input {...register('password')} type="password" placeholder="Password" />
+            {errors.password && <span>{errors.password.message}</span>}
+            
+            <button type="submit">Submit</button>
+        </form>
+    );
+};
+```
+
+## Form with FormProvider
+
+For nested components that need form context:
+
+```typescript
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+
+// Parent component
+export const ComplexForm = () => {
+    const methods = useForm<FormData>({
+        resolver: zodResolver(schema),
+    });
+
+    return (
+        <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+                <EmailField />
+                <PasswordField />
+                <SubmitButton />
+            </form>
+        </FormProvider>
+    );
+};
+
+// Child component using context
+const EmailField = () => {
+    const { register, formState: { errors } } = useFormContext<FormData>();
+    
+    return (
+        <>
+            <input {...register('email')} placeholder="Email" />
+            {errors.email && <span>{errors.email.message}</span>}
+        </>
+    );
+};
+```
+
+## Advanced Validation
+
+### Custom Validation
+
+```typescript
+const schema = z.object({
+    password: z.string().min(8),
+    confirmPassword: z.string(),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+});
+```
+
+### Conditional Validation
+
+```typescript
+const schema = z.object({
+    userType: z.enum(['individual', 'company']),
+    companyName: z.string().optional(),
+}).refine(
+    (data) => data.userType !== 'company' || !!data.companyName,
+    {
+        message: 'Company name is required for company accounts',
+        path: ['companyName'],
+    }
+);
+```
+
+## Controller for Custom Inputs
+
+```typescript
+import { Controller } from 'react-hook-form';
+import { CustomSelect } from '@/components/CustomSelect';
+
+<Controller
+    name="category"
+    control={control}
+    render={({ field, fieldState: { error } }) => (
+        <>
+            <CustomSelect
+                {...field}
+                options={categories}
+                placeholder="Select category"
+            />
+            {error && <span>{error.message}</span>}
+        </>
+    )}
+/>
+```
+
+## Dynamic Fields with useFieldArray
+
+```typescript
+import { useFieldArray } from 'react-hook-form';
+
+const schema = z.object({
+    items: z.array(z.object({
+        name: z.string().min(1),
+        quantity: z.number().min(1),
+    })),
+});
+
+export const DynamicForm = () => {
+    const { control, register } = useForm<FormData>({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            items: [{ name: '', quantity: 1 }],
+        },
+    });
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'items',
+    });
+
+    return (
+        <form>
+            {fields.map((field, index) => (
+                <div key={field.id}>
+                    <input {...register(`items.${index}.name`)} />
+                    <input {...register(`items.${index}.quantity`)} type="number" />
+                    <button type="button" onClick={() => remove(index)}>Remove</button>
+                </div>
+            ))}
+            <button type="button" onClick={() => append({ name: '', quantity: 1 })}>
+                Add Item
+            </button>
+        </form>
+    );
+};
+```
+
+## Testing Forms
+
+```typescript
+import { render, screen, userEvent, FormWrapper } from '@yourname/testing-utils';
+
+describe('MyForm', () => {
+    it('validates email field', async () => {
+        render(<MyForm />);
+        
+        await userEvent.type(screen.getByPlaceholderText('Email'), 'invalid-email');
+        await userEvent.click(screen.getByText('Submit'));
+        
+        expect(screen.getByText('Invalid email address')).toBeVisible();
+    });
+
+    it('submits valid form', async () => {
+        const handleSubmit = jest.fn();
+        
+        render(<MyForm onSubmit={handleSubmit} />);
+        
+        await userEvent.type(screen.getByPlaceholderText('Email'), 'test@example.com');
+        await userEvent.type(screen.getByPlaceholderText('Password'), 'password123');
+        await userEvent.click(screen.getByText('Submit'));
+        
+        expect(handleSubmit).toHaveBeenCalledWith({
+            email: 'test@example.com',
+            password: 'password123',
+        });
+    });
+});
+
+// Testing component that uses useFormContext
+describe('EmailField', () => {
+    it('renders with default value', () => {
+        render(
+            <FormWrapper defaultValues={{ email: 'test@example.com' }}>
+                <EmailField />
+            </FormWrapper>
+        );
+        
+        expect(screen.getByDisplayValue('test@example.com')).toBeVisible();
+    });
+});
+```
+
+## Best Practices
+
+1. **Always use Zod** for validation schemas
+2. **Infer types** from schemas with `z.infer<typeof schema>`
+3. **Use FormProvider** for complex nested forms
+4. **Use Controller** for custom/third-party inputs
+5. **Test validation** thoroughly with user interactions
+6. **Keep schemas colocated** with forms or in separate schema files

@@ -22,12 +22,17 @@
         "full-rebuild": "pnpm cleanup && pnpm install && pnpm build",
         "upgrade-deps": "pnpm up -riL",
         "ci:version": "changeset version",
-        "ci:publish": "pnpm build && changeset publish"
+        "ci:publish": "pnpm build && changeset publish",
+        "create-project": "tsx scripts/create-project.ts",
+        "create-brand": "tsx scripts/create-brand.ts",
+        "update-configs": "tsx scripts/update-configs.ts"
     },
     "devDependencies": {
         "@changesets/changelog-github": "^0.5.0",
         "@changesets/cli": "^2.27.10",
+        "@types/node": "^20.14.9",
         "prettier": "^3.4.2",
+        "tsx": "^4.19.2",
         "turbo": "^2.5.5",
         "typescript": "^5.8.2"
     },

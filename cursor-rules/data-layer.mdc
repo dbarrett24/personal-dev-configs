@@ -1,0 +1,345 @@
+---
+# Data Layer Patterns with React Query
+
+## Query Structure
+
+### Basic Query Hook
+
+```typescript
+// data/users/useGetUser.ts
+import { useQuery } from '@tanstack/react-query';
+
+type User = {
+    id: string;
+    name: string;
+    email: string;
+};
+
+export const getUser = async (userId: string): Promise<User> => {
+    const response = await fetch(`/api/users/${userId}`);
+    if (!response.ok) throw new Error('Failed to fetch user');
+    return response.json();
+};
+
+export const useGetUser = (userId: string) => {
+    return useQuery({
+        queryKey: ['users', userId],
+        queryFn: () => getUser(userId),
+        enabled: !!userId, // Only run if userId exists
+    });
+};
+```
+
+### *Options Pattern for SSR
+
+```typescript
+// data/users/useGetUser.ts
+import { type UseQueryOptions } from '@tanstack/react-query';
+
+export const useGetUser = (userId: string, options?: UseQueryOptions<User>) => {
+    return useQuery({
+        queryKey: ['users', userId],
+        queryFn: () => getUser(userId),
+        enabled: !!userId,
+        ...options,
+    });
+};
+
+// Export for server-side prefetching
+export const getUserOptions = (userId: string): UseQueryOptions<User> => ({
+    queryKey: ['users', userId],
+    queryFn: () => getUser(userId),
+});
+```
+
+## Mutations
+
+### Basic Mutation
+
+```typescript
+// data/users/useCreateUser.ts
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+type CreateUserData = {
+    name: string;
+    email: string;
+};
+
+export const createUser = async (data: CreateUserData): Promise<User> => {
+    const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error('Failed to create user');
+    return response.json();
+};
+
+export const useCreateUser = () => {
+    const queryClient = useQueryClient();
+    
+    return useMutation({
+        mutationFn: createUser,
+        onSuccess: (newUser) => {
+            // Invalidate and refetch users list
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            
+            // Or optimistically update the cache
+            queryClient.setQueryData(['users', newUser.id], newUser);
+        },
+    });
+};
+```
+
+### Optimistic Updates
+
+```typescript
+// data/todos/useToggleTodo.ts
+export const useToggleTodo = () => {
+    const queryClient = useQueryClient();
+    
+    return useMutation({
+        mutationFn: async (todoId: string) => {
+            const response = await fetch(`/api/todos/${todoId}/toggle`, {
+                method: 'PATCH',
+            });
+            return response.json();
+        },
+        onMutate: async (todoId) => {
+            // Cancel outgoing refetches
+            await queryClient.cancelQueries({ queryKey: ['todos'] });
+            
+            // Snapshot previous value
+            const previousTodos = queryClient.getQueryData(['todos']);
+            
+            // Optimistically update
+            queryClient.setQueryData(['todos'], (old: Todo[]) =>
+                old.map((todo) =>
+                    todo.id === todoId
+                        ? { ...todo, completed: !todo.completed }
+                        : todo
+                )
+            );
+            
+            // Return context with previous value
+            return { previousTodos };
+        },
+        onError: (err, todoId, context) => {
+            // Rollback on error
+            if (context?.previousTodos) {
+                queryClient.setQueryData(['todos'], context.previousTodos);
+            }
+        },
+        onSettled: () => {
+            // Refetch after error or success
+            queryClient.invalidateQueries({ queryKey: ['todos'] });
+        },
+    });
+};
+```
+
+## Pagination
+
+### Offset-based Pagination
+
+```typescript
+// data/posts/useGetPosts.ts
+type GetPostsParams = {
+    page: number;
+    pageSize: number;
+};
+
+type GetPostsResponse = {
+    posts: Post[];
+    totalPages: number;
+};
+
+export const useGetPosts = ({ page, pageSize }: GetPostsParams) => {
+    return useQuery({
+        queryKey: ['posts', { page, pageSize }],
+        queryFn: async () => {
+            const response = await fetch(
+                `/api/posts?page=${page}&pageSize=${pageSize}`
+            );
+            return response.json();
+        },
+        placeholderData: (previousData) => previousData, // Keep previous data while loading
+    });
+};
+```
+
+### Infinite Queries
+
+```typescript
+// data/posts/useGetInfinitePosts.ts
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+export const useGetInfinitePosts = () => {
+    return useInfiniteQuery({
+        queryKey: ['posts', 'infinite'],
+        queryFn: async ({ pageParam = 0 }) => {
+            const response = await fetch(`/api/posts?cursor=${pageParam}`);
+            return response.json();
+        },
+        getNextPageParam: (lastPage) => lastPage.nextCursor,
+        initialPageParam: 0,
+    });
+};
+
+// Usage
+const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetInfinitePosts();
+
+<button
+    onClick={() => fetchNextPage()}
+    disabled={!hasNextPage || isFetchingNextPage}
+>
+    Load More
+</button>
+```
+
+## Error Handling
+
+### Global Error Handler
+
+```typescript
+// providers/Providers.tsx
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: 3,
+            staleTime: 60 * 1000, // 1 minute
+            refetchOnWindowFocus: false,
+        },
+        mutations: {
+            onError: (error) => {
+                // Global error handling
+                console.error('Mutation error:', error);
+                toast.error('Something went wrong');
+            },
+        },
+    },
+});
+```
+
+### Per-Query Error Handling
+
+```typescript
+const { data, error, isError } = useGetUser(userId);
+
+if (isError) {
+    return <div>Error: {error.message}</div>;
+}
+```
+
+## File Upload
+
+### FormData Upload
+
+```typescript
+// data/files/useUploadFile.ts
+export const uploadFile = async (file: File): Promise<{ url: string }> => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData, // Don't set Content-Type, browser will set it
+    });
+    
+    return response.json();
+};
+
+export const useUploadFile = () => {
+    return useMutation({
+        mutationFn: uploadFile,
+        onSuccess: (data) => {
+            console.log('File uploaded:', data.url);
+        },
+    });
+};
+```
+
+## Testing Queries
+
+```typescript
+// data/users/useGetUser.spec.ts
+import { renderHook, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useGetUser } from './useGetUser';
+
+const createWrapper = () => {
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: { retry: false },
+        },
+    });
+    
+    return ({ children }: { children: React.ReactNode }) => (
+        <QueryClientProvider client={queryClient}>
+            {children}
+        </QueryClientProvider>
+    );
+};
+
+describe('useGetUser', () => {
+    it('fetches user data', async () => {
+        global.fetch = jest.fn(() =>
+            Promise.resolve({
+                ok: true,
+                json: () => Promise.resolve({ id: '1', name: 'John' }),
+            } as Response)
+        );
+        
+        const { result } = renderHook(() => useGetUser('1'), {
+            wrapper: createWrapper(),
+        });
+        
+        await waitFor(() => expect(result.current.isSuccess).toBe(true));
+        
+        expect(result.current.data).toEqual({ id: '1', name: 'John' });
+    });
+});
+```
+
+## Query Keys Organization
+
+```typescript
+// data/queryKeys.ts
+export const queryKeys = {
+    users: {
+        all: ['users'] as const,
+        lists: () => [...queryKeys.users.all, 'list'] as const,
+        list: (filters: string) => [...queryKeys.users.lists(), filters] as const,
+        details: () => [...queryKeys.users.all, 'detail'] as const,
+        detail: (id: string) => [...queryKeys.users.details(), id] as const,
+    },
+    posts: {
+        all: ['posts'] as const,
+        lists: () => [...queryKeys.posts.all, 'list'] as const,
+        list: (filters: string) => [...queryKeys.posts.lists(), filters] as const,
+        details: () => [...queryKeys.posts.all, 'detail'] as const,
+        detail: (id: string) => [...queryKeys.posts.details(), id] as const,
+    },
+};
+
+// Usage
+export const useGetUser = (userId: string) => {
+    return useQuery({
+        queryKey: queryKeys.users.detail(userId),
+        queryFn: () => getUser(userId),
+    });
+};
+```
+
+## Best Practices
+
+1. **Separate fetch functions** - Export them for reuse and testing
+2. **Use *Options pattern** - For SSR hydration
+3. **Consistent query keys** - Use a centralized queryKeys object
+4. **Handle errors gracefully** - Both globally and per-query
+5. **Optimistic updates** - For better UX on mutations
+6. **Invalidate carefully** - Only invalidate what needs refetching
+7. **Test with mocked fetch** - Mock at the network level
+8. **Type everything** - Full TypeScript for requests and responses

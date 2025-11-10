@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import basketball training UI theme */
+@import '@yourname/basketball-training-ui/src/theme/styles.css';
+
+/* Additional global styles */
+body {
+    @apply bg-background-primary text-text-primary;
+}
+

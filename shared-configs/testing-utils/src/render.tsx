@@ -35,11 +35,6 @@ const createTestQueryClient = () =>
                 gcTime: 0,
             },
         },
-        logger: {
-            log: () => {},
-            warn: () => {},
-            error: () => {},
-        },
     });
 
 type CustomRenderOptions = Omit<RenderOptions, 'wrapper'> & {
@@ -67,7 +62,7 @@ type CustomRenderOptions = Omit<RenderOptions, 'wrapper'> & {
  * });
  * ```
  */
-export const render = (ui: ReactElement, options: CustomRenderOptions = {}) => {
+export const render = (ui: ReactElement, options: CustomRenderOptions = {}): ReturnType<typeof rtlRender> & { queryClient: QueryClient } => {
     const { initialState, ...renderOptions } = options;
 
     const queryClient = initialState?.queryClient ?? createTestQueryClient();

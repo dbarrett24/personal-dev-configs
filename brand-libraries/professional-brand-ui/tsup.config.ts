@@ -7,6 +7,6 @@ export default defineConfig({
     splitting: false,
     sourcemap: true,
     clean: true,
-    external: ['react', 'react-dom', '@testing-library/react', '@testing-library/user-event', 'jotai', '@tanstack/react-query', 'react-hook-form'],
+    external: ['react', 'react-dom', '@yourname/theme-system'],
 });
 

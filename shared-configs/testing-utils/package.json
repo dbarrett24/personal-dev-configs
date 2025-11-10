@@ -36,10 +36,12 @@
     "peerDependencies": {
         "@tanstack/react-query": ">=5",
         "react": ">=18",
-        "react-dom": ">=18"
+        "react-dom": ">=18",
+        "react-hook-form": ">=7"
     },
     "devDependencies": {
         "@tanstack/react-query": "^5.80.6",
+        "@types/jest": "^29.5.14",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
         "@yourname/eslint-config-library": "workspace:*",
@@ -50,6 +52,7 @@
         "prettier": "^3.4.2",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
+        "react-hook-form": "^7.52.2",
         "tsup": "^6.6.2",
         "typescript": "^5.8.2"
     },

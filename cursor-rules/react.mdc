@@ -1,0 +1,173 @@
+---
+# React Component Patterns
+
+## Component Structure
+
+### Functional Components Only
+
+- **Use functional components exclusively** - no class components
+- **React import not needed** in React 17+ with new JSX Transform
+- **Named exports only** (except for page.tsx files in Next.js)
+
+```typescript
+// ✅ CORRECT - Functional component with proper structure
+export const MyComponent = ({ title, isActive = false }: MyComponentProps) => {
+    // Component logic here
+    return <div>{title}</div>;
+};
+
+// ❌ AVOID - Class component
+class MyComponent extends React.Component {
+    // Don't use class components
+}
+```
+
+## Props and Types
+
+### Component Props Pattern
+
+```typescript
+// Define props as a type, not interface
+type MyComponentProps = {
+    title: string;
+    isActive?: boolean;
+    onAction?: (id: string) => void;
+    children?: React.ReactNode;
+};
+
+// Use props directly in function signature
+export const MyComponent = ({ title, isActive = false, onAction, children }: MyComponentProps) => {
+    // Component implementation
+};
+```
+
+### Display Names
+
+Always add display names to components for better debugging:
+
+```typescript
+MyComponent.displayName = 'MyComponent';
+```
+
+## Hooks and State
+
+### Hook Usage Patterns
+
+- Place hooks at the top of the component
+- Group related hooks together
+- Custom hooks should start with 'use'
+
+```typescript
+export const MyComponent = ({ data }: MyComponentProps) => {
+    // State hooks
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState<string | null>(null);
+
+    // Data hooks (React Query)
+    const { data: items, isLoading } = useGetItems();
+
+    // State hooks (Jotai)
+    const [userState, setUserState] = useAtom(userAtom);
+
+    // Effect hooks
+    useEffect(() => {
+        // Effect logic
+    }, [dependency]);
+
+    // Component logic and render
+};
+```
+
+## Component Patterns
+
+### Conditional Rendering
+
+```typescript
+// ✅ PREFERRED - Early returns for clarity
+export const MyComponent = ({ isEnabled }: MyComponentProps) => {
+    if (!isEnabled) {
+        return null;
+    }
+
+    return <div>Component content</div>;
+};
+
+// ✅ ALSO GOOD - Ternary for simple conditions
+return isLoading ? <Spinner /> : <Content data={data} />;
+
+// ✅ GOOD - Logical AND for existence checks
+return data && <DataDisplay data={data} />;
+```
+
+### Children and Composition
+
+```typescript
+type ContainerProps = {
+    title: string;
+    children: React.ReactNode;
+};
+
+export const Container = ({ title, children }: ContainerProps) => {
+    return (
+        <div className="container">
+            <h2>{title}</h2>
+            {children}
+        </div>
+    );
+};
+```
+
+## Performance Patterns
+
+### Memoization
+
+Use sparingly and only when performance issues are identified:
+
+```typescript
+// Only memoize expensive computations
+const expensiveValue = useMemo(() => {
+    return computeExpensiveValue(data);
+}, [data]);
+
+// Only memoize callbacks passed to many children
+const handleClick = useCallback(
+    (id: string) => {
+        // Handle click
+    },
+    [dependency]
+);
+```
+
+## Code Style
+
+### Arrow Functions
+
+Always use arrow functions for component definitions and methods:
+
+```typescript
+// ✅ CORRECT
+export const Button = ({ onClick, children }: ButtonProps) => {
+    return <button onClick={onClick}>{children}</button>;
+};
+
+// ❌ AVOID
+export function Button({ onClick, children }: ButtonProps) {
+    return <button onClick={onClick}>{children}</button>;
+}
+```
+
+### Event Handlers
+
+```typescript
+// ✅ CORRECT - Clear naming
+const handleClick = (event: React.MouseEvent) => {
+    // Handle click
+};
+
+const handleSubmit = (data: FormData) => {
+    // Handle submit
+};
+
+// Pass to props with 'on' prefix
+<Button onClick={handleClick} onSubmit={handleSubmit} />
+```

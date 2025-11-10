@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    /* Background - Basketball brand colors */
+    --background-primary: #ffffff;
+    --background-secondary: #f5f5f5;
+    --background-tertiary: #e0e0e0;
+    --background-inverse: #1a1a1a;
+    --background-overlay: rgba(26, 26, 26, 0.7);
+
+    /* Text */
+    --text-primary: #1a1a1a;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --text-inverse: #ffffff;
+    --text-disabled: #d1d5db;
+    --text-link: #ff6b35;
+    --text-success: #22c55e;
+    --text-warning: #f59e0b;
+    --text-critical: #ef4444;
+    --text-info: #3b82f6;
+
+    /* Border */
+    --border-primary: #d1d5db;
+    --border-secondary: #e5e7eb;
+    --border-focus: #ff6b35;
+    --border-success: #22c55e;
+    --border-warning: #f59e0b;
+    --border-critical: #ef4444;
+    --border-info: #3b82f6;
+
+    /* Interactive - Basketball brand orange */
+    --interactive-primary: #ff6b35;
+    --interactive-primary-hover: #e55a25;
+    --interactive-primary-active: #cc4d1f;
+    --interactive-secondary: #6b7280;
+    --interactive-secondary-hover: #4b5563;
+    --interactive-disabled: #9ca3af;
+
+    /* Status */
+    --status-success: #22c55e;
+    --status-success-background: #f0fdf4;
+    --status-warning: #f59e0b;
+    --status-warning-background: #fffbeb;
+    --status-critical: #ef4444;
+    --status-critical-background: #fef2f2;
+    --status-info: #3b82f6;
+    --status-info-background: #eff6ff;
+
+    /* Spacing */
+    --spacing-3xs: 0.125rem;
+    --spacing-2xs: 0.25rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+}
+
+/* Dark mode - Basketball court themed */
+.dark {
+    --background-primary: #1a1a1a;
+    --background-secondary: #2a2a2a;
+    --background-tertiary: #3a3a3a;
+    --background-inverse: #ffffff;
+    --background-overlay: rgba(255, 107, 53, 0.2);
+
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #9ca3af;
+    --text-inverse: #1a1a1a;
+    --text-link: #ff6b35;
+
+    --border-primary: #4b5563;
+    --border-secondary: #374151;
+    --border-focus: #ff6b35;
+
+    --interactive-primary: #ff6b35;
+    --interactive-primary-hover: #ff8255;
+    --interactive-primary-active: #ff9975;
+}
+

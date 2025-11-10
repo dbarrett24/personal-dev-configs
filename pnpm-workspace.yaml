@@ -1,0 +1,5 @@
+packages:
+    - 'shared-configs/*'
+    - 'brand-libraries/*'
+    - 'templates/*'
+

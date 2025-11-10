@@ -1,0 +1,30 @@
+{
+    "name": "@yourname/eslint-config-library",
+    "version": "1.0.0",
+    "description": "Shared ESLint configuration for React component libraries",
+    "main": "index.js",
+    "files": [
+        "index.js"
+    ],
+    "keywords": [
+        "eslint",
+        "eslintconfig",
+        "react",
+        "library",
+        "typescript"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "@yourname/eslint-config": "workspace:*"
+    },
+    "peerDependencies": {
+        "eslint": "^8.0.0",
+        "prettier": ">=3",
+        "typescript": ">=5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
+

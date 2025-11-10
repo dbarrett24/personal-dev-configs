@@ -1,0 +1,26 @@
+{
+    "name": "@yourname/prettier-config",
+    "version": "1.0.0",
+    "description": "Shared Prettier configuration with Tailwind support",
+    "main": ".prettierrc.mjs",
+    "files": [
+        ".prettierrc.mjs"
+    ],
+    "keywords": [
+        "prettier",
+        "prettier-config",
+        "tailwindcss"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "prettier-plugin-tailwindcss": "^0.6.11"
+    },
+    "peerDependencies": {
+        "prettier": ">=3"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
+

@@ -1,0 +1,147 @@
+# @yourname/eslint-config
+
+Shared ESLint configuration for React/Next.js applications with TypeScript support.
+
+## Installation
+
+```bash
+pnpm add -D @yourname/eslint-config eslint prettier typescript
+```
+
+## Usage
+
+Create `.eslintrc.js` in your project root:
+
+```javascript
+module.exports = {
+    extends: ['@yourname/eslint-config'],
+    root: true,
+};
+```
+
+### For Next.js Apps
+
+Add Next.js specific rules:
+
+```javascript
+module.exports = {
+    extends: ['@yourname/eslint-config'],
+    plugins: ['@next/eslint-plugin-next'],
+    rules: {
+        // Add Next.js specific import restrictions
+        'no-restricted-imports': [
+            'error',
+            {
+                paths: ['next/navigation', 'next/router', 'next/link'],
+            },
+        ],
+    },
+    root: true,
+};
+```
+
+### With TypeScript Project References
+
+If using TypeScript project references, add:
+
+```javascript
+module.exports = {
+    extends: ['@yourname/eslint-config'],
+    parserOptions: {
+        project: './tsconfig.json',
+    },
+    root: true,
+};
+```
+
+## What's Included
+
+### Plugins
+
+- **@typescript-eslint** - TypeScript support
+- **react** - React best practices
+- **react-hooks** - React Hooks rules
+- **jsx-a11y** - Accessibility rules
+- **jest** - Jest testing rules
+- **jest-dom** - jest-dom best practices
+- **testing-library** - React Testing Library rules
+- **prettier** - Prettier integration
+- **import** - Import/export validation
+
+### Key Rules
+
+#### TypeScript
+- Unused variables warning (except prefixed with `_`)
+- `any` type warning (not error for flexibility)
+- No module boundary types required
+
+#### React
+- No React import needed (new JSX transform)
+- No prop-types (using TypeScript)
+- Display name warning for debugging
+
+#### Testing
+- No jest.clearAllMocks() (automated in jest.config)
+- Enforce Testing Library best practices
+- No direct node access in tests
+
+#### Imports
+- Alphabetical ordering
+- No duplicate imports
+- Grouped by type (builtin, external, internal)
+
+#### Code Quality
+- Prefer const over let
+- No var declarations
+- Console warning (except warn/error)
+
+## Scripts
+
+Add to your `package.json`:
+
+```json
+{
+  "scripts": {
+    "lint-ts": "eslint src --cache",
+    "lint-ts-fix": "eslint src --cache --fix"
+  }
+}
+```
+
+## Customization
+
+Override rules in your `.eslintrc.js`:
+
+```javascript
+module.exports = {
+    extends: ['@yourname/eslint-config'],
+    rules: {
+        // Make specific rules stricter or more lenient
+        '@typescript-eslint/no-explicit-any': 'error',
+        'no-console': 'off',
+    },
+    root: true,
+};
+```
+
+## Integration with Prettier
+
+This config includes `eslint-config-prettier` to disable conflicting rules. Make sure to use `@yourname/prettier-config` for consistent formatting.
+
+## VS Code Integration
+
+Install the ESLint extension and add to `.vscode/settings.json`:
+
+```json
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"]
+}
+```
+
+## License
+
+MIT
+

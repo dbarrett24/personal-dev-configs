@@ -1,0 +1,40 @@
+{
+    "name": "@yourname/eslint-config",
+    "version": "1.0.0",
+    "description": "Shared ESLint configuration for React/Next.js applications",
+    "main": "index.js",
+    "files": [
+        "index.js"
+    ],
+    "keywords": [
+        "eslint",
+        "eslintconfig",
+        "react",
+        "nextjs",
+        "typescript"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^8.44.1",
+        "@typescript-eslint/parser": "^8.44.1",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-import": "npm:eslint-plugin-i@^2.27.5-1",
+        "eslint-plugin-jest": "^27.2.3",
+        "eslint-plugin-jest-dom": "^5.1.0",
+        "eslint-plugin-jsx-a11y": "^6.10.2",
+        "eslint-plugin-prettier": "^5.5.4",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-testing-library": "^5.11.0"
+    },
+    "peerDependencies": {
+        "eslint": "^8.0.0",
+        "prettier": ">=3",
+        "typescript": ">=5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
+

@@ -1,0 +1,61 @@
+{
+    "name": "@yourname/testing-utils",
+    "version": "1.0.0",
+    "description": "Testing utilities and helpers for React applications",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint": "concurrently --raw --kill-others-on-fail --names eslint,prettier,tsc pnpm:lint-ts pnpm:lint-prettier pnpm:ts-check",
+        "lint-fix": "pnpm lint-ts-fix && pnpm lint-prettier-fix",
+        "lint-prettier": "prettier --cache --check \"src/**/*.{json,js,jsx,ts,tsx}\"",
+        "lint-prettier-fix": "prettier --cache --write \"src/**/*.{json,js,jsx,ts,tsx}\"",
+        "lint-ts": "eslint src --cache",
+        "lint-ts-fix": "pnpm lint-ts --fix",
+        "ts-check": "tsc --noEmit"
+    },
+    "keywords": [
+        "testing",
+        "react-testing-library",
+        "jest",
+        "jotai",
+        "react-query"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "@testing-library/react": "^16.3.0",
+        "@testing-library/user-event": "^14.6.1",
+        "jotai": "^2.10.3"
+    },
+    "peerDependencies": {
+        "@tanstack/react-query": ">=5",
+        "react": ">=18",
+        "react-dom": ">=18"
+    },
+    "devDependencies": {
+        "@tanstack/react-query": "^5.80.6",
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "@yourname/eslint-config-library": "workspace:*",
+        "@yourname/prettier-config": "workspace:*",
+        "@yourname/typescript-config": "workspace:*",
+        "concurrently": "^8.2.2",
+        "eslint": "^8.49.0",
+        "prettier": "^3.4.2",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "tsup": "^6.6.2",
+        "typescript": "^5.8.2"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "prettier": "@yourname/prettier-config"
+}
+

@@ -1,0 +1,27 @@
+{
+    "name": "@yourname/typescript-config",
+    "version": "1.0.0",
+    "description": "Shared TypeScript configurations for various project types",
+    "main": "base.json",
+    "files": [
+        "base.json",
+        "react.json",
+        "nextjs.json",
+        "library.json"
+    ],
+    "keywords": [
+        "typescript",
+        "tsconfig",
+        "react",
+        "nextjs"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "peerDependencies": {
+        "typescript": ">=5"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
+

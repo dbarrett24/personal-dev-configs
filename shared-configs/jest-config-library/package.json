@@ -1,0 +1,30 @@
+{
+    "name": "@yourname/jest-config-library",
+    "version": "1.0.0",
+    "description": "Shared Jest configuration for React component libraries",
+    "main": "jest.config.js",
+    "files": [
+        "jest.config.js"
+    ],
+    "keywords": [
+        "jest",
+        "testing",
+        "react",
+        "library",
+        "typescript"
+    ],
+    "author": "Your Name",
+    "license": "MIT",
+    "dependencies": {
+        "@yourname/jest-config": "workspace:*"
+    },
+    "peerDependencies": {
+        "jest": ">=29",
+        "react": ">=18",
+        "react-dom": ">=18"
+    },
+    "publishConfig": {
+        "access": "public"
+    }
+}
+

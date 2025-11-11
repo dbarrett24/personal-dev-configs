@@ -1,0 +1,51 @@
+{
+    "name": "@yourname/tsup-config",
+    "version": "0.0.1",
+    "description": "Shared tsup configuration for building component libraries",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsup",
+        "dev": "tsup --watch",
+        "lint-ts": "eslint src --cache",
+        "lint-ts-fix": "pnpm lint-ts --fix",
+        "lint-prettier": "prettier --cache --check \"src/**/*.{json,js,jsx,ts,tsx}\"",
+        "lint-prettier-fix": "prettier --cache --write \"src/**/*.{json,js,jsx,ts,tsx}\"",
+        "ts-check": "tsc --noEmit",
+        "test": "echo 'No tests for tsup-config' && exit 0"
+    },
+    "dependencies": {
+        "@pnpm/lockfile-file": "^8.1.2",
+        "@pnpm/logger": "^5.0.0",
+        "es-toolkit": "^1.26.1",
+        "tsup": "^8.0.1",
+        "typescript": "^5.8.2"
+    },
+    "devDependencies": {
+        "@yourname/eslint-config": "workspace:*",
+        "@yourname/prettier-config": "workspace:*",
+        "@yourname/typescript-config": "workspace:*",
+        "prettier": "^3.4.2"
+    },
+    "peerDependencies": {
+        "prettier": "^3.0.0",
+        "tsup": "^8.0.0"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "prettier": "@yourname/prettier-config",
+    "keywords": [
+        "tsup",
+        "config",
+        "build",
+        "typescript",
+        "monorepo"
+    ],
+    "author": "Your Name",
+    "license": "MIT"
+}
+

@@ -15,6 +15,7 @@ These configs are **identical** to your work repos:
 - ✅ **ESLint base rules** - All core rules match
 - ✅ **Jest configuration** - Coverage, setup, and test patterns match
 - ✅ **Testing utilities** - Custom render, hooks, mocks all present
+- ✅ **tsup-config** - Smart wrapper for building component libraries (NEW!)
 
 ---
 

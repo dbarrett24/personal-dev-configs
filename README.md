@@ -8,6 +8,7 @@
 
 - 📖 **[COMPARISON_SUMMARY.md](./COMPARISON_SUMMARY.md)** - Quick overview (5 min read)
 - 📚 **[CONFIG_COMPARISON.md](./CONFIG_COMPARISON.md)** - Detailed analysis (15 min read)
+- 🔧 **[TSUP_CONFIG_IMPLEMENTATION.md](./TSUP_CONFIG_IMPLEMENTATION.md)** - tsup-config package guide (NEW!)
 
 **TL;DR:** These configs match 95% of your work configurations and include several improvements!
 
@@ -26,6 +27,7 @@ All published to npm under `@yourname/*` scope:
 - **jest-config** - Jest with 90% coverage for apps
 - **jest-config-library** - Jest with 95% coverage for libraries
 - **testing-utils** - Testing utilities (render, jotaiStore, React Query mocks, FormWrapper)
+- **tsup-config** - Smart build wrapper (resolves workspace deps, adds 'use client')
 - **theme-system** - Semantic design tokens and cn() utility
 
 ### Brand Component Libraries

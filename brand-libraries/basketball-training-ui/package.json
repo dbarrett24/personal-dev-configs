@@ -57,6 +57,7 @@
         "@yourname/jest-config-library": "workspace:*",
         "@yourname/prettier-config": "workspace:*",
         "@yourname/testing-utils": "workspace:*",
+        "@yourname/tsup-config": "workspace:*",
         "@yourname/typescript-config": "workspace:*",
         "autoprefixer": "^10.4.20",
         "concurrently": "^8.2.2",

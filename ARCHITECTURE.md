@@ -17,6 +17,7 @@ personal-dev-configs/
 │   ├── jest-config/            # Testing framework (apps: 90% coverage)
 │   ├── jest-config-library/    # Testing framework (libs: 95% coverage)
 │   ├── testing-utils/          # Test helpers (render, mocks, etc.)
+│   ├── tsup-config/            # Smart build wrapper (workspace deps, 'use client')
 │   └── theme-system/           # Design tokens + cn() utility
 │
 ├── 🎨 brand-libraries/         # Component libraries per brand

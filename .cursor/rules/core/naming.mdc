@@ -1,0 +1,264 @@
+---
+description: File, directory, and variable naming conventions for consistent codebase structure
+globs:
+alwaysApply: true
+---
+# Naming Conventions
+
+## File and Directory Structure Philosophy
+
+We use different naming conventions to visually separate different types of code:
+
+- **PascalCase for Components**: Component folders AND files use PascalCase to make them easily distinguishable
+- **camelCase for Component Utilities**: Local helper files within component folders use camelCase
+- **kebab-case for Functional Code**: Used for app, data/api, and utils folders outside of components
+- **Universal Testing**: All files require matching `.spec.tsx` or `.spec.ts` files (except `*Types.ts` files)
+
+## File and Directory Naming
+
+### Component Files
+
+Components use **PascalCase** for both files and directories:
+
+```
+✅ CORRECT Component Structure:
+components/
+├── AuctionCard/
+│   ├── AuctionCard.tsx          # Component file
+│   ├── AuctionCard.spec.tsx     # Test file
+│   └── AuctionCard.types.ts     # Types file (if needed)
+├── UserProfile/
+│   ├── UserProfile.tsx
+│   └── UserProfile.spec.tsx
+└── BidHistoryModal/
+    ├── BidHistoryModal.tsx
+    └── BidHistoryModal.spec.tsx
+
+// ✅ CORRECT - Named exports in component files
+export const UserProfile = ({ userId }: UserProfileProps) => {
+    // Component implementation
+};
+
+❌ INCORRECT:
+components/
+├── auction-card/                 # Wrong: kebab-case directory
+├── auctionCard/                  # Wrong: camelCase directory
+└── Auction-Card/                 # Wrong: mixed case
+```
+
+### Non-Component Directories (Functional Code)
+
+Use **kebab-case** for non-component directories:
+
+```
+✅ CORRECT Non-Component Directories:
+src/
+├── hooks/
+│   ├── useAuth.ts
+│   └── useLocalStorage.ts
+├── utils/
+│   ├── formatters.ts
+│   └── validators.ts
+├── data/
+│   └── auction/
+│       ├── useGetAuctions.ts
+│       └── usePostAuction.ts
+└── types/
+    ├── auction.ts
+    └── user.ts
+
+❌ INCORRECT:
+src/
+├── Hooks/                        # Wrong: PascalCase
+├── data-layer/                   # Wrong: kebab-case is correct here
+└── UTILS/                        # Wrong: SCREAMING_CASE
+```
+
+### Functional Code Folders (App, Data, Utils)
+
+Use **kebab-case** for functional folder structures:
+
+```
+✅ CORRECT - Functional folder structure with kebab-case:
+app/
+├── auction-details/
+│   ├── page.tsx
+│   └── layout.tsx
+├── user-profile/
+│   ├── page.tsx
+│   └── loading.tsx
+
+data/
+├── auction/
+│   ├── use-auction-details.ts
+│   ├── use-bid-history.ts
+│   └── auction-types.ts
+
+utils/
+├── date-utils.ts
+├── currency-utils.ts
+└── validation-utils.ts
+```
+
+### Special Next.js Files
+
+Follow Next.js conventions:
+
+```
+app/
+├── layout.tsx                    # Always lowercase
+├── page.tsx                      # Always lowercase
+├── loading.tsx                   # Always lowercase
+├── error.tsx                     # Always lowercase
+└── not-found.tsx                 # Kebab-case for multi-word
+```
+
+## Export Patterns
+
+### Named Exports Only
+
+**Always use named exports** (except for Next.js page.tsx files):
+
+```typescript
+// ✅ CORRECT - Named export
+export const AuctionCard = ({ auction }: AuctionCardProps) => {
+    return <div>{auction.title}</div>;
+};
+
+// ✅ CORRECT - Multiple named exports
+export const formatCurrency = (amount: number) => { /* ... */ };
+export const formatDate = (date: Date) => { /* ... */ };
+
+// ❌ AVOID - Default export (except in page.tsx)
+export default function AuctionCard() { /* ... */ }
+```
+
+### Next.js Page Exception
+
+```typescript
+// ✅ CORRECT - Default export ONLY in page.tsx
+// app/auctions/page.tsx
+export default function AuctionsPage() {
+    return <div>Auctions</div>;
+}
+```
+
+## Variable and Function Naming
+
+### Boolean Variables
+
+Use auxiliary verbs for clarity:
+
+```typescript
+// ✅ CORRECT Boolean Naming
+const isLoading = false;
+const hasError = true;
+const canEdit = checkPermission('edit');
+const shouldRefetch = isStale && isVisible;
+const willExpire = expiryDate < tomorrow;
+const wasUpdated = lastModified > lastViewed;
+
+// ❌ AVOID
+const loading = false; // Unclear if boolean
+const error = true; // Could be error object
+```
+
+### Function Names
+
+Use verb phrases that describe the action:
+
+```typescript
+// ✅ CORRECT Function Naming
+const fetchUserData = async (id: string) => { /* ... */ };
+const calculateDiscount = (price: number, percent: number) => { /* ... */ };
+const validateFormData = (data: FormData) => { /* ... */ };
+const handleSubmit = (event: React.FormEvent) => { /* ... */ };
+
+// ❌ AVOID
+const userData = async (id: string) => { /* ... */ }; // Not a verb
+const discount = (price: number) => { /* ... */ }; // Unclear action
+```
+
+### Event Handlers
+
+Prefix with 'handle' or 'on':
+
+```typescript
+// ✅ CORRECT Event Handler Naming
+const handleClick = (event: React.MouseEvent) => { /* ... */ };
+const handleSubmit = (data: FormData) => { /* ... */ };
+const onSelectionChange = (selected: string[]) => { /* ... */ };
+
+// In props
+type ModalProps = {
+    onConfirm: () => void;
+    onCancel: () => void;
+};
+```
+
+## Type and Interface Naming
+
+### Type Naming Conventions
+
+```typescript
+// Component props - suffix with 'Props'
+type AuctionCardProps = {
+    auction: Auction;
+    onSelect?: (id: string) => void;
+};
+
+// API responses - suffix with 'Response'
+type GetAuctionsResponse = {
+    auctions: Auction[];
+    pagination: Pagination;
+};
+
+// API requests - suffix with 'Request' or 'Data'
+type CreateAuctionRequest = {
+    title: string;
+    startDate: Date;
+};
+
+// Form data - suffix with 'FormData' or 'Form'
+type AuctionFormData = {
+    title: string;
+    description: string;
+};
+
+// Domain types - use singular nouns
+type Auction = {
+    id: string;
+    title: string;
+    status: AuctionStatus;
+};
+```
+
+## Constant Naming
+
+Use SCREAMING_SNAKE_CASE for true constants:
+
+```typescript
+// ✅ CORRECT Constant Naming
+export const API_TIMEOUT = 30000;
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+export const DEFAULT_PAGE_SIZE = 20;
+
+// For const assertions, use PascalCase
+export const AuctionStatus = {
+    DRAFT: 'draft',
+    PUBLISHED: 'published',
+    ACTIVE: 'active',
+    CLOSED: 'closed',
+} as const;
+```
+
+## Summary of Naming Rules
+
+| Context             | Directories   | Files                    | Exports         | Test Files            |
+| ------------------- | ------------- | ------------------------ | --------------- | --------------------- |
+| **Components**      | `PascalCase/` | `PascalCase.tsx`         | Named exports   | `PascalCase.spec.tsx` |
+| **Component Utils** | `PascalCase/` | `camelCase.ts`           | Named exports   | `camelCase.spec.ts`   |
+| **App Routes**      | `kebab-case/` | `page.tsx`, `layout.tsx` | Default exports | `page.spec.tsx`       |
+| **Data/API**        | `kebab-case/` | `kebab-case.ts`          | Named exports   | `kebab-case.spec.ts`  |
+| **Utils**           | `kebab-case/` | `kebab-case.ts`          | Named exports   | `kebab-case.spec.ts`  |
+| **Types**           | `kebab-case/` | `kebab-case-types.ts`    | Named exports   | None                  |

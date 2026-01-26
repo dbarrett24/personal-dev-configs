@@ -1,0 +1,360 @@
+---
+description: Next.js App Router patterns and best practices
+globs:
+  - "**/app/**/*.tsx"
+  - "**/app/**/*.ts"
+  - "next.config.*"
+alwaysApply: false
+---
+# Next.js App Router Patterns
+
+## File Conventions
+
+### Required Files
+
+```
+app/
+├── layout.tsx          # Root layout (required)
+├── page.tsx            # Home page
+├── loading.tsx         # Loading UI
+├── error.tsx           # Error UI
+├── not-found.tsx       # 404 page
+└── global.css          # Global styles
+```
+
+### Route Structure
+
+```
+app/
+├── (marketing)/        # Route group (doesn't affect URL)
+│   ├── about/
+│   │   └── page.tsx    # /about
+│   └── contact/
+│       └── page.tsx    # /contact
+├── blog/
+│   ├── page.tsx        # /blog
+│   └── [slug]/
+│       └── page.tsx    # /blog/post-slug
+└── dashboard/
+    ├── layout.tsx      # Nested layout
+    ├── page.tsx        # /dashboard
+    └── settings/
+        └── page.tsx    # /dashboard/settings
+```
+
+## Server vs Client Components
+
+### Server Components (Default)
+
+```typescript
+// app/blog/page.tsx
+// Server Component by default - NO 'use client'
+
+export default async function BlogPage() {
+    // Can fetch data directly
+    const posts = await fetch('https://api.example.com/posts').then(res => res.json());
+    
+    return (
+        <div>
+            {posts.map(post => (
+                <article key={post.id}>{post.title}</article>
+            ))}
+        </div>
+    );
+}
+```
+
+### Client Components
+
+```typescript
+// app/components/Counter.tsx
+'use client';
+
+import { useState } from 'react';
+
+// Client Component - needs interactivity
+export const Counter = () => {
+    const [count, setCount] = useState(0);
+    
+    return (
+        <button onClick={() => setCount(count + 1)}>
+            Count: {count}
+        </button>
+    );
+};
+```
+
+### When to Use Each
+
+**Server Components (Default):**
+- Fetching data
+- Accessing backend resources
+- Keeping sensitive information on server
+- Reducing client bundle size
+
+**Client Components ('use client'):**
+- Using React hooks (useState, useEffect, etc.)
+- Event listeners (onClick, onChange, etc.)
+- Browser-only APIs
+- Context providers
+
+## Data Fetching with React Query
+
+### *Options Pattern for SSR
+
+```typescript
+// data/posts/useGetPosts.ts
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
+
+type Post = {
+    id: string;
+    title: string;
+};
+
+export const getPosts = async (): Promise<Post[]> => {
+    const res = await fetch('https://api.example.com/posts');
+    return res.json();
+};
+
+export const useGetPosts = (options?: UseQueryOptions<Post[]>) => {
+    return useQuery({
+        queryKey: ['posts'],
+        queryFn: getPosts,
+        ...options,
+    });
+};
+
+// Server Component hydration
+export const getPostsOptions = (): UseQueryOptions<Post[]> => ({
+    queryKey: ['posts'],
+    queryFn: getPosts,
+});
+```
+
+### Server Component with Hydration
+
+```typescript
+// app/blog/page.tsx
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query';
+import { getPostsOptions } from '@/data/posts/useGetPosts';
+import { BlogList } from './BlogList';
+
+export default async function BlogPage() {
+    const queryClient = new QueryClient();
+    
+    // Prefetch on server
+    await queryClient.prefetchQuery(getPostsOptions());
+    
+    return (
+        <HydrationBoundary state={dehydrate(queryClient)}>
+            <BlogList />
+        </HydrationBoundary>
+    );
+}
+```
+
+### Client Component Using Hydrated Data
+
+```typescript
+// app/blog/BlogList.tsx
+'use client';
+
+import { useGetPosts } from '@/data/posts/useGetPosts';
+
+export const BlogList = () => {
+    const { data: posts, isLoading } = useGetPosts();
+    
+    if (isLoading) return <div>Loading...</div>;
+    
+    return (
+        <div>
+            {posts?.map(post => (
+                <article key={post.id}>{post.title}</article>
+            ))}
+        </div>
+    );
+};
+```
+
+## Layouts and Templates
+
+### Root Layout
+
+```typescript
+// app/layout.tsx
+import { Providers } from '@/providers/Providers';
+import './globals.css';
+
+export const metadata = {
+    title: 'My App',
+    description: 'My awesome app',
+};
+
+export default function RootLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <html lang="en">
+            <body>
+                <Providers>{children}</Providers>
+            </body>
+        </html>
+    );
+}
+```
+
+### Nested Layout
+
+```typescript
+// app/dashboard/layout.tsx
+import { Sidebar } from '@/components/Sidebar';
+
+export default function DashboardLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <div className="flex">
+            <Sidebar />
+            <main className="flex-1">{children}</main>
+        </div>
+    );
+}
+```
+
+## Dynamic Routes
+
+### Single Dynamic Segment
+
+```typescript
+// app/blog/[slug]/page.tsx
+type PageProps = {
+    params: Promise<{ slug: string }>;
+};
+
+export default async function BlogPost({ params }: PageProps) {
+    const { slug } = await params;
+    
+    const post = await fetch(`https://api.example.com/posts/${slug}`).then(res => res.json());
+    
+    return <article>{post.title}</article>;
+}
+
+// Generate static params at build time
+export async function generateStaticParams() {
+    const posts = await fetch('https://api.example.com/posts').then(res => res.json());
+    
+    return posts.map((post) => ({
+        slug: post.slug,
+    }));
+}
+```
+
+### Catch-all Routes
+
+```typescript
+// app/docs/[...slug]/page.tsx
+type PageProps = {
+    params: Promise<{ slug: string[] }>;
+};
+
+export default async function DocsPage({ params }: PageProps) {
+    const { slug } = await params;
+    // slug is an array: /docs/a/b/c -> ['a', 'b', 'c']
+    
+    return <div>Docs: {slug.join('/')}</div>;
+}
+```
+
+## Image Optimization
+
+```typescript
+import Image from 'next/image';
+
+// With external images
+<Image
+    src="https://example.com/photo.jpg"
+    alt="Description"
+    width={500}
+    height={300}
+    priority // Above fold images
+/>
+
+// With local images
+import profilePic from '@/public/profile.jpg';
+
+<Image
+    src={profilePic}
+    alt="Profile"
+    placeholder="blur" // Automatic blur-up
+/>
+```
+
+## Loading and Streaming
+
+### Loading UI
+
+```typescript
+// app/dashboard/loading.tsx
+export default function Loading() {
+    return <div>Loading dashboard...</div>;
+}
+```
+
+### Suspense Boundaries
+
+```typescript
+// app/dashboard/page.tsx
+import { Suspense } from 'react';
+
+export default function DashboardPage() {
+    return (
+        <div>
+            <h1>Dashboard</h1>
+            <Suspense fallback={<div>Loading stats...</div>}>
+                <Stats />
+            </Suspense>
+            <Suspense fallback={<div>Loading charts...</div>}>
+                <Charts />
+            </Suspense>
+        </div>
+    );
+}
+```
+
+## Error Handling
+
+### Error Boundary
+
+```typescript
+// app/error.tsx
+'use client';
+
+export default function Error({
+    error,
+    reset,
+}: {
+    error: Error & { digest?: string };
+    reset: () => void;
+}) {
+    return (
+        <div>
+            <h2>Something went wrong!</h2>
+            <button onClick={() => reset()}>Try again</button>
+        </div>
+    );
+}
+```
+
+## Best Practices
+
+1. **Keep components server by default** - Only add 'use client' when needed
+2. **Use *Options pattern** - For SSR with React Query
+3. **Colocate client components** - Keep them close to where they're used
+4. **Optimize images** - Always use next/image
+5. **Use loading.tsx** - For automatic loading states
+6. **Generate static params** - For dynamic routes when possible
+7. **Metadata API** - For SEO optimization

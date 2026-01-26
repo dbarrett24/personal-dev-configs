@@ -1,8 +1,108 @@
 # Cursor AI Rules
 
+> **⚠️ DEPRECATION NOTICE**  
+> This directory is **deprecated** and maintained only for backward compatibility.  
+> **New location:** `.cursor/rules/` (organized by category)  
+> 
+> **Migration completed:** All rules have been migrated with proper frontmatter.  
+> This directory will be removed in a future version.
+
+---
+
+## 🔄 Migration Status
+
+All cursor rules have been migrated to the modern `.cursor/rules/` structure:
+
+### ✅ Migrated Files
+
+#### Core Rules (`.cursor/rules/core/`)
+- ✅ `typescript.mdc` - TypeScript patterns and best practices
+- ✅ `react.mdc` - React component patterns  
+- ✅ `naming.mdc` - Naming conventions
+
+#### Architecture Rules (`.cursor/rules/architecture/`)
+- ✅ `data-layer.mdc` - React Query patterns
+- ✅ `state.mdc` - Jotai state management
+- ✅ `forms.mdc` - React Hook Form + Zod
+
+#### Quality Rules (`.cursor/rules/quality/`)
+- ✅ `testing.mdc` - Testing patterns with RTL + Jest
+
+#### Framework Rules (`.cursor/rules/framework/`)
+- ✅ `nextjs.mdc` - Next.js App Router patterns
+
+---
+
+## 📁 New Structure
+
+```
+.cursor/rules/
+├── core/
+│   ├── typescript.mdc
+│   ├── react.mdc
+│   └── naming.mdc
+├── architecture/
+│   ├── data-layer.mdc
+│   ├── state.mdc
+│   └── forms.mdc
+├── quality/
+│   └── testing.mdc
+├── framework/
+│   └── nextjs.mdc
+└── codacy.mdc
+```
+
+---
+
+## 🎯 Why the Migration?
+
+### Benefits of New Structure
+
+1. **Modern Pattern** - Follows Cursor's recommended `.cursor/rules/` convention
+2. **Better Organization** - Rules categorized by purpose (core, architecture, quality, framework)
+3. **Proper Frontmatter** - All files have descriptive YAML frontmatter
+4. **Glob Patterns** - Target specific file types with glob patterns
+5. **Conditional Application** - Control when rules apply (`alwaysApply` flag)
+6. **Security** - Integrated with security validation tools
+
+### Frontmatter Example
+
+```yaml
+---
+description: TypeScript patterns and best practices for strict type safety
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+alwaysApply: true
+---
+```
+
+---
+
+## 🔒 Security
+
+All cursor rules are now validated for security:
+
+```bash
+# Validate cursor rules for security issues
+pnpm security:validate
+
+# Checks for:
+# - Prompt injection patterns
+# - Hidden malicious instructions
+# - Credential leaks
+# - Suspicious code patterns
+```
+
+See [`SECURITY.md`](../SECURITY.md) for comprehensive security guidelines.
+
+---
+
+## 📚 Original Documentation
+
 Production-ready Cursor rules extracted from professional development experience.
 
-## Available Rules
+### Available Rules (Legacy Location)
 
 1. **typescript.mdc** - TypeScript patterns and best practices
 2. **react.mdc** - React component patterns and conventions
@@ -13,59 +113,7 @@ Production-ready Cursor rules extracted from professional development experience
 7. **nextjs.mdc** - Next.js App Router patterns
 8. **data-layer.mdc** - Data fetching with React Query
 
-## How to Use
-
-### Option 1: Add to Project .cursorrules
-
-Copy the content from relevant `.mdc` files into your project's `.cursorrules` file:
-
-```bash
-# Copy all rules
-cat cursor-rules/*.mdc > /path/to/your/project/.cursorrules
-
-# Or copy specific rules
-cat cursor-rules/typescript.mdc cursor-rules/react.mdc > /path/to/your/project/.cursorrules
-```
-
-### Option 2: Use as Reference
-
-Keep these files as reference documentation for your development standards.
-
-### Option 3: Create Workspace Rules
-
-In Cursor, you can create workspace rules that apply to all projects:
-
-1. Open Cursor Settings
-2. Navigate to Rules
-3. Add workspace-level rules
-4. Copy content from these `.mdc` files
-
-## Rule Categories
-
-### Core Patterns (Use in Every Project)
-- `typescript.mdc` - Type safety fundamentals
-- `react.mdc` - Component patterns
-- `naming.mdc` - Naming conventions
-
-### Framework-Specific (Use When Applicable)
-- `nextjs.mdc` - For Next.js projects
-- `data-layer.mdc` - For React Query usage
-- `forms.mdc` - For form-heavy applications
-- `state.mdc` - For Jotai state management
-
-### Quality Assurance (Essential)
-- `testing.mdc` - Testing patterns and standards
-
-## Customization
-
-These rules are templates. Adapt them to your needs:
-
-1. Replace `@yourname/*` with your actual package scope
-2. Adjust coverage thresholds if needed
-3. Add project-specific patterns
-4. Remove rules that don't apply
-
-## Key Principles
+### Key Principles
 
 All rules follow these core principles:
 
@@ -77,35 +125,28 @@ All rules follow these core principles:
 - **Semantic naming** - Clear, descriptive names
 - **Real behavior testing** - No component mocking
 
-## Integration with Your Workflow
+---
 
-### New Project Setup
+## 🚀 For New Projects
 
-```bash
-# Copy base rules
-cp cursor-rules/typescript.mdc new-project/.cursorrules
-cat cursor-rules/react.mdc >> new-project/.cursorrules
-cat cursor-rules/naming.mdc >> new-project/.cursorrules
-cat cursor-rules/testing.mdc >> new-project/.cursorrules
+**Use the new location:** `.cursor/rules/`
 
-# Add framework rules as needed
-cat cursor-rules/nextjs.mdc >> new-project/.cursorrules
-cat cursor-rules/data-layer.mdc >> new-project/.cursorrules
-```
+The organized structure makes it easier to:
+- Apply rules conditionally based on file type
+- Understand rule categories at a glance
+- Maintain and update rules systematically
+- Validate security automatically
 
-### Existing Project
+---
 
-Review each rule and gradually adopt patterns that make sense for your project.
+## 📝 Migration Timeline
 
-## Benefits
+- **2026-01-26** - Migration completed, new structure active
+- **2026-02-26** - Deprecation warnings added (30 days)
+- **2026-03-26** - Legacy files may be removed (60 days)
 
-- **Consistency** - Same patterns across all projects
-- **Quality** - Enforced best practices
-- **Speed** - AI understands your preferences
-- **Onboarding** - New developers see standards immediately
-- **Maintainability** - Consistent codebase structure
+---
 
 ## License
 
 MIT - Feel free to adapt and use in your projects
-

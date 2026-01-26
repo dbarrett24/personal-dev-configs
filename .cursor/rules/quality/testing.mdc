@@ -1,0 +1,247 @@
+---
+description: Testing patterns with React Testing Library and Jest
+globs:
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+alwaysApply: false
+---
+# Testing Patterns with React Testing Library
+
+## Testing Philosophy
+
+- **Test real behavior** - No component mocking
+- **Prefer `.toBeVisible()` over `.toBeInTheDocument()`** - Tests actual visibility
+- **Only assert className when there are conditionals** - Use snapshots for style verification
+- **Focus on testing logic and basic content assertions** - Avoid redundant content checks
+- **Only create variables if used more than once** - Use direct queries for single-use elements
+- **Avoid direct Node access in tests** - Use Testing Library methods instead
+- **Maintain code coverage above 90%** for apps, 95%+ for libraries
+
+## Query Priority
+
+Use queries in this preferred order:
+
+1. **getByText** - for buttons, links, and text content
+2. **getByPlaceholderText** - for form inputs with placeholders
+3. **getByLabelText** - for form inputs with labels
+4. **getByTestId** - only as a last resort when other queries are insufficient
+
+```tsx
+// ✅ Preferred
+const submitButton = screen.getByText(/submit/i);
+const emailInput = screen.getByPlaceholderText('Enter your email');
+const passwordInput = screen.getByLabelText('Password');
+
+// ❌ Avoid unless necessary
+const submitButton = screen.getByTestId('submit-button');
+```
+
+## Props Pattern
+
+Always use `let props: ComponentProps<typeof ComponentName>` with `beforeEach` setup:
+
+```tsx
+import { ComponentProps } from 'react';
+
+describe('ComponentName', () => {
+    let props: ComponentProps<typeof ComponentName>;
+
+    beforeEach(() => {
+        props = {
+            // default props
+        };
+    });
+
+    const getRender = () => render(<ComponentName {...props} />);
+});
+```
+
+## Modifying Props for Different Test Cases
+
+**Always modify the `props` object directly and use spread operator:**
+
+```tsx
+// ✅ Good - Modify props directly, then spread
+it('renders with disabled state', () => {
+    props.disabled = true;
+
+    render(<ComponentName {...props} />);
+
+    expect(screen.getByText('Button')).toBeDisabled();
+});
+
+// ✅ Good - Set optional props to undefined
+it('falls back when optional prop not provided', () => {
+    props.optionalProp = undefined;
+
+    render(<ComponentName {...props} />);
+
+    expect(screen.getByText('Fallback')).toBeVisible();
+});
+```
+
+## Mock Naming Conventions
+
+**Use named spy variables with `Spy` suffix when:**
+- Using `jest.spyOn()` on actual modules/functions
+- The mock is used in multiple places (setup, multiple tests)
+- You need to change mock return values between tests
+
+```tsx
+// ✅ Good - Spying on actual module
+const useWindowIsMobileSpy = jest.spyOn(providers, 'useWindowIsMobile');
+
+// ✅ Good - Used in multiple places or needs return value changes
+const trackEventSpy = jest.fn();
+beforeEach(() => {
+    trackEventHookSpy.mockReturnValue(trackEventSpy);
+});
+```
+
+**Use direct `jest.fn()` in props when:**
+- Simple function props that are only tested once
+- No need for return value mocking
+
+```tsx
+// ✅ Good - Simple function props
+beforeEach(() => {
+    props = {
+        onClick: jest.fn(),
+        onSubmit: jest.fn(),
+    };
+});
+
+// Test with:
+expect(props.onClick).toHaveBeenCalledTimes(1);
+```
+
+## Testing with Jotai Atoms
+
+```typescript
+import { render, screen, jotaiStore } from '@yourname/testing-utils';
+import { myAtom } from '@/atoms';
+
+it('uses jotai atom value', () => {
+    // Set atom value directly in test
+    jotaiStore.set(myAtom, { id: '1', name: 'John' });
+    
+    render(<MyComponent />);
+    
+    expect(screen.getByText('John')).toBeVisible();
+});
+
+it('reads atom value in test', () => {
+    render(<MyForm />);
+    
+    // Interact with component
+    await userEvent.type(screen.getByLabelText('Name'), 'Jane');
+    await userEvent.click(screen.getByText('Save'));
+    
+    // Read atom value directly
+    const user = jotaiStore.get(myAtom);
+    expect(user.name).toBe('Jane');
+});
+```
+
+## Testing with React Query
+
+```typescript
+import { render, screen, querySuccessMock, queryLoadingMock, queryErrorMock } from '@yourname/testing-utils';
+import * as hooks from '@/data/useGetUser';
+
+const useGetUserSpy = jest.spyOn(hooks, 'useGetUser');
+
+it('renders loading state', () => {
+    useGetUserSpy.mockReturnValue(queryLoadingMock);
+    
+    render(<UserProfile userId="1" />);
+    
+    expect(screen.getByText('Loading...')).toBeVisible();
+});
+
+it('renders success state', () => {
+    useGetUserSpy.mockReturnValue({
+        ...querySuccessMock,
+        data: { id: '1', name: 'John' }
+    });
+    
+    render(<UserProfile userId="1" />);
+    
+    expect(screen.getByText('John')).toBeVisible();
+});
+```
+
+## Testing Forms with React Hook Form
+
+```typescript
+import { render, screen, FormWrapper, userEvent } from '@yourname/testing-utils';
+
+// Component using useFormContext
+const EmailField = () => {
+    const { register } = useFormContext();
+    return <input {...register('email')} />;
+};
+
+it('renders form field with default value', () => {
+    render(
+        <FormWrapper defaultValues={{ email: 'test@example.com' }}>
+            <EmailField />
+        </FormWrapper>
+    );
+    
+    expect(screen.getByDisplayValue('test@example.com')).toBeVisible();
+});
+```
+
+## Disabled State Testing
+
+```tsx
+describe('disabled states', () => {
+    it('renders disabled state correctly', () => {
+        props.disabled = true;
+
+        const { asFragment } = render(<ComponentName {...props} />);
+
+        expect(screen.getByText('Button')).toBeDisabled();
+        expect(asFragment()).toMatchSnapshot();
+    });
+
+    it('does not call handlers when disabled', async () => {
+        props.disabled = true;
+
+        render(<ComponentName {...props} />);
+
+        await userEvent.click(screen.getByText('Button'));
+
+        expect(props.onClick).not.toHaveBeenCalled();
+    });
+});
+```
+
+## Cleanup
+
+Always include cleanup in `afterEach`:
+
+```tsx
+afterEach(() => {
+    jest.clearAllMocks();
+});
+```
+
+## Code Coverage
+
+**Maintain at least 90% code coverage for apps, 95% for libraries.**
+
+To check coverage for a specific test file:
+
+```bash
+pnpm test -- 'path/to/Component.spec.tsx' --coverage
+```
+
+Coverage reports show:
+- **Statements** - Individual lines of code executed
+- **Branches** - Conditional paths (if/else, ternary, etc.)
+- **Functions** - Functions that were called
+- **Lines** - Total line coverage

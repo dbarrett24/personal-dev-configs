@@ -1,0 +1,249 @@
+---
+description: State management patterns with Jotai for client-side state
+globs:
+  - "**/atoms/**/*.ts"
+  - "**/state/**/*.ts"
+alwaysApply: false
+---
+# State Management with Jotai
+
+## Basic Atoms
+
+```typescript
+// atoms/counterAtom.ts
+import { atom } from 'jotai';
+
+// Primitive atom
+export const counterAtom = atom(0);
+
+// Object atom
+export const userAtom = atom<User | null>(null);
+
+// Array atom
+export const todosAtom = atom<Todo[]>([]);
+```
+
+## Using Atoms in Components
+
+```typescript
+import { useAtom, useAtomValue, useSetAtom } from 'jotai';
+import { counterAtom } from '@/atoms/counterAtom';
+
+// Read and write
+export const Counter = () => {
+    const [count, setCount] = useAtom(counterAtom);
+    
+    return (
+        <div>
+            <p>Count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>Increment</button>
+        </div>
+    );
+};
+
+// Read only
+export const CountDisplay = () => {
+    const count = useAtomValue(counterAtom);
+    return <p>Count: {count}</p>;
+};
+
+// Write only
+export const CountControls = () => {
+    const setCount = useSetAtom(counterAtom);
+    
+    return (
+        <button onClick={() => setCount((prev) => prev + 1)}>
+            Increment
+        </button>
+    );
+};
+```
+
+## Derived Atoms
+
+```typescript
+// Read-only derived atom
+export const doubleCountAtom = atom((get) => {
+    const count = get(counterAtom);
+    return count * 2;
+});
+
+// Derived atom with dependencies
+export const filteredTodosAtom = atom((get) => {
+    const todos = get(todosAtom);
+    const filter = get(filterAtom);
+    
+    if (filter === 'completed') {
+        return todos.filter((todo) => todo.completed);
+    }
+    
+    return todos;
+});
+```
+
+## Write-Only Atoms (Actions)
+
+```typescript
+// Action atom
+export const incrementAtom = atom(
+    null, // No read
+    (get, set) => {
+        const count = get(counterAtom);
+        set(counterAtom, count + 1);
+    }
+);
+
+// Action with parameter
+export const addTodoAtom = atom(
+    null,
+    (get, set, text: string) => {
+        const todos = get(todosAtom);
+        set(todosAtom, [
+            ...todos,
+            { id: Date.now(), text, completed: false }
+        ]);
+    }
+);
+
+// Usage
+const addTodo = useSetAtom(addTodoAtom);
+
+<button onClick={() => addTodo('New todo')}>
+    Add Todo
+</button>
+```
+
+## Async Atoms
+
+```typescript
+// Async read atom
+export const userAtom = atom(async (get) => {
+    const userId = get(userIdAtom);
+    const response = await fetch(`/api/users/${userId}`);
+    return response.json();
+});
+
+// Async write atom
+export const saveUserAtom = atom(
+    null,
+    async (get, set, user: User) => {
+        const response = await fetch(`/api/users/${user.id}`, {
+            method: 'PUT',
+            body: JSON.stringify(user),
+        });
+        const updated = await response.json();
+        set(userAtom, updated);
+    }
+);
+```
+
+## Persistence with atomWithStorage
+
+```typescript
+import { atomWithStorage } from 'jotai/utils';
+
+// Persisted to localStorage
+export const themeAtom = atomWithStorage<'light' | 'dark'>('theme', 'light');
+
+// Persisted with custom storage
+export const userPreferencesAtom = atomWithStorage(
+    'user-preferences',
+    {
+        language: 'en',
+        notifications: true,
+    },
+    {
+        getItem: (key) => {
+            const value = localStorage.getItem(key);
+            return value ? JSON.parse(value) : null;
+        },
+        setItem: (key, value) => {
+            localStorage.setItem(key, JSON.stringify(value));
+        },
+        removeItem: (key) => {
+            localStorage.removeItem(key);
+        },
+    }
+);
+```
+
+## Testing with Jotai
+
+```typescript
+import { render, screen, userEvent, jotaiStore } from '@yourname/testing-utils';
+import { counterAtom } from '@/atoms/counterAtom';
+
+describe('Counter', () => {
+    it('displays initial count from atom', () => {
+        jotaiStore.set(counterAtom, 5);
+        
+        render(<Counter />);
+        
+        expect(screen.getByText('Count: 5')).toBeVisible();
+    });
+
+    it('increments count', async () => {
+        jotaiStore.set(counterAtom, 0);
+        
+        render(<Counter />);
+        
+        await userEvent.click(screen.getByText('Increment'));
+        
+        const count = jotaiStore.get(counterAtom);
+        expect(count).toBe(1);
+    });
+
+    it('reads final atom value after interactions', async () => {
+        render(<TodoForm />);
+        
+        await userEvent.type(screen.getByPlaceholderText('New todo'), 'Buy milk');
+        await userEvent.click(screen.getByText('Add'));
+        
+        const todos = jotaiStore.get(todosAtom);
+        expect(todos).toHaveLength(1);
+        expect(todos[0].text).toBe('Buy milk');
+    });
+});
+```
+
+## Atom Organization
+
+```
+atoms/
+├── auth/
+│   ├── userAtom.ts
+│   ├── tokenAtom.ts
+│   └── index.ts
+├── ui/
+│   ├── themeAtom.ts
+│   ├── sidebarAtom.ts
+│   └── index.ts
+└── data/
+    ├── todosAtom.ts
+    ├── filtersAtom.ts
+    └── index.ts
+```
+
+## Best Practices
+
+1. **Keep atoms simple** - One piece of state per atom
+2. **Use derived atoms** - For computed values instead of duplicating state
+3. **Write-only atoms for actions** - Encapsulate complex state updates
+4. **Test with jotaiStore** - Direct atom access in tests
+5. **Colocate atoms** - Group related atoms in directories
+6. **Use atomWithStorage** - For persisted state
+7. **Async atoms for data fetching** - But prefer React Query for server state
+
+## When to Use Jotai vs React Query
+
+**Use Jotai for:**
+- UI state (theme, sidebar open/closed)
+- Form state (when not using React Hook Form)
+- Client-only derived state
+- Global application state
+
+**Use React Query for:**
+- Server state (API data)
+- Caching and revalidation
+- Mutations
+- Background refetching

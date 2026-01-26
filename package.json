@@ -25,7 +25,10 @@
         "ci:publish": "pnpm build && changeset publish",
         "create-project": "tsx scripts/create-project.ts",
         "create-brand": "tsx scripts/create-brand.ts",
-        "update-configs": "tsx scripts/update-configs.ts"
+        "update-configs": "tsx scripts/update-configs.ts",
+        "security:validate": "tsx scripts/validate-cursor-rules.ts",
+        "security:audit": "pnpm audit --audit-level=high",
+        "security:check": "pnpm security:validate && pnpm security:audit"
     },
     "devDependencies": {
         "@changesets/changelog-github": "^0.5.0",
@@ -42,4 +45,3 @@
     },
     "packageManager": "pnpm@10.13.1"
 }
-

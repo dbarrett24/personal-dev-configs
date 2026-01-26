@@ -1,0 +1,67 @@
+# Cursor AI Context Exclusions
+# Files matching these patterns will not be included in AI context
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Secrets and credentials
+*.key
+*.pem
+*.p12
+*.pfx
+*.cert
+secrets/
+credentials/
+
+# Build artifacts with potentially sensitive data
+dist/
+build/
+.next/
+out/
+
+# CI/CD and deployment configs
+.github/workflows/
+.gitlab-ci.yml
+deployment/
+deploy/
+
+# Lock files (can be large and contain version info)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Coverage reports (can be large)
+coverage/
+.nyc_output/
+junit.xml
+
+# Node modules (already large, no need in context)
+node_modules/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files that might contain sensitive data
+*.backup
+*.bak
+*.old
+*.orig
+*.tmp
+
+# Log files
+*.log
+logs/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3

@@ -50,5 +50,21 @@ pnpm-debug.log*
 
 
 
+# Security-sensitive files
+.env*
+!.env.example
+*.key
+*.pem
+*.cert
+*.p12
+secrets/
+credentials/
+
+# Backup files that might contain sensitive data
+*.backup
+*.bak
+*.old
+*.orig
+
 #Ignore cursor AI rules
 .cursor/rules/codacy.mdc

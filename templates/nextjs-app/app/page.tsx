@@ -1,4 +1,4 @@
-import { Button } from '@yourname/basketball-training-ui';
+import { Button } from '@dbarrett24/basketball-training-ui';
 
 export default function Home() {
     return (
@@ -8,7 +8,7 @@ export default function Home() {
                     Next.js App Template
                 </h1>
                 <p className="mb-xl text-lg text-text-secondary">
-                    Built with @yourname/basketball-training-ui, React Query, Jotai, and React Hook Form
+                    Built with @dbarrett24/basketball-training-ui, React Query, Jotai, and React Hook Form
                 </p>
                 <div className="flex gap-md justify-center">
                     <Button variant="primary">Get Started</Button>

@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@yourname/basketball-training-ui';
+import { Button } from '@dbarrett24/basketball-training-ui';
 
 const schema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),

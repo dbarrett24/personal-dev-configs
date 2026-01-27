@@ -1,11 +1,11 @@
-# @yourname/testing-utils
+# @dbarrett24/testing-utils
 
 Testing utilities and helpers for React applications with Jotai, React Query, and React Hook Form.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/testing-utils @testing-library/react @testing-library/jest-dom @testing-library/user-event jest
+pnpm add -D @dbarrett24/testing-utils @testing-library/react @testing-library/jest-dom @testing-library/user-event jest
 ```
 
 ## Features
@@ -21,7 +21,7 @@ pnpm add -D @yourname/testing-utils @testing-library/react @testing-library/jest
 ### Basic Rendering
 
 ```typescript
-import { render, screen } from '@yourname/testing-utils';
+import { render, screen } from '@dbarrett24/testing-utils';
 
 it('renders component', () => {
     render(<MyComponent />);
@@ -32,7 +32,7 @@ it('renders component', () => {
 ### With User Interactions
 
 ```typescript
-import { render, screen, userEvent } from '@yourname/testing-utils';
+import { render, screen, userEvent } from '@dbarrett24/testing-utils';
 
 it('handles click', async () => {
     render(<Button />);
@@ -46,7 +46,7 @@ it('handles click', async () => {
 ### Testing with Jotai Atoms
 
 ```typescript
-import { render, screen, jotaiStore } from '@yourname/testing-utils';
+import { render, screen, jotaiStore } from '@dbarrett24/testing-utils';
 import { userAtom } from '@/atoms/user';
 
 it('uses jotai atom value', () => {
@@ -74,7 +74,7 @@ it('reads atom value in test', () => {
 ### Testing with React Query
 
 ```typescript
-import { render, screen, querySuccessMock, queryLoadingMock, queryErrorMock } from '@yourname/testing-utils';
+import { render, screen, querySuccessMock, queryLoadingMock, queryErrorMock } from '@dbarrett24/testing-utils';
 import * as hooks from '@/data/useGetUser';
 
 const useGetUserSpy = jest.spyOn(hooks, 'useGetUser');
@@ -110,7 +110,7 @@ it('renders error state', () => {
 ### Testing Forms with React Hook Form
 
 ```typescript
-import { render, screen, FormWrapper, userEvent } from '@yourname/testing-utils';
+import { render, screen, FormWrapper, userEvent } from '@dbarrett24/testing-utils';
 
 // Component using useFormContext
 const EmailField = () => {
@@ -144,7 +144,7 @@ it('handles form input', async () => {
 ### Custom QueryClient
 
 ```typescript
-import { render, screen } from '@yourname/testing-utils';
+import { render, screen } from '@dbarrett24/testing-utils';
 import { QueryClient } from '@tanstack/react-query';
 
 it('uses custom query client', () => {

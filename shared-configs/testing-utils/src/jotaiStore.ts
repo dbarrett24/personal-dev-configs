@@ -5,7 +5,7 @@ import { createStore } from 'jotai';
  *
  * @example
  * ```typescript
- * import { jotaiStore } from '@yourname/testing-utils';
+ * import { jotaiStore } from '@dbarrett24/testing-utils';
  * import { myAtom } from '@/atoms/myAtom';
  *
  * // Set atom value in test

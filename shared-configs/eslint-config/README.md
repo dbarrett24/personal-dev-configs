@@ -1,11 +1,11 @@
-# @yourname/eslint-config
+# @dbarrett24/eslint-config
 
 Shared ESLint configuration for React/Next.js applications with TypeScript support.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/eslint-config eslint prettier typescript
+pnpm add -D @dbarrett24/eslint-config eslint prettier typescript
 ```
 
 ## Usage
@@ -14,7 +14,7 @@ Create `.eslintrc.js` in your project root:
 
 ```javascript
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     root: true,
 };
 ```
@@ -25,7 +25,7 @@ Add Next.js specific rules:
 
 ```javascript
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     plugins: ['@next/eslint-plugin-next'],
     rules: {
         // Add Next.js specific import restrictions
@@ -46,7 +46,7 @@ If using TypeScript project references, add:
 
 ```javascript
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     parserOptions: {
         project: './tsconfig.json',
     },
@@ -114,7 +114,7 @@ Override rules in your `.eslintrc.js`:
 
 ```javascript
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     rules: {
         // Make specific rules stricter or more lenient
         '@typescript-eslint/no-explicit-any': 'error',
@@ -126,7 +126,7 @@ module.exports = {
 
 ## Integration with Prettier
 
-This config includes `eslint-config-prettier` to disable conflicting rules. Make sure to use `@yourname/prettier-config` for consistent formatting.
+This config includes `eslint-config-prettier` to disable conflicting rules. Make sure to use `@dbarrett24/prettier-config` for consistent formatting.
 
 ## VS Code Integration
 

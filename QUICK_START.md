@@ -210,10 +210,10 @@ cd brand-libraries/my-brand-ui
 # Add to your package.json
 {
   "dependencies": {
-    "@yourname/basketball-training-ui": "file:../personal-dev-configs/brand-libraries/basketball-training-ui"
+    "@dbarrett24/basketball-training-ui": "file:../personal-dev-configs/brand-libraries/basketball-training-ui"
   },
   "devDependencies": {
-    "@yourname/eslint-config": "file:../personal-dev-configs/shared-configs/eslint-config"
+    "@dbarrett24/eslint-config": "file:../personal-dev-configs/shared-configs/eslint-config"
   }
 }
 ```

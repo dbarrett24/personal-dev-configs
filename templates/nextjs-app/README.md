@@ -71,7 +71,7 @@ nextjs-app/
 
 ```tsx
 // components/Card.tsx
-import { cn } from '@yourname/theme-system';
+import { cn } from '@dbarrett24/theme-system';
 
 export const Card = ({ children, className }) => {
     return (
@@ -126,7 +126,7 @@ export const incrementAtom = atom(
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@yourname/basketball-training-ui';
+import { Button } from '@dbarrett24/basketball-training-ui';
 
 const schema = z.object({
     email: z.string().email(),
@@ -162,7 +162,7 @@ export const ContactForm = () => {
 
 ```tsx
 // components/Card.spec.tsx
-import { render, screen } from '@yourname/testing-utils';
+import { render, screen } from '@dbarrett24/testing-utils';
 import { Card } from './Card';
 
 describe('Card', () => {
@@ -204,19 +204,19 @@ CMD ["pnpm", "start"]
 
 ### Change Brand Library
 
-Replace `@yourname/basketball-training-ui` with `@yourname/professional-brand-ui`:
+Replace `@dbarrett24/basketball-training-ui` with `@dbarrett24/professional-brand-ui`:
 
 ```bash
 # Install
-pnpm remove @yourname/basketball-training-ui
-pnpm add @yourname/professional-brand-ui
+pnpm remove @dbarrett24/basketball-training-ui
+pnpm add @dbarrett24/professional-brand-ui
 
 # Update imports
 # app/page.tsx
-import { Button } from '@yourname/professional-brand-ui';
+import { Button } from '@dbarrett24/professional-brand-ui';
 
 # app/globals.css
-@import '@yourname/professional-brand-ui/src/theme/styles.css';
+@import '@dbarrett24/professional-brand-ui/src/theme/styles.css';
 ```
 
 ### Add Custom Brand Colors

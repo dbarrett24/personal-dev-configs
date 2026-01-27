@@ -31,7 +31,7 @@
         "basketball",
         "design-system"
     ],
-    "author": "Your Name",
+    "author": "dbarrett24",
     "license": "MIT",
     "dependencies": {
         "@dbarrett24/core-components": "workspace:*",

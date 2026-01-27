@@ -28,7 +28,7 @@ const prettierFormatJson = async (text: string) => {
  *
  * @example
  * ```typescript
- * import { makeConfig } from '@yourname/tsup-config';
+ * import { makeConfig } from '@dbarrett24/tsup-config';
  *
  * export default makeConfig(
  *   { index: 'src/index.ts' },

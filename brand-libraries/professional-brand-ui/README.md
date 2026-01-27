@@ -1,18 +1,18 @@
-# @yourname/professional-brand-ui
+# @dbarrett24/professional-brand-ui
 
 Professional brand component library with custom theme and Storybook.
 
 ## Installation
 
 ```bash
-pnpm add @yourname/professional-brand-ui
+pnpm add @dbarrett24/professional-brand-ui
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from '@yourname/professional-brand-ui';
-import '@yourname/professional-brand-ui/dist/theme/styles.css';
+import { Button } from '@dbarrett24/professional-brand-ui';
+import '@dbarrett24/professional-brand-ui/dist/theme/styles.css';
 
 export const App = () => {
     return (

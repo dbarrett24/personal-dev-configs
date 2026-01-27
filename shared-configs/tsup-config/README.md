@@ -1,4 +1,4 @@
-# @yourname/tsup-config
+# @dbarrett24/tsup-config
 
 > Shared tsup configuration for building component libraries with automatic workspace dependency resolution and client directive injection.
 
@@ -18,7 +18,7 @@ This package **automates all of that**.
 ## 📦 Installation
 
 ```bash
-pnpm add -D @yourname/tsup-config tsup prettier
+pnpm add -D @dbarrett24/tsup-config tsup prettier
 ```
 
 ---
@@ -30,7 +30,7 @@ pnpm add -D @yourname/tsup-config tsup prettier
 In your component library's `tsup.config.ts`:
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Server-safe entries (no 'use client' needed)
@@ -49,7 +49,7 @@ export default makeConfig(
 ### Advanced Setup with Overrides
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     { index: 'src/index.ts' },
@@ -76,7 +76,7 @@ export default makeConfig(
 ```json
 {
     "dependencies": {
-        "@yourname/theme-system": "workspace:*"
+        "@dbarrett24/theme-system": "workspace:*"
     }
 }
 ```
@@ -86,7 +86,7 @@ export default makeConfig(
 ```json
 {
     "dependencies": {
-        "@yourname/theme-system": "^1.2.3"
+        "@dbarrett24/theme-system": "^1.2.3"
     }
 }
 ```
@@ -296,9 +296,9 @@ pnpm changeset publish
 
 ## 📚 Related Packages
 
-- **[@yourname/prettier-config](../prettier-config)** - Used for formatting generated package.json
-- **[@yourname/typescript-config](../typescript-config)** - TypeScript configuration for building
-- **[@yourname/theme-system](../theme-system)** - Common dependency in component libraries
+- **[@dbarrett24/prettier-config](../prettier-config)** - Used for formatting generated package.json
+- **[@dbarrett24/typescript-config](../typescript-config)** - TypeScript configuration for building
+- **[@dbarrett24/theme-system](../theme-system)** - Common dependency in component libraries
 
 ---
 
@@ -350,5 +350,5 @@ export default makeConfig(
 
 ## 📄 License
 
-MIT © Your Name
+MIT © dbarrett24
 

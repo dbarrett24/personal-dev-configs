@@ -46,7 +46,7 @@ type CustomRenderOptions = Omit<RenderOptions, 'wrapper'> & {
  *
  * @example
  * ```typescript
- * import { render, screen } from '@yourname/testing-utils';
+ * import { render, screen } from '@dbarrett24/testing-utils';
  *
  * it('renders component', () => {
  *     render(<MyComponent />);

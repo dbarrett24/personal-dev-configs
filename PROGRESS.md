@@ -95,16 +95,16 @@
 ### Summary of Completed Work
 
 **10 Shared Packages:**
-1. @yourname/prettier-config
-2. @yourname/typescript-config
-3. @yourname/eslint-config
-4. @yourname/eslint-config-library
-5. @yourname/jest-config
-6. @yourname/jest-config-library
-7. @yourname/testing-utils
-8. @yourname/theme-system
-9. @yourname/basketball-training-ui
-10. @yourname/professional-brand-ui
+1. @dbarrett24/prettier-config
+2. @dbarrett24/typescript-config
+3. @dbarrett24/eslint-config
+4. @dbarrett24/eslint-config-library
+5. @dbarrett24/jest-config
+6. @dbarrett24/jest-config-library
+7. @dbarrett24/testing-utils
+8. @dbarrett24/theme-system
+9. @dbarrett24/basketball-training-ui
+10. @dbarrett24/professional-brand-ui
 
 **2 Project Templates:**
 1. nextjs-app (with examples)

@@ -1,5 +1,5 @@
 module.exports = {
-    extends: ['@yourname/eslint-config-library'],
+    extends: ['@dbarrett24/eslint-config-library'],
     root: true,
 };
 

@@ -1,5 +1,5 @@
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     env: {
         browser: true,
         es2020: true,

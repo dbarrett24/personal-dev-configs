@@ -13,7 +13,7 @@
         "library",
         "typescript"
     ],
-    "author": "Your Name",
+    "author": "dbarrett24",
     "license": "MIT",
     "dependencies": {
         "@dbarrett24/jest-config": "workspace:*"

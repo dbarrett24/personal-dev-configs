@@ -1,11 +1,11 @@
-# @yourname/jest-config
+# @dbarrett24/jest-config
 
 Shared Jest configuration for React/Next.js applications with 90%+ coverage thresholds.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/jest-config jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
+pnpm add -D @dbarrett24/jest-config jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ pnpm add -D @yourname/jest-config jest @testing-library/react @testing-library/j
 Create `jest.config.js` in your project root:
 
 ```javascript
-const baseConfig = require('@yourname/jest-config');
+const baseConfig = require('@dbarrett24/jest-config');
 
 module.exports = {
     ...baseConfig,
@@ -91,7 +91,7 @@ Add to your `package.json`:
 ### Adjust Coverage Thresholds
 
 ```javascript
-const baseConfig = require('@yourname/jest-config');
+const baseConfig = require('@dbarrett24/jest-config');
 
 module.exports = {
     ...baseConfig,
@@ -109,7 +109,7 @@ module.exports = {
 ### Add Custom Module Mappings
 
 ```javascript
-const baseConfig = require('@yourname/jest-config');
+const baseConfig = require('@dbarrett24/jest-config');
 
 module.exports = {
     ...baseConfig,
@@ -123,7 +123,7 @@ module.exports = {
 ### Exclude Files from Coverage
 
 ```javascript
-const baseConfig = require('@yourname/jest-config');
+const baseConfig = require('@dbarrett24/jest-config');
 
 module.exports = {
     ...baseConfig,

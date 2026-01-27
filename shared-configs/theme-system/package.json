@@ -27,7 +27,7 @@
         "cn",
         "clsx"
     ],
-    "author": "Your Name",
+    "author": "dbarrett24",
     "license": "MIT",
     "dependencies": {
         "clsx": "^2.1.1",

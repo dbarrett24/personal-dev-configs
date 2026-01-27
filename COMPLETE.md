@@ -16,24 +16,24 @@ You now have a **complete, production-grade monorepo** that captures **everythin
 
 ### 🔧 **8 Shared Config Packages** (100% ✅)
 
-1. ✅ **@yourname/prettier-config** - Formatting with Tailwind support
-2. ✅ **@yourname/typescript-config** - 4 variants (base, react, nextjs, library)
-3. ✅ **@yourname/eslint-config** - React + TypeScript rules
-4. ✅ **@yourname/eslint-config-library** - Stricter library rules
-5. ✅ **@yourname/jest-config** - 90% coverage threshold
-6. ✅ **@yourname/jest-config-library** - 95% coverage threshold
-7. ✅ **@yourname/testing-utils** - FormWrapper, jotaiStore, React Query mocks
-8. ✅ **@yourname/theme-system** - Multi-brand support, cn() utility
+1. ✅ **@dbarrett24/prettier-config** - Formatting with Tailwind support
+2. ✅ **@dbarrett24/typescript-config** - 4 variants (base, react, nextjs, library)
+3. ✅ **@dbarrett24/eslint-config** - React + TypeScript rules
+4. ✅ **@dbarrett24/eslint-config-library** - Stricter library rules
+5. ✅ **@dbarrett24/jest-config** - 90% coverage threshold
+6. ✅ **@dbarrett24/jest-config-library** - 95% coverage threshold
+7. ✅ **@dbarrett24/testing-utils** - FormWrapper, jotaiStore, React Query mocks
+8. ✅ **@dbarrett24/theme-system** - Multi-brand support, cn() utility
 
 ### 🎨 **2 Brand Component Libraries** (100% ✅)
 
-1. ✅ **@yourname/basketball-training-ui**
+1. ✅ **@dbarrett24/basketball-training-ui**
    - Orange brand theme
    - Full Storybook
    - Button component with stories + tests
    - 95%+ coverage
 
-2. ✅ **@yourname/professional-brand-ui**
+2. ✅ **@dbarrett24/professional-brand-ui**
    - Blue brand theme
    - Full Storybook
    - Button component with stories + tests
@@ -305,15 +305,15 @@ pnpm ci:publish
 // my-separate-project/package.json
 {
   "dependencies": {
-    "@yourname/basketball-training-ui": "^1.0.0"
+    "@dbarrett24/basketball-training-ui": "^1.0.0"
   },
   "devDependencies": {
-    "@yourname/eslint-config": "^1.0.0",
-    "@yourname/prettier-config": "^1.0.0",
-    "@yourname/typescript-config": "^1.0.0",
-    "@yourname/testing-utils": "^1.0.0"
+    "@dbarrett24/eslint-config": "^1.0.0",
+    "@dbarrett24/prettier-config": "^1.0.0",
+    "@dbarrett24/typescript-config": "^1.0.0",
+    "@dbarrett24/testing-utils": "^1.0.0"
   },
-  "prettier": "@yourname/prettier-config"
+  "prettier": "@dbarrett24/prettier-config"
 }
 ```
 
@@ -385,7 +385,7 @@ This monorepo is designed to evolve with you:
 
 Before publishing to npm:
 
-- [ ] Update `@yourname` to your actual npm scope
+- [ ] Update `@dbarrett24` to your actual npm scope
 - [ ] Test all packages in a real project
 - [ ] Review and update READMEs with actual npm links
 - [ ] Create GitHub repository

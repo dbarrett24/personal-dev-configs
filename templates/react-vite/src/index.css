@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* Import basketball training UI theme */
-@import '@yourname/basketball-training-ui/src/theme/styles.css';
+@import '@dbarrett24/basketball-training-ui/src/theme/styles.css';
 
 /* Additional global styles */
 body {

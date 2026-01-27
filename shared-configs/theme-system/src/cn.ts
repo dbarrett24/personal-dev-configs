@@ -9,7 +9,7 @@ import { twMerge } from 'tailwind-merge';
  *
  * @example
  * ```typescript
- * import { cn } from '@yourname/theme-system';
+ * import { cn } from '@dbarrett24/theme-system';
  *
  * // Basic usage
  * cn('px-2 py-1', 'rounded-md');

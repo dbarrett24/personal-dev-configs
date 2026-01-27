@@ -2,7 +2,7 @@
 
 ## 🎉 What We Just Built
 
-The `@yourname/tsup-config` package is now **fully functional** and integrated into your monorepo!
+The `@dbarrett24/tsup-config` package is now **fully functional** and integrated into your monorepo!
 
 ---
 
@@ -34,9 +34,9 @@ shared-configs/tsup-config/
 
 ```json
 {
-    "name": "@yourname/basketball-training-ui",
+    "name": "@dbarrett24/basketball-training-ui",
     "dependencies": {
-        "@yourname/theme-system": "1.0.0",  // ✅ Resolved from workspace:*
+        "@dbarrett24/theme-system": "1.0.0",  // ✅ Resolved from workspace:*
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.4.0"
     },
@@ -67,7 +67,7 @@ shared-configs/tsup-config/
 // Source package.json
 {
     "dependencies": {
-        "@yourname/theme-system": "workspace:*"
+        "@dbarrett24/theme-system": "workspace:*"
     }
 }
 
@@ -80,7 +80,7 @@ shared-configs/tsup-config/
 // dist/package.json (auto-generated)
 {
     "dependencies": {
-        "@yourname/theme-system": "1.0.0"  // ✅ Actual version from lockfile
+        "@dbarrett24/theme-system": "1.0.0"  // ✅ Actual version from lockfile
     }
 }
 ```
@@ -134,7 +134,7 @@ Only includes what's needed for publishing:
 ### basketball-training-ui/tsup.config.ts
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Server-safe entries (NO 'use client')
@@ -147,7 +147,7 @@ export default makeConfig(
     },
     // Additional options
     {
-        external: ['react', 'react-dom', '@yourname/theme-system'],
+        external: ['react', 'react-dom', '@dbarrett24/theme-system'],
         splitting: false,
     }
 );
@@ -156,7 +156,7 @@ export default makeConfig(
 ### professional-brand-ui/tsup.config.ts
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Server-safe entries
@@ -169,7 +169,7 @@ export default makeConfig(
     },
     // Additional options
     {
-        external: ['react', 'react-dom', '@yourname/theme-system'],
+        external: ['react', 'react-dom', '@dbarrett24/theme-system'],
         splitting: false,
     }
 );
@@ -220,7 +220,7 @@ pnpm publish
 
 # 2. Create changeset
 pnpm changeset
-# Choose: @yourname/basketball-training-ui
+# Choose: @dbarrett24/basketball-training-ui
 # Choose: minor (new feature)
 
 # 3. Version packages (updates package.json versions)
@@ -231,7 +231,7 @@ pnpm changeset version
 # 4. Build all packages
 pnpm build
 # tsup-config resolves:
-# - "@yourname/theme-system": "workspace:*" → "1.0.0"
+# - "@dbarrett24/theme-system": "workspace:*" → "1.0.0"
 
 # 5. Publish to npm
 pnpm changeset publish
@@ -252,7 +252,7 @@ pnpm changeset publish
 #### Basic Usage
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     { index: 'src/index.ts' },
@@ -312,7 +312,7 @@ export default defineConfig({
 ### Your tsup-config
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     { index: 'src/index.ts' },
@@ -349,8 +349,8 @@ Your `tsup-config` matches Hammer UI's implementation:
 
 ## 🧪 Testing Checklist
 
-✅ **Build succeeds**: `pnpm --filter @yourname/tsup-config build`
-✅ **Brand library builds**: `pnpm --filter @yourname/basketball-training-ui build`
+✅ **Build succeeds**: `pnpm --filter @dbarrett24/tsup-config build`
+✅ **Brand library builds**: `pnpm --filter @dbarrett24/basketball-training-ui build`
 ✅ **dist/package.json created**: With resolved dependencies
 ✅ **'use client' added**: To button.js
 ✅ **Types generated**: .d.ts files present
@@ -383,8 +383,8 @@ Your `tsup-config` matches Hammer UI's implementation:
 
 ### Packages Using tsup-config
 
-- ✅ `@yourname/basketball-training-ui` (package.json + tsup.config.ts)
-- ✅ `@yourname/professional-brand-ui` (package.json + tsup.config.ts)
+- ✅ `@dbarrett24/basketball-training-ui` (package.json + tsup.config.ts)
+- ✅ `@dbarrett24/professional-brand-ui` (package.json + tsup.config.ts)
 
 ### Future Integration
 
@@ -394,7 +394,7 @@ When you create new brand libraries, use this pattern:
 // package.json
 {
     "devDependencies": {
-        "@yourname/tsup-config": "workspace:*",
+        "@dbarrett24/tsup-config": "workspace:*",
         "tsup": "^8.0.1"
     }
 }
@@ -402,7 +402,7 @@ When you create new brand libraries, use this pattern:
 
 ```typescript
 // tsup.config.ts
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     { index: 'src/index.ts' },
@@ -416,7 +416,7 @@ export default makeConfig(
 
 ## 🎉 Summary
 
-The `@yourname/tsup-config` package is **production-ready** and:
+The `@dbarrett24/tsup-config` package is **production-ready** and:
 
 1. ✅ **Builds successfully** with TypeScript definitions
 2. ✅ **Integrates with brand libraries** (basketball-training-ui, professional-brand-ui)

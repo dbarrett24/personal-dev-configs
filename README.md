@@ -18,7 +18,7 @@
 
 ### Shared Configuration Packages
 
-All published to npm under `@yourname/*` scope:
+All published to npm under `@dbarrett24/*` scope:
 
 - **prettier-config** - Prettier with Tailwind CSS plugin
 - **typescript-config** - TypeScript configs (base, react, nextjs, library)
@@ -93,7 +93,7 @@ personal-dev-configs/
 Theme system with semantic naming for easy multi-brand support:
 
 ```tsx
-import { cn } from '@yourname/theme-system';
+import { cn } from '@dbarrett24/theme-system';
 
 <button className={cn(
     'bg-interactive-primary text-text-inverse',
@@ -107,7 +107,7 @@ import { cn } from '@yourname/theme-system';
 ### Comprehensive Testing Utilities
 
 ```typescript
-import { render, screen, userEvent, jotaiStore } from '@yourname/testing-utils';
+import { render, screen, userEvent, jotaiStore } from '@dbarrett24/testing-utils';
 import { myAtom } from '@/atoms';
 
 it('renders component', () => {
@@ -122,7 +122,7 @@ it('renders component', () => {
 ### React Query Integration
 
 ```typescript
-import { querySuccessMock, queryErrorMock } from '@yourname/testing-utils';
+import { querySuccessMock, queryErrorMock } from '@dbarrett24/testing-utils';
 
 const useGetUserSpy = jest.spyOn(hooks, 'useGetUser');
 useGetUserSpy.mockReturnValue({ ...querySuccessMock, data: mockUser });
@@ -163,8 +163,8 @@ pnpm test-coverage    # Run tests with coverage
 ### Install Published Packages
 
 ```bash
-pnpm add @yourname/basketball-training-ui @yourname/theme-system
-pnpm add -D @yourname/eslint-config @yourname/prettier-config @yourname/typescript-config @yourname/testing-utils
+pnpm add @dbarrett24/basketball-training-ui @dbarrett24/theme-system
+pnpm add -D @dbarrett24/eslint-config @dbarrett24/prettier-config @dbarrett24/typescript-config @dbarrett24/testing-utils
 ```
 
 ### Configure Your Project
@@ -172,12 +172,12 @@ pnpm add -D @yourname/eslint-config @yourname/prettier-config @yourname/typescri
 ```json
 // package.json
 {
-  "prettier": "@yourname/prettier-config",
+  "prettier": "@dbarrett24/prettier-config",
   "devDependencies": {
-    "@yourname/eslint-config": "^1.0.0",
-    "@yourname/prettier-config": "^1.0.0",
-    "@yourname/typescript-config": "^1.0.0",
-    "@yourname/testing-utils": "^1.0.0"
+    "@dbarrett24/eslint-config": "^1.0.0",
+    "@dbarrett24/prettier-config": "^1.0.0",
+    "@dbarrett24/typescript-config": "^1.0.0",
+    "@dbarrett24/testing-utils": "^1.0.0"
   }
 }
 ```
@@ -185,7 +185,7 @@ pnpm add -D @yourname/eslint-config @yourname/prettier-config @yourname/typescri
 ```javascript
 // .eslintrc.js
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     root: true,
 };
 ```
@@ -193,13 +193,13 @@ module.exports = {
 ```json
 // tsconfig.json
 {
-  "extends": "@yourname/typescript-config/nextjs.json"
+  "extends": "@dbarrett24/typescript-config/nextjs.json"
 }
 ```
 
 ```javascript
 // jest.config.js
-const baseConfig = require('@yourname/jest-config');
+const baseConfig = require('@dbarrett24/jest-config');
 
 module.exports = {
     ...baseConfig,
@@ -288,8 +288,8 @@ brand-library/
 ### Using in a Project
 
 1. Install brand library and configs
-2. Import components: `import { Button } from '@yourname/basketball-training-ui'`
-3. Import theme: `import '@yourname/basketball-training-ui/dist/theme/styles.css'`
+2. Import components: `import { Button } from '@dbarrett24/basketball-training-ui'`
+3. Import theme: `import '@dbarrett24/basketball-training-ui/dist/theme/styles.css'`
 4. Use semantic tokens: `className="bg-interactive-primary"`
 
 ## 🧪 Testing Philosophy

@@ -190,10 +190,10 @@ basketball-training-ui/
 │   └── Card.stories.tsx
 │
 ├── package.json            # Dependencies + scripts
-├── tsconfig.json           # Extends @yourname/typescript-config/library.json
+├── tsconfig.json           # Extends @dbarrett24/typescript-config/library.json
 ├── tsup.config.ts          # Build configuration (generates dist/)
 ├── tailwind.config.js      # Extends theme-system + brand overrides
-└── jest.config.js          # Extends @yourname/jest-config-library
+└── jest.config.js          # Extends @dbarrett24/jest-config-library
 ```
 
 ---
@@ -362,10 +362,10 @@ pnpm create-project
 # 2. Project is scaffolded
 my-new-app/
 ├── package.json           # Includes all shared config dependencies
-├── tsconfig.json          # Extends @yourname/typescript-config/nextjs.json
-├── .eslintrc.js           # Extends @yourname/eslint-config
-├── jest.config.js         # Extends @yourname/jest-config
-├── tailwind.config.js     # Extends @yourname/basketball-training-ui
+├── tsconfig.json          # Extends @dbarrett24/typescript-config/nextjs.json
+├── .eslintrc.js           # Extends @dbarrett24/eslint-config
+├── jest.config.js         # Extends @dbarrett24/jest-config
+├── tailwind.config.js     # Extends @dbarrett24/basketball-training-ui
 └── src/
     ├── app/
     ├── components/

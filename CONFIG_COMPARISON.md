@@ -267,7 +267,7 @@ export default makeConfig(entries, clientEntries);
 ```javascript
 // eslint-config-library/index.js
 module.exports = {
-    extends: ['@yourname/eslint-config'],
+    extends: ['@dbarrett24/eslint-config'],
     rules: {
         '@typescript-eslint/no-explicit-any': 'error',  // Strict: no `any`
         'no-restricted-syntax': [

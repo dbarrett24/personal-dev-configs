@@ -1,11 +1,11 @@
-# @yourname/prettier-config
+# @dbarrett24/prettier-config
 
 Shared Prettier configuration with Tailwind CSS support.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/prettier-config prettier
+pnpm add -D @dbarrett24/prettier-config prettier
 ```
 
 ## Usage
@@ -14,14 +14,14 @@ In your `package.json`:
 
 ```json
 {
-  "prettier": "@yourname/prettier-config"
+  "prettier": "@dbarrett24/prettier-config"
 }
 ```
 
 Or create a `.prettierrc.mjs`:
 
 ```javascript
-import config from '@yourname/prettier-config';
+import config from '@dbarrett24/prettier-config';
 
 export default config;
 ```
@@ -29,7 +29,7 @@ export default config;
 Or extend the config:
 
 ```javascript
-import config from '@yourname/prettier-config';
+import config from '@dbarrett24/prettier-config';
 
 export default {
     ...config,

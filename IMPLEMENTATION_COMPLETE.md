@@ -11,18 +11,18 @@
 - Root configuration files
 
 ### Phase 2: All Shared Config Packages ✅
-1. ✅ **@yourname/prettier-config** - Tailwind plugin, cn() support
-2. ✅ **@yourname/typescript-config** - 4 configs (base, react, nextjs, library)
-3. ✅ **@yourname/eslint-config** - Full React/Next.js rules
-4. ✅ **@yourname/eslint-config-library** - Stricter library rules
-5. ✅ **@yourname/jest-config** - 90% coverage (apps)
-6. ✅ **@yourname/jest-config-library** - 95% coverage (libraries)
-7. ✅ **@yourname/testing-utils** - Complete utilities (render, jotaiStore, mocks, FormWrapper)
-8. ✅ **@yourname/theme-system** - Semantic tokens + cn()
+1. ✅ **@dbarrett24/prettier-config** - Tailwind plugin, cn() support
+2. ✅ **@dbarrett24/typescript-config** - 4 configs (base, react, nextjs, library)
+3. ✅ **@dbarrett24/eslint-config** - Full React/Next.js rules
+4. ✅ **@dbarrett24/eslint-config-library** - Stricter library rules
+5. ✅ **@dbarrett24/jest-config** - 90% coverage (apps)
+6. ✅ **@dbarrett24/jest-config-library** - 95% coverage (libraries)
+7. ✅ **@dbarrett24/testing-utils** - Complete utilities (render, jotaiStore, mocks, FormWrapper)
+8. ✅ **@dbarrett24/theme-system** - Semantic tokens + cn()
 
 ### Phase 3: Brand Component Libraries ✅
-1. ✅ **@yourname/basketball-training-ui** - Complete with Button, Storybook, tests
-2. ✅ **@yourname/professional-brand-ui** - Complete with Button, Storybook, tests
+1. ✅ **@dbarrett24/basketball-training-ui** - Complete with Button, Storybook, tests
+2. ✅ **@dbarrett24/professional-brand-ui** - Complete with Button, Storybook, tests
 
 ## 📋 REMAINING WORK
 
@@ -235,14 +235,14 @@ Create `my-test-project/package.json`:
 ```json
 {
   "dependencies": {
-    "@yourname/basketball-training-ui": "file:../personal-dev-configs/brand-libraries/basketball-training-ui",
-    "@yourname/theme-system": "file:../personal-dev-configs/shared-configs/theme-system"
+    "@dbarrett24/basketball-training-ui": "file:../personal-dev-configs/brand-libraries/basketball-training-ui",
+    "@dbarrett24/theme-system": "file:../personal-dev-configs/shared-configs/theme-system"
   },
   "devDependencies": {
-    "@yourname/eslint-config": "file:../personal-dev-configs/shared-configs/eslint-config",
-    "@yourname/prettier-config": "file:../personal-dev-configs/shared-configs/prettier-config",
-    "@yourname/typescript-config": "file:../personal-dev-configs/shared-configs/typescript-config",
-    "@yourname/testing-utils": "file:../personal-dev-configs/shared-configs/testing-utils"
+    "@dbarrett24/eslint-config": "file:../personal-dev-configs/shared-configs/eslint-config",
+    "@dbarrett24/prettier-config": "file:../personal-dev-configs/shared-configs/prettier-config",
+    "@dbarrett24/typescript-config": "file:../personal-dev-configs/shared-configs/typescript-config",
+    "@dbarrett24/testing-utils": "file:../personal-dev-configs/shared-configs/testing-utils"
   }
 }
 ```

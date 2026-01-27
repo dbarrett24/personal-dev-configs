@@ -2,7 +2,7 @@
 
 ## 🎯 When to Use
 
-Use `@yourname/tsup-config` when building **component libraries** in your monorepo. This is for:
+Use `@dbarrett24/tsup-config` when building **component libraries** in your monorepo. This is for:
 
 - ✅ Brand libraries (`basketball-training-ui`, `professional-brand-ui`)
 - ✅ Shared component packages
@@ -36,7 +36,7 @@ basketball-training-ui/
 **tsup.config.ts:**
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Main entry (server-safe)
@@ -50,7 +50,7 @@ export default makeConfig(
 
 1. `dist/index.js` - Re-exports without 'use client'
 2. `dist/button.js` - Has `'use client';` at the top
-3. `dist/package.json` - Resolves `@yourname/theme-system` from `workspace:*` to `^1.0.0`
+3. `dist/package.json` - Resolves `@dbarrett24/theme-system` from `workspace:*` to `^1.0.0`
 
 ---
 
@@ -76,7 +76,7 @@ basketball-training-ui/
 **tsup.config.ts:**
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Server-safe entries
@@ -93,7 +93,7 @@ export default makeConfig(
     },
     // External dependencies (don't bundle these)
     {
-        external: ['react', 'react-dom', '@yourname/theme-system'],
+        external: ['react', 'react-dom', '@dbarrett24/theme-system'],
     }
 );
 ```
@@ -102,11 +102,11 @@ export default makeConfig(
 
 ```tsx
 // Import specific components (tree-shakeable)
-import { Button } from '@yourname/basketball-training-ui/button';
-import { Input } from '@yourname/basketball-training-ui/input';
+import { Button } from '@dbarrett24/basketball-training-ui/button';
+import { Input } from '@dbarrett24/basketball-training-ui/input';
 
 // Or import everything
-import { Button, Input } from '@yourname/basketball-training-ui';
+import { Button, Input } from '@dbarrett24/basketball-training-ui';
 ```
 
 ---
@@ -131,7 +131,7 @@ professional-brand-ui/
 **tsup.config.ts:**
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Server-safe components (NO 'use client')
@@ -151,9 +151,9 @@ export default makeConfig(
 
 ```tsx
 // app/page.tsx (Server Component in Next.js)
-import { Badge } from '@yourname/professional-brand-ui/badge'; // ✅ Works - no 'use client'
-import { Icon } from '@yourname/professional-brand-ui/icon'; // ✅ Works - no 'use client'
-import { Button } from '@yourname/professional-brand-ui/button'; // ⚠️ Makes this client-side
+import { Badge } from '@dbarrett24/professional-brand-ui/badge'; // ✅ Works - no 'use client'
+import { Icon } from '@dbarrett24/professional-brand-ui/icon'; // ✅ Works - no 'use client'
+import { Button } from '@dbarrett24/professional-brand-ui/button'; // ⚠️ Makes this client-side
 
 export default function Page() {
     return (
@@ -202,10 +202,10 @@ head -n 3 brand-libraries/basketball-training-ui/dist/button.js
 cat brand-libraries/basketball-training-ui/dist/package.json | grep theme-system
 
 # Expected in source package.json:
-# "@yourname/theme-system": "workspace:*"
+# "@dbarrett24/theme-system": "workspace:*"
 
 # Expected in dist/package.json:
-# "@yourname/theme-system": "^1.0.0"
+# "@dbarrett24/theme-system": "^1.0.0"
 ```
 
 ---
@@ -248,10 +248,10 @@ export default makeConfig(
 
 ```tsx
 // Option 1: Main bundle
-import { Button, Input } from '@yourname/basketball-training-ui';
+import { Button, Input } from '@dbarrett24/basketball-training-ui';
 
 // Option 2: Direct import (better tree-shaking)
-import { Button } from '@yourname/basketball-training-ui/button';
+import { Button } from '@dbarrett24/basketball-training-ui/button';
 ```
 
 ### Pattern 2: Barrel Exports per Category
@@ -284,10 +284,10 @@ export default makeConfig(
 
 ```tsx
 // All components at once
-import { Button, Input, Modal } from '@yourname/basketball-training-ui/components';
+import { Button, Input, Modal } from '@dbarrett24/basketball-training-ui/components';
 
 // Or specific component
-import { Button } from '@yourname/basketball-training-ui/button';
+import { Button } from '@dbarrett24/basketball-training-ui/button';
 ```
 
 ---
@@ -336,14 +336,14 @@ export default makeConfig(
 {
     "devDependencies": {
         "tsup": "^8.0.1"
-        // Missing: "@yourname/tsup-config"
+        // Missing: "@dbarrett24/tsup-config"
     }
 }
 
 // ✅ CORRECT
 {
     "devDependencies": {
-        "@yourname/tsup-config": "workspace:*",
+        "@dbarrett24/tsup-config": "workspace:*",
         "tsup": "^8.0.1"
     }
 }
@@ -358,7 +358,7 @@ export default makeConfig(
 Run custom logic after build:
 
 ```typescript
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 import fs from 'fs';
 
 export default makeConfig(
@@ -403,7 +403,7 @@ export default makeConfig(
         modal: 'src/components/Modal.tsx',
     },
     {
-        external: ['react', 'react-dom', '@yourname/theme-system'],
+        external: ['react', 'react-dom', '@dbarrett24/theme-system'],
         splitting: true, // Enable code splitting
         treeshake: true, // Remove unused code
     }
@@ -470,7 +470,7 @@ Without tsup-config, your published package would have:
 
 ```json
 "dependencies": {
-  "@yourname/theme-system": "workspace:*"  // ❌ Invalid on npm!
+  "@dbarrett24/theme-system": "workspace:*"  // ❌ Invalid on npm!
 }
 ```
 
@@ -478,7 +478,7 @@ With tsup-config, it resolves to:
 
 ```json
 "dependencies": {
-  "@yourname/theme-system": "^1.0.0"  // ✅ Correct!
+  "@dbarrett24/theme-system": "^1.0.0"  // ✅ Correct!
 }
 ```
 

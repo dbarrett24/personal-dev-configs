@@ -15,7 +15,7 @@
         "react",
         "nextjs"
     ],
-    "author": "Your Name",
+    "author": "dbarrett24",
     "license": "MIT",
     "peerDependencies": {
         "typescript": ">=5"

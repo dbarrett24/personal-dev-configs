@@ -13,16 +13,16 @@
 ## 📦 Packages (10/10) ✅
 
 ```
-✅ @yourname/prettier-config             v1.0.0   Ready to publish
-✅ @yourname/typescript-config           v1.0.0   Ready to publish
-✅ @yourname/eslint-config               v1.0.0   Ready to publish
-✅ @yourname/eslint-config-library       v1.0.0   Ready to publish
-✅ @yourname/jest-config                 v1.0.0   Ready to publish
-✅ @yourname/jest-config-library         v1.0.0   Ready to publish
-✅ @yourname/testing-utils               v1.0.0   Ready to publish
-✅ @yourname/theme-system                v1.0.0   Ready to publish
-✅ @yourname/basketball-training-ui      v1.0.0   Ready to publish
-✅ @yourname/professional-brand-ui       v1.0.0   Ready to publish
+✅ @dbarrett24/prettier-config             v1.0.0   Ready to publish
+✅ @dbarrett24/typescript-config           v1.0.0   Ready to publish
+✅ @dbarrett24/eslint-config               v1.0.0   Ready to publish
+✅ @dbarrett24/eslint-config-library       v1.0.0   Ready to publish
+✅ @dbarrett24/jest-config                 v1.0.0   Ready to publish
+✅ @dbarrett24/jest-config-library         v1.0.0   Ready to publish
+✅ @dbarrett24/testing-utils               v1.0.0   Ready to publish
+✅ @dbarrett24/theme-system                v1.0.0   Ready to publish
+✅ @dbarrett24/basketball-training-ui      v1.0.0   Ready to publish
+✅ @dbarrett24/professional-brand-ui       v1.0.0   Ready to publish
 ```
 
 ---

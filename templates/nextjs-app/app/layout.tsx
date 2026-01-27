@@ -4,7 +4,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
     title: 'Next.js App Template',
-    description: 'Built with @yourname/basketball-training-ui',
+    description: 'Built with @dbarrett24/basketball-training-ui',
 };
 
 export default function RootLayout({

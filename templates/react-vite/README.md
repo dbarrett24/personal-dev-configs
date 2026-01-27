@@ -71,7 +71,7 @@ react-vite/
 
 ```tsx
 // src/components/Card.tsx
-import { cn } from '@yourname/theme-system';
+import { cn } from '@dbarrett24/theme-system';
 
 export const Card = ({ children, className }) => {
     return (
@@ -144,7 +144,7 @@ export const ContactForm = () => {
 
 ```tsx
 // src/components/Card.spec.tsx
-import { render, screen } from '@yourname/testing-utils';
+import { render, screen } from '@dbarrett24/testing-utils';
 import { Card } from './Card';
 
 describe('Card', () => {
@@ -180,14 +180,14 @@ netlify deploy --prod --dir=dist
 
 ### Change Brand Library
 
-Replace `@yourname/basketball-training-ui` with `@yourname/professional-brand-ui`:
+Replace `@dbarrett24/basketball-training-ui` with `@dbarrett24/professional-brand-ui`:
 
 ```bash
-pnpm remove @yourname/basketball-training-ui
-pnpm add @yourname/professional-brand-ui
+pnpm remove @dbarrett24/basketball-training-ui
+pnpm add @dbarrett24/professional-brand-ui
 
 # Update src/index.css
-@import '@yourname/professional-brand-ui/src/theme/styles.css';
+@import '@dbarrett24/professional-brand-ui/src/theme/styles.css';
 ```
 
 ### Add Custom Brand Colors

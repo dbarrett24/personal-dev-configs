@@ -185,7 +185,7 @@ export const DynamicForm = () => {
 ## Testing Forms
 
 ```typescript
-import { render, screen, userEvent, FormWrapper } from '@yourname/testing-utils';
+import { render, screen, userEvent, FormWrapper } from '@dbarrett24/testing-utils';
 
 describe('MyForm', () => {
     it('validates email field', async () => {

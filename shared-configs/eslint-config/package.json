@@ -13,7 +13,7 @@
         "nextjs",
         "typescript"
     ],
-    "author": "Your Name",
+    "author": "dbarrett24",
     "license": "MIT",
     "dependencies": {
         "@typescript-eslint/eslint-plugin": "^8.44.1",

@@ -12,7 +12,7 @@ type FormWrapperProps<TFormValues extends Record<string, unknown>> = {
  *
  * @example
  * ```typescript
- * import { render, FormWrapper } from '@yourname/testing-utils';
+ * import { render, FormWrapper } from '@dbarrett24/testing-utils';
  *
  * it('renders form field', () => {
  *     render(

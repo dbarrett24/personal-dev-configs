@@ -1,11 +1,11 @@
-# @yourname/jest-config-library
+# @dbarrett24/jest-config-library
 
 Shared Jest configuration for React component libraries with stricter 95%+ coverage thresholds.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/jest-config-library jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
+pnpm add -D @dbarrett24/jest-config-library jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ pnpm add -D @yourname/jest-config-library jest @testing-library/react @testing-l
 Create `jest.config.js` in your library root:
 
 ```javascript
-const baseConfig = require('@yourname/jest-config-library');
+const baseConfig = require('@dbarrett24/jest-config-library');
 
 module.exports = {
     ...baseConfig,
@@ -21,7 +21,7 @@ module.exports = {
 };
 ```
 
-## What's Different from @yourname/jest-config
+## What's Different from @dbarrett24/jest-config
 
 ### Higher Coverage Thresholds
 

@@ -1,11 +1,11 @@
-# @yourname/theme-system
+# @dbarrett24/theme-system
 
 Base Tailwind CSS theme system with semantic tokens and `cn()` utility function.
 
 ## Installation
 
 ```bash
-pnpm add @yourname/theme-system tailwindcss clsx tailwind-merge
+pnpm add @dbarrett24/theme-system tailwindcss clsx tailwind-merge
 ```
 
 ## Features
@@ -23,7 +23,7 @@ pnpm add @yourname/theme-system tailwindcss clsx tailwind-merge
 Extend the base theme in your `tailwind.config.js`:
 
 ```javascript
-const baseConfig = require('@yourname/theme-system/tailwind.config');
+const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -117,7 +117,7 @@ Create a CSS file with your theme variables:
 ### 3. Use Semantic Tokens
 
 ```tsx
-import { cn } from '@yourname/theme-system';
+import { cn } from '@dbarrett24/theme-system';
 
 export const Card = ({ variant = 'default', children }) => {
     return (
@@ -155,7 +155,7 @@ export const Button = ({ variant, disabled, children }) => {
 The `cn()` function combines `clsx` and `tailwind-merge` for powerful class merging:
 
 ```tsx
-import { cn } from '@yourname/theme-system';
+import { cn } from '@dbarrett24/theme-system';
 
 // Basic usage
 cn('px-2 py-1', 'rounded-md');
@@ -184,7 +184,7 @@ Create brand-specific themes by extending the base:
 
 ```javascript
 // tailwind.config.basketball.js
-const baseConfig = require('@yourname/theme-system/tailwind.config');
+const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
 
 module.exports = {
     ...baseConfig,

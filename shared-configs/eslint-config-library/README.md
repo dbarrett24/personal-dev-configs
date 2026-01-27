@@ -1,11 +1,11 @@
-# @yourname/eslint-config-library
+# @dbarrett24/eslint-config-library
 
 Shared ESLint configuration for React component libraries with stricter rules for published packages.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/eslint-config-library eslint prettier typescript
+pnpm add -D @dbarrett24/eslint-config-library eslint prettier typescript
 ```
 
 ## Usage
@@ -14,12 +14,12 @@ Create `.eslintrc.js` in your library root:
 
 ```javascript
 module.exports = {
-    extends: ['@yourname/eslint-config-library'],
+    extends: ['@dbarrett24/eslint-config-library'],
     root: true,
 };
 ```
 
-## What's Different from @yourname/eslint-config
+## What's Different from @dbarrett24/eslint-config
 
 This library config extends the base config with stricter rules appropriate for published packages:
 
@@ -93,7 +93,7 @@ Override rules as needed:
 
 ```javascript
 module.exports = {
-    extends: ['@yourname/eslint-config-library'],
+    extends: ['@dbarrett24/eslint-config-library'],
     rules: {
         // Allow console.warn in specific cases
         'no-console': ['error', { allow: ['warn', 'error'] }],

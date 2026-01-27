@@ -1,18 +1,18 @@
-# @yourname/basketball-training-ui
+# @dbarrett24/basketball-training-ui
 
 Basketball Training brand component library with custom theme and Storybook.
 
 ## Installation
 
 ```bash
-pnpm add @yourname/basketball-training-ui
+pnpm add @dbarrett24/basketball-training-ui
 ```
 
 ## Usage
 
 ```tsx
-import { Button } from '@yourname/basketball-training-ui';
-import '@yourname/basketball-training-ui/dist/theme/styles.css';
+import { Button } from '@dbarrett24/basketball-training-ui';
+import '@dbarrett24/basketball-training-ui/dist/theme/styles.css';
 
 export const App = () => {
     return (

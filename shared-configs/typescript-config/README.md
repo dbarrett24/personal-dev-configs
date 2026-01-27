@@ -1,11 +1,11 @@
-# @yourname/typescript-config
+# @dbarrett24/typescript-config
 
 Shared TypeScript configurations for various project types.
 
 ## Installation
 
 ```bash
-pnpm add -D @yourname/typescript-config typescript
+pnpm add -D @dbarrett24/typescript-config typescript
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ Create a `tsconfig.json` in your project root:
 
 ```json
 {
-  "extends": "@yourname/typescript-config/nextjs.json",
+  "extends": "@dbarrett24/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -32,7 +32,7 @@ Create a `tsconfig.json` in your project root:
 
 ```json
 {
-  "extends": "@yourname/typescript-config/react.json",
+  "extends": "@dbarrett24/typescript-config/react.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -47,7 +47,7 @@ Create a `tsconfig.json` in your project root:
 
 ```json
 {
-  "extends": "@yourname/typescript-config/library.json",
+  "extends": "@dbarrett24/typescript-config/library.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"
@@ -59,7 +59,7 @@ Create a `tsconfig.json` in your project root:
 
 ```json
 {
-  "extends": "@yourname/typescript-config/base.json",
+  "extends": "@dbarrett24/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"
@@ -115,7 +115,7 @@ You can override any option in your project's `tsconfig.json`:
 
 ```json
 {
-  "extends": "@yourname/typescript-config/nextjs.json",
+  "extends": "@dbarrett24/typescript-config/nextjs.json",
   "compilerOptions": {
     "target": "ES2022",
     "paths": {

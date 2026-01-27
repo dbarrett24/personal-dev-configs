@@ -6,7 +6,7 @@ export default defineConfig({
     dts: true,
     clean: true,
     sourcemap: true,
-    external: ['fs', 'path', 'prettier', '@pnpm/lockfile-file', 'es-toolkit', '@yourname/prettier-config'],
+    external: ['fs', 'path', 'prettier', '@pnpm/lockfile-file', 'es-toolkit', '@dbarrett24/prettier-config'],
     skipNodeModulesBundle: true,
 });
 

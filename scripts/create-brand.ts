@@ -38,7 +38,7 @@ const main = async () => {
     }
 
     const brandSlug = kebabCase(brandName);
-    const packageName = `@yourname/${brandSlug}-ui`;
+    const packageName = `@dbarrett24/${brandSlug}-ui`;
 
     // 2. Primary color
     const primaryColor = await question('Primary color (hex, e.g., #3B82F6): ');

@@ -88,13 +88,13 @@ const main = async () => {
 
     // Update brand library if needed
     if (brand === 'professional') {
-        if (pkg.dependencies['@yourname/basketball-training-ui']) {
-            delete pkg.dependencies['@yourname/basketball-training-ui'];
-            pkg.dependencies['@yourname/professional-brand-ui'] = 'workspace:*';
+        if (pkg.dependencies['@dbarrett24/basketball-training-ui']) {
+            delete pkg.dependencies['@dbarrett24/basketball-training-ui'];
+            pkg.dependencies['@dbarrett24/professional-brand-ui'] = 'workspace:*';
         }
     } else if (brand === 'none') {
-        delete pkg.dependencies['@yourname/basketball-training-ui'];
-        delete pkg.dependencies['@yourname/professional-brand-ui'];
+        delete pkg.dependencies['@dbarrett24/basketball-training-ui'];
+        delete pkg.dependencies['@dbarrett24/professional-brand-ui'];
     }
 
     fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 4));

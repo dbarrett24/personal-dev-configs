@@ -120,7 +120,7 @@ expect(props.onClick).toHaveBeenCalledTimes(1);
 ## Testing with Jotai Atoms
 
 ```typescript
-import { render, screen, jotaiStore } from '@yourname/testing-utils';
+import { render, screen, jotaiStore } from '@dbarrett24/testing-utils';
 import { myAtom } from '@/atoms';
 
 it('uses jotai atom value', () => {
@@ -148,7 +148,7 @@ it('reads atom value in test', () => {
 ## Testing with React Query
 
 ```typescript
-import { render, screen, querySuccessMock, queryLoadingMock, queryErrorMock } from '@yourname/testing-utils';
+import { render, screen, querySuccessMock, queryLoadingMock, queryErrorMock } from '@dbarrett24/testing-utils';
 import * as hooks from '@/data/useGetUser';
 
 const useGetUserSpy = jest.spyOn(hooks, 'useGetUser');
@@ -176,7 +176,7 @@ it('renders success state', () => {
 ## Testing Forms with React Hook Form
 
 ```typescript
-import { render, screen, FormWrapper, userEvent } from '@yourname/testing-utils';
+import { render, screen, FormWrapper, userEvent } from '@dbarrett24/testing-utils';
 
 // Component using useFormContext
 const EmailField = () => {

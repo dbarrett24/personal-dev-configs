@@ -12,7 +12,7 @@
         "react",
         "typescript"
     ],
-    "author": "Your Name",
+    "author": "dbarrett24",
     "license": "MIT",
     "dependencies": {
         "@testing-library/jest-dom": "^6.6.3",

@@ -18,24 +18,24 @@ Location: `/Users/dbarr/Documents/Development/personal-dev-configs`
 ✅ Comprehensive README and documentation  
 
 ### Phase 2: All 8 Shared Config Packages (100%)
-1. ✅ **@yourname/prettier-config** - Tailwind plugin, cn() support  
-2. ✅ **@yourname/typescript-config** - 4 configs (base, react, nextjs, library)  
-3. ✅ **@yourname/eslint-config** - Full React/Next.js rules  
-4. ✅ **@yourname/eslint-config-library** - Stricter library rules  
-5. ✅ **@yourname/jest-config** - 90% coverage (apps)  
-6. ✅ **@yourname/jest-config-library** - 95% coverage (libraries)  
-7. ✅ **@yourname/testing-utils** - render, jotaiStore, React Query mocks, FormWrapper  
-8. ✅ **@yourname/theme-system** - Semantic tokens + cn()  
+1. ✅ **@dbarrett24/prettier-config** - Tailwind plugin, cn() support  
+2. ✅ **@dbarrett24/typescript-config** - 4 configs (base, react, nextjs, library)  
+3. ✅ **@dbarrett24/eslint-config** - Full React/Next.js rules  
+4. ✅ **@dbarrett24/eslint-config-library** - Stricter library rules  
+5. ✅ **@dbarrett24/jest-config** - 90% coverage (apps)  
+6. ✅ **@dbarrett24/jest-config-library** - 95% coverage (libraries)  
+7. ✅ **@dbarrett24/testing-utils** - render, jotaiStore, React Query mocks, FormWrapper  
+8. ✅ **@dbarrett24/theme-system** - Semantic tokens + cn()  
 
 ### Phase 3: Both Brand Component Libraries (100%)
-1. ✅ **@yourname/basketball-training-ui**  
+1. ✅ **@dbarrett24/basketball-training-ui**  
    - Orange brand theme (#FF6B35)  
    - Button component with 3 variants + 3 sizes  
    - Full Storybook setup  
    - 95%+ test coverage  
    - Professional documentation  
 
-2. ✅ **@yourname/professional-brand-ui**  
+2. ✅ **@dbarrett24/professional-brand-ui**  
    - Blue brand theme (#3B82F6)  
    - Button component with 4 variants (primary, secondary, outline, ghost) + 3 sizes  
    - Full Storybook setup  
@@ -160,15 +160,15 @@ Create a new project and reference your configs:
 {
   "name": "my-awesome-app",
   "dependencies": {
-    "@yourname/basketball-training-ui": "file:../personal-dev-configs/brand-libraries/basketball-training-ui"
+    "@dbarrett24/basketball-training-ui": "file:../personal-dev-configs/brand-libraries/basketball-training-ui"
   },
   "devDependencies": {
-    "@yourname/eslint-config": "file:../personal-dev-configs/shared-configs/eslint-config",
-    "@yourname/prettier-config": "file:../personal-dev-configs/shared-configs/prettier-config",
-    "@yourname/typescript-config": "file:../personal-dev-configs/shared-configs/typescript-config",
-    "@yourname/testing-utils": "file:../personal-dev-configs/shared-configs/testing-utils"
+    "@dbarrett24/eslint-config": "file:../personal-dev-configs/shared-configs/eslint-config",
+    "@dbarrett24/prettier-config": "file:../personal-dev-configs/shared-configs/prettier-config",
+    "@dbarrett24/typescript-config": "file:../personal-dev-configs/shared-configs/typescript-config",
+    "@dbarrett24/testing-utils": "file:../personal-dev-configs/shared-configs/testing-utils"
   },
-  "prettier": "@yourname/prettier-config"
+  "prettier": "@dbarrett24/prettier-config"
 }
 ```
 
@@ -314,20 +314,20 @@ pnpm ci:publish
 
 ### Config Packages (Ready to Publish)
 ```
-@yourname/prettier-config        v1.0.0  ✅
-@yourname/typescript-config      v1.0.0  ✅
-@yourname/eslint-config          v1.0.0  ✅
-@yourname/eslint-config-library  v1.0.0  ✅
-@yourname/jest-config            v1.0.0  ✅
-@yourname/jest-config-library    v1.0.0  ✅
-@yourname/testing-utils          v1.0.0  ✅
-@yourname/theme-system           v1.0.0  ✅
+@dbarrett24/prettier-config        v1.0.0  ✅
+@dbarrett24/typescript-config      v1.0.0  ✅
+@dbarrett24/eslint-config          v1.0.0  ✅
+@dbarrett24/eslint-config-library  v1.0.0  ✅
+@dbarrett24/jest-config            v1.0.0  ✅
+@dbarrett24/jest-config-library    v1.0.0  ✅
+@dbarrett24/testing-utils          v1.0.0  ✅
+@dbarrett24/theme-system           v1.0.0  ✅
 ```
 
 ### Brand Libraries (Ready to Publish)
 ```
-@yourname/basketball-training-ui   v1.0.0  ✅
-@yourname/professional-brand-ui    v1.0.0  ✅
+@dbarrett24/basketball-training-ui   v1.0.0  ✅
+@dbarrett24/professional-brand-ui    v1.0.0  ✅
 ```
 
 ---

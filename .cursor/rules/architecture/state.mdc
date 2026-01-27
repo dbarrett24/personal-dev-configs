@@ -170,7 +170,7 @@ export const userPreferencesAtom = atomWithStorage(
 ## Testing with Jotai
 
 ```typescript
-import { render, screen, userEvent, jotaiStore } from '@yourname/testing-utils';
+import { render, screen, userEvent, jotaiStore } from '@dbarrett24/testing-utils';
 import { counterAtom } from '@/atoms/counterAtom';
 
 describe('Counter', () => {

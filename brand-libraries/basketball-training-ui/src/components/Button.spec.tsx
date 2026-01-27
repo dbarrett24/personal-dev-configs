@@ -1,4 +1,4 @@
-import { render, screen, userEvent } from '@yourname/testing-utils';
+import { render, screen, userEvent } from '@dbarrett24/testing-utils';
 import { Button } from './Button';
 
 describe('Button', () => {

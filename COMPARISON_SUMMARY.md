@@ -187,14 +187,14 @@ When you publish a component library to npm, you need to:
 // Your package.json
 {
   "dependencies": {
-    "@yourname/theme-system": "workspace:*"
+    "@dbarrett24/theme-system": "workspace:*"
   }
 }
 
 // Must manually create dist/package.json with:
 {
   "dependencies": {
-    "@yourname/theme-system": "^1.2.3"  // Manually find version!
+    "@dbarrett24/theme-system": "^1.2.3"  // Manually find version!
   }
 }
 ```
@@ -202,7 +202,7 @@ When you publish a component library to npm, you need to:
 **`tsup-config` Approach (Automated):**
 ```typescript
 // packages/my-lib/tsup.config.ts
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     { utils: 'src/utils.ts' },           // Server-safe

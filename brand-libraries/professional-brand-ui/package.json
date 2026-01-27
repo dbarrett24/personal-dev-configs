@@ -3,8 +3,16 @@
     "version": "1.0.1",
     "description": "Professional Brand brand component library with Storybook",
     "main": "dist/index.js",
-    "module": "dist/index.mjs",
+    "module": "dist/esm/index.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./theme": "./dist/theme/styles.css"
+    },
     "files": [
         "dist"
     ],

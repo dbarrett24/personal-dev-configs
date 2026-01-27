@@ -1,9 +1,9 @@
+/* Import basketball training UI theme */
+@import '@dbarrett24/basketball-training-ui/theme';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import basketball training UI theme */
-@import '@dbarrett24/basketball-training-ui/src/theme/styles.css';
 
 /* Additional global styles */
 body {

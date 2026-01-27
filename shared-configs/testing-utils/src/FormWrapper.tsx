@@ -1,10 +1,15 @@
 import { type ReactNode } from 'react';
-import { FormProvider, useForm, type UseFormProps } from 'react-hook-form';
+import {
+    FormProvider,
+    useForm,
+    type UseFormProps,
+    type DefaultValues,
+} from 'react-hook-form';
 
 type FormWrapperProps<TFormValues extends Record<string, unknown>> = {
     children: ReactNode;
-    defaultValues?: TFormValues;
-    formOptions?: UseFormProps<TFormValues>;
+    defaultValues?: DefaultValues<TFormValues>;
+    formOptions?: Omit<UseFormProps<TFormValues>, 'defaultValues'>;
 };
 
 /**
@@ -31,8 +36,8 @@ export const FormWrapper = <TFormValues extends Record<string, unknown>>({
     formOptions,
 }: FormWrapperProps<TFormValues>) => {
     const methods = useForm<TFormValues>({
-        defaultValues,
         ...formOptions,
+        defaultValues,
     });
 
     return <FormProvider {...methods}>{children}</FormProvider>;

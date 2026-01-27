@@ -9,9 +9,9 @@ export const App = () => {
                     Built with @dbarrett24/basketball-training-ui, React Query, Jotai, and React Hook Form
                 </p>
                 <div className="flex gap-md justify-center">
-                    <Button variant="primary">Get Started</Button>
-                    <Button variant="secondary">Learn More</Button>
-                    <Button variant="outline">View Docs</Button>
+                    <Button style="primary">Get Started</Button>
+                    <Button style="secondary">Learn More</Button>
+                    <Button variant="outline" style="primary">View Docs</Button>
                 </div>
             </div>
         </div>

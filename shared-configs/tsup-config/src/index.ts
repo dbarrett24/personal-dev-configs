@@ -45,6 +45,22 @@ export const makeConfig = (
 };
 
 /**
+ * Copy brand library CSS assets to dist
+ */
+const copyBrandAssets = async () => {
+    // Check if src/theme/styles.css exists (brand libraries have this)
+    if (fs.existsSync('src/theme/styles.css')) {
+        // Create theme directory in dist
+        const themeDir = path.join('dist', 'theme');
+        if (!fs.existsSync(themeDir)) {
+            fs.mkdirSync(themeDir, { recursive: true });
+        }
+        // Copy CSS to dist
+        fs.copyFileSync('src/theme/styles.css', path.join(themeDir, 'styles.css'));
+    }
+};
+
+/**
  * Copy package.json to dist with workspace dependencies resolved to actual versions
  */
 const copyPackageJson = async () => {
@@ -60,7 +76,15 @@ const copyPackageJson = async () => {
 
     // Set entry points
     newPackageJSON.main = './index.js';
+    newPackageJSON.module = './esm/index.js';
     newPackageJSON.types = './index.d.ts';
+    newPackageJSON.exports = {
+        '.': {
+            import: './esm/index.js',
+            require: './index.js',
+            types: './index.d.ts',
+        },
+    };
 
     // Get package name relative to monorepo root (e.g., 'brand-libraries/basketball-training-ui')
     const packageName = process.cwd().split(path.sep).slice(-2).join('/');
@@ -103,8 +127,14 @@ const copyPackageJson = async () => {
  * Prepend 'use client' directive to specified client component files
  */
 const prependUseClient = (fileNames: string[]) => {
+    // Add to CJS files
     fileNames
         .map((fileName) => `dist/${fileName}.js`)
+        .forEach((fileName) => fs.writeFileSync(fileName, "'use client';\n" + fs.readFileSync(fileName).toString()));
+    
+    // Add to ESM files
+    fileNames
+        .map((fileName) => `dist/esm/${fileName}.js`)
         .forEach((fileName) => fs.writeFileSync(fileName, "'use client';\n" + fs.readFileSync(fileName).toString()));
 };
 
@@ -135,6 +165,7 @@ const makeConfigObject = (
         ...optionOverrides,
         onSuccess: async () => {
             await copyPackageJson();
+            await copyBrandAssets();
             prependUseClient(Object.keys(clientEntries));
             if (typeof optionOverrides.onSuccess === 'function') {
                 await optionOverrides.onSuccess();

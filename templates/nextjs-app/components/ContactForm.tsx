@@ -94,8 +94,8 @@ export const ContactForm = () => {
 
             <Button
                 type="submit"
-                variant="primary"
-                disabled={isSubmitting}
+                style="primary"
+                isDisabled={isSubmitting}
             >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
             </Button>

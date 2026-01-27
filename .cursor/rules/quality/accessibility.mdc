@@ -13,8 +13,8 @@ All components must be accessible and follow WCAG guidelines. These rules are ma
 ## Interactive Elements
 
 ### Required Attributes
-- All interactive components MUST include aria-label or aria-labelledby attribute
-- Components with onClick handlers MUST support keyboard interaction
+- All interactive components MUST include `aria-label` or `aria-labelledby` attribute
+- Components with `onClick` handlers MUST support keyboard interaction
 
 ### Keyboard Support Implementation
 
@@ -79,7 +79,7 @@ type InputProps = {
 };
 
 export const Input = ({ value, error, id }: InputProps) => {
-    const errorId = \`\${id}-error\`;
+    const errorId = `${id}-error`;
     
     return (
         <>
@@ -102,26 +102,26 @@ export const Input = ({ value, error, id }: InputProps) => {
 ## Component-Specific Guidelines
 
 ### Buttons
-- Use semantic button elements
+- Use semantic `<button>` elements
 - Provide descriptive labels
 - Support keyboard navigation (Enter and Space)
-- Use aria-pressed for toggle buttons
+- Use `aria-pressed` for toggle buttons
 
 ### Links
-- Use semantic anchor elements for navigation
+- Use semantic `<a>` elements for navigation
 - Provide descriptive link text
-- Use aria-current for current page indicators
+- Use `aria-current` for current page indicators
 
 ### Modals
 - Trap focus within the modal
 - Return focus to trigger element on close
-- Use aria-modal="true"
+- Use `aria-modal="true"`
 - Provide accessible close button
 
 ### Form Validation
-- Use aria-invalid for invalid fields
-- Use aria-errormessage to associate error messages
-- Use role="alert" for error announcements
+- Use `aria-invalid` for invalid fields
+- Use `aria-errormessage` to associate error messages
+- Use `role="alert"` for error announcements
 
 ## Common Patterns
 

@@ -1,6 +1,6 @@
-const baseConfig = require('@dbarrett24/jest-config');
+import baseConfig from '@dbarrett24/jest-config';
 
-module.exports = {
+export default {
     ...baseConfig,
     displayName: 'react-vite-template',
     testEnvironment: 'jsdom',

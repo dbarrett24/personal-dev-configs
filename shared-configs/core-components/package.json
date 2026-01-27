@@ -3,8 +3,15 @@
     "version": "1.0.0",
     "description": "Fully-styled core component library following Hammer UI architecture pattern",
     "main": "dist/index.js",
-    "module": "dist/index.mjs",
+    "module": "dist/esm/index.js",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
     "files": [
         "dist"
     ],

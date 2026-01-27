@@ -34,6 +34,7 @@
     "author": "Your Name",
     "license": "MIT",
     "dependencies": {
+        "@dbarrett24/core-components": "workspace:*",
         "@dbarrett24/theme-system": "workspace:*",
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.4.0"

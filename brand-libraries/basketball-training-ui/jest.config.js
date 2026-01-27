@@ -1,7 +1,7 @@
-const baseConfig = require('@yourname/jest-config-library');
+const baseConfig = require('@dbarrett24/jest-config-library');
 
 module.exports = {
     ...baseConfig,
-    displayName: '@yourname/basketball-training-ui',
+    displayName: '@dbarrett24/basketball-training-ui',
 };
 

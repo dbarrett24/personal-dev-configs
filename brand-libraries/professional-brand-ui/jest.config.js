@@ -1,7 +1,7 @@
-const baseConfig = require('@yourname/jest-config-library');
+const baseConfig = require('@dbarrett24/jest-config-library');
 
 module.exports = {
     ...baseConfig,
-    displayName: '@yourname/professional-brand-ui',
+    displayName: '@dbarrett24/professional-brand-ui',
 };
 

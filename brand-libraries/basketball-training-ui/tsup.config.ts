@@ -1,4 +1,4 @@
-import { makeConfig } from '@yourname/tsup-config';
+import { makeConfig } from '@dbarrett24/tsup-config';
 
 export default makeConfig(
     // Server-safe entries
@@ -11,7 +11,7 @@ export default makeConfig(
     },
     // Additional options
     {
-        external: ['react', 'react-dom', '@yourname/theme-system'],
+        external: ['react', 'react-dom', '@dbarrett24/theme-system', '@dbarrett24/core-components'],
         splitting: false,
     }
 );

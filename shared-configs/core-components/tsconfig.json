@@ -1,10 +1,9 @@
 {
     "extends": "@dbarrett24/typescript-config/library.json",
     "compilerOptions": {
-        "outDir": "./dist",
-        "rootDir": "./src"
+        "outDir": "dist",
+        "rootDir": "src"
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist"]
+    "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.spec.tsx"]
 }
-

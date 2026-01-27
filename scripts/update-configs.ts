@@ -14,14 +14,14 @@ import { execSync } from 'child_process';
 const MONOREPO_ROOT = path.join(__dirname, '..');
 
 const CONFIG_PACKAGES = [
-    '@yourname/prettier-config',
-    '@yourname/typescript-config',
-    '@yourname/eslint-config',
-    '@yourname/eslint-config-library',
-    '@yourname/jest-config',
-    '@yourname/jest-config-library',
-    '@yourname/testing-utils',
-    '@yourname/theme-system',
+    '@dbarrett24/prettier-config',
+    '@dbarrett24/typescript-config',
+    '@dbarrett24/eslint-config',
+    '@dbarrett24/eslint-config-library',
+    '@dbarrett24/jest-config',
+    '@dbarrett24/jest-config-library',
+    '@dbarrett24/testing-utils',
+    '@dbarrett24/theme-system',
 ];
 
 const findAllPackages = (): string[] => {

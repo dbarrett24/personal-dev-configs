@@ -1,0 +1,123 @@
+---
+description: Date and time handling standards using date-fns and timezones
+globs:
+  - "**/*.ts"
+  - "**/*.tsx"
+alwaysApply: false
+---
+# Date and Time Standards
+
+## Libraries
+
+- **Manipulation**: Use date-fns (lightweight, functional)
+- **Timezones**: Use date-fns-tz for timezone conversions
+- **Legacy**: Do NOT use moment.js or dayjs
+
+## Storage and Transmission
+
+- **Format**: Always store and transmit dates as UTC ISO strings (toISOString())
+- **Server**: Treat all server-side dates as UTC unless explicitly zoned
+
+## Display
+
+- **Formatting**: Format dates ONLY at render time
+- **Timezones**: Respect user timezone preference when displaying
+
+## Common Patterns
+
+### Basic Formatting
+
+```typescript
+import { format, parseISO } from 'date-fns';
+
+// Parse ISO string and format for display
+const dateString = '2026-01-27T10:30:00.000Z';
+const date = parseISO(dateString);
+const display = format(date, 'MMM d, yyyy'); // "Jan 27, 2026"
+```
+
+### With Timezones
+
+```typescript
+import { format } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
+
+// Convert UTC string to specific timezone for display
+const utcDateString = '2026-01-27T15:00:00.000Z';
+const zonedDate = toZonedTime(utcDateString, 'America/New_York');
+const display = format(zonedDate, 'yyyy-MM-dd HH:mm'); // "2026-01-27 10:00"
+```
+
+### Relative Time
+
+```typescript
+import { formatDistanceToNow, parseISO } from 'date-fns';
+
+const dateString = '2026-01-26T10:30:00.000Z';
+const relativeTime = formatDistanceToNow(parseISO(dateString), { addSuffix: true });
+// "1 day ago"
+```
+
+## Date Calculations
+
+### Adding/Subtracting Time
+
+```typescript
+import { addDays, addHours, subWeeks } from 'date-fns';
+
+const now = new Date();
+const tomorrow = addDays(now, 1);
+const inTwoHours = addHours(now, 2);
+const lastWeek = subWeeks(now, 1);
+```
+
+### Comparing Dates
+
+```typescript
+import { isBefore, isAfter, isEqual, differenceInDays } from 'date-fns';
+
+const date1 = new Date('2026-01-27');
+const date2 = new Date('2026-01-28');
+
+isBefore(date1, date2);  // true
+isAfter(date2, date1);   // true
+differenceInDays(date2, date1); // 1
+```
+
+## Best Practices
+
+1. **Store UTC**: Always store dates as UTC ISO strings in databases and APIs
+2. **Parse on receive**: Use parseISO() when receiving date strings from APIs
+3. **Format at render**: Only format dates for display in the UI layer
+4. **Validate timezones**: Ensure timezone identifiers are valid IANA zone names
+5. **Handle nulls**: Check for null/undefined before parsing dates
+
+## Common Format Patterns
+
+| Pattern | Example | Description |
+|---------|---------|-------------|
+| `yyyy-MM-dd` | 2026-01-27 | ISO date |
+| `MMM d, yyyy` | Jan 27, 2026 | Short date |
+| `MMMM d, yyyy` | January 27, 2026 | Long date |
+| `HH:mm` | 14:30 | 24-hour time |
+| `h:mm a` | 2:30 PM | 12-hour time |
+| `PPP` | January 27th, 2026 | Localized long date |
+| `p` | 2:30 PM | Localized time |
+
+## API Date Handling
+
+```typescript
+// Sending dates to API
+const requestBody = {
+    startDate: new Date().toISOString(),
+    endDate: addDays(new Date(), 7).toISOString(),
+};
+
+// Receiving dates from API
+type ApiResponse = {
+    createdAt: string; // ISO string from server
+    updatedAt: string;
+};
+
+const displayDate = format(parseISO(response.createdAt), 'PPP');
+```

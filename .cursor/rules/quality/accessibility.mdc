@@ -1,0 +1,166 @@
+---
+description: Accessibility (A11y) guidelines for React components
+globs:
+  - "**/*.tsx"
+alwaysApply: false
+---
+# Accessibility Guidelines
+
+## Core Requirements
+
+All components must be accessible and follow WCAG guidelines. These rules are mandatory for all interactive elements.
+
+## Interactive Elements
+
+### Required Attributes
+- All interactive components MUST include aria-label or aria-labelledby attribute
+- Components with onClick handlers MUST support keyboard interaction
+
+### Keyboard Support Implementation
+
+```tsx
+type ButtonProps = {
+    onClick: () => void;
+    label: string;
+};
+
+export const Button = ({ onClick, label }: ButtonProps) => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick();
+        }
+    };
+
+    return (
+        <button
+            onClick={onClick}
+            onKeyDown={handleKeyDown}
+            aria-label={label}
+        >
+            {label}
+        </button>
+    );
+};
+```
+
+## Form Controls
+
+### Label Association
+
+All form inputs MUST have associated labels using one of these methods:
+
+#### Method 1: htmlFor/id pairing
+```tsx
+<label htmlFor="email-input">Email Address</label>
+<input id="email-input" type="email" />
+```
+
+#### Method 2: aria-label
+```tsx
+<input type="email" aria-label="Email Address" />
+```
+
+#### Method 3: aria-labelledby
+```tsx
+<div id="email-label">Email Address</div>
+<input type="email" aria-labelledby="email-label" />
+```
+
+### Error States
+
+Error states MUST be announced to screen readers:
+
+```tsx
+type InputProps = {
+    value: string;
+    error?: string;
+    id: string;
+};
+
+export const Input = ({ value, error, id }: InputProps) => {
+    const errorId = \`\${id}-error\`;
+    
+    return (
+        <>
+            <input
+                id={id}
+                value={value}
+                aria-invalid={!!error}
+                aria-errormessage={error ? errorId : undefined}
+            />
+            {error && (
+                <div id={errorId} role="alert">
+                    {error}
+                </div>
+            )}
+        </>
+    );
+};
+```
+
+## Component-Specific Guidelines
+
+### Buttons
+- Use semantic button elements
+- Provide descriptive labels
+- Support keyboard navigation (Enter and Space)
+- Use aria-pressed for toggle buttons
+
+### Links
+- Use semantic anchor elements for navigation
+- Provide descriptive link text
+- Use aria-current for current page indicators
+
+### Modals
+- Trap focus within the modal
+- Return focus to trigger element on close
+- Use aria-modal="true"
+- Provide accessible close button
+
+### Form Validation
+- Use aria-invalid for invalid fields
+- Use aria-errormessage to associate error messages
+- Use role="alert" for error announcements
+
+## Common Patterns
+
+### Loading States
+```tsx
+<div aria-live="polite" aria-label="Loading content">
+    <LoadingSpinner />
+</div>
+```
+
+### Dynamic Content Updates
+```tsx
+<div aria-live="polite" aria-atomic="true">
+    {statusMessage}
+</div>
+```
+
+### Skip Links
+```tsx
+<a href="#main-content" className="skip-link">
+    Skip to main content
+</a>
+```
+
+## Testing Requirements
+
+### Manual Testing Checklist
+- All interactive elements are keyboard accessible
+- Tab order is logical and intuitive
+- Focus indicators are visible
+- Screen reader announcements are appropriate
+- Color is not the only way to convey information
+
+### Automated Testing
+- Verify ARIA attributes are properly implemented
+- Test with accessibility testing tools (e.g., axe-core)
+- Validate HTML semantics
+
+### Screen Reader Testing
+- Test with VoiceOver (macOS) or NVDA (Windows)
+- Verify all content is announced correctly
+- Check navigation flow makes sense

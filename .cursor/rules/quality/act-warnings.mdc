@@ -1,0 +1,196 @@
+---
+description: Guidelines for fixing React act() warnings in tests
+globs:
+  - "**/*.spec.ts"
+  - "**/*.spec.tsx"
+  - "**/*.test.ts"
+  - "**/*.test.tsx"
+alwaysApply: false
+---
+# Testing: Fixing React act() Warnings
+
+## Overview
+
+React's act() warning appears when state updates happen outside React's knowledge during tests.
+This document provides proven patterns for fixing these warnings.
+
+## Pattern A: Jotai Atom Updates (Most Common)
+
+**Symptom**: "An update to [ComponentName] inside a test was not wrapped in act(...)"
+
+**Cause**: Component uses Jotai atoms that update after user interactions or during render.
+
+**Solution**: Wrap assertions that check atom state in waitFor() and ensure renders complete:
+
+```typescript
+// Bad - Direct assertion after state change
+it('updates atom when button clicked', async () => {
+    render(<MyComponent />);
+    await userEvent.click(screen.getByRole('button'));
+    expect(jotaiStore.get(myAtom)).toBe(newValue); // act() warning!
+});
+
+// Good - Use waitFor for async state
+it('updates atom when button clicked', async () => {
+    const { container } = render(<MyComponent />);
+    
+    // Wait for initial render to complete
+    await waitFor(() => {
+        expect(container).toBeTruthy();
+    });
+    
+    await userEvent.click(screen.getByRole('button'));
+    
+    // Wait for atom update
+    await waitFor(() => {
+        expect(jotaiStore.get(myAtom)).toBe(newValue);
+    });
+});
+```
+
+**Key Points**:
+- Always use waitFor after render to let React complete initial setup
+- Wrap atom checks in waitFor after user interactions
+
+## Pattern B: Hook State Updates
+
+**Symptom**: "An update to TestComponent inside a test was not wrapped in act(...)"
+
+**Cause**: Calling hook methods that trigger useState setters.
+
+**Solution**: Wrap the method call in act():
+
+```typescript
+// Bad - Calling state-changing method directly
+it('changes state when method called', async () => {
+    const { result } = renderHook(() => useMyHook());
+    result.current.changeState(); // act() warning!
+    await waitFor(() => expect(result.current.value).toBe(expected));
+});
+
+// Good - Wrap in act()
+it('changes state when method called', async () => {
+    const { result } = renderHook(() => useMyHook());
+    
+    await act(async () => {
+        result.current.changeState();
+    });
+    
+    await waitFor(() => expect(result.current.value).toBe(expected));
+});
+```
+
+## Pattern C: Router/Navigation Side Effects
+
+**Symptom**: State updates during navigation/routing
+
+**Solution**: Combine act() wrapper with waitFor():
+
+```typescript
+it('navigates correctly', async () => {
+    render(<MyComponent />);
+    
+    await act(async () => {
+        await userEvent.click(screen.getByText('Navigate'));
+    });
+    
+    await waitFor(() => {
+        expect(mockPush).toHaveBeenCalledWith('/expected-route');
+    });
+});
+```
+
+## Pattern D: Full Test Suite Isolation
+
+**Symptom**: Tests pass individually but show act() warnings when running full suite.
+
+**Cause**: Jotai atoms set in beforeEach trigger state updates when components mount.
+
+**Solution**: Wrap atom setup/teardown in act() within beforeEach and afterEach:
+
+```typescript
+// Bad - Atoms set outside act()
+describe('MyComponent', () => {
+    beforeEach(() => {
+        jotaiStore.set(myAtom, value); // Causes warnings in full suite!
+    });
+    
+    afterEach(() => {
+        jotaiStore.set(myAtom, null);
+    });
+});
+
+// Good - Atoms wrapped in act()
+describe('MyComponent', () => {
+    beforeEach(async () => {
+        await act(async () => {
+            jotaiStore.set(myAtom, value);
+        });
+    });
+    
+    afterEach(async () => {
+        await act(async () => {
+            jotaiStore.set(myAtom, null);
+        });
+    });
+    
+    it('renders with atom value', async () => {
+        await act(async () => {
+            render(<MyComponent />);
+        });
+        
+        await waitFor(() => {
+            expect(screen.getByText('...')).toBeInTheDocument();
+        });
+    });
+});
+```
+
+## Quick Reference
+
+| Pattern | When to Use | Fix |
+|---------|-------------|-----|
+| waitFor(() => expect(...)) after render | Jotai atom checks, modal renders | Wrap assertion |
+| act(async () => { method() }) | Hook method calls | Wrap call |
+| Both | Router + state | Use both |
+| act() in beforeEach/afterEach | Jotai atoms in test setup | Wrap all atom sets |
+
+## Import Statements
+
+```typescript
+// For component tests
+import { act } from 'react';
+import { waitFor } from '@testing-library/react';
+
+// For hook tests
+import { act } from 'react';
+import { renderHook, waitFor } from '@testing-library/react';
+```
+
+## Common Pitfalls
+
+### Dont: Skip waitFor after render
+```typescript
+it('test', () => {
+    render(<MyComponent />);
+    expect(screen.getByText('...')).toBeInTheDocument(); // May cause warnings
+});
+```
+
+### Do: Always wait for render to complete
+```typescript
+it('test', async () => {
+    const { container } = render(<MyComponent />);
+    await waitFor(() => {
+        expect(container).toBeTruthy();
+    });
+    expect(screen.getByText('...')).toBeInTheDocument();
+});
+```
+
+## Debugging Tips
+
+1. **Identify the source**: Look at the warning message to see which component/hook is updating
+2. **Check for async operations**: Look for setState, atom updates, or router calls
+3. **Add waitFor progressively**: Start by wrapping assertions, then renders if needed
+4. **Run tests individually vs full suite**: If warnings only appear in full suite, use Pattern D

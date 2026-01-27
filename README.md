@@ -308,13 +308,6 @@ From professional experience:
 ## 📄 License
 
 MIT
-
-## 🙏 Acknowledgments
-
-Patterns and best practices extracted from:
-- **Hammer UI** - Component library architecture, changesets workflow
-- **Wavebid A2O** - Testing patterns, Next.js App Router patterns, data layer patterns
-
 ---
 
 **Status**: 🚧 In active development

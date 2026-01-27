@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/typescript-config",
+    "name": "@dbarrett24/typescript-config",
     "version": "1.0.0",
     "description": "Shared TypeScript configurations for various project types",
     "main": "base.json",
@@ -24,4 +24,3 @@
         "access": "public"
     }
 }
-

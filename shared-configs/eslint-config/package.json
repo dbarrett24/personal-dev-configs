@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/eslint-config",
+    "name": "@dbarrett24/eslint-config",
     "version": "1.0.0",
     "description": "Shared ESLint configuration for React/Next.js applications",
     "main": "index.js",
@@ -37,4 +37,3 @@
         "access": "public"
     }
 }
-

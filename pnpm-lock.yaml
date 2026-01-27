@@ -32,7 +32,7 @@ importers:
 
   brand-libraries/basketball-training-ui:
     dependencies:
-      '@yourname/theme-system':
+      '@dbarrett24/theme-system':
         specifier: workspace:*
         version: link:../../shared-configs/theme-system
       clsx:
@@ -45,6 +45,24 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
         version: 3.2.7(react@19.2.0)(storybook@8.6.14(prettier@3.6.2))
+      '@dbarrett24/eslint-config-library':
+        specifier: workspace:*
+        version: link:../../shared-configs/eslint-config-library
+      '@dbarrett24/jest-config-library':
+        specifier: workspace:*
+        version: link:../../shared-configs/jest-config-library
+      '@dbarrett24/prettier-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/prettier-config
+      '@dbarrett24/testing-utils':
+        specifier: workspace:*
+        version: link:../../shared-configs/testing-utils
+      '@dbarrett24/tsup-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/tsup-config
+      '@dbarrett24/typescript-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/typescript-config
       '@storybook/addon-essentials':
         specifier: ^8.5.0
         version: 8.6.14(@types/react@19.2.2)(storybook@8.6.14(prettier@3.6.2))
@@ -72,24 +90,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.2.2(@types/react@19.2.2)
-      '@yourname/eslint-config-library':
-        specifier: workspace:*
-        version: link:../../shared-configs/eslint-config-library
-      '@yourname/jest-config-library':
-        specifier: workspace:*
-        version: link:../../shared-configs/jest-config-library
-      '@yourname/prettier-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/prettier-config
-      '@yourname/testing-utils':
-        specifier: workspace:*
-        version: link:../../shared-configs/testing-utils
-      '@yourname/tsup-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/tsup-config
-      '@yourname/typescript-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/typescript-config
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.22(postcss@8.5.6)
@@ -132,7 +132,7 @@ importers:
 
   brand-libraries/professional-brand-ui:
     dependencies:
-      '@yourname/theme-system':
+      '@dbarrett24/theme-system':
         specifier: workspace:*
         version: link:../../shared-configs/theme-system
       clsx:
@@ -145,6 +145,24 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
         version: 3.2.7(react@19.2.0)(storybook@8.6.14(prettier@3.6.2))
+      '@dbarrett24/eslint-config-library':
+        specifier: workspace:*
+        version: link:../../shared-configs/eslint-config-library
+      '@dbarrett24/jest-config-library':
+        specifier: workspace:*
+        version: link:../../shared-configs/jest-config-library
+      '@dbarrett24/prettier-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/prettier-config
+      '@dbarrett24/testing-utils':
+        specifier: workspace:*
+        version: link:../../shared-configs/testing-utils
+      '@dbarrett24/tsup-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/tsup-config
+      '@dbarrett24/typescript-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/typescript-config
       '@storybook/addon-essentials':
         specifier: ^8.5.0
         version: 8.6.14(@types/react@19.2.2)(storybook@8.6.14(prettier@3.6.2))
@@ -172,24 +190,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.2.2(@types/react@19.2.2)
-      '@yourname/eslint-config-library':
-        specifier: workspace:*
-        version: link:../../shared-configs/eslint-config-library
-      '@yourname/jest-config-library':
-        specifier: workspace:*
-        version: link:../../shared-configs/jest-config-library
-      '@yourname/prettier-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/prettier-config
-      '@yourname/testing-utils':
-        specifier: workspace:*
-        version: link:../../shared-configs/testing-utils
-      '@yourname/tsup-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/tsup-config
-      '@yourname/typescript-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/typescript-config
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.22(postcss@8.5.6)
@@ -277,7 +277,7 @@ importers:
 
   shared-configs/eslint-config-library:
     dependencies:
-      '@yourname/eslint-config':
+      '@dbarrett24/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
       eslint:
@@ -316,7 +316,7 @@ importers:
 
   shared-configs/jest-config-library:
     dependencies:
-      '@yourname/jest-config':
+      '@dbarrett24/jest-config':
         specifier: workspace:*
         version: link:../jest-config
       jest:
@@ -350,6 +350,15 @@ importers:
         specifier: ^2.10.3
         version: 2.15.1(@babel/core@7.28.5)(@babel/template@7.27.2)(@types/react@19.2.2)(react@19.2.0)
     devDependencies:
+      '@dbarrett24/eslint-config-library':
+        specifier: workspace:*
+        version: link:../eslint-config-library
+      '@dbarrett24/prettier-config':
+        specifier: workspace:*
+        version: link:../prettier-config
+      '@dbarrett24/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       '@tanstack/react-query':
         specifier: ^5.80.6
         version: 5.90.7(react@19.2.0)
@@ -362,15 +371,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.3
         version: 19.2.2(@types/react@19.2.2)
-      '@yourname/eslint-config-library':
-        specifier: workspace:*
-        version: link:../eslint-config-library
-      '@yourname/prettier-config':
-        specifier: workspace:*
-        version: link:../prettier-config
-      '@yourname/typescript-config':
-        specifier: workspace:*
-        version: link:../typescript-config
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -405,13 +405,13 @@ importers:
         specifier: ^3.4.0
         version: 3.4.0
     devDependencies:
-      '@yourname/eslint-config-library':
+      '@dbarrett24/eslint-config-library':
         specifier: workspace:*
         version: link:../eslint-config-library
-      '@yourname/prettier-config':
+      '@dbarrett24/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
-      '@yourname/typescript-config':
+      '@dbarrett24/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       concurrently:
@@ -451,13 +451,13 @@ importers:
         specifier: ^5.8.2
         version: 5.9.3
     devDependencies:
-      '@yourname/eslint-config':
+      '@dbarrett24/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@yourname/prettier-config':
+      '@dbarrett24/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
-      '@yourname/typescript-config':
+      '@dbarrett24/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       prettier:
@@ -472,18 +472,18 @@ importers:
 
   templates/nextjs-app:
     dependencies:
+      '@dbarrett24/basketball-training-ui':
+        specifier: workspace:*
+        version: link:../../brand-libraries/basketball-training-ui
+      '@dbarrett24/theme-system':
+        specifier: workspace:*
+        version: link:../../shared-configs/theme-system
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.10.0(react-hook-form@7.66.0(react@19.2.0))
       '@tanstack/react-query':
         specifier: ^5.80.6
         version: 5.90.7(react@19.2.0)
-      '@yourname/basketball-training-ui':
-        specifier: workspace:*
-        version: link:../../brand-libraries/basketball-training-ui
-      '@yourname/theme-system':
-        specifier: workspace:*
-        version: link:../../shared-configs/theme-system
       jotai:
         specifier: ^2.10.3
         version: 2.15.1(@babel/core@7.28.5)(@babel/template@7.27.2)(@types/react@19.2.2)(react@19.2.0)
@@ -503,6 +503,21 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
+      '@dbarrett24/eslint-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/eslint-config
+      '@dbarrett24/jest-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/jest-config
+      '@dbarrett24/prettier-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/prettier-config
+      '@dbarrett24/testing-utils':
+        specifier: workspace:*
+        version: link:../../shared-configs/testing-utils
+      '@dbarrett24/typescript-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/typescript-config
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.9.1
@@ -524,21 +539,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.2
         version: 19.2.2(@types/react@19.2.2)
-      '@yourname/eslint-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/eslint-config
-      '@yourname/jest-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/jest-config
-      '@yourname/prettier-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/prettier-config
-      '@yourname/testing-utils':
-        specifier: workspace:*
-        version: link:../../shared-configs/testing-utils
-      '@yourname/typescript-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/typescript-config
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.22(postcss@8.5.6)
@@ -569,18 +569,18 @@ importers:
 
   templates/react-vite:
     dependencies:
+      '@dbarrett24/basketball-training-ui':
+        specifier: workspace:*
+        version: link:../../brand-libraries/basketball-training-ui
+      '@dbarrett24/theme-system':
+        specifier: workspace:*
+        version: link:../../shared-configs/theme-system
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.10.0(react-hook-form@7.66.0(react@19.2.0))
       '@tanstack/react-query':
         specifier: ^5.80.6
         version: 5.90.7(react@19.2.0)
-      '@yourname/basketball-training-ui':
-        specifier: workspace:*
-        version: link:../../brand-libraries/basketball-training-ui
-      '@yourname/theme-system':
-        specifier: workspace:*
-        version: link:../../shared-configs/theme-system
       jotai:
         specifier: ^2.10.3
         version: 2.15.1(@babel/core@7.28.5)(@babel/template@7.27.2)(@types/react@19.2.2)(react@19.2.0)
@@ -597,6 +597,21 @@ importers:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
+      '@dbarrett24/eslint-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/eslint-config
+      '@dbarrett24/jest-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/jest-config
+      '@dbarrett24/prettier-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/prettier-config
+      '@dbarrett24/testing-utils':
+        specifier: workspace:*
+        version: link:../../shared-configs/testing-utils
+      '@dbarrett24/typescript-config':
+        specifier: workspace:*
+        version: link:../../shared-configs/typescript-config
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.9.1
@@ -618,21 +633,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.7.0(vite@6.4.1(@types/node@24.10.0)(jiti@1.21.7)(tsx@4.20.6))
-      '@yourname/eslint-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/eslint-config
-      '@yourname/jest-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/jest-config
-      '@yourname/prettier-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/prettier-config
-      '@yourname/testing-utils':
-        specifier: workspace:*
-        version: link:../../shared-configs/testing-utils
-      '@yourname/typescript-config':
-        specifier: workspace:*
-        version: link:../../shared-configs/typescript-config
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.22(postcss@8.5.6)

@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/theme-system",
+    "name": "@dbarrett24/theme-system",
     "version": "1.0.0",
     "description": "Base Tailwind CSS theme system with semantic tokens and cn() utility",
     "main": "dist/index.js",
@@ -37,9 +37,9 @@
         "tailwindcss": ">=3"
     },
     "devDependencies": {
-        "@yourname/eslint-config-library": "workspace:*",
-        "@yourname/prettier-config": "workspace:*",
-        "@yourname/typescript-config": "workspace:*",
+        "@dbarrett24/eslint-config-library": "workspace:*",
+        "@dbarrett24/prettier-config": "workspace:*",
+        "@dbarrett24/typescript-config": "workspace:*",
         "concurrently": "^8.2.2",
         "eslint": "^8.49.0",
         "prettier": "^3.4.2",
@@ -50,6 +50,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "prettier": "@yourname/prettier-config"
+    "prettier": "@dbarrett24/prettier-config"
 }
-

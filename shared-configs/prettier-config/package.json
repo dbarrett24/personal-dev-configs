@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/prettier-config",
+    "name": "@dbarrett24/prettier-config",
     "version": "1.0.0",
     "description": "Shared Prettier configuration with Tailwind support",
     "main": ".prettierrc.mjs",
@@ -23,4 +23,3 @@
         "access": "public"
     }
 }
-

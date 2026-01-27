@@ -1,6 +1,6 @@
 {
-    "name": "@yourname/tsup-config",
-    "version": "0.0.1",
+    "name": "@dbarrett24/tsup-config",
+    "version": "1.0.0",
     "description": "Shared tsup configuration for building component libraries",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -25,9 +25,9 @@
         "typescript": "^5.8.2"
     },
     "devDependencies": {
-        "@yourname/eslint-config": "workspace:*",
-        "@yourname/prettier-config": "workspace:*",
-        "@yourname/typescript-config": "workspace:*",
+        "@dbarrett24/eslint-config": "workspace:*",
+        "@dbarrett24/prettier-config": "workspace:*",
+        "@dbarrett24/typescript-config": "workspace:*",
         "prettier": "^3.4.2"
     },
     "peerDependencies": {
@@ -37,7 +37,7 @@
     "publishConfig": {
         "access": "public"
     },
-    "prettier": "@yourname/prettier-config",
+    "prettier": "@dbarrett24/prettier-config",
     "keywords": [
         "tsup",
         "config",
@@ -48,4 +48,3 @@
     "author": "Your Name",
     "license": "MIT"
 }
-

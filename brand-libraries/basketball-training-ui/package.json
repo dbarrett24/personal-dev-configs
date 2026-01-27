@@ -1,6 +1,6 @@
 {
-    "name": "@yourname/basketball-training-ui",
-    "version": "1.0.0",
+    "name": "@dbarrett24/basketball-training-ui",
+    "version": "1.0.1",
     "description": "Basketball Training brand component library with Storybook",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -34,7 +34,7 @@
     "author": "Your Name",
     "license": "MIT",
     "dependencies": {
-        "@yourname/theme-system": "workspace:*",
+        "@dbarrett24/theme-system": "workspace:*",
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.4.0"
     },
@@ -53,12 +53,12 @@
         "@storybook/test": "^8.5.0",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
-        "@yourname/eslint-config-library": "workspace:*",
-        "@yourname/jest-config-library": "workspace:*",
-        "@yourname/prettier-config": "workspace:*",
-        "@yourname/testing-utils": "workspace:*",
-        "@yourname/tsup-config": "workspace:*",
-        "@yourname/typescript-config": "workspace:*",
+        "@dbarrett24/eslint-config-library": "workspace:*",
+        "@dbarrett24/jest-config-library": "workspace:*",
+        "@dbarrett24/prettier-config": "workspace:*",
+        "@dbarrett24/testing-utils": "workspace:*",
+        "@dbarrett24/tsup-config": "workspace:*",
+        "@dbarrett24/typescript-config": "workspace:*",
         "autoprefixer": "^10.4.20",
         "concurrently": "^8.2.2",
         "eslint": "^8.49.0",
@@ -76,6 +76,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "prettier": "@yourname/prettier-config"
+    "prettier": "@dbarrett24/prettier-config"
 }
-

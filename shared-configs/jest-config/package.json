@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/jest-config",
+    "name": "@dbarrett24/jest-config",
     "version": "1.0.0",
     "description": "Shared Jest configuration for React/Next.js applications",
     "main": "jest.config.js",
@@ -29,4 +29,3 @@
         "access": "public"
     }
 }
-

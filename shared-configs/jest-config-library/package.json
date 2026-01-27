@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/jest-config-library",
+    "name": "@dbarrett24/jest-config-library",
     "version": "1.0.0",
     "description": "Shared Jest configuration for React component libraries",
     "main": "jest.config.js",
@@ -16,7 +16,7 @@
     "author": "Your Name",
     "license": "MIT",
     "dependencies": {
-        "@yourname/jest-config": "workspace:*"
+        "@dbarrett24/jest-config": "workspace:*"
     },
     "peerDependencies": {
         "jest": ">=29",
@@ -27,4 +27,3 @@
         "access": "public"
     }
 }
-

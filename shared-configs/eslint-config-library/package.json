@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/eslint-config-library",
+    "name": "@dbarrett24/eslint-config-library",
     "version": "1.0.0",
     "description": "Shared ESLint configuration for React component libraries",
     "main": "index.js",
@@ -16,7 +16,7 @@
     "author": "Your Name",
     "license": "MIT",
     "dependencies": {
-        "@yourname/eslint-config": "workspace:*"
+        "@dbarrett24/eslint-config": "workspace:*"
     },
     "peerDependencies": {
         "eslint": "^8.0.0",
@@ -27,4 +27,3 @@
         "access": "public"
     }
 }
-

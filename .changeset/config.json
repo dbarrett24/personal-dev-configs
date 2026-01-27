@@ -1,6 +1,6 @@
 {
     "$schema": "https://unpkg.com/@changesets/config@3.0.0/schema.json",
-    "changelog": ["@changesets/changelog-github", { "repo": "yourname/personal-dev-configs" }],
+    "changelog": ["@changesets/changelog-github", { "repo": "dbarrett24/personal-dev-configs" }],
     "commit": false,
     "fixed": [],
     "linked": [],

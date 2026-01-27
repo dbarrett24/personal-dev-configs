@@ -1,5 +1,5 @@
 {
-    "name": "@yourname/testing-utils",
+    "name": "@dbarrett24/testing-utils",
     "version": "1.0.0",
     "description": "Testing utilities and helpers for React applications",
     "main": "dist/index.js",
@@ -44,9 +44,9 @@
         "@types/jest": "^29.5.14",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
-        "@yourname/eslint-config-library": "workspace:*",
-        "@yourname/prettier-config": "workspace:*",
-        "@yourname/typescript-config": "workspace:*",
+        "@dbarrett24/eslint-config-library": "workspace:*",
+        "@dbarrett24/prettier-config": "workspace:*",
+        "@dbarrett24/typescript-config": "workspace:*",
         "concurrently": "^8.2.2",
         "eslint": "^8.49.0",
         "prettier": "^3.4.2",
@@ -59,6 +59,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "prettier": "@yourname/prettier-config"
+    "prettier": "@dbarrett24/prettier-config"
 }
-

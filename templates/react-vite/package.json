@@ -1,6 +1,6 @@
 {
     "name": "react-vite-template",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": true,
     "type": "module",
     "scripts": {
@@ -21,8 +21,8 @@
     "dependencies": {
         "@hookform/resolvers": "^3.9.1",
         "@tanstack/react-query": "^5.80.6",
-        "@yourname/basketball-training-ui": "workspace:*",
-        "@yourname/theme-system": "workspace:*",
+        "@dbarrett24/basketball-training-ui": "workspace:*",
+        "@dbarrett24/theme-system": "workspace:*",
         "jotai": "^2.10.3",
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
@@ -37,11 +37,11 @@
         "@types/react": "^19.1.2",
         "@types/react-dom": "^19.1.2",
         "@vitejs/plugin-react": "^4.3.4",
-        "@yourname/eslint-config": "workspace:*",
-        "@yourname/jest-config": "workspace:*",
-        "@yourname/prettier-config": "workspace:*",
-        "@yourname/testing-utils": "workspace:*",
-        "@yourname/typescript-config": "workspace:*",
+        "@dbarrett24/eslint-config": "workspace:*",
+        "@dbarrett24/jest-config": "workspace:*",
+        "@dbarrett24/prettier-config": "workspace:*",
+        "@dbarrett24/testing-utils": "workspace:*",
+        "@dbarrett24/typescript-config": "workspace:*",
         "autoprefixer": "^10.4.20",
         "concurrently": "^8.2.2",
         "eslint": "^8.57.1",
@@ -53,6 +53,5 @@
         "typescript": "^5.8.2",
         "vite": "^6.0.7"
     },
-    "prettier": "@yourname/prettier-config"
+    "prettier": "@dbarrett24/prettier-config"
 }
-

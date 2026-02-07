@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { Input } from './Input';
+import { Input } from '@dbarrett24/core-components/Input';
 
 /**
  * Headless Input component providing core behavior and accessibility.
@@ -17,7 +17,7 @@ import { Input } from './Input';
  * - ✅ Screen reader support
  */
 const meta: Meta<typeof Input> = {
-    title: 'Core/Input',
+    title: 'Selection and Input/Input',
     component: Input,
     parameters: {
         layout: 'centered',
@@ -327,7 +327,7 @@ export const BrandLibraryExample: Story = {
         // This is how a brand library would create a styled wrapper
         const BrandInput = ({ variant = 'default', ...props }: any) => {
             const baseStyles = 'w-full px-3 py-2 border rounded focus:outline-none focus:ring-2';
-            const variants = {
+            const variants: Record<string, string> = {
                 default: `${baseStyles} border-gray-300 focus:ring-blue-500`,
                 error: `${baseStyles} border-red-500 focus:ring-red-500`,
                 success: `${baseStyles} border-green-500 focus:ring-green-500`,

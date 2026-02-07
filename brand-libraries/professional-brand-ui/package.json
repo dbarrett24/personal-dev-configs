@@ -1,7 +1,7 @@
 {
     "name": "@dbarrett24/professional-brand-ui",
     "version": "1.0.1",
-    "description": "Professional Brand brand component library with Storybook",
+    "description": "Professional Brand component library",
     "main": "dist/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/index.d.ts",
@@ -11,6 +11,11 @@
             "require": "./dist/index.js",
             "types": "./dist/index.d.ts"
         },
+        "./Button": {
+            "import": "./dist/esm/Button.js",
+            "require": "./dist/Button.js",
+            "types": "./dist/Button.d.ts"
+        },
         "./theme": "./dist/theme/styles.css"
     },
     "files": [
@@ -18,9 +23,7 @@
     ],
     "scripts": {
         "build": "tsup",
-        "dev": "concurrently --raw 'pnpm:dev:*'",
-        "dev:tsup": "tsup --watch",
-        "dev:storybook": "storybook dev -p 6006",
+        "dev": "tsup --watch",
         "lint": "concurrently --raw --kill-others-on-fail --names eslint,prettier,tsc pnpm:lint-ts pnpm:lint-prettier pnpm:ts-check",
         "lint-fix": "pnpm lint-ts-fix && pnpm lint-prettier-fix",
         "lint-prettier": "prettier --cache --check \"src/**/*.{json,js,jsx,ts,tsx}\"",
@@ -28,15 +31,13 @@
         "lint-ts": "eslint src --cache",
         "lint-ts-fix": "pnpm lint-ts --fix",
         "ts-check": "tsc --noEmit",
-        "test": "jest",
-        "storybook": "storybook dev -p 6006",
-        "build-storybook": "storybook build"
+        "test": "jest"
     },
     "keywords": [
         "react",
         "components",
         "ui",
-        "basketball",
+        "professional",
         "design-system"
     ],
     "author": "dbarrett24",
@@ -52,14 +53,6 @@
         "react-dom": ">=18"
     },
     "devDependencies": {
-        "@chromatic-com/storybook": "^3.2.2",
-        "@storybook/addon-essentials": "^8.5.0",
-        "@storybook/addon-interactions": "^8.5.0",
-        "@storybook/addon-links": "^8.5.0",
-        "@storybook/blocks": "^8.5.0",
-        "@storybook/react": "^8.5.0",
-        "@storybook/react-vite": "^8.5.0",
-        "@storybook/test": "^8.5.0",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
         "@dbarrett24/eslint-config-library": "workspace:*",
@@ -75,9 +68,9 @@
         "jest-environment-jsdom": "^29.7.0",
         "postcss": "^8.4.49",
         "prettier": "^3.4.2",
+        "prettier-plugin-tailwindcss": "^0.6.11",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
-        "storybook": "^8.5.0",
         "tailwindcss": "^3.4.17",
         "tsup": "^6.6.2",
         "typescript": "^5.8.2"

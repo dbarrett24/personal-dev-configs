@@ -1,0 +1,37 @@
+{
+    "name": "docs",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "storybook:core": "STORYBOOK_KEY=core storybook dev -p 6006",
+        "storybook:basketball": "STORYBOOK_KEY=basketball storybook dev -p 6006",
+        "storybook:professional": "STORYBOOK_KEY=professional storybook dev -p 6006",
+        "storybook:all": "STORYBOOK_KEY=all storybook dev -p 6006",
+        "build-storybook": "STORYBOOK_KEY=all storybook build"
+    },
+    "dependencies": {
+        "@dbarrett24/core-components": "workspace:*",
+        "@dbarrett24/basketball-training-ui": "workspace:*",
+        "@dbarrett24/professional-brand-ui": "workspace:*",
+        "@dbarrett24/theme-system": "workspace:*",
+        "@storybook/addon-a11y": "^10.2.7",
+        "@storybook/addon-docs": "^10.2.7",
+        "@storybook/react": "^10.2.7",
+        "@storybook/react-vite": "^10.2.7",
+        "storybook": "^10.2.7",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0"
+    },
+    "devDependencies": {
+        "@types/react": "^19.0.8",
+        "@types/react-dom": "^19.0.3",
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.49",
+        "tailwindcss": "^3.4.17",
+        "typescript": "^5.8.2",
+        "vite": "^6.3.0"
+    },
+    "engines": {
+        "node": ">=20.19"
+    }
+}

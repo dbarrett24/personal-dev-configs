@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Button } from './Button';
+import { Button } from '@dbarrett24/core-components/Button';
 
 /**
  * Fully-styled Button component following Hammer UI architecture.
@@ -18,7 +18,7 @@ import { Button } from './Button';
  * - ✅ Theme token integration
  */
 const meta: Meta<typeof Button> = {
-    title: 'Core/Button',
+    title: 'Selection and Input/Button',
     component: Button,
     parameters: {
         layout: 'centered',
@@ -83,16 +83,28 @@ export const AllVariants: Story = {
             <div>
                 <h3 style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 'bold' }}>Filled Variants</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <Button variant="filled" style="primary">
+                    <Button
+                        variant="filled"
+                        style="primary"
+                    >
                         Primary
                     </Button>
-                    <Button variant="filled" style="secondary">
+                    <Button
+                        variant="filled"
+                        style="secondary"
+                    >
                         Secondary
                     </Button>
-                    <Button variant="filled" style="neutral">
+                    <Button
+                        variant="filled"
+                        style="neutral"
+                    >
                         Neutral
                     </Button>
-                    <Button variant="filled" style="critical">
+                    <Button
+                        variant="filled"
+                        style="critical"
+                    >
                         Critical
                     </Button>
                 </div>
@@ -101,16 +113,28 @@ export const AllVariants: Story = {
             <div>
                 <h3 style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 'bold' }}>Outline Variants</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <Button variant="outline" style="primary">
+                    <Button
+                        variant="outline"
+                        style="primary"
+                    >
                         Primary
                     </Button>
-                    <Button variant="outline" style="secondary">
+                    <Button
+                        variant="outline"
+                        style="secondary"
+                    >
                         Secondary
                     </Button>
-                    <Button variant="outline" style="neutral">
+                    <Button
+                        variant="outline"
+                        style="neutral"
+                    >
                         Neutral
                     </Button>
-                    <Button variant="outline" style="critical">
+                    <Button
+                        variant="outline"
+                        style="critical"
+                    >
                         Critical
                     </Button>
                 </div>
@@ -119,16 +143,28 @@ export const AllVariants: Story = {
             <div>
                 <h3 style={{ marginBottom: '12px', fontSize: '14px', fontWeight: 'bold' }}>Ghost Variants</h3>
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-                    <Button variant="ghost" style="primary">
+                    <Button
+                        variant="ghost"
+                        style="primary"
+                    >
                         Primary
                     </Button>
-                    <Button variant="ghost" style="secondary">
+                    <Button
+                        variant="ghost"
+                        style="secondary"
+                    >
                         Secondary
                     </Button>
-                    <Button variant="ghost" style="neutral">
+                    <Button
+                        variant="ghost"
+                        style="neutral"
+                    >
                         Neutral
                     </Button>
-                    <Button variant="ghost" style="critical">
+                    <Button
+                        variant="ghost"
+                        style="critical"
+                    >
                         Critical
                     </Button>
                 </div>
@@ -158,7 +194,10 @@ export const WithIcons: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <Button iconLeft="🔍">Search</Button>
             <Button iconRight="→">Next</Button>
-            <Button iconLeft="←" iconRight="→">
+            <Button
+                iconLeft="←"
+                iconRight="→"
+            >
                 Both
             </Button>
         </div>
@@ -171,13 +210,22 @@ export const WithIcons: Story = {
 export const Loading: Story = {
     render: () => (
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <Button isLoading size="sm">
+            <Button
+                isLoading
+                size="sm"
+            >
                 Small Loading
             </Button>
-            <Button isLoading size="md">
+            <Button
+                isLoading
+                size="md"
+            >
                 Medium Loading
             </Button>
-            <Button isLoading size="lg">
+            <Button
+                isLoading
+                size="lg"
+            >
                 Large Loading
             </Button>
         </div>
@@ -190,13 +238,25 @@ export const Loading: Story = {
 export const Disabled: Story = {
     render: () => (
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <Button isDisabled variant="filled" style="primary">
+            <Button
+                isDisabled
+                variant="filled"
+                style="primary"
+            >
                 Disabled Filled
             </Button>
-            <Button isDisabled variant="outline" style="primary">
+            <Button
+                isDisabled
+                variant="outline"
+                style="primary"
+            >
                 Disabled Outline
             </Button>
-            <Button isDisabled variant="ghost" style="primary">
+            <Button
+                isDisabled
+                variant="ghost"
+                style="primary"
+            >
                 Disabled Ghost
             </Button>
         </div>
@@ -213,7 +273,7 @@ export const BrandLibraryExample: Story = {
             return (
                 <Button
                     {...props}
-                    className={`shadow-md hover:shadow-lg active:scale-98 transition-transform ${className || ''}`}
+                    className={`active:scale-98 shadow-md transition-transform hover:shadow-lg ${className || ''}`}
                 />
             );
         };
@@ -225,10 +285,16 @@ export const BrandLibraryExample: Story = {
                         Basketball Training Brand (adds shadow + scale animation)
                     </h3>
                     <div style={{ display: 'flex', gap: '12px' }}>
-                        <BasketballButton variant="filled" style="primary">
+                        <BasketballButton
+                            variant="filled"
+                            style="primary"
+                        >
                             Start Training
                         </BasketballButton>
-                        <BasketballButton variant="outline" style="primary">
+                        <BasketballButton
+                            variant="outline"
+                            style="primary"
+                        >
                             View Stats
                         </BasketballButton>
                     </div>

@@ -1,119 +1,158 @@
 ---
 description: Storybook configuration patterns, decorators, globalTypes, and testing approach
-globs: ["**/.storybook/**/*.ts", "**/.storybook/**/*.tsx", "**/*.stories.tsx"]
+globs: ["apps/docs/.storybook/**/*.ts", "apps/docs/.storybook/**/*.tsx", "apps/docs/stories/**/*.stories.tsx", "apps/docs/stories/**/*.mdx"]
 ---
 
 # Storybook Configuration Patterns
 
 Guidelines for working with Storybook in this monorepo.
 
+## Architecture: Unified Docs App
+
+All Storybook configuration and stories live in `apps/docs/` (private, never published).
+Publishable packages contain NO stories, NO Storybook dependencies, NO `.storybook/` config.
+
+```
+apps/docs/
+├── .storybook/
+│   ├── main.ts              # Storybook build config
+│   ├── preview.tsx          # Global decorators, theme switcher, brand CSS imports
+│   ├── storyConfiguration.ts # STORYBOOK_KEY-based story filtering
+│   ├── brands.ts            # Brand registry (type, CSS class map, labels)
+│   └── themes/
+│       └── default.css      # Default neutral theme
+├── stories/
+│   ├── Shared/              # Shown in ALL Storybook instances
+│   ├── Core/                # Core component stories
+│   │   └── SelectionAndInput/
+│   │       ├── Button/
+│   │       └── Input/
+│   ├── Basketball/          # Basketball brand stories
+│   │   └── Core/
+│   │       └── Button/
+│   ├── Professional/        # Professional brand stories
+│   │   └── Core/
+│   │       └── Button/
+│   └── DevDocs/             # Developer documentation (MDX)
+├── package.json             # private: true, ALL Storybook deps
+├── tailwind.config.js
+├── postcss.config.js
+└── tsconfig.json
+```
+
+## STORYBOOK_KEY Filtering
+
+Stories are filtered by the `STORYBOOK_KEY` environment variable:
+
+```bash
+pnpm storybook:core          # STORYBOOK_KEY=core — Core component stories only
+pnpm storybook:basketball    # STORYBOOK_KEY=basketball — Basketball brand stories
+pnpm storybook:professional  # STORYBOOK_KEY=professional — Professional brand stories
+pnpm storybook:all           # STORYBOOK_KEY=all — All stories unified
+```
+
+Configuration is in `apps/docs/.storybook/storyConfiguration.ts`.
+
 ## Configuration File Testing
 
 **Storybook configuration files do NOT require unit tests**:
 - `.storybook/main.ts` - Build configuration
 - `.storybook/preview.tsx` - Decorators and global settings
-- `.storybook/brands.ts` or similar registries
+- `.storybook/storyConfiguration.ts` - Story filtering
+- `.storybook/brands.ts` - Brand registry
 - `.storybook/themes/` CSS files
-
-**Rationale**: Configuration is tested through manual interaction, not automated tests.
 
 **Testing approach**:
 1. Implement configuration
-2. Start Storybook: `pnpm storybook`
+2. Start Storybook: `pnpm storybook:core`
 3. Manually verify functionality in browser
 4. Check for console errors
 5. Test across multiple stories/components
+
+## Story Import Pattern
+
+Stories import from **package exports** (not relative paths):
+
+```typescript
+// ✅ CORRECT - Package subpath import
+import { Button } from '@dbarrett24/core-components/Button';
+
+// ✅ CORRECT - Package barrel import
+import { Input } from '@dbarrett24/core-components';
+
+// ✅ CORRECT - Brand package subpath import
+import { Button } from '@dbarrett24/basketball-training-ui/Button';
+
+// ❌ WRONG - Relative import (stories are NOT co-located with components)
+import { Button } from './Button';
+```
 
 ## Common Storybook Patterns
 
 ### Global Types (Toolbar Controls)
 
-Use globalTypes to add toolbar controls:
+Brand switching is controlled via `globalTypes.brand` in `preview.tsx`:
 
 ```typescript
-// .storybook/preview.tsx
-export const globalTypes = {
-    theme: {
-        name: 'Theme',
-        description: 'Global theme for components',
+// apps/docs/.storybook/preview.tsx
+globalTypes: {
+    brand: {
+        name: 'Brand Theme',
         defaultValue: 'default',
         toolbar: {
             title: 'Theme',
             icon: 'paintbrush',
             items: [
-                { value: 'default', title: 'Default', icon: 'circle' },
-                { value: 'brand-a', title: 'Brand A', icon: 'circle' },
+                { value: 'default', title: 'Default (Neutral)' },
+                { value: 'basketball', title: 'Basketball Training' },
+                { value: 'professional', title: 'Professional Brand' },
             ],
-            dynamicTitle: true, // Show selected value in toolbar
+            dynamicTitle: true,
         },
     },
-};
+},
 ```
 
 ### Decorators
 
-Decorators wrap all stories to provide context:
+The `withTheme` decorator wraps all stories in a branded container:
 
 ```typescript
-// .storybook/preview.tsx
-import type { Decorator } from '@storybook/react';
-
 const withTheme: Decorator = (Story, context) => {
-    const theme = context.globals.theme || 'default';
-    
+    const brand: Brand = context.globals.brand || 'default';
+    const className = brandsToCSSClass[brand];
+
     return (
-        <div className={themeClassName} data-theme={theme}>
+        <div className={className} style={{ minHeight: '100vh', padding: '1rem' }}>
             <Story />
         </div>
     );
 };
-
-export const decorators = [withTheme];
 ```
-
-**Order matters**: Decorators are applied in array order (first = outermost wrapper).
 
 ### Importing Brand CSS
 
-When importing CSS from workspace packages:
+Brand CSS is imported in `apps/docs/.storybook/preview.tsx`:
 
 ```typescript
-// .storybook/preview.tsx
-// Import from package exports (uses dist/ files)
 import '@dbarrett24/basketball-training-ui/theme';
 import '@dbarrett24/professional-brand-ui/theme';
+import './themes/default.css';
 ```
 
 **Important**: These imports reference build artifacts. If you modify the CSS source:
-1. Rebuild the brand package: `pnpm --filter @dbarrett24/basketball-training-ui build`
+1. Rebuild the brand package: `pnpm build:basketball`
 2. Restart Storybook to pick up changes
 
-### File Organization
+## Adding a New Brand
 
-```
-.storybook/
-├── main.ts              # Storybook build config
-├── preview.tsx          # Global decorators, parameters, globalTypes
-├── brands.ts            # Registry/constants (if needed)
-└── themes/              # Theme CSS files (if not imported from packages)
-    └── default.css
-```
-
-## DevDependencies for CSS Imports
-
-To import CSS from brand packages in core-components Storybook:
-
-```json
-// core-components/package.json
-{
-  "devDependencies": {
-    "@dbarrett24/basketball-training-ui": "workspace:*",
-    "@dbarrett24/professional-brand-ui": "workspace:*"
-  }
-}
-```
-
-**Why devDependencies**: Storybook is a dev tool, these dependencies don't affect the published package.
+When adding a new brand via `pnpm create-brand`:
+1. Brand package is created in `brand-libraries/{brand}-ui/`
+2. Starter stories are created in `apps/docs/stories/{Brand}/`
+3. `storyConfiguration.ts` is updated with new brand entry
+4. `preview.tsx` gets new CSS import
+5. `brands.ts` gets new brand entry
+6. Root `package.json` gets `storybook:{brand}` script
 
 ## Common Issues
 
@@ -122,11 +161,11 @@ To import CSS from brand packages in core-components Storybook:
 **Cause**: Storybook imports from dist/, source changed but not rebuilt
 **Fix**: Rebuild brand package, restart Storybook, hard refresh browser
 
-### TypeScript Errors in Config Files
-**Note**: Storybook config files may be excluded from main tsconfig.json
-**Validation**: ESLint may ignore .storybook/ - this is normal and expected
-**Check**: Run `npx tsc --noEmit .storybook/preview.tsx` to verify types if needed
+### Build Order
+**Critical**: Packages must be built BEFORE starting Storybook (stories import from dist/)
+**Fix**: Run `pnpm build` before `pnpm storybook:core`
+**Turbo**: `dependsOn: ["^build"]` handles this automatically for `build-storybook`
 
-### Theme Not Persisting
-**Solution**: Ensure `dynamicTitle: true` in toolbar config
-**Why**: Storybook stores global state in localStorage automatically
+### TypeScript Errors in Config Files
+**Note**: Storybook config files use a separate `tsconfig.json` in `apps/docs/`
+**Validation**: Run `pnpm --filter docs ts-check` if needed

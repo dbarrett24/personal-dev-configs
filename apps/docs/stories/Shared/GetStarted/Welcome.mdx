@@ -1,0 +1,54 @@
+{/* Welcome.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Get Started/Welcome" />
+
+# Welcome to the Component Library
+
+This is the unified documentation site for all component libraries in the monorepo.
+
+## Available Libraries
+
+### Core Components (`@dbarrett24/core-components`)
+Fully-styled core component library following the Hammer UI architecture pattern.
+Provides base components with complete Tailwind styling, multiple variants, and full accessibility support.
+
+### Basketball Training UI (`@dbarrett24/basketball-training-ui`)
+Basketball Training brand component library. Wraps core components and adds brand-specific styling tweaks
+like shadow effects, scale animations, and energetic transitions.
+
+### Professional Brand UI (`@dbarrett24/professional-brand-ui`)
+Professional Brand component library. Wraps core components and adds brand-specific styling with
+subtle shadows, sharp corners, and a professional aesthetic.
+
+## Brand Switching
+
+Use the **Theme** selector in the Storybook toolbar to switch between brand themes:
+- **Default (Neutral)** — Neutral gray palette for core component development
+- **Basketball Training** — Basketball brand theme colors and tokens
+- **Professional Brand** — Professional brand theme colors and tokens
+
+## Running Storybook
+
+```bash
+# Core components only
+pnpm storybook:core
+
+# Basketball brand stories
+pnpm storybook:basketball
+
+# Professional brand stories
+pnpm storybook:professional
+
+# All stories (unified view)
+pnpm storybook:all
+```
+
+## Architecture
+
+Stories live in this dedicated `apps/docs` application, separated from publishable component packages.
+This keeps packages lean and enables:
+- Side-by-side cross-brand comparison
+- Unified documentation with MDX
+- Single Storybook configuration
+- Clean NPM packages (no Storybook artifacts)

@@ -73,7 +73,7 @@ const preview: Preview = {
         docs: {
             description: {
                 component:
-                    'Core components are headless - they provide behavior and accessibility without styling. Brand libraries should wrap these components to add visual styling.',
+                    'Core components provide behavior and accessibility. Brand libraries wrap these components to add visual styling.',
             },
         },
     },

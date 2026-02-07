@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button as CoreButton, type ButtonProps as CoreButtonProps } from '@dbarrett24/core-components';
 import { cn } from '@dbarrett24/theme-system';
 
@@ -5,7 +6,7 @@ export type ButtonProps = CoreButtonProps;
 
 /**
  * Button component for Basketball Training brand
- * 
+ *
  * Wraps core Button and adds brand-specific styling tweaks:
  * - Shadow effects for depth
  * - Scale animation on interaction

@@ -14,7 +14,7 @@
         "lint-ts-fix": "eslint src --ext .ts,.tsx --fix",
         "lint-prettier-fix": "prettier --cache --write \"src/**/*.{json,js,jsx,ts,tsx}\"",
         "ts-check": "tsc --noEmit",
-        "test": "jest",
+        "test": "jest --passWithNoTests",
         "test-watch": "jest --watch",
         "test-coverage": "jest --coverage"
     },

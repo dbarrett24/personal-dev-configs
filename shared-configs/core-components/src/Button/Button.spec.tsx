@@ -76,9 +76,7 @@ describe('Button', () => {
     });
 
     it('should show loading spinner when loading', () => {
-        render(
-            <Button isLoading={true}>Click me</Button>
-        );
+        render(<Button isLoading={true}>Click me</Button>);
 
         const button = screen.getByRole('button');
         expect(button).toHaveAttribute('aria-busy', 'true');

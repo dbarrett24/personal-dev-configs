@@ -89,6 +89,29 @@ When you modify CSS/JS source files:
 ✅ Result: Storybook shows new styles
 ```
 
+## New Package Checklist
+
+When creating new packages in the monorepo:
+
+**Package Structure**:
+- [ ] `package.json` with proper name, version, scripts, exports
+- [ ] `tsconfig.json` extending appropriate workspace config
+- [ ] `jest.config.js` or `vitest.config.ts` (if package has tests)
+- [ ] **Test setup file** (if required by base config - check `setupFilesAfterEnv`)
+- [ ] `src/` directory with proper structure (components, utils, etc.)
+- [ ] `README.md` with package purpose and usage examples
+
+**Validation Steps**:
+- [ ] Run tests: `pnpm test` (should pass or skip gracefully)
+- [ ] Check JSX transform alignment (TypeScript config vs test config)
+- [ ] Build package: `pnpm build` (should complete without errors)
+- [ ] Verify exports work: Try importing from another package
+
+**Common Gotchas**:
+- Missing `testing/setupTests.ts` when base config expects it
+- React import requirements mismatch between TypeScript and test configs
+- Missing dependencies in `package.json` that were hoisted
+
 ## Verification Checklist
 
 Before testing changes that span multiple packages:

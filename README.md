@@ -139,10 +139,14 @@ pnpm ci:publish         # Publish to npm
 ## 🛠️ Development Scripts
 
 ```bash
+# Verification (recommended before commits)
+pnpm verify-all       # Complete verification checklist (automated)
+pnpm test-sequential  # Run tests one by one (clearer output)
+
 # Development
 pnpm dev               # Start all dev servers
 pnpm build            # Build all packages
-pnpm test             # Run all tests
+pnpm test             # Run all tests (parallel)
 pnpm lint             # Lint all packages
 pnpm lint-fix         # Fix linting issues
 
@@ -157,6 +161,8 @@ pnpm upgrade-deps     # Update all dependencies
 pnpm test-update      # Update test snapshots
 pnpm test-coverage    # Run tests with coverage
 ```
+
+See **[VERIFICATION_CHECKLIST.md](./VERIFICATION_CHECKLIST.md)** for complete verification instructions.
 
 ## 📝 Usage in Projects
 

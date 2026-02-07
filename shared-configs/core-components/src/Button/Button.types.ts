@@ -17,22 +17,9 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonProps = {
     /**
-     * Visual variant of the button
-     * @default 'filled'
+     * Accessible label for screen readers
      */
-    variant?: ButtonVariant;
-
-    /**
-     * Semantic style of the button
-     * @default 'primary'
-     */
-    style?: ButtonStyle;
-
-    /**
-     * Size of the button
-     * @default 'md'
-     */
-    size?: ButtonSize;
+    ariaLabel?: string;
 
     /**
      * Button content
@@ -40,14 +27,9 @@ export type ButtonProps = {
     children: ReactNode;
 
     /**
-     * Whether the button is disabled
+     * Additional CSS classes
      */
-    isDisabled?: boolean;
-
-    /**
-     * Whether the button is in a loading state
-     */
-    isLoading?: boolean;
+    className?: string;
 
     /**
      * Icon to display on the left side
@@ -60,19 +42,14 @@ export type ButtonProps = {
     iconRight?: ReactNode;
 
     /**
-     * Button type attribute
+     * Whether the button is disabled
      */
-    type?: 'button' | 'submit' | 'reset';
+    isDisabled?: boolean;
 
     /**
-     * Accessible label for screen readers
+     * Whether the button is in a loading state
      */
-    ariaLabel?: string;
-
-    /**
-     * Additional CSS classes
-     */
-    className?: string;
+    isLoading?: boolean;
 
     /**
      * Callback when button is clicked
@@ -80,7 +57,30 @@ export type ButtonProps = {
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 
     /**
+     * Size of the button
+     * @default 'md'
+     */
+    size?: ButtonSize;
+
+    /**
+     * Semantic style of the button
+     * @default 'primary'
+     */
+    style?: ButtonStyle;
+
+    /**
      * Test ID for testing
      */
     testId?: string;
+
+    /**
+     * Button type attribute
+     */
+    type?: 'button' | 'submit' | 'reset';
+
+    /**
+     * Visual variant of the button
+     * @default 'filled'
+     */
+    variant?: ButtonVariant;
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'disabled' | 'children' | 'onClick' | 'className' | 'style'>;

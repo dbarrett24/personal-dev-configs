@@ -1,8 +1,7 @@
 module.exports = {
-    extends: ['@dbarrett24/eslint-config-library'],
+    extends: ['@dbarrett24/eslint-config'],
     root: true,
     parserOptions: {
         project: './tsconfig.json',
     },
 };
-

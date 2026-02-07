@@ -75,11 +75,7 @@ import { cn } from '@dbarrett24/theme-system';
 
 export const Card = ({ children, className }) => {
     return (
-        <div className={cn(
-            'bg-background-primary border-border-primary',
-            'p-md rounded-md',
-            className
-        )}>
+        <div className={cn('border-border-primary bg-background-primary', 'rounded-md p-md', className)}>
             {children}
         </div>
     );
@@ -136,7 +132,11 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export const ContactForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormData>({
         resolver: zodResolver(schema),
     });
 
@@ -145,13 +145,22 @@ export const ContactForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-md">
-            <input {...register('email')} placeholder="Email" />
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-md"
+        >
+            <input
+                {...register('email')}
+                placeholder="Email"
+            />
             {errors.email && <span>{errors.email.message}</span>}
-            
-            <textarea {...register('message')} placeholder="Message" />
+
+            <textarea
+                {...register('message')}
+                placeholder="Message"
+            />
             {errors.message && <span>{errors.message.message}</span>}
-            
+
             <Button type="submit">Submit</Button>
         </form>
     );
@@ -238,4 +247,3 @@ module.exports = {
 ## License
 
 MIT
-

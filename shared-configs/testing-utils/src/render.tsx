@@ -1,9 +1,9 @@
-import { type ReactElement, type ReactNode } from 'react';
-import { render as rtlRender, type RenderOptions } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Provider as JotaiProvider } from 'jotai';
 import { jotaiStore } from './jotaiStore';
 import type { InitialState } from './types';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { render as rtlRender, type RenderOptions } from '@testing-library/react';
+import { Provider as JotaiProvider } from 'jotai';
+import { type ReactElement, type ReactNode } from 'react';
 
 type AllProvidersProps = {
     children: ReactNode;
@@ -26,13 +26,13 @@ AllProviders.displayName = 'AllProviders';
 const createTestQueryClient = () =>
     new QueryClient({
         defaultOptions: {
-            queries: {
-                retry: false,
-                gcTime: 0,
-            },
             mutations: {
-                retry: false,
                 gcTime: 0,
+                retry: false,
+            },
+            queries: {
+                gcTime: 0,
+                retry: false,
             },
         },
     });
@@ -62,7 +62,10 @@ type CustomRenderOptions = Omit<RenderOptions, 'wrapper'> & {
  * });
  * ```
  */
-export const render = (ui: ReactElement, options: CustomRenderOptions = {}): ReturnType<typeof rtlRender> & { queryClient: QueryClient } => {
+export const render = (
+    ui: ReactElement,
+    options: CustomRenderOptions = {}
+): ReturnType<typeof rtlRender> & { queryClient: QueryClient } => {
     const { initialState, ...renderOptions } = options;
 
     const queryClient = initialState?.queryClient ?? createTestQueryClient();
@@ -78,4 +81,3 @@ export const render = (ui: ReactElement, options: CustomRenderOptions = {}): Ret
         queryClient,
     };
 };
-

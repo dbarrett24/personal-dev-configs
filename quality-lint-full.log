@@ -1,0 +1,186 @@
+
+> personal-dev-configs@0.0.0 lint /Users/dbarr/Documents/Development/personal-dev-configs
+> turbo run lint-ts lint-prettier ts-check
+
+turbo 2.6.0
+
+• Packages in scope: @dbarrett24/basketball-training-ui, @dbarrett24/core-components, @dbarrett24/eslint-config, @dbarrett24/eslint-config-library, @dbarrett24/jest-config, @dbarrett24/jest-config-library, @dbarrett24/prettier-config, @dbarrett24/professional-brand-ui, @dbarrett24/testing-utils, @dbarrett24/theme-system, @dbarrett24/tsup-config, @dbarrett24/typescript-config, docs, nextjs-app-template, react-vite-template
+• Running lint-ts, lint-prettier, ts-check in 15 packages
+• Remote caching disabled
+@dbarrett24/tsup-config:lint-prettier: cache miss, executing e1aec15169e3a2cf
+@dbarrett24/core-components:lint-prettier: cache miss, executing f191f62f8f55b433
+@dbarrett24/basketball-training-ui:lint-prettier: cache miss, executing 9a3af5828fb93b46
+@dbarrett24/testing-utils:lint-prettier: cache miss, executing 71516a23c02a12c2
+@dbarrett24/professional-brand-ui:lint-prettier: cache miss, executing 678afa27c22c0c08
+@dbarrett24/theme-system:lint-prettier: cache miss, executing ca0f307e0a18729f
+react-vite-template:lint-prettier: cache miss, executing f130f5c5fdbfbd6e
+nextjs-app-template:lint-prettier: cache miss, executing c9f8ae4ba4c84fe8
+@dbarrett24/tsup-config:lint-ts: cache miss, executing 0fac71a27aad65bc
+@dbarrett24/tsup-config:build: cache miss, executing 6a85720f5e62465b
+@dbarrett24/basketball-training-ui:lint-prettier: 
+@dbarrett24/basketball-training-ui:lint-prettier: > @dbarrett24/basketball-training-ui@1.0.1 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/brand-libraries/basketball-training-ui
+@dbarrett24/basketball-training-ui:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+@dbarrett24/basketball-training-ui:lint-prettier: 
+@dbarrett24/core-components:lint-prettier: 
+@dbarrett24/core-components:lint-prettier: > @dbarrett24/core-components@1.0.0 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/core-components
+@dbarrett24/core-components:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+@dbarrett24/core-components:lint-prettier: 
+@dbarrett24/tsup-config:lint-prettier: 
+@dbarrett24/tsup-config:lint-prettier: > @dbarrett24/tsup-config@1.0.0 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config
+@dbarrett24/tsup-config:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+@dbarrett24/tsup-config:lint-prettier: 
+@dbarrett24/testing-utils:lint-prettier: 
+@dbarrett24/testing-utils:lint-prettier: > @dbarrett24/testing-utils@1.0.0 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/testing-utils
+@dbarrett24/testing-utils:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+@dbarrett24/testing-utils:lint-prettier: 
+@dbarrett24/theme-system:lint-prettier: 
+@dbarrett24/theme-system:lint-prettier: > @dbarrett24/theme-system@1.0.0 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/theme-system
+@dbarrett24/theme-system:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+@dbarrett24/theme-system:lint-prettier: 
+@dbarrett24/professional-brand-ui:lint-prettier: 
+@dbarrett24/professional-brand-ui:lint-prettier: > @dbarrett24/professional-brand-ui@1.0.1 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/brand-libraries/professional-brand-ui
+@dbarrett24/professional-brand-ui:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+@dbarrett24/professional-brand-ui:lint-prettier: 
+react-vite-template:lint-prettier: 
+react-vite-template:lint-prettier: > react-vite-template@0.1.1 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/apps/react-vite
+react-vite-template:lint-prettier: > prettier --cache --check "src/**/*.{json,js,jsx,ts,tsx}"
+react-vite-template:lint-prettier: 
+nextjs-app-template:lint-prettier: 
+nextjs-app-template:lint-prettier: > nextjs-app-template@0.1.1 lint-prettier /Users/dbarr/Documents/Development/personal-dev-configs/apps/nextjs-app
+nextjs-app-template:lint-prettier: > prettier --cache --check .
+nextjs-app-template:lint-prettier: 
+@dbarrett24/tsup-config:lint-ts: 
+@dbarrett24/tsup-config:lint-ts: > @dbarrett24/tsup-config@1.0.0 lint-ts /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config
+@dbarrett24/tsup-config:lint-ts: > eslint src --cache
+@dbarrett24/tsup-config:lint-ts: 
+@dbarrett24/tsup-config:build: 
+@dbarrett24/tsup-config:build: > @dbarrett24/tsup-config@1.0.0 build /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config
+@dbarrett24/tsup-config:build: > tsup
+@dbarrett24/tsup-config:build: 
+nextjs-app-template:lint-prettier: Checking formatting...
+@dbarrett24/tsup-config:lint-prettier: Checking formatting...
+@dbarrett24/core-components:lint-prettier: Checking formatting...
+@dbarrett24/testing-utils:lint-prettier: Checking formatting...
+@dbarrett24/professional-brand-ui:lint-prettier: Checking formatting...
+@dbarrett24/theme-system:lint-prettier: Checking formatting...
+@dbarrett24/basketball-training-ui:lint-prettier: Checking formatting...
+react-vite-template:lint-prettier: Checking formatting...
+@dbarrett24/core-components:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/tsup-config:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/tsup-config:build: CLI Building entry: src/index.ts
+@dbarrett24/tsup-config:build: CLI Using tsconfig: tsconfig.json
+@dbarrett24/tsup-config:build: CLI tsup v8.5.0
+@dbarrett24/tsup-config:build: CLI Using tsup config: /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config/tsup.config.ts
+@dbarrett24/tsup-config:build: CLI Target: es2020
+@dbarrett24/tsup-config:build: CLI Cleaning output folder
+@dbarrett24/tsup-config:build: CJS Build start
+@dbarrett24/tsup-config:build: ESM Build start
+@dbarrett24/tsup-config:ts-check: cache miss, executing 73a0815e0ea921b3
+@dbarrett24/theme-system:build: cache miss, executing 469e699542837cd8
+@dbarrett24/professional-brand-ui:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/tsup-config:build: CJS dist/index.js     5.89 KB
+@dbarrett24/tsup-config:build: CJS dist/index.js.map 9.15 KB
+@dbarrett24/tsup-config:build: CJS ⚡️ Build success in 59ms
+@dbarrett24/tsup-config:build: ESM dist/index.mjs     3.90 KB
+@dbarrett24/tsup-config:build: ESM dist/index.mjs.map 9.00 KB
+@dbarrett24/tsup-config:build: ESM ⚡️ Build success in 61ms
+@dbarrett24/theme-system:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/theme-system:ts-check: cache miss, executing 19f09618f1c2efdf
+@dbarrett24/basketball-training-ui:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/testing-utils:build: cache miss, executing 92dce97beff270c9
+react-vite-template:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/theme-system:lint-ts: cache miss, executing 6ae85032f7c07076
+@dbarrett24/testing-utils:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/testing-utils:lint-ts: cache miss, executing 27526e4224b1e650
+@dbarrett24/testing-utils:ts-check: cache miss, executing 9b3727ccbff80477
+@dbarrett24/tsup-config:ts-check: 
+@dbarrett24/tsup-config:ts-check: > @dbarrett24/tsup-config@1.0.0 ts-check /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config
+@dbarrett24/tsup-config:ts-check: > tsc --noEmit
+@dbarrett24/tsup-config:ts-check: 
+@dbarrett24/theme-system:build: 
+@dbarrett24/theme-system:build: > @dbarrett24/theme-system@1.0.0 build /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/theme-system
+@dbarrett24/theme-system:build: > tsup
+@dbarrett24/theme-system:build: 
+@dbarrett24/theme-system:ts-check: 
+@dbarrett24/theme-system:ts-check: > @dbarrett24/theme-system@1.0.0 ts-check /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/theme-system
+@dbarrett24/theme-system:ts-check: > tsc --noEmit
+@dbarrett24/theme-system:ts-check: 
+@dbarrett24/tsup-config:build: DTS Build start
+@dbarrett24/theme-system:lint-ts: 
+@dbarrett24/theme-system:lint-ts: > @dbarrett24/theme-system@1.0.0 lint-ts /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/theme-system
+@dbarrett24/theme-system:lint-ts: > eslint src --cache
+@dbarrett24/theme-system:lint-ts: 
+@dbarrett24/testing-utils:build: 
+@dbarrett24/testing-utils:build: > @dbarrett24/testing-utils@1.0.0 build /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/testing-utils
+@dbarrett24/testing-utils:build: > tsup
+@dbarrett24/testing-utils:build: 
+@dbarrett24/testing-utils:lint-ts: 
+@dbarrett24/testing-utils:lint-ts: > @dbarrett24/testing-utils@1.0.0 lint-ts /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/testing-utils
+@dbarrett24/testing-utils:lint-ts: > eslint src --cache
+@dbarrett24/testing-utils:lint-ts: 
+@dbarrett24/testing-utils:ts-check: 
+@dbarrett24/testing-utils:ts-check: > @dbarrett24/testing-utils@1.0.0 ts-check /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/testing-utils
+@dbarrett24/testing-utils:ts-check: > tsc --noEmit
+@dbarrett24/testing-utils:ts-check: 
+nextjs-app-template:lint-prettier: All matched files use Prettier code style!
+@dbarrett24/tsup-config:build: DTS ⚡️ Build success in 501ms
+@dbarrett24/tsup-config:build: DTS dist/index.d.ts  1.27 KB
+@dbarrett24/tsup-config:build: DTS dist/index.d.mts 1.27 KB
+@dbarrett24/theme-system:build: CLI Building entry: src/index.ts, src/theme.ts, src/cn.ts
+@dbarrett24/theme-system:build: CLI Using tsconfig: tsconfig.json
+@dbarrett24/theme-system:build: CLI tsup v6.7.0
+@dbarrett24/theme-system:build: CLI Using tsup config: /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/theme-system/tsup.config.ts
+@dbarrett24/theme-system:build: CLI Target: es2020
+@dbarrett24/theme-system:build: CLI Cleaning output folder
+@dbarrett24/theme-system:build: CJS Build start
+@dbarrett24/theme-system:build: ESM Build start
+@dbarrett24/testing-utils:build: CLI Building entry: src/index.ts
+@dbarrett24/theme-system:build: ESM dist/theme.mjs     3.37 KB
+@dbarrett24/theme-system:build: ESM dist/index.mjs     3.52 KB
+@dbarrett24/theme-system:build: ESM dist/cn.mjs        193.00 B
+@dbarrett24/theme-system:build: ESM dist/theme.mjs.map 5.39 KB
+@dbarrett24/theme-system:build: ESM dist/index.mjs.map 6.45 KB
+@dbarrett24/theme-system:build: ESM dist/cn.mjs.map    1.13 KB
+@dbarrett24/theme-system:build: ESM ⚡️ Build success in 30ms
+@dbarrett24/theme-system:build: CJS dist/cn.js        1.21 KB
+@dbarrett24/theme-system:build: CJS dist/index.js     4.59 KB
+@dbarrett24/theme-system:build: CJS dist/theme.js     4.36 KB
+@dbarrett24/theme-system:build: CJS dist/index.js.map 6.63 KB
+@dbarrett24/theme-system:build: CJS dist/cn.js.map    1.16 KB
+@dbarrett24/theme-system:build: CJS dist/theme.js.map 5.43 KB
+@dbarrett24/theme-system:build: CJS ⚡️ Build success in 32ms
+@dbarrett24/testing-utils:build: CLI Using tsconfig: tsconfig.json
+@dbarrett24/testing-utils:build: CLI tsup v6.7.0
+@dbarrett24/testing-utils:build: CLI Using tsup config: /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/testing-utils/tsup.config.ts
+@dbarrett24/testing-utils:build: CLI Target: es2020
+@dbarrett24/testing-utils:build: CLI Cleaning output folder
+@dbarrett24/testing-utils:build: CJS Build start
+@dbarrett24/testing-utils:build: ESM Build start
+@dbarrett24/testing-utils:build: CJS dist/index.js     6.35 KB
+@dbarrett24/testing-utils:build: CJS dist/index.js.map 10.65 KB
+@dbarrett24/testing-utils:build: CJS ⚡️ Build success in 25ms
+@dbarrett24/testing-utils:build: ESM dist/index.mjs     4.00 KB
+@dbarrett24/testing-utils:build: ESM dist/index.mjs.map 10.53 KB
+@dbarrett24/testing-utils:build: ESM ⚡️ Build success in 27ms
+@dbarrett24/theme-system:build: DTS Build start
+@dbarrett24/testing-utils:build: DTS Build start
+@dbarrett24/tsup-config:lint-ts: 
+@dbarrett24/tsup-config:lint-ts: /Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config/src/index.ts
+@dbarrett24/tsup-config:lint-ts:    1:1   error    Resolve error: typescript with invalid interface loaded as resolver  import/order
+@dbarrett24/tsup-config:lint-ts:    1:1   error    Resolve error: typescript with invalid interface loaded as resolver  import/no-duplicates
+@dbarrett24/tsup-config:lint-ts:    1:1   error    Resolve error: typescript with invalid interface loaded as resolver  import/no-self-import
+@dbarrett24/tsup-config:lint-ts:   68:27  warning  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+@dbarrett24/tsup-config:lint-ts: 
+@dbarrett24/tsup-config:lint-ts: ✖ 4 problems (3 errors, 1 warning)
+@dbarrett24/tsup-config:lint-ts: 
+@dbarrett24/tsup-config:lint-ts:  ELIFECYCLE  Command failed with exit code 1.
+@dbarrett24/tsup-config:lint-ts: ERROR: command finished with error: command (/Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config) /Users/dbarr/Library/pnpm/.tools/pnpm/10.13.1/bin/pnpm run lint-ts exited (1)
+@dbarrett24/tsup-config#lint-ts: command (/Users/dbarr/Documents/Development/personal-dev-configs/shared-configs/tsup-config) /Users/dbarr/Library/pnpm/.tools/pnpm/10.13.1/bin/pnpm run lint-ts exited (1)
+
+ Tasks:    12 successful, 17 total
+Cached:    0 cached, 17 total
+  Time:    5.085s 
+Failed:    @dbarrett24/tsup-config#lint-ts
+
+ ERROR  run failed: command  exited (1)
+ ELIFECYCLE  Command failed with exit code 1.

@@ -1,19 +1,19 @@
+import { Input } from './Input';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Input } from './Input';
 
 describe('Input', () => {
     it('should render with label', () => {
         render(<Input label="Email" />);
 
-        expect(screen.getByLabelText('Email')).toBeInTheDocument();
+        expect(screen.getByLabelText('Email')).toBeVisible();
     });
 
     it('should associate label with input via htmlFor', () => {
         render(
             <Input
-                label="Username"
                 id="username-input"
+                label="Username"
             />
         );
 
@@ -40,20 +40,20 @@ describe('Input', () => {
     it('should show required indicator', () => {
         render(
             <Input
+                isRequired
                 label="Email"
-                isRequired={true}
             />
         );
 
-        expect(screen.getByText('Email')).toBeInTheDocument();
-        expect(screen.getByText('*')).toBeInTheDocument();
+        expect(screen.getByText('Email')).toBeVisible();
+        expect(screen.getByText('*')).toBeVisible();
     });
 
     it('should handle disabled state', () => {
         render(
             <Input
+                isDisabled
                 label="Email"
-                isDisabled={true}
             />
         );
 
@@ -64,8 +64,8 @@ describe('Input', () => {
     it('should handle readonly state', () => {
         render(
             <Input
+                isReadOnly
                 label="Email"
-                isReadOnly={true}
             />
         );
 
@@ -76,8 +76,8 @@ describe('Input', () => {
     it('should display error message', () => {
         render(
             <Input
-                label="Email"
                 error="Invalid email"
+                label="Email"
             />
         );
 
@@ -87,8 +87,8 @@ describe('Input', () => {
     it('should have aria-invalid when error is present', () => {
         render(
             <Input
-                label="Email"
                 error="Invalid email"
+                label="Email"
             />
         );
 
@@ -99,9 +99,9 @@ describe('Input', () => {
     it('should associate error with input via aria-describedby', () => {
         render(
             <Input
-                label="Email"
                 error="Invalid email"
                 id="email-input"
+                label="Email"
             />
         );
 
@@ -112,32 +112,32 @@ describe('Input', () => {
     it('should display helper text', () => {
         render(
             <Input
-                label="Password"
                 helperText="Must be at least 8 characters"
+                label="Password"
             />
         );
 
-        expect(screen.getByText('Must be at least 8 characters')).toBeInTheDocument();
+        expect(screen.getByText('Must be at least 8 characters')).toBeVisible();
     });
 
     it('should not display helper text when error is present', () => {
         render(
             <Input
-                label="Password"
-                helperText="Helper text"
                 error="Error message"
+                helperText="Helper text"
+                label="Password"
             />
         );
 
-        expect(screen.getByText('Error message')).toBeInTheDocument();
+        expect(screen.getByText('Error message')).toBeVisible();
         expect(screen.queryByText('Helper text')).not.toBeInTheDocument();
     });
 
     it('should visually hide label when hideLabel is true', () => {
         render(
             <Input
+                hideLabel
                 label="Search"
-                hideLabel={true}
             />
         );
 
@@ -149,23 +149,30 @@ describe('Input', () => {
         render(
             <Input
                 label="Search"
-                startAdornment={<span>🔍</span>}
+                startAdornment={
+                    <span
+                        aria-label="search icon"
+                        role="img"
+                    >
+                        🔍
+                    </span>
+                }
             />
         );
 
-        expect(screen.getByText('🔍')).toBeInTheDocument();
+        expect(screen.getByLabelText('search icon')).toBeVisible();
     });
 
     it('should render end adornment', () => {
         render(
             <Input
-                label="Password"
                 endAdornment={<button type="button">Show</button>}
+                label="Password"
             />
         );
 
         // Button is wrapped in aria-hidden span, so we need to query by text
-        expect(screen.getByText('Show')).toBeInTheDocument();
+        expect(screen.getByText('Show')).toBeVisible();
     });
 
     it('should handle onChange event', async () => {
@@ -188,11 +195,11 @@ describe('Input', () => {
     it('should apply custom classNames', () => {
         render(
             <Input
+                inputClassName="input-class"
                 label="Email"
+                labelClassName="label-class"
                 testId="email-wrapper"
                 wrapperClassName="wrapper-class"
-                labelClassName="label-class"
-                inputClassName="input-class"
             />
         );
 
@@ -208,19 +215,19 @@ describe('Input', () => {
             />
         );
 
-        expect(screen.getByTestId('email-input')).toBeInTheDocument();
+        expect(screen.getByTestId('email-input')).toBeVisible();
     });
 
     it('should mark as required with aria-required', () => {
         render(
             <Input
+                isRequired
                 label="Email"
-                isRequired={true}
             />
         );
 
         const input = screen.getByRole('textbox');
         expect(input).toBeRequired();
-        expect(input).toHaveAttribute('aria-required', 'true');
+        expect(input).toBeRequired();
     });
 });

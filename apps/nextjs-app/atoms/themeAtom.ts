@@ -15,14 +15,13 @@ export const toggleThemeAtom = atom(
 
 // Example of a complex state atom
 export type UserPreferences = {
-    theme: 'light' | 'dark';
-    notifications: boolean;
     language: string;
+    notifications: boolean;
+    theme: 'light' | 'dark';
 };
 
 export const userPreferencesAtom = atomWithStorage<UserPreferences>('user-preferences', {
-    theme: 'light',
-    notifications: true,
     language: 'en',
+    notifications: true,
+    theme: 'light',
 });
-

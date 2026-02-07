@@ -1,6 +1,9 @@
 module.exports = {
     extends: ['@dbarrett24/eslint-config'],
-    plugins: ['@next/eslint-plugin-next'],
+    ignorePatterns: ['coverage/**', '*.config.js', '*.config.mjs', '.eslintrc.js', 'next-env.d.ts', '.next/**'],
+    parserOptions: {
+        project: './tsconfig.json',
+    },
     rules: {
         // Add Next.js specific import restrictions
         'no-restricted-imports': [
@@ -17,4 +20,3 @@ module.exports = {
     },
     root: true,
 };
-

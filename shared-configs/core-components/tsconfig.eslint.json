@@ -1,8 +1,7 @@
 {
-    "extends": "@dbarrett24/typescript-config/library.json",
+    "extends": "./tsconfig.json",
     "compilerOptions": {
-        "outDir": "dist",
-        "rootDir": "src",
+        "jsx": "react-jsx",
         "types": ["jest", "@testing-library/jest-dom"]
     },
     "include": ["src/**/*"],

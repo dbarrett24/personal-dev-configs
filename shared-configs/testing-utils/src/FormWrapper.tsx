@@ -1,10 +1,5 @@
 import { type ReactNode } from 'react';
-import {
-    FormProvider,
-    useForm,
-    type UseFormProps,
-    type DefaultValues,
-} from 'react-hook-form';
+import { FormProvider, useForm, type UseFormProps, type DefaultValues } from 'react-hook-form';
 
 type FormWrapperProps<TFormValues extends Record<string, unknown>> = {
     children: ReactNode;
@@ -44,4 +39,3 @@ export const FormWrapper = <TFormValues extends Record<string, unknown>>({
 };
 
 FormWrapper.displayName = 'FormWrapper';
-

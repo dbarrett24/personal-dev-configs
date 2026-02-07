@@ -5,9 +5,9 @@ import type { QueryClient } from '@tanstack/react-query';
  */
 export type InitialState = {
     /**
-     * React Query client instance
+     * Additional provider options
      */
-    queryClient?: QueryClient;
+    [key: string]: unknown;
 
     /**
      * Custom app context values for testing
@@ -15,8 +15,7 @@ export type InitialState = {
     appContext?: Record<string, unknown>;
 
     /**
-     * Additional provider options
+     * React Query client instance
      */
-    [key: string]: unknown;
+    queryClient?: QueryClient;
 };
-

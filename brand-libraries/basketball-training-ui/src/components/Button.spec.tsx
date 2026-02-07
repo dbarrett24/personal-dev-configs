@@ -1,5 +1,5 @@
-import { render, screen, userEvent } from '@dbarrett24/testing-utils';
 import { Button } from './Button';
+import { render, screen, userEvent } from '@dbarrett24/testing-utils';
 
 describe('Button', () => {
     it('renders with default props', () => {

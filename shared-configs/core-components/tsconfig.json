@@ -2,8 +2,9 @@
     "extends": "@dbarrett24/typescript-config/library.json",
     "compilerOptions": {
         "outDir": "dist",
-        "rootDir": "src"
+        "rootDir": "src",
+        "types": ["jest", "@testing-library/jest-dom"]
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.spec.tsx"]
+    "exclude": ["node_modules", "dist"]
 }

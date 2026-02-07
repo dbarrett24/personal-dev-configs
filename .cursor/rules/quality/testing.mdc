@@ -19,6 +19,37 @@ alwaysApply: false
 - **Avoid direct Node access in tests** - Use Testing Library methods instead
 - **Maintain code coverage above 90%** for apps, 95%+ for libraries
 
+## Pre-Implementation Validation
+
+Before starting implementation that involves testing:
+
+### 1. Check JSX Transform Alignment
+- Read TypeScript config (`"jsx"` setting in tsconfig.json)
+- Read Jest/Vitest config (transform setup)
+- Verify they use compatible JSX transforms
+- **Flag mismatches before proceeding** - this causes React import issues
+
+**Common Mismatch**:
+```
+TypeScript: "jsx": "react-jsx"  (NEW transform, no React import needed)
+Jest:       babel-jest           (CLASSIC transform, React import REQUIRED)
+```
+
+### 2. Validate Test Setup Files
+- Check if base test config expects setup files (e.g., `setupTests.ts`)
+- Verify all packages have required setup files at expected paths
+- Document setup file patterns in the project
+
+### 3. Test Pattern Consistency
+- Identify test patterns in existing code (import styles, mock patterns)
+- Check if new packages follow same patterns
+- Validate test utilities are available (@dbarrett24/testing-utils)
+
+**When to Run This Check**:
+- Before creating new packages with tests
+- Before major test infrastructure changes
+- When migrating components from external sources
+
 ## Query Priority
 
 Use queries in this preferred order:

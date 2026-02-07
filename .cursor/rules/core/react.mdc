@@ -12,8 +12,57 @@ alwaysApply: true
 ### Functional Components Only
 
 - **Use functional components exclusively** - no class components
-- **React import not needed** in React 17+ with new JSX Transform
+- **React imports may or may not be needed** - depends on JSX transform configuration (see below)
 - **Named exports only** (except for page.tsx files in Next.js)
+
+## React Import Requirements
+
+### Current Project Status
+**IMPORTANT**: Check your project's JSX transform configuration before assuming imports are/aren't needed.
+
+### When React Imports Are Required
+- Using `"jsx": "react"` (classic transform) in `tsconfig.json`
+- Test framework uses Babel without new JSX transform configured
+- Configuration mismatch between TypeScript and test tooling
+
+### When React Imports Are NOT Required  
+- Using `"jsx": "react-jsx"` or `"jsx": "react-jsxdev"` in `tsconfig.json`
+- Test framework properly configured for new JSX transform:
+  - `@swc/jest` with appropriate config
+  - Vitest with `@vitejs/plugin-react-swc`
+  - Babel with `{ "runtime": "automatic" }`
+- All tooling aligned on new transform
+
+### How to Validate Your Project
+
+**Step 1: Check TypeScript Config**
+```bash
+# Look for "jsx" setting in tsconfig.json
+grep -r "jsx" tsconfig*.json
+```
+
+**Step 2: Check Test Config**
+```bash
+# Check what transform your tests use
+grep -r "transform" jest.config.* vitest.config.*
+```
+
+**Step 3: Identify Mismatches**
+```
+❌ MISMATCH (React imports REQUIRED):
+TypeScript: "jsx": "react-jsx"
+Jest:       babel-jest (default config)
+
+✅ ALIGNED (No React imports needed):
+TypeScript: "jsx": "react-jsx"  
+Jest:       @swc/jest or Vitest with SWC
+```
+
+### If You Find a Mismatch
+1. **Document it as technical debt** in project notes
+2. **Add React imports** to all component files as a temporary workaround
+3. **Propose migration** to aligned tooling (e.g., Jest + @swc/jest)
+4. **Don't silently ignore** - this causes confusing errors during development
 
 ```typescript
 // ✅ CORRECT - Functional component with proper structure

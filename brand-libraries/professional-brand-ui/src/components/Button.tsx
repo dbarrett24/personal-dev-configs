@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button as CoreButton, type ButtonProps as CoreButtonProps } from '@dbarrett24/core-components';
 import { cn } from '@dbarrett24/theme-system';
 

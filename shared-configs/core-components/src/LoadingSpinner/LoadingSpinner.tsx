@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn } from '@dbarrett24/theme-system';
 
 type LoadingSpinnerProps = {

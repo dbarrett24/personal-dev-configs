@@ -15,7 +15,7 @@ module.exports = {
     ],
 
     // Higher thresholds for libraries (published code should be well-tested)
-    coverageThresholds: {
+    coverageThreshold: {
         global: {
             branches: 95,
             functions: 95,

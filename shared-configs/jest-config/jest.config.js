@@ -34,12 +34,18 @@ module.exports = {
         '\\.(gif|png|jpg|jpeg|svg)$': '<rootDir>/testing/__mocks__/fileMock.js',
     },
 
-    // Transform files
+    // Transform files with SWC (20-30x faster than Babel)
     transform: {
         '^.+\\.(t|j)sx?$': [
-            'babel-jest',
+            '@swc/jest',
             {
-                presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+                jsc: {
+                    transform: {
+                        react: {
+                            runtime: 'automatic', // Use new JSX transform (no React import needed)
+                        },
+                    },
+                },
             },
         ],
     },

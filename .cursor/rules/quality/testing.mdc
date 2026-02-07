@@ -23,22 +23,24 @@ alwaysApply: false
 
 Before starting implementation that involves testing:
 
-### 1. Check JSX Transform Alignment
-- Read TypeScript config (`"jsx"` setting in tsconfig.json)
-- Read Jest/Vitest config (transform setup)
-- Verify they use compatible JSX transforms
-- **Flag mismatches before proceeding** - this causes React import issues
+### 1. Verify Test Infrastructure Alignment
+**✅ This Project Status**: Uses @swc/jest with automatic JSX runtime - fully aligned.
 
-**Common Mismatch**:
-```
-TypeScript: "jsx": "react-jsx"  (NEW transform, no React import needed)
-Jest:       babel-jest           (CLASSIC transform, React import REQUIRED)
-```
+- TypeScript config: `"jsx": "react-jsx"` (new transform)
+- Jest config: `@swc/jest` with `runtime: 'automatic'` (new transform)
+- **Result**: No React imports needed in component or test files
 
 ### 2. Validate Test Setup Files
 - Check if base test config expects setup files (e.g., `setupTests.ts`)
 - Verify all packages have required setup files at expected paths
 - Document setup file patterns in the project
+
+**Current Setup Files**:
+- `shared-configs/core-components/testing/setupTests.ts`
+- `brand-libraries/basketball-training-ui/testing/setupTests.ts`
+- `brand-libraries/professional-brand-ui/testing/setupTests.ts`
+- `apps/nextjs-app/testing/setupTests.ts`
+- `apps/react-vite/testing/setupTests.ts`
 
 ### 3. Test Pattern Consistency
 - Identify test patterns in existing code (import styles, mock patterns)
@@ -49,6 +51,22 @@ Jest:       babel-jest           (CLASSIC transform, React import REQUIRED)
 - Before creating new packages with tests
 - Before major test infrastructure changes
 - When migrating components from external sources
+
+### 4. Test Infrastructure (Current Setup)
+
+**Test Runner**: Jest 29.7.0  
+**Transformer**: @swc/jest (20-30x faster than babel-jest)  
+**JSX Transform**: Automatic (no React imports needed)
+
+**Base Configurations**:
+- `@dbarrett24/jest-config` - For apps (90% coverage threshold)
+- `@dbarrett24/jest-config-library` - For libraries (95% coverage threshold)
+
+**Benefits of @swc/jest**:
+- ✅ Fast test execution (Rust-based transpilation)
+- ✅ Aligned with TypeScript JSX transform
+- ✅ No Babel dependencies required
+- ✅ Matches Hammer UI test infrastructure
 
 ## Query Priority
 

@@ -66,5 +66,8 @@ credentials/
 *.old
 *.orig
 
-#Ignore cursor AI rules
+# Ignore cursor AI rules
 .cursor/rules/codacy.mdc
+# Ignore GSD/AI Plans
+.cursor/plans/
+

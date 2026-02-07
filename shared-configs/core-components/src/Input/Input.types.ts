@@ -2,14 +2,9 @@ import { InputHTMLAttributes, ReactNode } from 'react';
 
 export type InputProps = {
     /**
-     * Input label text (required for accessibility)
+     * Content to render after the input (e.g., icon, button)
      */
-    label: string;
-
-    /**
-     * Whether to visually hide the label (still accessible to screen readers)
-     */
-    hideLabel?: boolean;
+    endAdornment?: ReactNode;
 
     /**
      * Error message to display
@@ -17,14 +12,29 @@ export type InputProps = {
     error?: string;
 
     /**
+     * Additional CSS class for error message
+     */
+    errorClassName?: string;
+
+    /**
      * Helper text to display below the input
      */
     helperText?: string;
 
     /**
-     * Whether the input is required
+     * Additional CSS class for helper text
      */
-    isRequired?: boolean;
+    helperTextClassName?: string;
+
+    /**
+     * Whether to visually hide the label (still accessible to screen readers)
+     */
+    hideLabel?: boolean;
+
+    /**
+     * Additional CSS class for the input element
+     */
+    inputClassName?: string;
 
     /**
      * Whether the input is disabled
@@ -37,14 +47,14 @@ export type InputProps = {
     isReadOnly?: boolean;
 
     /**
-     * Additional CSS class for the input element
+     * Whether the input is required
      */
-    inputClassName?: string;
+    isRequired?: boolean;
 
     /**
-     * Additional CSS class for the wrapper
+     * Input label text (required for accessibility)
      */
-    wrapperClassName?: string;
+    label: string;
 
     /**
      * Additional CSS class for the label
@@ -52,27 +62,17 @@ export type InputProps = {
     labelClassName?: string;
 
     /**
-     * Additional CSS class for error message
-     */
-    errorClassName?: string;
-
-    /**
-     * Additional CSS class for helper text
-     */
-    helperTextClassName?: string;
-
-    /**
      * Content to render before the input (e.g., icon)
      */
     startAdornment?: ReactNode;
 
     /**
-     * Content to render after the input (e.g., icon, button)
-     */
-    endAdornment?: ReactNode;
-
-    /**
      * Test ID for testing
      */
     testId?: string;
+
+    /**
+     * Additional CSS class for the wrapper
+     */
+    wrapperClassName?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'disabled' | 'readOnly' | 'required' | 'className'>;

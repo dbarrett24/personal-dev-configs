@@ -1,8 +1,8 @@
 import { cn } from '@dbarrett24/theme-system';
 
 type LoadingSpinnerProps = {
-    size?: 'sm' | 'md' | 'lg';
     className?: string;
+    size?: 'sm' | 'md' | 'lg';
 };
 
 /**
@@ -10,9 +10,10 @@ type LoadingSpinnerProps = {
  *
  * Displays an animated spinning indicator for loading states
  */
-export const LoadingSpinner = ({ size = 'md', className }: LoadingSpinnerProps) => {
+export const LoadingSpinner = ({ className, size = 'md' }: LoadingSpinnerProps) => {
     return (
         <svg
+            aria-hidden="true"
             className={cn(
                 'animate-spin',
                 size === 'sm' && 'h-4 w-4',
@@ -20,10 +21,9 @@ export const LoadingSpinner = ({ size = 'md', className }: LoadingSpinnerProps) 
                 size === 'lg' && 'h-6 w-6',
                 className
             )}
-            xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
         >
             <circle
                 className="opacity-25"
@@ -35,8 +35,8 @@ export const LoadingSpinner = ({ size = 'md', className }: LoadingSpinnerProps) 
             />
             <path
                 className="opacity-75"
-                fill="currentColor"
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                fill="currentColor"
             />
         </svg>
     );

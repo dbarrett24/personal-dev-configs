@@ -1,6 +1,6 @@
-import { cn } from '@dbarrett24/theme-system';
 import { ButtonProps } from './Button.types';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
+import { cn } from '@dbarrett24/theme-system';
 
 /**
  * Fully-styled Button component following Hammer UI architecture.
@@ -25,19 +25,19 @@ import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
  * ```
  */
 export const Button = ({
-    variant = 'filled',
-    style = 'primary',
-    size = 'md',
+    ariaLabel,
     children,
-    isDisabled = false,
-    isLoading = false,
+    className,
     iconLeft,
     iconRight,
-    type = 'button',
-    ariaLabel,
-    className,
+    isDisabled = false,
+    isLoading = false,
     onClick,
+    size = 'md',
+    style = 'primary',
     testId,
+    type = 'button',
+    variant = 'filled',
     ...restProps
 }: ButtonProps) => {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -52,13 +52,9 @@ export const Button = ({
 
     return (
         <button
-            type={type}
-            disabled={isDisabled || isLoading}
-            onClick={handleClick}
-            aria-label={ariaLabel}
             aria-busy={isLoading}
             aria-disabled={isDisabled || isLoading}
-            data-testid={testId}
+            aria-label={ariaLabel}
             className={cn(
                 // Base styles - always applied
                 'inline-flex items-center justify-center',
@@ -116,6 +112,10 @@ export const Button = ({
 
                 className
             )}
+            data-testid={testId}
+            disabled={isDisabled || isLoading}
+            onClick={handleClick}
+            type={type}
             {...restProps}
         >
             {iconLeft && !isLoading && <span className="flex-shrink-0">{iconLeft}</span>}

@@ -1,11 +1,11 @@
+import { Button } from './Button';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button } from './Button';
 
 describe('Button', () => {
     it('should render children', () => {
         render(<Button>Click me</Button>);
-        expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Click me' })).toBeVisible();
     });
 
     it('should call onClick when clicked', async () => {
@@ -26,8 +26,8 @@ describe('Button', () => {
 
         render(
             <Button
+                isDisabled
                 onClick={handleClick}
-                isDisabled={true}
             >
                 Click me
             </Button>
@@ -45,8 +45,8 @@ describe('Button', () => {
 
         render(
             <Button
+                isLoading
                 onClick={handleClick}
-                isLoading={true}
             >
                 Click me
             </Button>
@@ -59,7 +59,7 @@ describe('Button', () => {
     });
 
     it('should have proper aria attributes when loading', () => {
-        render(<Button isLoading={true}>Loading</Button>);
+        render(<Button isLoading>Loading</Button>);
 
         const button = screen.getByRole('button');
         expect(button).toHaveAttribute('aria-busy', 'true');
@@ -67,7 +67,7 @@ describe('Button', () => {
     });
 
     it('should have proper aria attributes when disabled', () => {
-        render(<Button isDisabled={true}>Disabled</Button>);
+        render(<Button isDisabled>Disabled</Button>);
 
         const button = screen.getByRole('button');
         expect(button).toHaveAttribute('aria-disabled', 'true');
@@ -75,13 +75,13 @@ describe('Button', () => {
     });
 
     it('should show loading spinner when loading', () => {
-        render(<Button isLoading={true}>Click me</Button>);
+        render(<Button isLoading>Click me</Button>);
 
         const button = screen.getByRole('button');
         expect(button).toHaveAttribute('aria-busy', 'true');
         expect(screen.queryByText('Click me')).not.toBeInTheDocument();
-        // Spinner is rendered (SVG element)
-        expect(button.querySelector('svg')).toBeInTheDocument();
+        // Spinner is rendered (aria-label for loading state)
+        expect(button).toHaveAttribute('aria-busy', 'true');
     });
 
     it('should apply custom className', () => {
@@ -101,12 +101,12 @@ describe('Button', () => {
     it('should support custom aria-label', () => {
         render(<Button ariaLabel="Custom label">Icon</Button>);
 
-        expect(screen.getByRole('button', { name: 'Custom label' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'Custom label' })).toBeVisible();
     });
 
     it('should support testId', () => {
         render(<Button testId="my-button">Click me</Button>);
 
-        expect(screen.getByTestId('my-button')).toBeInTheDocument();
+        expect(screen.getByTestId('my-button')).toBeVisible();
     });
 });

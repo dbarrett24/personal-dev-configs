@@ -1,36 +1,37 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Button } from '@dbarrett24/basketball-training-ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 const schema = z.object({
-    name: z.string().min(2, 'Name must be at least 2 characters'),
     email: z.string().email('Invalid email address'),
     message: z.string().min(10, 'Message must be at least 10 characters'),
+    name: z.string().min(2, 'Name must be at least 2 characters'),
 });
 
 type ContactFormData = z.infer<typeof schema>;
 
 export const ContactForm = () => {
     const {
-        register,
-        handleSubmit,
         formState: { errors, isSubmitting },
+        handleSubmit,
+        register,
         reset,
     } = useForm<ContactFormData>({
-        resolver: zodResolver(schema),
         defaultValues: {
-            name: '',
             email: '',
             message: '',
+            name: '',
         },
+        resolver: zodResolver(schema),
     });
 
     const onSubmit = async (data: ContactFormData) => {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
+        // eslint-disable-next-line no-console
         console.log('Form submitted:', data);
         alert('Form submitted successfully!');
         reset();
@@ -38,64 +39,64 @@ export const ContactForm = () => {
 
     return (
         <form
+            className="mx-auto flex max-w-md flex-col gap-md"
             onSubmit={handleSubmit(onSubmit)}
-            className="flex flex-col gap-md max-w-md mx-auto"
         >
             <div>
                 <label
+                    className="mb-2xs block text-sm font-medium text-text-primary"
                     htmlFor="name"
-                    className="block text-sm font-medium text-text-primary mb-2xs"
                 >
                     Name
                 </label>
                 <input
                     {...register('name')}
+                    className="w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2 focus:ring-border-focus"
                     id="name"
-                    type="text"
                     placeholder="Your name"
-                    className="w-full px-md py-sm border border-border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-border-focus"
+                    type="text"
                 />
-                {errors.name && <p className="text-text-critical text-sm mt-2xs">{errors.name.message}</p>}
+                {errors.name && <p className="mt-2xs text-sm text-text-critical">{errors.name.message}</p>}
             </div>
 
             <div>
                 <label
+                    className="mb-2xs block text-sm font-medium text-text-primary"
                     htmlFor="email"
-                    className="block text-sm font-medium text-text-primary mb-2xs"
                 >
                     Email
                 </label>
                 <input
                     {...register('email')}
+                    className="w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2 focus:ring-border-focus"
                     id="email"
-                    type="email"
                     placeholder="you@example.com"
-                    className="w-full px-md py-sm border border-border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-border-focus"
+                    type="email"
                 />
-                {errors.email && <p className="text-text-critical text-sm mt-2xs">{errors.email.message}</p>}
+                {errors.email && <p className="mt-2xs text-sm text-text-critical">{errors.email.message}</p>}
             </div>
 
             <div>
                 <label
+                    className="mb-2xs block text-sm font-medium text-text-primary"
                     htmlFor="message"
-                    className="block text-sm font-medium text-text-primary mb-2xs"
                 >
                     Message
                 </label>
                 <textarea
                     {...register('message')}
+                    className="w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2 focus:ring-border-focus"
                     id="message"
-                    rows={5}
                     placeholder="Your message..."
-                    className="w-full px-md py-sm border border-border-primary rounded-md focus:outline-none focus:ring-2 focus:ring-border-focus"
+                    rows={5}
                 />
-                {errors.message && <p className="text-text-critical text-sm mt-2xs">{errors.message.message}</p>}
+                {errors.message && <p className="mt-2xs text-sm text-text-critical">{errors.message.message}</p>}
             </div>
 
             <Button
-                type="submit"
-                style="primary"
                 isDisabled={isSubmitting}
+                style="primary"
+                type="submit"
             >
                 {isSubmitting ? 'Sending...' : 'Send Message'}
             </Button>
@@ -104,4 +105,3 @@ export const ContactForm = () => {
 };
 
 ContactForm.displayName = 'ContactForm';
-

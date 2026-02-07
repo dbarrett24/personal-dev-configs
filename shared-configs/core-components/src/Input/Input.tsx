@@ -1,6 +1,6 @@
-import { useId } from 'react';
-import { cn } from '@dbarrett24/theme-system';
 import { InputProps } from './Input.types';
+import { cn } from '@dbarrett24/theme-system';
+import { useId } from 'react';
 
 /**
  * Fully-styled Input component following Hammer UI architecture.
@@ -31,20 +31,20 @@ import { InputProps } from './Input.types';
  * ```
  */
 export const Input = ({
-    label,
-    hideLabel = false,
+    endAdornment,
     error,
     helperText,
-    isRequired = false,
+    hideLabel = false,
+    id: providedId,
+    inputClassName,
     isDisabled = false,
     isReadOnly = false,
-    inputClassName,
-    wrapperClassName,
+    isRequired = false,
+    label,
     labelClassName,
     startAdornment,
-    endAdornment,
     testId,
-    id: providedId,
+    wrapperClassName,
     ...restProps
 }: InputProps) => {
     const generatedId = useId();
@@ -62,19 +62,19 @@ export const Input = ({
         >
             {label && (
                 <label
-                    htmlFor={id}
                     className={cn(
                         'text-sm font-medium text-text-primary',
                         isDisabled && 'text-text-disabled opacity-60',
                         hideLabel && 'sr-only',
                         labelClassName
                     )}
+                    htmlFor={id}
                 >
                     {label}
                     {isRequired && (
                         <span
-                            className="text-critical-500 ml-1"
                             aria-hidden="true"
+                            className="text-critical-500 ml-1"
                         >
                             *
                         </span>
@@ -85,20 +85,16 @@ export const Input = ({
             <div className="relative flex items-center">
                 {startAdornment && (
                     <span
-                        className="pointer-events-none absolute left-md flex items-center"
                         aria-hidden="true"
+                        className="pointer-events-none absolute left-md flex items-center"
                     >
                         {startAdornment}
                     </span>
                 )}
 
                 <input
-                    id={id}
-                    disabled={isDisabled}
-                    readOnly={isReadOnly}
-                    required={isRequired}
-                    aria-invalid={hasError}
                     aria-describedby={describedBy || undefined}
+                    aria-invalid={hasError}
                     aria-required={isRequired}
                     className={cn(
                         // Base styles
@@ -128,13 +124,17 @@ export const Input = ({
 
                         inputClassName
                     )}
+                    disabled={isDisabled}
+                    id={id}
+                    readOnly={isReadOnly}
+                    required={isRequired}
                     {...restProps}
                 />
 
                 {endAdornment && (
                     <span
-                        className="pointer-events-none absolute right-md flex items-center"
                         aria-hidden="true"
+                        className="pointer-events-none absolute right-md flex items-center"
                     >
                         {endAdornment}
                     </span>
@@ -143,9 +143,9 @@ export const Input = ({
 
             {hasError && (
                 <span
+                    className="text-critical-500 text-sm font-medium"
                     id={errorId}
                     role="alert"
-                    className="text-critical-500 text-sm font-medium"
                 >
                     {error}
                 </span>
@@ -153,8 +153,8 @@ export const Input = ({
 
             {helperText && !hasError && (
                 <span
-                    id={helperId}
                     className="text-sm text-text-secondary"
+                    id={helperId}
                 >
                     {helperText}
                 </span>

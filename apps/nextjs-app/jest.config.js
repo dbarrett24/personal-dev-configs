@@ -4,4 +4,3 @@ module.exports = {
     ...baseConfig,
     displayName: 'nextjs-app',
 };
-

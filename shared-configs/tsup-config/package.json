@@ -28,6 +28,7 @@
         "@dbarrett24/eslint-config": "workspace:*",
         "@dbarrett24/prettier-config": "workspace:*",
         "@dbarrett24/typescript-config": "workspace:*",
+        "eslint": "^8.57.1",
         "prettier": "^3.4.2"
     },
     "peerDependencies": {

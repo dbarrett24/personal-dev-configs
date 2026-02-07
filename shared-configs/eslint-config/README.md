@@ -40,15 +40,78 @@ module.exports = {
 };
 ```
 
-### With TypeScript Project References
+### With Type-Aware Linting (Recommended)
 
-If using TypeScript project references, add:
+This shared config enables TypeScript type-aware rules (like `@typescript-eslint/no-unnecessary-condition`, `switch-exhaustiveness-check`, etc.) which catch more bugs but require type information to function.
+
+**You MUST add `parserOptions.project` in your consuming package's `.eslintrc.js`:**
 
 ```javascript
 module.exports = {
     extends: ['@dbarrett24/eslint-config'],
     parserOptions: {
-        project: './tsconfig.json',
+        project: './tsconfig.json', // Required for type-aware rules
+    },
+    root: true,
+};
+```
+
+#### Why parserOptions Must Be in Consuming Packages
+
+The shared config **cannot** include `parserOptions.project` because:
+
+1. **Different paths per package**: Each package has `tsconfig.json` at a different location relative to the shared config
+2. **Relative path requirement**: TypeScript-ESLint requires a relative path from the `.eslintrc.js` location, not from the shared config in `node_modules`
+3. **Monorepo structure**: In a monorepo, each package's structure is unique
+
+**This is the standard pattern** recommended by TypeScript-ESLint for shared configurations.
+
+#### If Test Files Are Excluded from tsconfig.json
+
+Some packages exclude test files from their `tsconfig.json` to keep build artifacts clean. However, ESLint should still lint these files. Solution: create a separate TypeScript config for linting.
+
+**Create `tsconfig.eslint.json` in your package root:**
+
+```json
+{
+    "extends": "./tsconfig.json",
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
+}
+```
+
+**Then reference it in `.eslintrc.js`:**
+
+```javascript
+module.exports = {
+    extends: ['@dbarrett24/eslint-config'],
+    parserOptions: {
+        project: './tsconfig.eslint.json', // Use linting-specific config
+    },
+    root: true,
+};
+```
+
+This pattern ensures test files are linted without including them in build outputs.
+
+### Performance Considerations
+
+**Type-aware linting is slower** than regular linting because it needs to load TypeScript's type checker. This is a worthwhile tradeoff for the additional type safety checks it provides.
+
+**Performance impact:**
+- Type-aware rules only run during `pnpm lint` (development)
+- Does NOT affect build performance or runtime
+- Typically adds 1-3 seconds to lint time per package
+
+**To disable type-aware rules** (if performance is critical):
+```javascript
+module.exports = {
+    extends: ['@dbarrett24/eslint-config'],
+    // Don't add parserOptions.project
+    rules: {
+        // Disable specific type-aware rules
+        '@typescript-eslint/no-unnecessary-condition': 'off',
+        '@typescript-eslint/switch-exhaustiveness-check': 'off',
     },
     root: true,
 };

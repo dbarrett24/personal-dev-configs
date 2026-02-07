@@ -1,9 +1,9 @@
-import { defineConfig, Options } from 'tsup';
-import path from 'path';
-import fs from 'fs';
-import { format } from 'prettier';
 import { readWantedLockfile } from '@pnpm/lockfile-file';
 import { merge } from 'es-toolkit';
+import fs from 'fs';
+import path from 'path';
+import { format } from 'prettier';
+import { defineConfig, Options } from 'tsup';
 
 /**
  * Format JSON with Prettier (uses simple config for package.json)
@@ -11,8 +11,8 @@ import { merge } from 'es-toolkit';
 const prettierFormatJson = async (text: string) => {
     return await format(text, {
         parser: 'json',
-        tabWidth: 4,
         singleQuote: true,
+        tabWidth: 4,
         trailingComma: 'es5',
     });
 };
@@ -60,12 +60,24 @@ const copyBrandAssets = async () => {
     }
 };
 
+type PackageJson = {
+    dependencies?: Record<string, string>;
+    exports?: Record<string, unknown>;
+    main?: string;
+    module?: string;
+    name: string;
+    peerDependencies?: Record<string, string>;
+    sideEffects?: boolean | string[];
+    types?: string;
+    version: string;
+};
+
 /**
  * Copy package.json to dist with workspace dependencies resolved to actual versions
  */
 const copyPackageJson = async () => {
-    const packageJSON = JSON.parse(fs.readFileSync('package.json').toString());
-    const newPackageJSON: any = {};
+    const packageJSON = JSON.parse(fs.readFileSync('package.json').toString()) as PackageJson;
+    const newPackageJSON: Partial<PackageJson> = {};
 
     // Copy essential fields only
     newPackageJSON.name = packageJSON.name;
@@ -90,7 +102,7 @@ const copyPackageJson = async () => {
     const packageName = process.cwd().split(path.sep).slice(-2).join('/');
 
     // Read lockfile to get resolved dependency versions
-    const lockfile_package_list = (await readWantedLockfile('../..', { ignoreIncompatible: true }))?.importers?.[
+    const lockfile_package_list = (await readWantedLockfile('../..', { ignoreIncompatible: true }))?.importers[
         packageName
     ];
     const merged_deps = merge(lockfile_package_list?.dependencies ?? {}, lockfile_package_list?.devDependencies ?? {});
@@ -100,7 +112,7 @@ const copyPackageJson = async () => {
         const [dep, version] = item as [string, string];
         if (version.includes('workspace')) {
             // @ts-expect-error This is an object, not a string
-            const package_path = merged_deps?.[dep].version.replace(/(?:link:|\/dist)/g, '') + '/package.json';
+            const package_path = merged_deps[dep].version.replace(/(?:link:|\/dist)/g, '') + '/package.json';
             const depPackageJSON = JSON.parse(fs.readFileSync(package_path).toString());
             newPackageJSON.peerDependencies[dep] = version.replace('workspace:*', depPackageJSON.version);
         }
@@ -112,7 +124,7 @@ const copyPackageJson = async () => {
             const [dep, version] = item as [string, string];
             if (version.includes('workspace')) {
                 // @ts-expect-error This is an object, not a string
-                const package_path = merged_deps?.[dep].version.replace(/(?:link:|\/dist)/g, '') + '/package.json';
+                const package_path = merged_deps[dep].version.replace(/(?:link:|\/dist)/g, '') + '/package.json';
                 const depPackageJSON = JSON.parse(fs.readFileSync(package_path).toString());
                 newPackageJSON.dependencies[dep] = version.replace('workspace:*', depPackageJSON.version);
             }
@@ -131,7 +143,7 @@ const prependUseClient = (fileNames: string[]) => {
     fileNames
         .map((fileName) => `dist/${fileName}.js`)
         .forEach((fileName) => fs.writeFileSync(fileName, "'use client';\n" + fs.readFileSync(fileName).toString()));
-    
+
     // Add to ESM files
     fileNames
         .map((fileName) => `dist/esm/${fileName}.js`)
@@ -142,13 +154,13 @@ const prependUseClient = (fileNames: string[]) => {
  * Default tsup configuration object
  */
 export const defaultConfigObject = {
+    clean: true,
     dts: true,
     format: ['cjs', 'esm'],
     legacyOutput: true,
-    clean: true,
+    skipNodeModulesBundle: true,
     sourcemap: 'inline',
     splitting: true,
-    skipNodeModulesBundle: true,
 } satisfies Options;
 
 /**
@@ -173,4 +185,3 @@ const makeConfigObject = (
         },
     };
 };
-

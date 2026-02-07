@@ -1,8 +1,8 @@
 'use client';
 
-import { type ReactNode, useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider as JotaiProvider } from 'jotai';
+import { type ReactNode, useState } from 'react';
 
 type ProvidersProps = {
     children: ReactNode;
@@ -14,8 +14,8 @@ export const Providers = ({ children }: ProvidersProps) => {
             new QueryClient({
                 defaultOptions: {
                     queries: {
-                        staleTime: 60 * 1000, // 1 minute
                         refetchOnWindowFocus: false,
+                        staleTime: 60 * 1000, // 1 minute
                     },
                 },
             })
@@ -29,4 +29,3 @@ export const Providers = ({ children }: ProvidersProps) => {
 };
 
 Providers.displayName = 'Providers';
-

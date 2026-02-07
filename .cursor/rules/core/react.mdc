@@ -18,7 +18,12 @@ alwaysApply: true
 ## React Import Requirements
 
 ### Current Project Status
-**IMPORTANT**: Check your project's JSX transform configuration before assuming imports are/aren't needed.
+**✅ ALIGNED**: This project uses consistent JSX transforms across all tooling.
+
+**Configuration:**
+- **TypeScript**: `"jsx": "react-jsx"` (new JSX transform)
+- **Jest**: `@swc/jest` with `runtime: 'automatic'` (new JSX transform)
+- **Result**: No React imports needed in component files
 
 ### When React Imports Are Required
 - Using `"jsx": "react"` (classic transform) in `tsconfig.json`
@@ -28,7 +33,7 @@ alwaysApply: true
 ### When React Imports Are NOT Required  
 - Using `"jsx": "react-jsx"` or `"jsx": "react-jsxdev"` in `tsconfig.json`
 - Test framework properly configured for new JSX transform:
-  - `@swc/jest` with appropriate config
+  - `@swc/jest` with `runtime: 'automatic'` config ← **This project**
   - Vitest with `@vitejs/plugin-react-swc`
   - Babel with `{ "runtime": "automatic" }`
 - All tooling aligned on new transform
@@ -55,14 +60,36 @@ Jest:       babel-jest (default config)
 
 ✅ ALIGNED (No React imports needed):
 TypeScript: "jsx": "react-jsx"  
-Jest:       @swc/jest or Vitest with SWC
+Jest:       @swc/jest with automatic runtime  ← This project
 ```
 
-### If You Find a Mismatch
-1. **Document it as technical debt** in project notes
-2. **Add React imports** to all component files as a temporary workaround
-3. **Propose migration** to aligned tooling (e.g., Jest + @swc/jest)
-4. **Don't silently ignore** - this causes confusing errors during development
+### Migrating to @swc/jest
+
+If you discover a mismatch in another project, migrate to @swc/jest:
+
+```javascript
+// jest.config.js
+transform: {
+    '^.+\\.(t|j)sx?$': [
+        '@swc/jest',
+        {
+            jsc: {
+                transform: {
+                    react: {
+                        runtime: 'automatic', // Aligns with TypeScript
+                    },
+                },
+            },
+        },
+    ],
+},
+```
+
+**Benefits:**
+- ✅ No React imports needed
+- ✅ 20-30x faster test execution vs babel-jest
+- ✅ No Babel dependencies required
+- ✅ Matches Hammer UI test infrastructure
 
 ```typescript
 // ✅ CORRECT - Functional component with proper structure

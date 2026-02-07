@@ -1,178 +1,217 @@
 # @dbarrett24/jest-config
 
-Shared Jest configuration for React/Next.js applications with 90%+ coverage thresholds.
-
-## Installation
-
-```bash
-pnpm add -D @dbarrett24/jest-config jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
-```
-
-## Usage
-
-Create `jest.config.js` in your project root:
-
-```javascript
-const baseConfig = require('@dbarrett24/jest-config');
-
-module.exports = {
-    ...baseConfig,
-    // Override or extend as needed
-};
-```
-
-## Setup Files
-
-Create `testing/setupTests.ts`:
-
-```typescript
-import '@testing-library/jest-dom';
-
-// Add any global test setup here
-```
-
-Create mock files:
-
-```javascript
-// testing/__mocks__/styleMock.js
-module.exports = {};
-
-// testing/__mocks__/fileMock.js
-module.exports = 'test-file-stub';
-```
+Shared Jest configuration for React/Next.js applications in the monorepo.
 
 ## Features
 
-### Automatic Mock Clearing
+- ✅ **Fast test execution** with @swc/jest (20-30x faster than babel-jest)
+- ✅ **Automatic JSX runtime** (no React imports needed)
+- ✅ **jsdom environment** for React component testing
+- ✅ **Coverage thresholds** (90% for apps)
+- ✅ **Path alias support** (`@/*` mapped to `src/*`)
+- ✅ **Asset mocking** (CSS, images)
 
-```typescript
-// ✅ Mocks automatically cleared between tests
-beforeEach(() => {
-    // No need for jest.clearAllMocks()
-});
-```
+## Usage
 
-### Path Aliases
+### In Your Package
 
-```typescript
-// Use @/* imports in tests
-import { MyComponent } from '@/components/MyComponent';
-```
+1. **Install the config**:
+   ```json
+   {
+     "devDependencies": {
+       "@dbarrett24/jest-config": "workspace:*",
+       "jest": "^29.7.0"
+     }
+   }
+   ```
 
-### Coverage Thresholds
+2. **Create `jest.config.js`**:
+   ```javascript
+   module.exports = require('@dbarrett24/jest-config');
+   ```
 
-- **90% minimum** across all metrics (branches, functions, lines, statements)
-- Coverage collected from `src/` directory
-- Excludes stories, tests, and mocks
+3. **Create test setup file** at `testing/setupTests.ts`:
+   ```typescript
+   import '@testing-library/jest-dom';
+   ```
 
-### Test Environment
+4. **Add test scripts** to `package.json`:
+   ```json
+   {
+     "scripts": {
+       "test": "jest",
+       "test:watch": "jest --watch",
+       "test:coverage": "jest --coverage"
+     }
+   }
+   ```
 
-- **jsdom** for DOM testing
-- React Testing Library setup
-- jest-dom matchers included
+### Extending the Configuration
 
-## Scripts
-
-Add to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:update": "jest -u"
-  }
-}
-```
-
-## Customization
-
-### Adjust Coverage Thresholds
-
-```javascript
-const baseConfig = require('@dbarrett24/jest-config');
-
-module.exports = {
-    ...baseConfig,
-    coverageThreshold: {
-        global: {
-            branches: 85,
-            functions: 85,
-            lines: 85,
-            statements: 85,
-        },
-    },
-};
-```
-
-### Add Custom Module Mappings
+If you need to customize the config:
 
 ```javascript
 const baseConfig = require('@dbarrett24/jest-config');
 
 module.exports = {
     ...baseConfig,
-    moduleNameMapper: {
-        ...baseConfig.moduleNameMapper,
-        '^@components/(.*)$': '<rootDir>/src/components/$1',
-    },
-};
-```
-
-### Exclude Files from Coverage
-
-```javascript
-const baseConfig = require('@dbarrett24/jest-config');
-
-module.exports = {
-    ...baseConfig,
-    collectCoverageFrom: [
-        ...baseConfig.collectCoverageFrom,
-        '!src/generated/**',
+    displayName: 'my-app',
+    // Add your overrides here
+    testPathIgnorePatterns: [
+        ...baseConfig.testPathIgnorePatterns,
+        '/custom-folder/',
     ],
 };
 ```
 
-## Testing Best Practices
+## Configuration Details
 
-### Use React Testing Library
+### Test Environment
+- **Environment**: `jsdom` (for React/DOM testing)
+- **Setup**: Loads `testing/setupTests.ts` after environment setup
+
+### Coverage Thresholds
+- **Statements**: 90%
+- **Branches**: 90%
+- **Functions**: 90%
+- **Lines**: 90%
+
+### Path Aliases
+- `@/*` → `<rootDir>/src/*`
+
+### Asset Mocking
+- CSS files → `testing/__mocks__/styleMock.js`
+- Images → `testing/__mocks__/fileMock.js`
+
+### File Transform
+Uses `@swc/jest` with automatic JSX runtime:
+```javascript
+transform: {
+    '^.+\\.(t|j)sx?$': [
+        '@swc/jest',
+        {
+            jsc: {
+                transform: {
+                    react: {
+                        runtime: 'automatic', // No React imports needed!
+                    },
+                },
+            },
+        },
+    ],
+}
+```
+
+## Library Configuration
+
+For component libraries, use `@dbarrett24/jest-config-library` instead. It extends this config with:
+- Higher coverage thresholds (95%)
+- Additional ignore patterns for Storybook
+- Library-specific display name
+
+## Testing Patterns
+
+### Component Tests
 
 ```typescript
-import { render, screen, userEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { MyComponent } from './MyComponent';
 
-it('handles user interaction', async () => {
-    const user = userEvent.setup();
-    render(<MyComponent />);
-    
-    await user.click(screen.getByRole('button'));
-    
-    expect(screen.getByText('Success')).toBeVisible();
+describe('MyComponent', () => {
+    it('renders correctly', () => {
+        render(<MyComponent title="Hello" />);
+        expect(screen.getByText('Hello')).toBeVisible();
+    });
+
+    it('handles click events', async () => {
+        const handleClick = jest.fn();
+        render(<MyComponent onClick={handleClick} />);
+        
+        await userEvent.click(screen.getByRole('button'));
+        expect(handleClick).toHaveBeenCalledTimes(1);
+    });
 });
 ```
 
-### Prefer .toBeVisible()
+### No React Imports Needed
+
+Thanks to @swc/jest with automatic JSX runtime:
 
 ```typescript
-// ✅ Good - tests actual visibility
-expect(screen.getByText('Hello')).toBeVisible();
+// ✅ CORRECT - No React import
+import { render } from '@testing-library/react';
+import { Button } from './Button';
 
-// ❌ Avoid - only checks DOM presence
-expect(screen.getByText('Hello')).toBeInTheDocument();
+// ❌ WRONG - Don't import React
+import React from 'react';
 ```
 
-### No jest.clearAllMocks()
+## Troubleshooting
 
-```typescript
-// ❌ Don't do this - it's automatic
-afterEach(() => {
-    jest.clearAllMocks();
-});
+### "React is not defined" error
 
-// ✅ Mocks are automatically cleared
+If you see this error, your @swc/jest transform is not configured correctly. Ensure your `jest.config.js` includes the `react.runtime: 'automatic'` setting.
+
+### Coverage thresholds not enforced
+
+Make sure you're running `jest --coverage` to enable coverage checks.
+
+### Path aliases not working
+
+Verify your `tsconfig.json` has matching path mappings:
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
 ```
+
+## Performance
+
+**@swc/jest vs babel-jest**:
+- ✅ 20-30x faster test execution
+- ✅ No Babel dependencies required
+- ✅ Rust-based transpilation
+- ✅ Native TypeScript & JSX support
+
+## Related Packages
+
+- `@dbarrett24/jest-config-library` - For component libraries (95% coverage)
+- `@dbarrett24/testing-utils` - Shared test utilities and mocks
+- `@dbarrett24/typescript-config` - TypeScript configurations
+
+## Migration from babel-jest
+
+If migrating from an older setup with babel-jest:
+
+1. Remove Babel dependencies:
+   ```bash
+   pnpm remove babel-jest @babel/preset-env @babel/preset-react @babel/preset-typescript
+   ```
+
+2. Install @swc packages (already in this config):
+   ```bash
+   pnpm install
+   ```
+
+3. Remove React imports from component files:
+   ```typescript
+   // Before
+   import React from 'react';
+   
+   // After
+   // (remove the import)
+   ```
+
+4. Run tests to verify:
+   ```bash
+   pnpm test
+   ```
 
 ## License
 
 MIT
-

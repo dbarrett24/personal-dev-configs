@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import { useId } from 'react';
 import { cn } from '@dbarrett24/theme-system';
 import { InputProps } from './Input.types';
 

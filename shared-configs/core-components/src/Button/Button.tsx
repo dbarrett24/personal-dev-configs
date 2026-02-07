@@ -1,4 +1,3 @@
-import React from 'react';
 import { cn } from '@dbarrett24/theme-system';
 import { ButtonProps } from './Button.types';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';

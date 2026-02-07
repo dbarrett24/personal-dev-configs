@@ -1,5 +1,4 @@
 import { render, screen, userEvent } from '@dbarrett24/testing-utils';
-import React from 'react';
 import { Button } from './Button';
 
 describe('Button', () => {

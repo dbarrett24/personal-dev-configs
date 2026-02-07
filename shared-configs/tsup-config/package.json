@@ -15,7 +15,7 @@
         "lint-prettier": "prettier --cache --check \"src/**/*.{json,js,jsx,ts,tsx}\"",
         "lint-prettier-fix": "prettier --cache --write \"src/**/*.{json,js,jsx,ts,tsx}\"",
         "ts-check": "tsc --noEmit",
-        "test": "echo 'No tests for tsup-config' && exit 0"
+        "test": "echo 'No tests for tsup-config'"
     },
     "dependencies": {
         "@pnpm/lockfile-file": "^8.1.2",

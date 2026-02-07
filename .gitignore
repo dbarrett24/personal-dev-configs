@@ -31,6 +31,18 @@ pnpm-debug.log*
 .turbo
 .cache/
 
+# TypeScript incremental compilation
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# Prettier cache
+.prettiercache
+
+# Jest cache
+.jest-cache/
+
 # IDE
 .vscode/*
 !.vscode/settings.json

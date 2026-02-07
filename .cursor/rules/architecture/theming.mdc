@@ -1,0 +1,130 @@
+---
+description: CSS theming architecture patterns for multi-brand support
+globs: ["**/theme/**/*.css", "**/*.css"]
+---
+
+# CSS Theming Architecture
+
+Patterns for implementing multi-brand theming.
+
+## Preferred Approach: Class-Based Selectors
+
+This project uses class-based CSS selectors for theme switching (Hammer UI pattern).
+
+### Structure
+
+**Brand CSS Files**:
+```css
+/* brand-libraries/basketball-training-ui/src/theme/styles.css */
+
+/* Primary: Class-based selector for theme switching */
+.brand-basketball {
+    --interactive-primary: #ff6b35;
+    --background-primary: #ffffff;
+    /* ... all theme variables */
+}
+
+/* Fallback: :root for standalone usage */
+:root {
+    --interactive-primary: #ff6b35;
+    --background-primary: #ffffff;
+    /* ... same variables for backward compatibility */
+}
+```
+
+### Why Class-Based Over Data Attributes
+
+**Class-based** (✅ Preferred):
+```html
+<div class="brand-basketball">
+  <Button>Click me</Button>
+</div>
+```
+
+**Data attribute** (❌ Avoid):
+```html
+<div data-theme="basketball">
+  <Button>Click me</Button>
+</div>
+```
+
+**Rationale**:
+- Matches Hammer UI architecture
+- Higher CSS specificity than :root
+- Simpler selectors (no attribute selectors needed)
+- Better performance (class matching is faster)
+
+### Backward Compatibility
+
+Always maintain :root fallback when adding class-based selectors:
+
+```css
+/* New: Class-based for theme switching */
+.brand-basketball {
+    --interactive-primary: #ff6b35;
+}
+
+/* Existing: Keep for backward compatibility */
+:root {
+    --interactive-primary: #ff6b35;
+}
+```
+
+This ensures existing consumers continue working without changes.
+
+## Tailwind Integration
+
+CSS variables are mapped in theme-system:
+
+```typescript
+// theme-system/src/theme.ts
+export const baseTheme = {
+    colors: {
+        'interactive-primary': 'var(--interactive-primary)',
+        // ...
+    },
+};
+```
+
+Components use Tailwind classes:
+```tsx
+<button className="bg-interactive-primary">
+  {/* Background color comes from CSS variable */}
+</button>
+```
+
+## Adding New Brand Themes
+
+1. Create brand package: `brand-libraries/new-brand-ui/`
+2. Create `src/theme/styles.css` with class-based selector:
+   ```css
+   .brand-new-brand {
+       --interactive-primary: #color;
+       /* ... all required variables */
+   }
+   
+   :root {
+       /* Same variables for fallback */
+   }
+   ```
+3. Export CSS in package.json:
+   ```json
+   {
+     "exports": {
+       "./theme": "./dist/theme/styles.css"
+     }
+   }
+   ```
+4. Build the package: `pnpm build`
+5. Update Storybook (if applicable):
+   - Add to devDependencies
+   - Import CSS in preview.tsx
+   - Add to brands registry
+
+## Testing Theme Changes
+
+After modifying theme CSS:
+1. Rebuild the brand package
+2. Restart dev servers/Storybook
+3. Hard refresh browser (Cmd+Shift+R)
+4. Verify all CSS variables update correctly

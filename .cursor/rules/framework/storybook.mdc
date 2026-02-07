@@ -1,0 +1,132 @@
+---
+description: Storybook configuration patterns, decorators, globalTypes, and testing approach
+globs: ["**/.storybook/**/*.ts", "**/.storybook/**/*.tsx", "**/*.stories.tsx"]
+---
+
+# Storybook Configuration Patterns
+
+Guidelines for working with Storybook in this monorepo.
+
+## Configuration File Testing
+
+**Storybook configuration files do NOT require unit tests**:
+- `.storybook/main.ts` - Build configuration
+- `.storybook/preview.tsx` - Decorators and global settings
+- `.storybook/brands.ts` or similar registries
+- `.storybook/themes/` CSS files
+
+**Rationale**: Configuration is tested through manual interaction, not automated tests.
+
+**Testing approach**:
+1. Implement configuration
+2. Start Storybook: `pnpm storybook`
+3. Manually verify functionality in browser
+4. Check for console errors
+5. Test across multiple stories/components
+
+## Common Storybook Patterns
+
+### Global Types (Toolbar Controls)
+
+Use globalTypes to add toolbar controls:
+
+```typescript
+// .storybook/preview.tsx
+export const globalTypes = {
+    theme: {
+        name: 'Theme',
+        description: 'Global theme for components',
+        defaultValue: 'default',
+        toolbar: {
+            title: 'Theme',
+            icon: 'paintbrush',
+            items: [
+                { value: 'default', title: 'Default', icon: 'circle' },
+                { value: 'brand-a', title: 'Brand A', icon: 'circle' },
+            ],
+            dynamicTitle: true, // Show selected value in toolbar
+        },
+    },
+};
+```
+
+### Decorators
+
+Decorators wrap all stories to provide context:
+
+```typescript
+// .storybook/preview.tsx
+import type { Decorator } from '@storybook/react';
+
+const withTheme: Decorator = (Story, context) => {
+    const theme = context.globals.theme || 'default';
+    
+    return (
+        <div className={themeClassName} data-theme={theme}>
+            <Story />
+        </div>
+    );
+};
+
+export const decorators = [withTheme];
+```
+
+**Order matters**: Decorators are applied in array order (first = outermost wrapper).
+
+### Importing Brand CSS
+
+When importing CSS from workspace packages:
+
+```typescript
+// .storybook/preview.tsx
+// Import from package exports (uses dist/ files)
+import '@dbarrett24/basketball-training-ui/theme';
+import '@dbarrett24/professional-brand-ui/theme';
+```
+
+**Important**: These imports reference build artifacts. If you modify the CSS source:
+1. Rebuild the brand package: `pnpm --filter @dbarrett24/basketball-training-ui build`
+2. Restart Storybook to pick up changes
+
+### File Organization
+
+```
+.storybook/
+├── main.ts              # Storybook build config
+├── preview.tsx          # Global decorators, parameters, globalTypes
+├── brands.ts            # Registry/constants (if needed)
+└── themes/              # Theme CSS files (if not imported from packages)
+    └── default.css
+```
+
+## DevDependencies for CSS Imports
+
+To import CSS from brand packages in core-components Storybook:
+
+```json
+// core-components/package.json
+{
+  "devDependencies": {
+    "@dbarrett24/basketball-training-ui": "workspace:*",
+    "@dbarrett24/professional-brand-ui": "workspace:*"
+  }
+}
+```
+
+**Why devDependencies**: Storybook is a dev tool, these dependencies don't affect the published package.
+
+## Common Issues
+
+### CSS Not Updating
+**Symptom**: Modified CSS doesn't appear in Storybook
+**Cause**: Storybook imports from dist/, source changed but not rebuilt
+**Fix**: Rebuild brand package, restart Storybook, hard refresh browser
+
+### TypeScript Errors in Config Files
+**Note**: Storybook config files may be excluded from main tsconfig.json
+**Validation**: ESLint may ignore .storybook/ - this is normal and expected
+**Check**: Run `npx tsc --noEmit .storybook/preview.tsx` to verify types if needed
+
+### Theme Not Persisting
+**Solution**: Ensure `dynamicTitle: true` in toolbar config
+**Why**: Storybook stores global state in localStorage automatically

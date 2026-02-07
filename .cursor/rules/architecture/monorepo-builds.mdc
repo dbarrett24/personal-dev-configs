@@ -1,0 +1,108 @@
+---
+description: Understanding build dependencies in pnpm monorepo - when to rebuild packages after source changes
+globs: ["**/*.ts", "**/*.tsx", "**/*.css", "**/*.json"]
+---
+
+# Monorepo Build Dependencies
+
+This project is a pnpm monorepo with workspace packages. Understanding build dependencies is critical.
+
+## Build Artifacts vs Source Files
+
+### Key Distinction
+- **Source files**: Located in `src/` directories (e.g., `src/theme/styles.css`)
+- **Build artifacts**: Generated in `dist/` directories (e.g., `dist/theme/styles.css`)
+- **Imports reference build artifacts**: When package.json exports `"./theme": "./dist/theme/styles.css"`, consumers import from dist/
+
+### When Builds Are Required
+
+**After modifying these files, rebuild the package**:
+- Any file in `src/` directory
+- `package.json` changes
+- `tsconfig.json` or `tsup.config.ts` changes
+- Any file listed in package.json `files` array
+
+**Example**:
+```bash
+# You modified: brand-libraries/basketball-training-ui/src/theme/styles.css
+# Before testing, run:
+cd brand-libraries/basketball-training-ui && pnpm build
+```
+
+## Cross-Package Dependencies
+
+### Dependency Chain
+```
+theme-system (base tokens)
+    ↓
+brand-libraries/* (brand themes)
+    ↓
+core-components (styled components)
+    ↓
+templates/* (applications)
+```
+
+### Rebuild Strategy
+
+**When changing theme-system**:
+```bash
+pnpm build:theme
+pnpm build:core
+pnpm build:basketball
+pnpm build:professional
+```
+
+**When changing brand-libraries**:
+```bash
+# Rebuild the specific brand
+pnpm --filter @dbarrett24/basketball-training-ui build
+
+# If core-components Storybook imports this brand:
+# Restart Storybook to pick up new dist files
+pnpm storybook:core
+```
+
+**When changing core-components**:
+```bash
+pnpm build:core
+# Dependent brand libraries may need rebuilding if they import from core
+```
+
+## Storybook and Build Artifacts
+
+**Critical**: Storybook imports from build artifacts (dist/), not source files.
+
+When you modify CSS/JS source files:
+1. Rebuild the package containing those files
+2. Restart Storybook (or hard refresh browser with Cmd+Shift+R)
+3. Verify changes appear in Storybook
+
+**Common Issue**:
+```
+❌ Modified: src/theme/styles.css
+❌ Tested: Storybook immediately (no rebuild)
+❌ Result: Storybook shows old styles (imports dist/theme/styles.css)
+
+✅ Modified: src/theme/styles.css
+✅ Rebuilt: pnpm build
+✅ Tested: Restarted Storybook
+✅ Result: Storybook shows new styles
+```
+
+## Verification Checklist
+
+Before testing changes that span multiple packages:
+
+- [ ] Identified all packages with modified source files
+- [ ] Rebuilt each modified package in dependency order
+- [ ] Restarted any dev servers (Storybook, Next.js, Vite)
+- [ ] Hard refreshed browser if styles seem stale
+
+## Workspace Scripts
+
+Use root-level scripts for convenience:
+- `pnpm build` - Builds all packages (via Turbo)
+- `pnpm build:theme` - Build theme-system only
+- `pnpm build:core` - Build core-components only
+- `pnpm build:basketball` - Build basketball-training-ui only
+- `pnpm build:professional` - Build professional-brand-ui only

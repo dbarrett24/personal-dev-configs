@@ -68,6 +68,48 @@ Before starting implementation that involves testing:
 - ✅ No Babel dependencies required
 - ✅ Matches Hammer UI test infrastructure
 
+### 5. @swc/jest Configuration Pattern
+
+When using @swc/jest, **you must configure the automatic JSX runtime** to align with TypeScript's `"jsx": "react-jsx"` setting.
+
+**❌ WRONG - Simple string (causes "React is not defined" errors)**:
+```javascript
+// jest.config.js
+transform: {
+    '^.+\\.(t|j)sx?$': '@swc/jest',  // Defaults to classic transform!
+},
+```
+
+**✅ CORRECT - Inline configuration with automatic runtime**:
+```javascript
+// jest.config.js
+transform: {
+    '^.+\\.(t|j)sx?$': [
+        '@swc/jest',
+        {
+            jsc: {
+                transform: {
+                    react: {
+                        runtime: 'automatic',  // ← CRITICAL: Matches TypeScript's jsx setting
+                    },
+                },
+            },
+        },
+    ],
+},
+```
+
+**Why This Matters**:
+- @swc/jest defaults to classic JSX transform (`React.createElement()`)
+- TypeScript config uses `"jsx": "react-jsx"` (new transform, no React import)
+- Without explicit configuration, tests fail with "React is not defined"
+- This pattern is required in ALL Jest configs using @swc/jest
+
+**When to Use**:
+- Setting up new packages with @swc/jest
+- Migrating from babel-jest to @swc/jest
+- Creating shared Jest configuration packages
+
 ## Query Priority
 
 Use queries in this preferred order:

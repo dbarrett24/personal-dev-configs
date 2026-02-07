@@ -8,7 +8,7 @@ type LoadingSpinnerProps = {
 
 /**
  * Loading spinner component
- * 
+ *
  * Displays an animated spinning indicator for loading states
  */
 export const LoadingSpinner = ({ size = 'md', className }: LoadingSpinnerProps) => {

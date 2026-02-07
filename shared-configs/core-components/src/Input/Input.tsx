@@ -4,7 +4,7 @@ import { InputProps } from './Input.types';
 
 /**
  * Fully-styled Input component following Hammer UI architecture.
- * 
+ *
  * Provides complete styling with error states, helper text, and adornments.
  * Brand libraries can wrap this and add minor tweaks via className.
  *
@@ -71,13 +71,23 @@ export const Input = ({
                     )}
                 >
                     {label}
-                    {isRequired && <span className="text-critical-500 ml-1" aria-hidden="true">*</span>}
+                    {isRequired && (
+                        <span
+                            className="text-critical-500 ml-1"
+                            aria-hidden="true"
+                        >
+                            *
+                        </span>
+                    )}
                 </label>
             )}
 
             <div className="relative flex items-center">
                 {startAdornment && (
-                    <span className="absolute left-md pointer-events-none flex items-center" aria-hidden="true">
+                    <span
+                        className="pointer-events-none absolute left-md flex items-center"
+                        aria-hidden="true"
+                    >
                         {startAdornment}
                     </span>
                 )}
@@ -122,7 +132,10 @@ export const Input = ({
                 />
 
                 {endAdornment && (
-                    <span className="absolute right-md pointer-events-none flex items-center" aria-hidden="true">
+                    <span
+                        className="pointer-events-none absolute right-md flex items-center"
+                        aria-hidden="true"
+                    >
                         {endAdornment}
                     </span>
                 )}
@@ -132,7 +145,7 @@ export const Input = ({
                 <span
                     id={errorId}
                     role="alert"
-                    className="text-sm text-critical-500 font-medium"
+                    className="text-critical-500 text-sm font-medium"
                 >
                     {error}
                 </span>

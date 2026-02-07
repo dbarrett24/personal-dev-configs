@@ -5,7 +5,7 @@ import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
 /**
  * Fully-styled Button component following Hammer UI architecture.
- * 
+ *
  * Provides complete styling with multiple variants and styles.
  * Brand libraries can wrap this and add minor tweaks via className.
  *
@@ -63,24 +63,24 @@ export const Button = ({
             className={cn(
                 // Base styles - always applied
                 'inline-flex items-center justify-center',
-                'font-semibold rounded-md',
+                'rounded-md font-semibold',
                 'transition-colors duration-200',
                 'focus:outline-none focus:ring-2 focus:ring-offset-2',
-                'disabled:opacity-50 disabled:cursor-not-allowed',
+                'disabled:cursor-not-allowed disabled:opacity-50',
 
                 // Variant + Style combinations - Filled
                 variant === 'filled' &&
                     style === 'primary' &&
-                    'bg-interactive-primary text-text-inverse hover:bg-interactive-primary-hover active:bg-interactive-primary-active focus:ring-interactive-primary',
+                    'bg-interactive-primary text-text-inverse hover:bg-interactive-primary-hover focus:ring-interactive-primary active:bg-interactive-primary-active',
                 variant === 'filled' &&
                     style === 'secondary' &&
                     'bg-interactive-secondary text-text-inverse hover:bg-interactive-secondary-hover focus:ring-interactive-secondary',
                 variant === 'filled' &&
                     style === 'neutral' &&
-                    'bg-surface-secondary text-text-primary hover:bg-surface-tertiary focus:ring-surface-secondary',
+                    'bg-surface-secondary hover:bg-surface-tertiary focus:ring-surface-secondary text-text-primary',
                 variant === 'filled' &&
                     style === 'critical' &&
-                    'bg-critical-500 text-text-inverse hover:bg-critical-600 focus:ring-critical-500',
+                    'bg-critical-500 hover:bg-critical-600 focus:ring-critical-500 text-text-inverse',
 
                 // Variant + Style combinations - Outline
                 variant === 'outline' &&
@@ -91,29 +91,29 @@ export const Button = ({
                     'border-2 border-interactive-secondary text-interactive-secondary hover:bg-interactive-secondary hover:text-text-inverse focus:ring-interactive-secondary',
                 variant === 'outline' &&
                     style === 'neutral' &&
-                    'border-2 border-border-primary text-text-primary hover:bg-surface-secondary focus:ring-surface-secondary',
+                    'hover:bg-surface-secondary focus:ring-surface-secondary border-2 border-border-primary text-text-primary',
                 variant === 'outline' &&
                     style === 'critical' &&
-                    'border-2 border-critical-500 text-critical-500 hover:bg-critical-500 hover:text-text-inverse focus:ring-critical-500',
+                    'border-critical-500 text-critical-500 hover:bg-critical-500 focus:ring-critical-500 border-2 hover:text-text-inverse',
 
                 // Variant + Style combinations - Ghost
                 variant === 'ghost' &&
                     style === 'primary' &&
-                    'text-interactive-primary hover:bg-surface-secondary focus:ring-interactive-primary',
+                    'hover:bg-surface-secondary text-interactive-primary focus:ring-interactive-primary',
                 variant === 'ghost' &&
                     style === 'secondary' &&
-                    'text-interactive-secondary hover:bg-surface-secondary focus:ring-interactive-secondary',
+                    'hover:bg-surface-secondary text-interactive-secondary focus:ring-interactive-secondary',
                 variant === 'ghost' &&
                     style === 'neutral' &&
-                    'text-text-secondary hover:bg-surface-secondary focus:ring-surface-secondary',
+                    'hover:bg-surface-secondary focus:ring-surface-secondary text-text-secondary',
                 variant === 'ghost' &&
                     style === 'critical' &&
                     'text-critical-500 hover:bg-critical-50 focus:ring-critical-500',
 
                 // Size styles
-                size === 'sm' && 'px-sm py-2xs text-sm gap-xs',
-                size === 'md' && 'px-md py-xs text-base gap-sm',
-                size === 'lg' && 'px-lg py-sm text-lg gap-md',
+                size === 'sm' && 'gap-xs px-sm py-2xs text-sm',
+                size === 'md' && 'gap-sm px-md py-xs text-base',
+                size === 'lg' && 'gap-md px-lg py-sm text-lg',
 
                 className
             )}

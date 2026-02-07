@@ -7,7 +7,7 @@ export default makeConfig(
     },
     // Client component entries (gets 'use client' prepended)
     {
-        button: 'src/components/Button.tsx',
+        Button: 'src/components/Button.tsx',
     },
     // Additional options
     {

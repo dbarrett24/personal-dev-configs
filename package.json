@@ -5,7 +5,7 @@
     "workspaces": [
         "shared-configs/*",
         "brand-libraries/*",
-        "templates/*"
+        "apps/*"
     ],
     "scripts": {
         "cl": "changeset",
@@ -25,17 +25,12 @@
         "dev:theme": "pnpm --filter @dbarrett24/theme-system dev",
         "dev:nextjs": "pnpm --filter nextjs-app-template dev",
         "dev:vite": "pnpm --filter react-vite-template dev",
-        "storybook:core": "pnpm --filter @dbarrett24/core-components storybook",
-        "storybook:basketball": "pnpm --filter @dbarrett24/basketball-training-ui storybook",
-        "storybook:professional": "pnpm --filter @dbarrett24/professional-brand-ui storybook",
-        "storybook:all": "turbo run storybook --parallel",
-        "build-storybook:all": "turbo run build-storybook",
-        "build-storybook:core": "pnpm --filter @dbarrett24/core-components build-storybook",
-        "build-storybook:basketball": "pnpm --filter @dbarrett24/basketball-training-ui build-storybook",
-        "build-storybook:professional": "pnpm --filter @dbarrett24/professional-brand-ui build-storybook",
-        "work:core": "pnpm build:theme && pnpm dev:core",
-        "work:basketball": "pnpm build:theme && pnpm build:core && pnpm dev:basketball",
-        "work:professional": "pnpm build:theme && pnpm build:core && pnpm dev:professional",
+        "storybook": "pnpm --filter docs storybook:core",
+        "storybook:core": "pnpm --filter docs storybook:core",
+        "storybook:basketball": "pnpm --filter docs storybook:basketball",
+        "storybook:professional": "pnpm --filter docs storybook:professional",
+        "storybook:all": "pnpm --filter docs storybook:all",
+        "build-storybook": "pnpm --filter docs build-storybook",
         "lint": "turbo run lint-ts lint-prettier ts-check",
         "lint-fix": "turbo run lint-ts-fix lint-prettier-fix",
         "type-check": "turbo run ts-check",
@@ -74,6 +69,7 @@
         "@changesets/cli": "^2.27.10",
         "@types/node": "^20.14.9",
         "prettier": "^3.4.2",
+        "prettier-plugin-tailwindcss": "^0.6.11",
         "tsx": "^4.19.2",
         "turbo": "^2.5.5",
         "typescript": "^5.8.2"

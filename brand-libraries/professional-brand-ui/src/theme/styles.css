@@ -2,6 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Class-based selector for Storybook theme switching */
+.brand-professional {
+    /* Background - Professional brand colors */
+    --background-primary: #ffffff;
+    --background-secondary: #f8fafc;
+    --background-tertiary: #f1f5f9;
+    --background-inverse: #1e3a8a;
+    --background-overlay: rgba(30, 58, 138, 0.7);
+
+    /* Text */
+    --text-primary: #1e293b;
+    --text-secondary: #475569;
+    --text-tertiary: #64748b;
+    --text-inverse: #ffffff;
+    --text-disabled: #cbd5e1;
+    --text-link: #3b82f6;
+    --text-success: #22c55e;
+    --text-warning: #f59e0b;
+    --text-critical: #ef4444;
+    --text-info: #3b82f6;
+
+    /* Border */
+    --border-primary: #e2e8f0;
+    --border-secondary: #f1f5f9;
+    --border-focus: #3b82f6;
+    --border-success: #22c55e;
+    --border-warning: #f59e0b;
+    --border-critical: #ef4444;
+    --border-info: #3b82f6;
+
+    /* Interactive - Professional brand blue */
+    --interactive-primary: #3b82f6;
+    --interactive-primary-hover: #2563eb;
+    --interactive-primary-active: #1d4ed8;
+    --interactive-secondary: #475569;
+    --interactive-secondary-hover: #334155;
+    --interactive-disabled: #94a3b8;
+
+    /* Status */
+    --status-success: #22c55e;
+    --status-success-background: #f0fdf4;
+    --status-warning: #f59e0b;
+    --status-warning-background: #fffbeb;
+    --status-critical: #ef4444;
+    --status-critical-background: #fef2f2;
+    --status-info: #3b82f6;
+    --status-info-background: #eff6ff;
+
+    /* Spacing */
+    --spacing-3xs: 0.125rem;
+    --spacing-2xs: 0.25rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+}
+
+/* Fallback :root selector for backward compatibility */
 :root {
     /* Background - Professional brand colors */
     --background-primary: #ffffff;

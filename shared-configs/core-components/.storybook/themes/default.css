@@ -1,0 +1,70 @@
+/**
+ * Default Theme - Neutral Gray Palette
+ * This is the fallback theme when no brand is selected in Storybook
+ */
+
+.brand-default {
+    /* Background - Neutral grays */
+    --background-primary: #ffffff;
+    --background-secondary: #f9fafb;
+    --background-tertiary: #f3f4f6;
+    --background-inverse: #111827;
+    --background-overlay: rgba(17, 24, 39, 0.7);
+
+    /* Text */
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-tertiary: #9ca3af;
+    --text-inverse: #ffffff;
+    --text-disabled: #d1d5db;
+    --text-link: #6b7280;
+    --text-success: #22c55e;
+    --text-warning: #f59e0b;
+    --text-critical: #ef4444;
+    --text-info: #3b82f6;
+
+    /* Border */
+    --border-primary: #d1d5db;
+    --border-secondary: #e5e7eb;
+    --border-focus: #6b7280;
+    --border-success: #22c55e;
+    --border-warning: #f59e0b;
+    --border-critical: #ef4444;
+    --border-info: #3b82f6;
+
+    /* Interactive - Neutral gray (no strong brand color) */
+    --interactive-primary: #6b7280;
+    --interactive-primary-hover: #4b5563;
+    --interactive-primary-active: #374151;
+    --interactive-secondary: #9ca3af;
+    --interactive-secondary-hover: #6b7280;
+    --interactive-disabled: #d1d5db;
+
+    /* Status */
+    --status-success: #22c55e;
+    --status-success-background: #f0fdf4;
+    --status-warning: #f59e0b;
+    --status-warning-background: #fffbeb;
+    --status-critical: #ef4444;
+    --status-critical-background: #fef2f2;
+    --status-info: #3b82f6;
+    --status-info-background: #eff6ff;
+
+    /* Spacing */
+    --spacing-3xs: 0.125rem;
+    --spacing-2xs: 0.25rem;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 4rem;
+
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+}

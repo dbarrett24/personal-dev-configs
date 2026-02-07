@@ -254,6 +254,9 @@ importers:
       '@chromatic-com/storybook':
         specifier: ^3.2.2
         version: 3.2.7(react@19.2.0)(storybook@8.6.14(prettier@3.6.2))
+      '@dbarrett24/basketball-training-ui':
+        specifier: workspace:*
+        version: link:../../brand-libraries/basketball-training-ui
       '@dbarrett24/eslint-config-library':
         specifier: workspace:*
         version: link:../eslint-config-library
@@ -263,6 +266,9 @@ importers:
       '@dbarrett24/prettier-config':
         specifier: workspace:*
         version: link:../prettier-config
+      '@dbarrett24/professional-brand-ui':
+        specifier: workspace:*
+        version: link:../../brand-libraries/professional-brand-ui
       '@dbarrett24/testing-utils':
         specifier: workspace:*
         version: link:../testing-utils
@@ -4607,6 +4613,7 @@ packages:
   next@15.5.4:
     resolution: {integrity: sha512-xH4Yjhb82sFYQfY3vbkJfgSDgXvBB6a8xPs9i35k6oZJRoQRihZH+4s9Yo2qsWpzBmZ3lPXaJ2KPXLfkvW4LnA==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
+    deprecated: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/CVE-2025-66478 for more details.
     hasBin: true
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
@@ -5773,6 +5780,7 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}

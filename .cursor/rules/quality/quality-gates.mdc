@@ -1,6 +1,6 @@
 ---
 description: Framework for deciding which quality gates apply to different types of changes
-globs: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", "**/*.css"]
+globs: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.css']
 alwaysApply: false
 ---
 
@@ -21,6 +21,7 @@ Not all changes require all quality checks. This rule provides a framework for d
 ## Codacy Analysis Decision Tree
 
 ### ALWAYS Run Codacy:
+
 - ✅ New feature implementation (new components, new utils)
 - ✅ Bug fixes in existing logic
 - ✅ Security-related changes
@@ -28,23 +29,73 @@ Not all changes require all quality checks. This rule provides a framework for d
 - ✅ Adding/changing dependencies (npm install, yarn add, pnpm add)
 
 ### CONDITIONAL - May Skip Codacy:
+
 - ⚠️ **Configuration-only changes** (jest.config.js, tsconfig.json)
-  - Rationale: Config files are validated by the tools themselves
-  - Alternative: Verify the tool runs successfully (e.g., `pnpm test` for Jest config)
+    - Rationale: Config files are validated by the tools themselves
+    - Alternative: Verify the tool runs successfully (e.g., `pnpm test` for Jest config)
 
 - ⚠️ **Simple import removals** (removing unused imports, removing `import React`)
-  - Rationale: TypeScript compilation already validates import correctness
-  - Alternative: Verify TypeScript compilation passes
+    - Rationale: TypeScript compilation already validates import correctness
+    - Alternative: Verify TypeScript compilation passes
 
 - ⚠️ **Documentation updates** (README.md, .mdc files, comments)
-  - Rationale: Markdown/docs don't have code smells or security issues
-  - Alternative: Manual review for accuracy
+    - Rationale: Markdown/docs don't have code smells or security issues
+    - Alternative: Manual review for accuracy
 
 - ⚠️ **Dependency removals** (removing packages)
-  - Rationale: Removing dependencies reduces attack surface
-  - Alternative: Verify tests still pass
+    - Rationale: Removing dependencies reduces attack surface
+    - Alternative: Verify tests still pass
+
+## Link Verification (Documentation Changes)
+
+### When Link Verification is Required:
+
+- ✅ **Files deleted or moved** (documentation or code)
+- ✅ **Files renamed** (changes file references)
+- ✅ **Large documentation reorganization** (multiple files affected)
+
+### Link Verification Pattern:
+
+**Search for references to changed files**:
+
+```bash
+# Find references to deleted/moved files
+grep -r "deleted-file.md" --include="*.md" --include="*.mdc"
+
+# Check for broken links in updated files
+# Verify all referenced files exist
+```
+
+**Document in verification section**:
+
+```markdown
+### Link Verification
+
+- ✅ Status: PASS
+- Files checked: [list of files]
+- Broken links found: [count]
+- Broken links fixed: [count]
+- Method: [grep search pattern or manual review]
+```
+
+### Example: DOCS-001 Session
+
+**Changes Made**: Deleted 17 documentation files  
+**Link Verification**: Required
+
+**Process**:
+
+1. Searched for references to deleted files
+2. Checked ARCHITECTURE.md for broken links
+3. Found 2 outdated references
+4. Fixed broken links before completion
+
+**Result**: All internal documentation links valid
+
+---
 
 ### NEVER Skip Codacy:
+
 - ❌ Adding dependencies (potential security vulnerabilities)
 - ❌ Logic changes (potential bugs or code smells)
 - ❌ New code (establish quality baseline)
@@ -52,6 +103,7 @@ Not all changes require all quality checks. This rule provides a framework for d
 ## When Codacy CLI Not Installed
 
 If Codacy CLI is not installed:
+
 1. Document the skip with rationale in the plan/verification
 2. Rely on alternative quality gates (TypeScript, tests, Prettier)
 3. Recommend user install Codacy CLI for future sessions
@@ -63,30 +115,34 @@ When skipping Codacy, document:
 
 ```markdown
 ### Codacy Analysis
+
 - ⚠️ Status: SKIPPED
 - Reason: [Configuration-only changes | Simple import removals | Documentation updates]
 - Alternative Validation:
-  - ✅ TypeScript compilation: PASS
-  - ✅ Prettier: PASS
-  - ✅ Tests: 50/50 passing
+    - ✅ TypeScript compilation: PASS
+    - ✅ Prettier: PASS
+    - ✅ Tests: 50/50 passing
 - Impact: Low (no logic changes)
 ```
 
 ## Example: TEST-SWC-001 Session
 
 **Changes Made**:
+
 - Jest config updates (configuration)
 - Removed `import React` statements (simple import removal)
 - Documentation updates (.mdc files, README.md)
 - Dependency changes (removed Babel, added @swc)
 
 **Codacy Decision**: SKIPPED
+
 - Jest config: Validated by running `pnpm test` (50/50 pass)
 - Import removals: Validated by TypeScript compilation (no errors)
 - Documentation: Manual review for accuracy
 - Dependency changes: Only dev dependencies, tests validate functionality
 
 **Alternative Quality Gates**:
+
 - ✅ TypeScript compilation: PASS
 - ✅ Tests: 50/50 passing
 - ✅ Prettier: PASS

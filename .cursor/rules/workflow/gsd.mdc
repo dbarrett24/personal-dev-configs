@@ -1,0 +1,173 @@
+---
+description: GSD (Get Stuff Done) workflow for structured task execution
+globs: []
+alwaysApply: false
+---
+
+# GSD Workflow Pattern
+
+## Overview
+
+The GSD workflow is a 5-phase structured approach for complex tasks that require careful planning, execution, and quality validation.
+
+## When to Use GSD Workflow
+
+**Use GSD for:**
+
+- ✅ New feature implementation (multi-file changes)
+- ✅ Architectural changes (affects multiple packages)
+- ✅ Complex refactoring (requires planning)
+- ✅ Documentation consolidation (affects many files)
+- ✅ Configuration migrations (requires validation)
+- ✅ Any task where user wants formal planning/tracking
+
+**Skip GSD for:**
+
+- ❌ Simple bug fixes (single file, obvious change)
+- ❌ Minor documentation updates (typo fixes, small additions)
+- ❌ Quick exploratory code review
+- ❌ Answering questions without making changes
+
+## The 5 Phases
+
+### Phase 1: SPEC (`/DS-gsd/step 1/spec-gsd`)
+
+**Goal**: Research and create detailed specification
+
+**Outputs**:
+
+- `.cursor/plans/[TICKET-ID].md` with Section 1-6
+- Research findings
+- Component architecture context
+- Success criteria
+- Risk analysis
+
+**When complete**: User approves spec, ready to plan implementation
+
+---
+
+### Phase 2: PLAN (`/DS-gsd/step 2/plan-gsd`)
+
+**Goal**: Create detailed implementation plan with tasks
+
+**Outputs**:
+
+- Section 7 added to plan file
+- Task breakdown with dependencies
+- Pre-flight rules verification
+- Quality gates identification
+- Risk mitigation strategies
+
+**When complete**: User approves plan, ready to execute
+
+---
+
+### Phase 3: BUILD (`/DS-gsd/step 3/build-gsd`)
+
+**Goal**: Execute implementation according to plan
+
+**Outputs**:
+
+- Code/documentation changes
+- Section 8 added to plan file (BUILD LOG)
+- Section 9 added to plan file (QUALITY LOG)
+- Tests passing
+- Linting clean
+
+**When complete**: All planned tasks executed, basic quality checks pass
+
+---
+
+### Phase 4: VERIFY (`/DS-gsd/step 4/verify-gsd`)
+
+**Goal**: Comprehensive quality validation and issue resolution
+
+**Outputs**:
+
+- Section 10 added to plan file (VERIFICATION)
+- All quality gates passed
+- Issues found and fixed
+- Build and test validation complete
+
+**When complete**: All quality gates pass, ready for commit
+
+---
+
+### Phase 5: RETRO (`/DS-gsd/step 5/retro-gsd`)
+
+**Goal**: Learn from session, improve rules and processes
+
+**Outputs**:
+
+- Section 11 added to plan file (RETROSPECTIVE)
+- Gap analysis
+- Proposed rule improvements
+- Updated `.cursor/rules/*.mdc` files (if approved)
+
+**When complete**: Session learning captured, GSD cycle closed
+
+---
+
+## Plan File Structure
+
+The plan file (`.cursor/plans/[TICKET-ID].md`) grows through phases:
+
+```
+Section 1: Task Summary (SPEC)
+Section 2: Context & Intent (SPEC)
+Section 3: Research Findings (SPEC)
+Section 4: Component Architecture Context (SPEC)
+Section 5: Nuance & Risks (SPEC)
+Section 6: Success Criteria (SPEC)
+Section 7: Implementation Plan (PLAN)
+Section 8: Build Prototype Log (BUILD)
+Section 9: Build Quality Log (BUILD)
+Section 10: Verification Results (VERIFY)
+Section 11: Retrospective Analysis (RETRO)
+```
+
+## Best Practices
+
+**Pre-Flight Check**:
+
+- Always review relevant `.cursor/rules/*.mdc` files in PLAN phase
+- Document which rules apply to the task
+- Note any rule violations or exceptions needed
+
+**Git History Preservation**:
+
+- When deleting files, document reason in plan
+- Git history preserves deleted files for future reference
+- Don't remove files from git history unless required
+
+**Plan File as Source of Truth**:
+
+- All decisions, changes, and learnings live in the plan file
+- Plan file enables recovery if context is lost
+- Future sessions can reference plan files for patterns
+
+**User Approval Gates**:
+
+- SPEC must be approved before PLAN
+- PLAN must be approved before BUILD
+- Rule changes must be approved before applying
+
+## Example: DOCS-001 Session
+
+**Task**: Documentation cleanup (37 → 20 files)  
+**Workflow Used**: Full GSD (all 5 phases)  
+**Outcome**: Success
+
+**Why GSD was appropriate**:
+
+- Complex task (17 deletions, 4 updates, 1 creation)
+- Required content extraction before deletion
+- Multi-phase dependencies (extract → create → update → delete)
+- Quality validation needed (link verification)
+
+**Results**:
+
+- Zero mistakes (no user corrections)
+- Zero unnecessary questions
+- All quality gates passed
+- Session learnings captured in retro

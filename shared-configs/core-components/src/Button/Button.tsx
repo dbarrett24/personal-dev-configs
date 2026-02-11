@@ -65,13 +65,13 @@ export const Button = ({
                 // Variant + Style combinations - Filled
                 variant === 'filled' &&
                     style === 'primary' &&
-                    'bg-interactive-primary hover:bg-interactive-primary-hover focus:ring-interactive-primary active:bg-interactive-primary-active text-text-inverse',
+                    'bg-link-primary text-text-inverse hover:bg-link-hover focus:ring-link-primary active:bg-link-pressed',
                 variant === 'filled' &&
                     style === 'secondary' &&
-                    'bg-interactive-secondary hover:bg-interactive-secondary-hover focus:ring-interactive-secondary text-text-inverse',
+                    'bg-link-secondary text-text-inverse hover:bg-secondary-600 focus:ring-link-secondary',
                 variant === 'filled' &&
                     style === 'neutral' &&
-                    'bg-surface-secondary hover:bg-surface-tertiary focus:ring-surface-secondary text-text-primary',
+                    'bg-surface-300 text-text-primary hover:bg-surface-400 focus:ring-surface-300',
                 variant === 'filled' &&
                     style === 'critical' &&
                     'bg-critical-500 text-text-inverse hover:bg-critical-600 focus:ring-critical-500',
@@ -79,13 +79,13 @@ export const Button = ({
                 // Variant + Style combinations - Outline
                 variant === 'outline' &&
                     style === 'primary' &&
-                    'border-interactive-primary text-interactive-primary hover:bg-interactive-primary focus:ring-interactive-primary border-2 hover:text-text-inverse',
+                    'border-2 border-link-primary text-link-primary hover:bg-link-primary hover:text-text-inverse focus:ring-link-primary',
                 variant === 'outline' &&
                     style === 'secondary' &&
-                    'border-interactive-secondary text-interactive-secondary hover:bg-interactive-secondary focus:ring-interactive-secondary border-2 hover:text-text-inverse',
+                    'border-2 border-link-secondary text-link-secondary hover:bg-link-secondary hover:text-text-inverse focus:ring-link-secondary',
                 variant === 'outline' &&
                     style === 'neutral' &&
-                    'hover:bg-surface-secondary focus:ring-surface-secondary border-2 border-border-primary text-text-primary',
+                    'border-2 border-border-primary text-text-primary hover:bg-surface-200 focus:ring-surface-300',
                 variant === 'outline' &&
                     style === 'critical' &&
                     'border-2 border-critical-500 text-critical-500 hover:bg-critical-500 hover:text-text-inverse focus:ring-critical-500',
@@ -93,13 +93,13 @@ export const Button = ({
                 // Variant + Style combinations - Ghost
                 variant === 'ghost' &&
                     style === 'primary' &&
-                    'hover:bg-surface-secondary text-interactive-primary focus:ring-interactive-primary',
+                    'text-link-primary hover:bg-surface-100 focus:ring-link-primary',
                 variant === 'ghost' &&
                     style === 'secondary' &&
-                    'hover:bg-surface-secondary text-interactive-secondary focus:ring-interactive-secondary',
+                    'text-link-secondary hover:bg-surface-100 focus:ring-link-secondary',
                 variant === 'ghost' &&
                     style === 'neutral' &&
-                    'hover:bg-surface-secondary focus:ring-surface-secondary text-text-secondary',
+                    'text-text-secondary hover:bg-surface-100 focus:ring-surface-300',
                 variant === 'ghost' &&
                     style === 'critical' &&
                     'text-critical-500 hover:bg-critical-50 focus:ring-critical-500',

@@ -6,20 +6,19 @@
 
 export const baseTheme = {
     borderRadius: {
-        full: '9999px',
-        lg: 'var(--radius-lg, 0.75rem)', // 12px
-        md: 'var(--radius-md, 0.5rem)', // 8px
-        none: '0',
-        sm: 'var(--radius-sm, 0.25rem)', // 4px
-        xl: 'var(--radius-xl, 1rem)', // 16px
-        xs: '2px',
-
         // Semantic component tokens
         button: 'var(--button-border-radius)',
         checkbox: 'var(--checkbox-border-radius)',
         container: 'var(--container-border-radius)',
+        full: '9999px',
         input: 'var(--input-border-radius)',
+        lg: 'var(--radius-lg, 0.75rem)', // 12px
+        md: 'var(--radius-md, 0.5rem)', // 8px
+        none: '0',
         'search-input': 'var(--search-input-border-radius)',
+        sm: 'var(--radius-sm, 0.25rem)', // 4px
+        xl: 'var(--radius-xl, 1rem)', // 16px
+        xs: '2px',
     },
 
     colors: {
@@ -70,6 +69,14 @@ export const baseTheme = {
         'text-warning': 'var(--text-warning)',
     },
 
+    fontFamily: {
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        primary: 'var(--font-family-primary)',
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        secondary: 'var(--font-family-secondary)',
+        serif: ['Georgia', 'serif'],
+    },
+
     fontSize: {
         '2xl': ['1.5rem', { lineHeight: '2rem' }], // 24px
         '3xl': ['1.875rem', { lineHeight: '2.25rem' }], // 30px
@@ -80,14 +87,6 @@ export const baseTheme = {
         sm: ['0.875rem', { lineHeight: '1.25rem' }], // 14px
         xl: ['1.25rem', { lineHeight: '1.75rem' }], // 20px
         xs: ['0.75rem', { lineHeight: '1rem' }], // 12px
-    },
-
-    fontFamily: {
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
-        primary: 'var(--font-family-primary)',
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
-        secondary: 'var(--font-family-secondary)',
-        serif: ['Georgia', 'serif'],
     },
 
     spacing: {

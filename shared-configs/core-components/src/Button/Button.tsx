@@ -118,11 +118,7 @@ export const Button = ({
             {...restProps}
         >
             {iconLeft && !isLoading && <span className="flex-shrink-0">{iconLeft}</span>}
-            {isLoading ? (
-                <span className="text-sm">Loading...</span>
-            ) : (
-                children
-            )}
+            {isLoading ? <span className="text-sm">Loading...</span> : children}
             {iconRight && !isLoading && <span className="flex-shrink-0">{iconRight}</span>}
         </button>
     );

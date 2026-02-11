@@ -2,18 +2,6 @@
 
 > Production-ready monorepo with reusable configurations, multi-brand component libraries, and project templates extracted from professional development experience.
 
-## 📊 Configuration Analysis
-
-**NEW:** Comprehensive comparison between these configs and your work repositories:
-
-- 📖 **[COMPARISON_SUMMARY.md](./COMPARISON_SUMMARY.md)** - Quick overview (5 min read)
-- 📚 **[CONFIG_COMPARISON.md](./CONFIG_COMPARISON.md)** - Detailed analysis (15 min read)
-- 🔧 **[TSUP_CONFIG_IMPLEMENTATION.md](./TSUP_CONFIG_IMPLEMENTATION.md)** - tsup-config package guide (NEW!)
-
-**TL;DR:** These configs match 95% of your work configurations and include several improvements!
-
----
-
 ## 📦 What's Included
 
 ### Shared Configuration Packages
@@ -32,46 +20,73 @@ All published to npm under `@dbarrett24/*` scope:
 
 ### Brand Component Libraries
 
-- **basketball-training-ui** - Basketball Training brand components with Storybook ✅
-- **professional-brand-ui** - Professional brand components (in progress) 🚧
+- **basketball-training-ui** - Basketball Training brand components with Storybook
+- **professional-brand-ui** - Professional brand components with Storybook
 
 ### Project Templates
 
-- **nextjs-app** - Next.js 15 + App Router template (planned)
-- **react-vite** - React + Vite SPA template (planned)
-- **new-brand-library** - Template for creating new brand libraries (planned)
+- **nextjs-app** - Next.js 15 + App Router template
+- **react-vite** - React + Vite SPA template
+
+---
 
 ## 🚀 Quick Start
 
-### 1. Install Dependencies
+### Installation
 
 ```bash
+# Install dependencies
 pnpm install
-```
 
-### 2. Build All Packages
-
-```bash
+# Build all packages
 pnpm build
+
+# Start development
+pnpm work:basketball     # Basketball brand
+pnpm work:professional   # Professional brand
+pnpm work:core           # Core components
 ```
 
-### 3. Run Storybook
+### View Storybook
 
 ```bash
-cd brand-libraries/basketball-training-ui
-pnpm storybook
+# Basketball Training UI (port 6006)
+pnpm storybook:basketball
+
+# Professional Brand UI (port 6006)
+pnpm storybook:professional
+
+# Core Components (port 6007)
+pnpm storybook:core
+
+# View all brands in parallel
+pnpm storybook:all
 ```
 
-### 4. Run Tests
+### Run Tests
 
 ```bash
+# Run all tests
 pnpm test
+
+# Run tests with coverage
+pnpm test-coverage
+
+# Run specific package tests
+pnpm test:core
+pnpm test:basketball
+pnpm test:professional
 ```
+
+---
 
 ## 📖 Documentation
 
-- **[Getting Started](./GETTING_STARTED.md)** - Complete setup guide
-- **[Progress](./PROGRESS.md)** - Implementation status
+- **[Getting Started](./GETTING_STARTED.md)** - Complete setup and usage guide
+- **[Contributing](./CONTRIBUTING.md)** - Development workflow and scripts reference
+- **[Architecture](./ARCHITECTURE.md)** - System design and architecture decisions
+
+---
 
 ## 🎨 Features
 
@@ -85,7 +100,7 @@ personal-dev-configs/
 ├── brand-libraries/
 │   ├── basketball-training-ui/   # Orange basketball theme
 │   └── professional-brand-ui/    # Blue professional theme
-└── templates/               # Project scaffolding
+└── apps/                     # Project templates
 ```
 
 ### Semantic Design Tokens
@@ -95,13 +110,15 @@ Theme system with semantic naming for easy multi-brand support:
 ```tsx
 import { cn } from '@dbarrett24/theme-system';
 
-<button className={cn(
-    'bg-interactive-primary text-text-inverse',
-    'hover:bg-interactive-primary-hover',
-    'px-lg py-sm rounded-md'
-)}>
+<button
+    className={cn(
+        'bg-interactive-primary text-text-inverse',
+        'hover:bg-interactive-primary-hover',
+        'px-lg py-sm rounded-md'
+    )}
+>
     Click me
-</button>
+</button>;
 ```
 
 ### Comprehensive Testing Utilities
@@ -112,9 +129,9 @@ import { myAtom } from '@/atoms';
 
 it('renders component', () => {
     jotaiStore.set(myAtom, 'test value');
-    
+
     render(<MyComponent />);
-    
+
     expect(screen.getByText('test value')).toBeVisible();
 });
 ```
@@ -136,33 +153,38 @@ pnpm ci:version         # Version packages
 pnpm ci:publish         # Publish to npm
 ```
 
+---
+
 ## 🛠️ Development Scripts
 
+### Most Common Commands
+
 ```bash
-# Verification (recommended before commits)
-pnpm verify-all       # Complete verification checklist (automated)
-pnpm test-sequential  # Run tests one by one (clearer output)
-
 # Development
-pnpm dev               # Start all dev servers
-pnpm build            # Build all packages
-pnpm test             # Run all tests (parallel)
-pnpm lint             # Lint all packages
-pnpm lint-fix         # Fix linting issues
+pnpm work:basketball      # Work on basketball brand
+pnpm work:professional    # Work on professional brand
+pnpm work:core            # Work on core components
 
-# Pre-commit checks
-pnpm pc               # Pre-commit check (build + lint + test)
-pnpm pcf              # Pre-commit fix (auto-fix + update snapshots)
+# Storybook
+pnpm storybook:all        # All Storybooks in parallel
 
-# Maintenance
-pnpm cleanup          # Remove all node_modules
-pnpm full-rebuild     # Complete rebuild from scratch
-pnpm upgrade-deps     # Update all dependencies
-pnpm test-update      # Update test snapshots
-pnpm test-coverage    # Run tests with coverage
+# Testing
+pnpm test                 # All tests
+pnpm test:watch:core      # Watch mode
+
+# Quality checks
+pnpm pc                   # Quick pre-commit check
+pnpm pcf                  # Pre-commit check with auto-fix
+pnpm prepush              # Full pre-push check
+
+# Cleanup
+pnpm clean:dist           # Remove dist folders
+pnpm full-rebuild         # Nuclear option: clean + install + build
 ```
 
-See **[VERIFICATION_CHECKLIST.md](./VERIFICATION_CHECKLIST.md)** for complete verification instructions.
+See **[CONTRIBUTING.md](./CONTRIBUTING.md)** for complete script documentation.
+
+---
 
 ## 📝 Usage in Projects
 
@@ -178,13 +200,13 @@ pnpm add -D @dbarrett24/eslint-config @dbarrett24/prettier-config @dbarrett24/ty
 ```json
 // package.json
 {
-  "prettier": "@dbarrett24/prettier-config",
-  "devDependencies": {
-    "@dbarrett24/eslint-config": "^1.0.0",
-    "@dbarrett24/prettier-config": "^1.0.0",
-    "@dbarrett24/typescript-config": "^1.0.0",
-    "@dbarrett24/testing-utils": "^1.0.0"
-  }
+    "prettier": "@dbarrett24/prettier-config",
+    "devDependencies": {
+        "@dbarrett24/eslint-config": "^1.0.0",
+        "@dbarrett24/prettier-config": "^1.0.0",
+        "@dbarrett24/typescript-config": "^1.0.0",
+        "@dbarrett24/testing-utils": "^1.0.0"
+    }
 }
 ```
 
@@ -199,7 +221,7 @@ module.exports = {
 ```json
 // tsconfig.json
 {
-  "extends": "@dbarrett24/typescript-config/nextjs.json"
+    "extends": "@dbarrett24/typescript-config/nextjs.json"
 }
 ```
 
@@ -212,6 +234,8 @@ module.exports = {
 };
 ```
 
+---
+
 ## 🎯 Design Philosophy
 
 Extracted from professional development experience:
@@ -219,10 +243,12 @@ Extracted from professional development experience:
 1. **Strict TypeScript** - No `any` types in libraries
 2. **High test coverage** - 90%+ for apps, 95%+ for libraries
 3. **Semantic naming** - Consistent patterns across all brands
-4. **Modern tooling** - Vite, Storybook, pnpm, turbo
+4. **Modern tooling** - Vite, Storybook, pnpm, Turbo
 5. **Best practices** - Arrow functions, nullish coalescing, named exports
 6. **No component mocking** - Test real behavior with React Testing Library
 7. **Direct testing** - Access Jotai store and React Query directly in tests
+
+---
 
 ## 📚 Tech Stack
 
@@ -239,6 +265,8 @@ Extracted from professional development experience:
 - **Turbo** - High-performance monorepo builds
 - **Changesets** - Version management and publishing
 
+---
+
 ## 🎨 Brand Examples
 
 ### Basketball Training UI
@@ -252,6 +280,8 @@ Extracted from professional development experience:
 - **Primary Color**: Blue (#3B82F6)
 - **Theme**: Trust, professionalism, clarity
 - **Use Cases**: Portfolio sites, business apps, professional services
+
+---
 
 ## 📦 Package Structure
 
@@ -279,6 +309,8 @@ brand-library/
 └── README.md           # Documentation
 ```
 
+---
+
 ## 🔄 Workflow
 
 ### Creating a New Brand
@@ -298,6 +330,8 @@ brand-library/
 3. Import theme: `import '@dbarrett24/basketball-training-ui/dist/theme/styles.css'`
 4. Use semantic tokens: `className="bg-interactive-primary"`
 
+---
+
 ## 🧪 Testing Philosophy
 
 From professional experience:
@@ -311,10 +345,24 @@ From professional experience:
 - ✅ **FormWrapper** - Test form components with React Hook Form context
 - ✅ **High coverage** - 90%+ apps, 95%+ libraries
 
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please see **[CONTRIBUTING.md](./CONTRIBUTING.md)** for:
+
+- Development workflow
+- Available scripts
+- Testing requirements
+- Code quality standards
+- Publishing process
+
+---
+
 ## 📄 License
 
 MIT
+
 ---
 
-**Status**: 🚧 In active development
-**Completion**: ~60% (8/13 packages complete)
+**Ready to build amazing projects with professional-grade tooling!** 🚀

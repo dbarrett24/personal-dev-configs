@@ -1,0 +1,245 @@
+---
+description: Documentation structure patterns for npm-publishable packages
+globs: ['**/*.md', '**/*.mdc']
+alwaysApply: false
+---
+
+# Documentation Patterns
+
+## Overview
+
+Patterns for organizing documentation in a monorepo with npm-publishable packages.
+
+## Documentation Layers
+
+### Layer 1: Repository Root (User-Facing)
+
+**Audience**: New users discovering the repository
+
+**Required Files**:
+
+- `README.md` - What the repository contains, quick start
+- `GETTING_STARTED.md` - Detailed setup instructions
+- `CONTRIBUTING.md` - How to contribute, development workflow
+- `ARCHITECTURE.md` - System design, architectural decisions
+- `SECURITY.md` - Security disclosure policy (if applicable)
+- `LICENSE` - License information
+
+**Avoid at Root**:
+
+- ❌ Status/progress tracking (belongs in issues/PRs)
+- ❌ Implementation details (belongs in package docs)
+- ❌ Internal comparison documents (belongs in .cursor/ or delete)
+- ❌ Multiple quick start files (consolidate)
+
+---
+
+### Layer 2: Package Level (Consumer-Facing)
+
+**Audience**: Developers installing the npm package
+
+**Required in Each Package**:
+
+```
+package-name/
+├── README.md          # REQUIRED for npm publish
+├── package.json       # Package manifest
+└── src/               # Source code
+```
+
+**Package README Must Include**:
+
+- ✅ Clear description of what the package does
+- ✅ Installation command: `npm install @scope/package-name`
+- ✅ Basic usage example (code snippet)
+- ✅ Link to main repository or documentation
+- ✅ API reference (for libraries) or configuration (for configs)
+
+**Example Package README Structure**:
+
+```markdown
+# @dbarrett24/package-name
+
+[One-line description]
+
+## Installation
+
+\`\`\`bash
+npm install @dbarrett24/package-name
+\`\`\`
+
+## Usage
+
+\`\`\`typescript
+import { Something } from '@dbarrett24/package-name';
+
+// Example usage
+\`\`\`
+
+## API Reference
+
+[...]
+
+## License
+
+MIT - see LICENSE in repository root
+```
+
+---
+
+### Layer 3: Development Context (.cursor/ directory)
+
+**Audience**: AI assistants and future developers
+
+**Purpose**: Preserve architectural decisions and patterns
+
+**Structure**:
+
+```
+.cursor/
+├── rules/             # Coding patterns and conventions
+│   ├── *.mdc         # AI-readable rules
+├── plans/            # Task planning and execution logs
+│   └── [TICKET].md   # GSD workflow outputs
+├── commands/         # Custom Cursor commands
+└── templates/        # Code templates
+```
+
+**Not for Version Control**:
+
+- Temporary notes
+- Personal preferences
+- Experimental ideas not yet validated
+
+---
+
+## Documentation Consolidation Pattern
+
+When reducing documentation redundancy:
+
+### Phase 1: Content Extraction (BEFORE deletion)
+
+1. **Identify unique content** in files to be deleted
+2. **Extract key insights** that provide "why" context
+3. **Determine destination** for extracted content
+4. **Migrate content** to appropriate location
+
+### Phase 2: Create/Update Target Files
+
+1. **Create new consolidated files** (e.g., CONTRIBUTING.md)
+2. **Update existing files** with extracted content
+3. **Ensure no loss of unique information**
+
+### Phase 3: Delete Redundant Files
+
+1. **Only delete after content is migrated**
+2. **Git history preserves deleted files**
+3. **Document rationale** in commit message or plan
+
+### Phase 4: Link Verification
+
+1. **Search for references** to deleted files
+2. **Update or remove broken links**
+3. **Test internal navigation**
+
+---
+
+## npm Publish Readiness Checklist
+
+Before publishing packages:
+
+**Root Documentation**:
+
+- [ ] README.md explains what the monorepo contains
+- [ ] GETTING_STARTED.md has setup instructions
+- [ ] CONTRIBUTING.md explains development workflow
+- [ ] No "WIP" or "incomplete" references in docs
+- [ ] No internal-only documentation at root
+
+**Package Documentation**:
+
+- [ ] Each package has README.md
+- [ ] Installation command is correct
+- [ ] Usage example is present and accurate
+- [ ] API reference is complete (for libraries)
+- [ ] Links to main repo are working
+
+**Quality**:
+
+- [ ] All internal links work
+- [ ] No broken references to deleted files
+- [ ] Consistent formatting (Prettier)
+- [ ] Accurate information (no outdated status)
+
+---
+
+## Common Documentation Anti-Patterns
+
+### ❌ Multiple Status Documents
+
+**Problem**:
+
+- STATUS.md, PROGRESS.md, COMPLETE.md all tracking same information
+- Conflicting completion percentages
+- Outdated after project completion
+
+**Solution**: Use issues/PRs for status tracking, not committed docs
+
+---
+
+### ❌ Comparison Documents in Root
+
+**Problem**:
+
+- CONFIG_COMPARISON.md, HAMMER_UI_COMPARISON.md at root
+- Useful during development, not useful for end users
+- Creates clutter
+
+**Solution**:
+
+- Extract key architectural decisions → ARCHITECTURE.md
+- Delete comparison files after extraction
+- Or move to .cursor/ if still useful for AI
+
+---
+
+### ❌ Multiple Quick Start Files
+
+**Problem**:
+
+- QUICK_START.md, README.md, GETTING_STARTED.md with overlapping content
+- Confusing for new users ("which one do I read?")
+
+**Solution**:
+
+- Consolidate into README.md (brief) + GETTING_STARTED.md (detailed)
+- Single path for onboarding
+
+---
+
+### ❌ Implementation Guides at Root
+
+**Problem**:
+
+- TSUP_CONFIG_IMPLEMENTATION.md at root
+- Package-specific details in wrong location
+- Harder to find when using the package
+
+**Solution**: Move to package directory (e.g., `tsup-config/README.md`)
+
+---
+
+## Example: DOCS-001 Consolidation
+
+**Before**: 37 markdown files (redundant, outdated)  
+**After**: ~20 markdown files (focused, accurate)
+
+**Actions Taken**:
+
+1. Deleted 17 redundant files (status, comparisons, scripts)
+2. Created 1 new file (CONTRIBUTING.md)
+3. Updated 3 files (README, GETTING_STARTED, ARCHITECTURE)
+4. Extracted content before deletion (no information loss)
+5. Verified links after changes (2 broken links fixed)
+
+**Result**: Clear, maintainable documentation ready for npm publish

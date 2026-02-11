@@ -5,57 +5,76 @@ globs: ["**/theme/**/*.css", "**/*.css", "**/tailwind.config.*"]
 
 # Theme System Infrastructure
 
-## Module Organization Philosophy
+## Module Organization Philosophy (Updated 2026-02-11)
 
-### Separation of Concerns
+### Modular Tailwind Plugin Structure
 
-The theme system is split into focused modules for better testability and reusability:
+The theme system uses a modular structure mirroring Hammer UI's architecture:
 
 ```
-theme-system/
-├── src/
-│   ├── theme.ts           # Pure theme values (colors, spacing, etc.)
-│   ├── tailwind-plugin.ts # Custom Tailwind utilities (.hui-* classes)
-│   ├── cn.ts              # Class name utility (standalone)
-│   └── index.ts           # Main entry point
-└── tailwind.config.js     # Base Tailwind config (preset-ready)
+theme-system/src/
+├── tailwind/                      # Modular Tailwind configuration
+│   ├── cssVars.ts                 # TypeScript constants for CSS variable names
+│   ├── colors.ts                  # Color config using cssVars + wrapVar
+│   ├── boxShadow.ts               # Shadow tokens
+│   ├── borderRadius.ts            # Radius tokens
+│   ├── fontFamily.ts              # Font family tokens
+│   ├── spacing.ts                 # Spacing scale (fixed values)
+│   ├── width.ts                   # Layout width tokens
+│   ├── text.ts                    # Typography component classes
+│   ├── screens.ts                 # Responsive breakpoints
+│   └── plugin.ts                  # Main plugin (assembles complete theme)
+├── themes/                        # Brand definitions (TypeScript)
+│   ├── BasketballTraining.ts      # colorAliases + nonColorVariables
+│   ├── ProfessionalBrand.ts
+│   ├── Default.ts
+│   ├── brands.ts                  # Brand name → CSS class mapping
+│   ├── generateCSSVars.ts         # TS → CSS converter
+│   └── writeToCSSFile.ts          # File writer utility
+├── utils/
+│   ├── wrapVar.ts                 # Variable wrapping utilities
+│   ├── color.ts                   # tinycolor2 color generation
+│   └── cn.ts                      # Class name merge utility
+└── index.ts                       # Exports all modules
 ```
 
-**Benefits of Separation**:
-1. **theme.ts**: Can be imported without loading Tailwind plugin
-2. **tailwind-plugin.ts**: Can be tested independently
-3. **cn.ts**: Standalone utility, no theme dependencies
-4. **tailwind.config.js**: Can be used as preset without plugins
+### Benefits of Modular Structure
 
-**Comparison to Hammer UI**:
-- Hammer UI: Monolithic plugin with theme values embedded
-- Ours: Modular with explicit separation
-- **Advantage**: Better tree-shaking, easier testing, more flexible composition
+1. **Single Responsibility**: Each file has one clear purpose
+2. **Type Safety**: `cssVars.ts` provides TypeScript constants preventing typos
+3. **Tree-Shakable**: Consumers can import only what they need
+4. **Testable**: Each module can be tested independently
+5. **Maintainable**: Small focused files easier to navigate
 
 ### Import Patterns
 
-**For theme values only**:
+**For Tailwind plugin** (most common):
 ```typescript
-import { baseTheme } from '@dbarrett24/theme-system/theme';
-// Use in non-Tailwind contexts
-```
-
-**For Tailwind plugin**:
-```typescript
+// Consumer app's tailwind.config.js
 const { themePlugin } = require('@dbarrett24/theme-system');
-// Load in consuming app's tailwind.config.js
+
+module.exports = {
+    plugins: [themePlugin],  // Plugin defines complete theme
+};
 ```
 
-**For class name utility**:
+**For individual modules** (advanced usage):
+```typescript
+import { colors } from '@dbarrett24/theme-system/colors';
+import { spacing } from '@dbarrett24/theme-system/spacing';
+import { screens } from '@dbarrett24/theme-system/screens';
+```
+
+**For utilities**:
 ```typescript
 import { cn } from '@dbarrett24/theme-system';
-// Use anywhere
+import { wrapVar, wrapVariableOpacity } from '@dbarrett24/theme-system/wrapVar';
+import { generateNormalColorSteps } from '@dbarrett24/theme-system/color';
 ```
 
-**For complete theme system**:
+**For brand metadata**:
 ```typescript
-import { baseTheme, cn } from '@dbarrett24/theme-system';
-const { themePlugin } = require('@dbarrett24/theme-system');
+import { brands, brandsToCSS } from '@dbarrett24/theme-system/brands';
 ```
 
 ## Overview
@@ -341,17 +360,35 @@ Modern design systems prioritize readability and breathing room:
 - Aligns with accessibility guidelines
 - Matches contemporary UI trends (2024-2026)
 
-## File Locations
+## File Locations (Updated 2026-02-11)
 
 **Theme System Package**:
-- Core tokens: `shared-configs/theme-system/src/theme.ts`
-- Tailwind plugin: `shared-configs/theme-system/src/tailwind-plugin.ts`
+- Modular config: `shared-configs/theme-system/src/tailwind/*.ts` (10 files)
+- Brand definitions: `shared-configs/theme-system/src/themes/*.ts` (TypeScript)
+- Utilities: `shared-configs/theme-system/src/utils/*.ts` (wrapVar, color, cn)
+- Generated CSS: `shared-configs/theme-system/dist/css/*.css` (build-time)
 - Package config: `shared-configs/theme-system/package.json`
 
-**Brand Theme CSS**:
-- Basketball brand: `brand-libraries/basketball-training-ui/src/theme/styles.css`
-- Professional brand: `brand-libraries/professional-brand-ui/src/theme/styles.css`
-- Storybook default: `apps/docs/.storybook/themes/default.css`
+**Brand Libraries** (components only):
+- Basketball: `brand-libraries/basketball-training-ui/src/components/`
+- Professional: `brand-libraries/professional-brand-ui/src/components/`
+- ❌ NO `src/theme/` directories (deleted in DS-15b)
+
+**Consumer Apps** (CSS imports):
+- Storybook: `apps/docs/.storybook/global.css`
+- Next.js: `apps/nextjs-app/app/globals.css`
+- React Vite: `apps/react-vite/src/index.css`
+
+**Example consumer CSS**:
+```css
+/* Import generated CSS from theme-system */
+@import '@dbarrett24/theme-system/css/BasketballTraining.css';
+@import '@dbarrett24/theme-system/css/ProfessionalBrand.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
 
 **Documentation**:
 - Architecture overview: `ARCHITECTURE.md`
@@ -365,4 +402,4 @@ Modern design systems prioritize readability and breathing room:
 
 ---
 
-**Last Updated**: 2026-02-10 (DS-15 implementation)
+**Last Updated**: 2026-02-11 (DS-15b modular restructure)

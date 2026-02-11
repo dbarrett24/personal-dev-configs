@@ -7,27 +7,72 @@ globs: ["**/theme/**/*.css", "**/*.css"]
 
 Patterns for implementing multi-brand theming.
 
+## Architecture Overview (Updated 2026-02-11)
+
+### Centralized CSS Generation Pattern
+
+**CURRENT ARCHITECTURE** (DS-15b):
+- ✅ Theme-system generates ALL brand CSS at build time
+- ✅ Brand libraries contain ONLY components (no CSS files)
+- ✅ Consumer apps import CSS from `@dbarrett24/theme-system/css/*.css`
+
+```
+theme-system/
+├── src/
+│   ├── themes/
+│   │   ├── BasketballTraining.ts    # TypeScript brand definition
+│   │   ├── ProfessionalBrand.ts
+│   │   ├── Default.ts
+│   │   ├── generateCSSVars.ts       # TS → CSS converter
+│   │   └── writeToCSSFile.ts        # File writer
+│   └── utils/
+│       └── color.ts                  # tinycolor2 color generation
+├── dist/css/                          # Generated at build time
+│   ├── BasketballTraining.css        # .brand-basketball { ... } + :root fallback
+│   ├── ProfessionalBrand.css
+│   └── Default.css
+└── tsup.config.ts                     # onSuccess hook generates CSS
+
+brand-libraries/basketball-training-ui/
+├── src/components/                    # Components ONLY
+├── package.json
+│   ├── exports: { ".": "./dist/index.js" }  # NO "./theme" export
+│   ├── peerDependencies:
+│   │   └── "@dbarrett24/theme-system": ">=1"  # Required by consumer
+│   └── devDependencies:
+│       └── "@dbarrett24/theme-system": "workspace:*"  # Build-time types
+└── NO src/theme/ directory
+
+apps/docs/.storybook/global.css
+@import '@dbarrett24/theme-system/css/BasketballTraining.css';
+@import '@dbarrett24/theme-system/css/ProfessionalBrand.css';
+```
+
+**OLD ARCHITECTURE** (Pre-DS-15b, DEPRECATED):
+```
+❌ brand-libraries/basketball-training-ui/src/theme/styles.css  # DELETED
+❌ package.json exports: { "./theme": "./dist/theme/styles.css" }  # REMOVED
+```
+
 ## Preferred Approach: Class-Based Selectors
 
 This project uses class-based CSS selectors for theme switching (Hammer UI pattern).
 
-### Structure
+### Generated CSS Structure
 
-**Brand CSS Files**:
+**Generated CSS files** (in `theme-system/dist/css/*.css`):
 ```css
-/* brand-libraries/basketball-training-ui/src/theme/styles.css */
-
 /* Primary: Class-based selector for theme switching */
 .brand-basketball {
-    --interactive-primary: #ff6b35;
-    --background-primary: #ffffff;
+    --color-primary-500: 255 107 53;
+    --color-background-primary: 255 255 255;
     /* ... all theme variables */
 }
 
 /* Fallback: :root for standalone usage */
 :root {
-    --interactive-primary: #ff6b35;
-    --background-primary: #ffffff;
+    --color-primary-500: 255 107 53;
+    --color-background-primary: 255 255 255;
     /* ... same variables for backward compatibility */
 }
 ```
@@ -95,39 +140,116 @@ Components use Tailwind classes:
 
 ## Adding New Brand Themes
 
-1. Create brand package: `brand-libraries/new-brand-ui/`
-2. Create `src/theme/styles.css` with class-based selector:
-   ```css
-   .brand-new-brand {
-       --interactive-primary: #color;
-       /* ... all required variables */
-   }
+**NEW PROCESS** (DS-15b+):
+
+1. **Create TypeScript brand definition** in `theme-system/src/themes/NewBrand.ts`:
+   ```typescript
+   import { colorStepArrayToObject, generateNormalColorSteps, generateSurfaceColorSteps } from '../utils/color';
+   import { wrapVar } from '../utils/wrapVar';
+   import { colorSurface50, colorSurface200, /* ... */ } from '../tailwind/cssVars';
    
-   :root {
-       /* Same variables for fallback */
-   }
+   export const coreColors = {
+       brandPrimary: colorStepArrayToObject(generateNormalColorSteps('#YOUR_COLOR')),
+       neutral: colorStepArrayToObject(generateSurfaceColorSteps('#GRAY', true)),
+       // ... 6-8 core colors total
+   };
+   
+   export const colorAliases = {
+       primary: coreColors.brandPrimary,  // Maps to 10 shades
+       surface: coreColors.neutral,
+       // ... 8 aliases
+   } satisfies ColorAliasesObject;
+   
+   export const nonColorVariables = {
+       '--color-background-primary': wrapVar(colorSurface50),
+       '--color-background-disabled': wrapVar(colorSurface200),
+       // ... semantic tokens reference palette
+   } satisfies Record<NonColorCSSVariables, string>;
    ```
-3. Export CSS in package.json:
+
+2. **Update `themes/brands.ts`**:
+   ```typescript
+   export type Brands = 'BasketballTraining' | 'ProfessionalBrand' | 'Default' | 'NewBrand';
+   export const brandsToCSS: Record<Brands, string> = {
+       // ...
+       NewBrand: 'brand-newbrand',
+   };
+   ```
+
+3. **Update `tsup.config.ts` onSuccess hook**:
+   ```typescript
+   import { nonColorVariables as NewBrand, colorAliases as NewBrandAliases } from './src/themes/NewBrand';
+   
+   // In onSuccess:
+   writeToCSSFile(
+       generateCSSVars({ 
+           ...NewBrand, 
+           ...makeColorCSSVarsFromObject(NewBrandAliases) 
+       }, 'brand-newbrand'),
+       'dist/css/NewBrand.css'
+   );
+   ```
+
+4. **Update `package.json` exports**:
    ```json
    {
      "exports": {
-       "./theme": "./dist/theme/styles.css"
+       "./css/NewBrand.css": "./dist/css/NewBrand.css"
      }
    }
    ```
-4. Build the package: `pnpm build`
-5. Update Storybook (if applicable):
-   - Add to devDependencies
-   - Import CSS in preview.tsx
-   - Add to brands registry
+
+5. **Build**: `pnpm build` → generates `dist/css/NewBrand.css` (376 lines)
+
+6. **Use in app**: 
+   ```css
+   @import '@dbarrett24/theme-system/css/NewBrand.css';
+   ```
+
+**Time**: ~30 minutes (vs 2-3 hours manual CSS with old approach)
+
+**Pattern**: See `.cursor/rules/architecture/build-time-generation.mdc` for complete guide
+
+### Build-Time CSS Generation
+
+Theme-system uses tsup's `onSuccess` hook to generate CSS files from TypeScript:
+
+```typescript
+// tsup.config.ts
+export default defineConfig({
+    entry: ['src/index.ts', /* ... */],
+    format: ['esm', 'cjs'],
+    onSuccess: async () => {
+        console.log('✅ Generating theme CSS files...');
+        
+        // Import brand definitions
+        const { nonColorVariables: Basketball, colorAliases: BasketballAliases } = 
+            await import('./dist/themes/BasketballTraining.mjs');
+        
+        // Generate CSS
+        writeToCSSFile(
+            generateCSSVars({ 
+                ...Basketball, 
+                ...makeColorCSSVarsFromObject(BasketballAliases) 
+            }, 'brand-basketball'),
+            'dist/css/BasketballTraining.css'
+        );
+        
+        console.log('✅ Generated theme CSS files in dist/css/');
+    },
+});
+```
+
+**Pattern**: See `.cursor/rules/architecture/build-time-generation.mdc` for complete guide
 
 ## Testing Theme Changes
 
-After modifying theme CSS:
-1. Rebuild the brand package
-2. Restart dev servers/Storybook
-3. Hard refresh browser (Cmd+Shift+R)
-4. Verify all CSS variables update correctly
+After modifying theme definitions:
+1. Rebuild theme-system: `pnpm --filter @dbarrett24/theme-system build`
+2. Verify CSS generated: `ls shared-configs/theme-system/dist/css/`
+3. Restart dev servers/Storybook
+4. Hard refresh browser (Cmd+Shift+R)
+5. Verify all CSS variables update correctly
 
 ## Theme Implementation Validation Checklist
 

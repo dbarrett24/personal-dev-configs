@@ -137,27 +137,29 @@ jest-config-library/index.ts (95% coverage)
 │  ────────────────────────────────────────────────────────── │
 │  • Semantic tokens (colors, spacing, typography)            │
 │  • cn() utility (clsx + tailwind-merge)                     │
-│  • Base Tailwind config                                      │
-│  • Shared styles.css                                         │
+│  • Base Tailwind config + plugin                            │
+│  • Build-time CSS generation (TypeScript → CSS)             │
+│  • Brand theme definitions (TypeScript)                     │
+│  • Generated CSS files: BasketballTraining.css, etc.        │
 └────────────────────────────┬────────────────────────────────┘
                              │
-                             │ extends
+                             │ imports CSS from theme-system
             ┌────────────────┴────────────────┐
             │                                 │
             ▼                                 ▼
 ┌──────────────────────┐        ┌──────────────────────┐
 │ basketball-training  │        │  professional-brand  │
 │ ──────────────────── │        │  ─────────────────── │
-│ Theme overrides:     │        │  Theme overrides:    │
-│ • Primary: #ff6600   │        │  • Primary: #0066cc  │
-│ • Secondary: #4a4a4a │        │  • Secondary: #333   │
-│ • Accent: #ffd700    │        │  • Accent: #6c757d   │
+│ Brand-wrapped        │        │  Brand-wrapped       │
+│ components:          │        │  components:         │
+│ • Button (wraps      │        │  • Button (wraps     │
+│   core Button)       │        │    core Button)      │
+│ • Card (wraps        │        │  • Card (wraps       │
+│   core Card)         │        │    core Card)        │
 │                      │        │                      │
-│ Components:          │        │  Components:         │
-│ • Button             │        │  • Button            │
-│ • Card               │        │  • Card              │
-│ • Modal              │        │  • Modal             │
-│ • Form controls      │        │  • Form controls     │
+│ Imports:             │        │  Imports:            │
+│ @theme-system/css/   │        │  @theme-system/css/  │
+│ BasketballTraining   │        │  ProfessionalBrand   │
 └──────────────────────┘        └──────────────────────┘
 ```
 
@@ -166,68 +168,78 @@ jest-config-library/index.ts (95% coverage)
 ```
 basketball-training-ui/
 ├── src/
-│   ├── components/          # React components
+│   ├── components/          # React components (wrappers around core)
 │   │   ├── Button/
-│   │   │   ├── Button.tsx
+│   │   │   ├── Button.tsx       # Re-exports core Button
 │   │   │   └── Button.spec.tsx
 │   │   └── Card/
-│   │       ├── Card.tsx
+│   │       ├── Card.tsx         # Re-exports core Card
 │   │       └── Card.spec.tsx
 │   │
-│   ├── theme/              # Brand-specific theming
-│   │   ├── styles.css      # CSS variables + Tailwind base
-│   │   └── colors.ts       # Theme token overrides
-│   │
-│   └── utils/              # Shared utilities
-│       └── index.ts
+│   └── index.ts             # Public exports
 │
-├── .storybook/             # Storybook configuration
-│   ├── main.ts
-│   └── preview.tsx
-│
-├── stories/                # Component documentation
-│   ├── Button.stories.tsx
-│   └── Card.stories.tsx
-│
-├── package.json            # Dependencies + scripts
-├── tsconfig.json           # Extends @dbarrett24/typescript-config/library.json
-├── tsup.config.ts          # Build configuration (generates dist/)
-├── tailwind.config.js      # Extends theme-system + brand overrides
-└── jest.config.js          # Extends @dbarrett24/jest-config-library
+├── package.json             # Dependencies + scripts
+├── tsconfig.json            # Extends @dbarrett24/typescript-config/library.json
+├── tsup.config.ts           # Build configuration (generates dist/)
+└── jest.config.js           # Extends @dbarrett24/jest-config-library
+
+Note: 
+- NO theme/ directory (themes live in theme-system)
+- NO .storybook/ directory (Storybook is centralized in apps/docs/)
+- NO stories/ directory (stories are in apps/docs/stories/)
+- NO tailwind.config.js (brands don't configure Tailwind)
 ```
 
 ---
 
 ## 🎨 Theme Infrastructure
 
-This project uses a comprehensive CSS variable-based theme system with multi-brand support, following industry-standard naming conventions.
+This project uses a **centralized, build-time CSS generation** theme system with multi-brand support, following Hammer UI patterns and industry-standard naming conventions.
 
 ### Key Files
 
-**Core Theme System**:
-- `shared-configs/theme-system/` - Core theme tokens and Tailwind plugin
-  - `src/theme.ts` - TypeScript theme configuration (spacing, colors, border radius, font families)
-  - `src/tailwind-plugin.ts` - Custom Tailwind utilities (typography, focus, autofill)
-  - `src/cn.ts` - Class name utility (clsx + tailwind-merge)
+**Core Theme System** (`shared-configs/theme-system/`):
+- `src/tailwind/` - Modular Tailwind theme configuration (10 files)
+  - `colors.ts` - Complete color map with semantic tokens
+  - `spacing.ts` - Spacing scale (Hammer UI-aligned)
+  - `borderRadius.ts` - Border radius tokens
+  - `fontFamily.ts` - Font family configuration
+  - `fontSize.ts`, `fontWeight.ts`, `letterSpacing.ts` - Typography
+  - `cssVars.ts` - CSS variable definitions (single source of truth)
+  - `screens.ts` - Responsive breakpoints
+  - `plugin.ts` - Complete Tailwind plugin with theme + utilities
+- `src/themes/` - TypeScript brand definitions
+  - `BasketballTraining.ts` - Basketball brand theme values
+  - `ProfessionalBrand.ts` - Professional brand theme values
+  - `writeToCSSFile.ts` - Build-time CSS generation
+  - `types.ts` - Theme type definitions
+- `src/utils/` - Utility functions
+  - `cn.ts` - Class name utility (clsx + tailwind-merge)
+  - `wrapVar.ts` - CSS variable helpers
 
-**Brand Theme CSS**:
-- `brand-libraries/basketball-training-ui/src/theme/styles.css` - Basketball brand CSS variables
-- `brand-libraries/professional-brand-ui/src/theme/styles.css` - Professional brand CSS variables
-- `apps/docs/.storybook/themes/default.css` - Neutral default theme for Storybook
+**Generated CSS Files** (created at build time):
+- `dist/css/BasketballTraining.css` - Basketball brand CSS variables
+- `dist/css/ProfessionalBrand.css` - Professional brand CSS variables
+
+**How It Works**:
+1. Developer defines brand in TypeScript (`src/themes/BasketballTraining.ts`)
+2. `tsup onSuccess` hook runs `writeToCSSFile.ts` during build
+3. CSS files generated in `dist/css/`
+4. Apps import generated CSS: `@import '@dbarrett24/theme-system/css/BasketballTraining.css'`
 
 ### CSS Variable Naming Convention
 
-All color variables use the `--color-*` prefix (industry standard):
-- `--color-background-primary`, `--color-background-secondary`, etc.
-- `--color-text-primary`, `--color-text-secondary`, etc.
-- `--color-border-primary`, `--color-border-focus`, etc.
-- `--color-link-primary`, `--color-link-hover`, etc.
+All color variables use the `--color-*` prefix with **RGB triplet values** (for opacity support):
+- `--color-background-primary: 255 255 255` (not hex)
+- `--color-text-primary: 26 26 26`
+- `--color-border-primary: 209 213 219`
+- `--color-link-primary: 59 130 246`
 
 Typography and component variables:
 - `--font-family-primary`, `--font-family-secondary`
-- `--font-weight-h1` through `--font-weight-caption`
-- `--letter-spacing-h1` through `--letter-spacing-label-mini`
-- `--button-border-radius`, `--input-border-radius`, etc.
+- `--font-weight-button`, `--font-size-button-100`, `--font-size-button-200`
+- `--letter-spacing-button`, `--text-transform-button`
+- `--button-border-radius`, `--input-border-radius`, `--search-input-border-radius`, etc.
 
 ### Custom Tailwind Utilities
 
@@ -276,9 +288,11 @@ export const Button = () => (
     className={cn(
       'hui-focus-visible-outline',  // Theme-aware focus
       'rounded-button',              // Semantic border radius
-      'px-sm py-xs',                 // Modern spacing scale
+      'px-sm py-xs',                 // Modern spacing scale (16px, 8px)
       'font-primary',                // Brand-aware font
-      'bg-color-link-primary'        // Semantic color naming
+      'bg-primary-500',              // Semantic color naming
+      'text-text-inverse',           // Inverse text color
+      'hover:bg-primary-700'         // Hover state
     )}
   >
     Click me
@@ -525,7 +539,12 @@ pnpm build (root)
     │    ├─ eslint-config-library ✓
     │    ├─ jest-config           ✓
     │    ├─ jest-config-library   ✓
-    │    ├─ theme-system          ✓ (tsup)
+    │    ├─ theme-system          ✓ (tsup + onSuccess hook)
+    │    │   │
+    │    │   ├──> tsup builds TypeScript → dist/
+    │    │   └──> onSuccess hook: writeToCSSFile.ts
+    │    │        └──> Generates dist/css/*.css from src/themes/*.ts
+    │    │
     │    └─ testing-utils         ✓ (tsup)
     │
     └──> Phase 2: Brand Libraries (depends on Phase 1)
@@ -536,6 +555,7 @@ Result:
     ├─ Each package has dist/ folder
     ├─ Type declarations (.d.ts) generated
     ├─ Source maps for debugging
+    ├─ theme-system has dist/css/ with brand CSS files
     └─ Ready to publish to npm or use locally
 ```
 
@@ -783,7 +803,7 @@ export const Button = ({ variant = 'filled', style = 'primary', size = 'md', cla
             className={cn(
                 'inline-flex items-center justify-center font-semibold rounded-md transition-colors',
                 variant === 'filled' && style === 'primary' &&
-                    'bg-interactive-primary text-text-inverse hover:bg-interactive-primary-hover',
+                    'bg-primary-500 text-text-inverse hover:bg-primary-700',
                 // ... 12 more variant/style combinations
                 size === 'md' && 'px-md py-xs text-base gap-sm',
                 className
@@ -823,15 +843,15 @@ export const Button = ({ className, ...props }: ButtonProps) => {
 
 ### Semantic Token Strategy
 
-**Decision:** Two-tier token system (base tokens + semantic tokens) with class-based brand selectors (`.brand-basketball`) over data attributes.
+**Decision:** Two-tier token system (base tokens + semantic tokens) with CSS variable-based theming.
 
 **Rationale:**
 
-- **Intent-based naming** - `bg-interactive-primary` is more meaningful than `bg-orange-600`
-- **Easy theme switching** - Change one CSS variable, update entire brand
-- **Consistent across brands** - Same token names, different values
-- **Better for AI assistance** - Semantic names convey purpose
-- **Class selectors** provide better browser compatibility and specificity control
+- **Intent-based naming** - `bg-primary-500` and `text-text-inverse` convey purpose better than `bg-orange-600`
+- **Easy theme switching** - Change CSS variable values, entire brand updates automatically
+- **Consistent across brands** - Same Tailwind classes, different variable values per brand
+- **Better for AI assistance** - Semantic names convey purpose and intent
+- **Portability** - Components work across all brands without code changes
 
 **Token Structure:**
 

@@ -2,124 +2,138 @@
 
 ## Overview
 
-Storybook has been added to `@dbarrett24/core-components` to showcase the headless components' behavior, accessibility features, and usage patterns.
+Core components are documented in the **centralized Storybook instance** located at `apps/docs/`. This single Storybook showcases components from all packages (core and brand-specific) with theme switching capability.
 
 ## Running Storybook
 
 ### Development Mode
+
+From the workspace root:
 ```bash
-cd shared-configs/core-components
+# Run centralized Storybook
+pnpm storybook:core
 
-# Run Storybook only
-pnpm storybook
-
-# Run both Storybook and build watch (recommended for development)
-pnpm dev
+# Or run brand-specific Storybook variants
+pnpm storybook:basketball
+pnpm storybook:professional
 ```
 
-Storybook will be available at: **http://localhost:6007**
-
-> Note: Port 6007 is used to avoid conflicts with brand libraries (which use 6006)
+Storybook will be available at: **http://localhost:6006**
 
 ### Build Static Storybook
 ```bash
-pnpm build-storybook
+pnpm build-storybook:core
+pnpm build-storybook:basketball
+pnpm build-storybook:professional
 ```
 
-This creates a static site in `storybook-static/` that can be deployed.
+This creates static sites in `apps/docs/storybook-static/` that can be deployed.
 
-## What's Included
+## Architecture
 
-### Stories for Each Component
+### Centralized Storybook (apps/docs/)
 
-#### Button Stories (`src/Button/Button.stories.tsx`)
-- ✅ Default (unstyled)
-- ✅ With basic styling (example)
-- ✅ Disabled state
-- ✅ Loading state
-- ✅ Loading with custom content
-- ✅ With aria-label
-- ✅ Submit type
-- ✅ All states showcase
-- ✅ Brand library wrapper example
+**Single Location**: All stories live in `apps/docs/stories/`
+- Core component stories: `apps/docs/stories/core/`
+- Brand-specific stories: `apps/docs/stories/basketball/`, `apps/docs/stories/professional/`
 
-#### Input Stories (`src/Input/Input.stories.tsx`)
-- ✅ Default (unstyled)
-- ✅ With basic styling (example)
-- ✅ Required field
-- ✅ With error state
-- ✅ With helper text
-- ✅ Disabled state
-- ✅ Read-only state
-- ✅ Hidden label
-- ✅ With start adornment
-- ✅ With end adornment
-- ✅ Controlled component
-- ✅ All states showcase
-- ✅ Brand library wrapper example
+**Theme Switching**: Storybook includes a theme selector to preview components with different brand themes:
+- Default (neutral theme)
+- Basketball Training (orange primary)
+- Professional Brand (blue primary)
 
-## Key Differences from Brand Library Storybook
+**Benefits**:
+- ✅ Single source of truth for component documentation
+- ✅ Easy brand comparison side-by-side
+- ✅ No duplicate Storybook configurations
+- ✅ Consistent documentation patterns
 
-### Core Components Storybook (Port 6007)
-**Purpose**: Demonstrate behavior and accessibility
-- Shows headless components
-- Focuses on props and states
-- Includes minimal inline styling for visibility
-- Demonstrates how to wrap components
-- Documents accessibility features
+### Component Pattern
 
-### Brand Library Storybook (Port 6006)
-**Purpose**: Visual showcase and design system
-- Shows fully styled components
-- Focuses on visual variants
-- Uses Tailwind CSS classes
-- Demonstrates brand identity
-- Includes theme/CSS imports
+Components are **fully-styled, theme-aware** (not headless):
+- Use semantic tokens from `@dbarrett24/theme-system`
+- Work across all brands via CSS variable swapping
+- No need for inline styling in stories
 
 ## Story Structure
 
-### Minimal Inline Styling for Visibility
-
-Because core components are headless, stories include minimal inline styling:
+### Typical Story File
 
 ```typescript
-// Just enough styling to make the component visible in Storybook
-export const WithBasicStyling: Story = {
+// apps/docs/stories/core/Button.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '@dbarrett24/core-components';
+
+const meta: Meta<typeof Button> = {
+    title: 'Core/Button',
+    component: Button,
+    parameters: {
+        layout: 'centered',
+    },
+    tags: ['autodocs'],
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Solid: Story = {
     args: {
-        children: 'Styled Button',
-        className: 'px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600',
+        children: 'Solid Button',
+        variant: 'solid',
     },
+};
+
+export const Outline: Story = {
+    args: {
+        children: 'Outline Button',
+        variant: 'outline',
+    },
+};
+
+export const Loading: Story = {
+    args: {
+        children: 'Loading...',
+        isLoading: true,
+    },
+};
+
+export const AllVariants: Story = {
+    render: () => (
+        <div className="flex gap-md">
+            <Button variant="solid">Solid</Button>
+            <Button variant="outline">Outline</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="link">Link</Button>
+        </div>
+    ),
 };
 ```
 
-**Important**: This is ONLY for Storybook demonstration. Real usage should apply styling via brand libraries.
+### No Inline Styling Needed
 
-### Brand Wrapper Examples
-
-Each component includes a "Brand Library Example" story showing proper wrapping:
+Components are already styled with semantic tokens, so stories don't need to add styling:
 
 ```typescript
-export const BrandLibraryExample: Story = {
-    render: () => {
-        // Demonstrates how brand libraries should wrap core components
-        const BrandButton = ({ variant = 'primary', ...props }) => {
-            const variants = {
-                primary: 'px-4 py-2 bg-blue-600 text-white rounded-lg',
-                secondary: 'px-4 py-2 bg-gray-600 text-white rounded-lg',
-            };
-            
-            return <Button {...props} className={variants[variant]} />;
-        };
+// ✅ CORRECT - Component uses semantic tokens
+export const Primary: Story = {
+    args: {
+        children: 'Click Me',
+        variant: 'solid',
+    },
+};
 
-        return (
-            <div className="flex gap-4">
-                <BrandButton variant="primary">Primary</BrandButton>
-                <BrandButton variant="secondary">Secondary</BrandButton>
-            </div>
-        );
+// ❌ AVOID - No need for inline classes (component is already styled)
+export const Primary: Story = {
+    args: {
+        children: 'Click Me',
+        className: 'bg-blue-500 text-white px-4 py-2', // Redundant!
     },
 };
 ```
+
+### Theme Switching in Stories
+
+Use Storybook's theme selector (in toolbar) to preview components with different brand themes. No code changes needed in stories - CSS variables automatically swap.
 
 ## Documentation Features
 
@@ -138,137 +152,234 @@ Interactive controls allow you to:
 - See event handlers fire (Actions panel)
 
 ### Accessibility Testing
-Storybook includes the `@storybook/addon-essentials` which provides:
-- ✅ Accessibility audits (a11y addon)
-- ✅ Viewport testing
-- ✅ Dark mode testing
-- ✅ Controls for all props
+Storybook includes accessibility audits via `@storybook/addon-a11y`:
+- ✅ ARIA attribute validation
+- ✅ Color contrast checking
+- ✅ Keyboard navigation testing
+- ✅ Screen reader compatibility
 
 ## Using Storybook for Development
 
-### 1. Testing New Components
-When adding a new core component:
-1. Create the component (`MyComponent.tsx`)
-2. Create the types (`MyComponent.types.ts`)
-3. Create tests (`MyComponent.spec.tsx`)
-4. Create stories (`MyComponent.stories.tsx`)
-5. Run `pnpm dev` to see it in Storybook
+### 1. Testing New Core Components
+When adding a new component to `@dbarrett24/core-components`:
+
+1. Create the component:
+```
+shared-configs/core-components/src/
+├── MyComponent/
+│   ├── MyComponent.tsx
+│   ├── MyComponent.types.ts
+│   └── MyComponent.spec.tsx
+```
+
+2. Build the core-components package:
+```bash
+pnpm build:core
+```
+
+3. Create stories in centralized location:
+```
+apps/docs/stories/core/
+└── MyComponent.stories.tsx
+```
+
+4. Run Storybook:
+```bash
+pnpm storybook:core
+```
+
+5. View at http://localhost:6006 under "Core/MyComponent"
 
 ### 2. Verifying Accessibility
 Use Storybook's accessibility addon to:
 - Check ARIA attributes
 - Verify keyboard navigation
 - Test screen reader support
-- Validate color contrast (minimal in core)
+- Validate color contrast
+- Test focus management
 
-### 3. Documenting Behavior
+### 3. Testing Across Brands
+Use the theme selector in Storybook's toolbar to:
+- Switch between brand themes
+- Verify component appearance with different color schemes
+- Ensure semantic tokens are used correctly
+- Test responsive behavior
+
+### 4. Documenting Behavior
 Stories serve as living documentation:
-- Show all possible states
-- Demonstrate proper usage
-- Provide copy-paste examples
+- Show all possible states (default, loading, disabled, error)
+- Demonstrate proper usage patterns
+- Provide interactive examples
 - Explain accessibility features
 
 ## Configuration Files
 
-### `.storybook/main.ts`
+### `apps/docs/.storybook/main.ts`
 Configures Storybook:
-- Story file locations
-- Addons to load
-- Framework (React + Vite)
+- Story file locations: `../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)`
+- Addons: essentials, a11y, interactions
+- Framework: React + Vite
 
-### `.storybook/preview.tsx`
+### `apps/docs/.storybook/preview.tsx`
 Configures story rendering:
-- Background colors
+- Theme decorator (for theme switching)
+- Global styles (CSS imports)
 - Control matchers
-- Global decorators
-- Default parameters
+- Background options
+- Viewport configurations
+
+### `apps/docs/.storybook/themes/`
+Theme definitions for Storybook UI customization (not component themes)
 
 ## Best Practices
 
 ### DO:
-- ✅ Show all component states
-- ✅ Document accessibility features
-- ✅ Include behavior examples
-- ✅ Demonstrate proper wrapping patterns
-- ✅ Use minimal inline styling for visibility
+- ✅ Show all component states (default, loading, disabled, error, etc.)
+- ✅ Document accessibility features in story descriptions
+- ✅ Use semantic prop values (`variant="solid"`, not arbitrary classes)
+- ✅ Group related stories under proper categories (`Core/`, `Basketball/`, etc.)
+- ✅ Write JSDoc comments for auto-generated docs
+- ✅ Test components across all brand themes using theme selector
 
 ### DON'T:
-- ❌ Add complex styling systems
-- ❌ Include brand-specific themes
-- ❌ Use Tailwind config (no tailwind.config.js)
-- ❌ Import CSS files (headless!)
-- ❌ Test visual appearance (that's for brand libraries)
+- ❌ Add inline Tailwind classes to stories (components are already styled)
+- ❌ Create separate Storybook instances per package
+- ❌ Duplicate stories for each brand (use theme switcher instead)
+- ❌ Test visual appearance manually (use visual regression tools)
+- ❌ Skip accessibility testing (use built-in a11y addon)
 
-## Comparison with Brand Library Storybook
+## Brand Libraries and Storybook
 
-| Feature | Core Components | Brand Libraries |
-|---------|----------------|-----------------|
-| **Port** | 6007 | 6006 |
-| **Purpose** | Behavior docs | Visual showcase |
-| **Styling** | Minimal inline | Full Tailwind CSS |
-| **Stories Focus** | States & props | Visual variants |
-| **CSS Import** | None | `theme/styles.css` |
-| **Tailwind Config** | ❌ No | ✅ Yes |
-| **Theme System** | ❌ No | ✅ Yes |
-| **Decorators** | Simple wrapper | Theme provider |
+### How Brand Components Appear in Storybook
+
+Brand libraries (basketball-training-ui, professional-brand-ui) typically **re-export** core components:
+
+```typescript
+// brand-libraries/basketball-training-ui/src/Button/Button.tsx
+export { Button } from '@dbarrett24/core-components';
+export type { ButtonProps } from '@dbarrett24/core-components';
+```
+
+Stories for these can either:
+1. **Reuse core stories** with theme selector (recommended)
+2. Create brand-specific stories if there's unique behavior/customization
+
+### Brand-Specific Stories (When Needed)
+
+Only create brand-specific stories if:
+- Brand adds custom variants beyond core
+- Brand has unique component behavior
+- Brand has specific usage patterns to document
+
+Example structure:
+```
+apps/docs/stories/
+├── core/
+│   ├── Button.stories.tsx       # Core component stories
+│   └── Input.stories.tsx
+├── basketball/
+│   └── CustomCard.stories.tsx   # Basketball-only component
+└── professional/
+    └── Dashboard.stories.tsx    # Professional-only component
+```
+
+## Build Dependencies
+
+**Important**: Storybook imports from package `dist/` directories, not `src/`.
+
+Before viewing components in Storybook, ensure packages are built:
+
+```bash
+# Build theme system (required by all)
+pnpm build:theme
+
+# Build core components
+pnpm build:core
+
+# Build brand libraries (if testing brand-specific components)
+pnpm build:basketball
+pnpm build:professional
+```
+
+**Development Workflow**:
+1. Make changes to component source (`src/`)
+2. Rebuild the package: `pnpm build:core`
+3. Restart Storybook or wait for hot reload
+4. View updated component
+
+**Tip**: Use watch mode during active development:
+```bash
+# Terminal 1: Watch and rebuild on changes
+cd shared-configs/core-components
+pnpm build --watch
+
+# Terminal 2: Run Storybook
+pnpm storybook:core
+```
 
 ## Next Steps
 
-1. **Run Storybook**: `cd shared-configs/core-components && pnpm storybook`
-2. **View Stories**: Navigate to http://localhost:6007
-3. **Explore Components**: Check out Button and Input stories
-4. **Add More Components**: Follow the same pattern for new components
+1. **View Storybook**: `pnpm storybook:core` from workspace root
+2. **Browse Stories**: Navigate to http://localhost:6006
+3. **Try Theme Switching**: Use toolbar theme selector to see components with different brands
+4. **Add New Components**: Follow the pattern above for new core components
+5. **Run Accessibility Audits**: Use the A11y addon tab for each story
 
 ## Integration with CI/CD
 
 ### Build Static Storybook
 ```bash
-pnpm build-storybook
+pnpm build-storybook:core
+pnpm build-storybook:basketball
+pnpm build-storybook:professional
 ```
 
 ### Deploy Options
-- **GitHub Pages**: Deploy `storybook-static/`
-- **Netlify**: Auto-deploy from `storybook-static/`
-- **Chromatic**: Visual regression testing
+- **Vercel/Netlify**: Auto-deploy from `apps/docs/storybook-static/`
+- **Chromatic**: Visual regression testing + hosting
+- **GitHub Pages**: Deploy static build
 - **S3 + CloudFront**: Static hosting
 
-### Recommended Setup
-Add to your CI pipeline:
+### Recommended CI Setup
 ```yaml
+- name: Build packages (required for Storybook)
+  run: pnpm build
+
 - name: Build Storybook
-  run: pnpm build-storybook
+  run: pnpm build-storybook:core
   
-- name: Deploy to GitHub Pages
+- name: Deploy
   uses: peaceiris/actions-gh-pages@v3
   with:
     github_token: ${{ secrets.GITHUB_TOKEN }}
-    publish_dir: ./storybook-static
+    publish_dir: ./apps/docs/storybook-static
 ```
 
 ## Troubleshooting
 
-### Port Already in Use
-If port 6007 is busy, modify `.storybook/main.ts`:
-```typescript
-// Change port in package.json scripts
-"storybook": "storybook dev -p 6008"
-```
-
 ### Stories Not Showing
-Ensure your stories match the glob pattern:
-```typescript
-// .storybook/main.ts
-stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)']
-```
+1. Ensure package is built: `pnpm build:core`
+2. Check story file location matches glob pattern in `.storybook/main.ts`
+3. Restart Storybook dev server
 
-### React Import Errors
-Make sure components import React:
-```typescript
-import React from 'react';
-```
+### Components Look Unstyled
+1. Verify theme CSS is imported in `.storybook/preview.tsx`
+2. Check that theme-system package is built: `pnpm build:theme`
+3. Ensure Tailwind classes are generating (check browser DevTools)
+
+### Theme Switching Not Working
+1. Verify theme decorator is configured in `.storybook/preview.tsx`
+2. Check that all brand CSS files exist in `theme-system/dist/css/`
+3. Rebuild theme-system if CSS files are missing
+
+### Build Errors
+1. Clean and rebuild: `pnpm clean && pnpm build`
+2. Check for TypeScript errors: `pnpm ts-check`
+3. Verify all dependencies are installed: `pnpm install`
 
 ## Resources
 
 - [Storybook Documentation](https://storybook.js.org/docs/react)
 - [Storybook Best Practices](https://storybook.js.org/docs/react/writing-stories/introduction)
 - [Accessibility Addon](https://storybook.js.org/addons/@storybook/addon-a11y)
+- [Theme Switching in Storybook](https://storybook.js.org/docs/react/essentials/toolbars-and-globals)

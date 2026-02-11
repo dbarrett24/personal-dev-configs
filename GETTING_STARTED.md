@@ -269,15 +269,31 @@ pnpm upgrade-deps         # Update dependencies
 
 ### Update Brand Colors
 
-Edit `brand-libraries/{brand}/src/theme/styles.css`:
+Edit TypeScript theme definitions in `shared-configs/theme-system/src/themes/YourBrand.ts`:
 
-```css
-:root {
-    --interactive-primary: #YOUR_COLOR;
-    --interactive-primary-hover: #YOUR_HOVER_COLOR;
-    /* ... other variables */
-}
+```typescript
+import type { ThemeDefinition } from './types';
+
+export const YourBrand: ThemeDefinition = {
+    name: 'YourBrand',
+    colors: {
+        primary: {
+            500: { r: 255, g: 107, b: 53 }, // Your primary color
+            // ... full color scale
+        },
+        // ... other color families
+    },
+    // ... typography, spacing overrides if needed
+};
 ```
+
+Then register in `src/themes/writeToCSSFile.ts` and rebuild:
+
+```bash
+pnpm build:theme
+```
+
+CSS will be generated at `dist/css/YourBrand.css` for apps to import.
 
 ### Add New Components
 
@@ -407,5 +423,4 @@ MIT
 
 **Ready to build with professional-grade tooling!** 🚀
 
-**Created**: 2025  
-**Based on**: Professional patterns from Hammer UI and Wavebid A2O repositories
+**Created**: 2026

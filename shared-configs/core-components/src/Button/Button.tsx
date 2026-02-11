@@ -65,30 +65,30 @@ export const Button = ({
                 // Variant + Style combinations - Filled
                 variant === 'filled' &&
                     style === 'primary' &&
-                    'bg-interactive-primary text-text-inverse hover:bg-interactive-primary-hover focus:ring-interactive-primary active:bg-interactive-primary-active',
+                    'bg-interactive-primary hover:bg-interactive-primary-hover focus:ring-interactive-primary active:bg-interactive-primary-active text-text-inverse',
                 variant === 'filled' &&
                     style === 'secondary' &&
-                    'bg-interactive-secondary text-text-inverse hover:bg-interactive-secondary-hover focus:ring-interactive-secondary',
+                    'bg-interactive-secondary hover:bg-interactive-secondary-hover focus:ring-interactive-secondary text-text-inverse',
                 variant === 'filled' &&
                     style === 'neutral' &&
                     'bg-surface-secondary hover:bg-surface-tertiary focus:ring-surface-secondary text-text-primary',
                 variant === 'filled' &&
                     style === 'critical' &&
-                    'bg-critical-500 hover:bg-critical-600 focus:ring-critical-500 text-text-inverse',
+                    'bg-critical-500 text-text-inverse hover:bg-critical-600 focus:ring-critical-500',
 
                 // Variant + Style combinations - Outline
                 variant === 'outline' &&
                     style === 'primary' &&
-                    'border-2 border-interactive-primary text-interactive-primary hover:bg-interactive-primary hover:text-text-inverse focus:ring-interactive-primary',
+                    'border-interactive-primary text-interactive-primary hover:bg-interactive-primary focus:ring-interactive-primary border-2 hover:text-text-inverse',
                 variant === 'outline' &&
                     style === 'secondary' &&
-                    'border-2 border-interactive-secondary text-interactive-secondary hover:bg-interactive-secondary hover:text-text-inverse focus:ring-interactive-secondary',
+                    'border-interactive-secondary text-interactive-secondary hover:bg-interactive-secondary focus:ring-interactive-secondary border-2 hover:text-text-inverse',
                 variant === 'outline' &&
                     style === 'neutral' &&
                     'hover:bg-surface-secondary focus:ring-surface-secondary border-2 border-border-primary text-text-primary',
                 variant === 'outline' &&
                     style === 'critical' &&
-                    'border-critical-500 text-critical-500 hover:bg-critical-500 focus:ring-critical-500 border-2 hover:text-text-inverse',
+                    'border-2 border-critical-500 text-critical-500 hover:bg-critical-500 hover:text-text-inverse focus:ring-critical-500',
 
                 // Variant + Style combinations - Ghost
                 variant === 'ghost' &&

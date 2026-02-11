@@ -8,10 +8,10 @@
  * This is a PostCSS/CSS requirement.
  */
 
-/* Import brand theme CSS variables FIRST (NO @tailwind directives in those files!) */
-@import '@dbarrett24/basketball-training-ui/theme';
-@import '@dbarrett24/professional-brand-ui/theme';
-@import './themes/default.css';
+/* Import generated brand theme CSS from centralized theme-system */
+@import '@dbarrett24/theme-system/css/BasketballTraining.css';
+@import '@dbarrett24/theme-system/css/ProfessionalBrand.css';
+@import '@dbarrett24/theme-system/css/Default.css';
 
 /* Tailwind directives come AFTER imports */
 @tailwind base;

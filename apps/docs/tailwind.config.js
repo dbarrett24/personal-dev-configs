@@ -1,9 +1,8 @@
 const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
-const { themePlugin } = require('@dbarrett24/theme-system');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    // Use base config as a preset to avoid duplication
+    // Base config preset includes themePlugin with complete theme (colors, spacing, etc.)
     presets: [baseConfig],
     content: [
         './stories/**/*.{ts,tsx,mdx}',
@@ -32,5 +31,4 @@ module.exports = {
             },
         },
     },
-    plugins: [themePlugin],
 };

@@ -51,7 +51,7 @@ export const ContactForm = () => {
                 </label>
                 <input
                     {...register('name')}
-                    className="w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2 focus:ring-border-focus"
+                    className="focus:ring-border-focus w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2"
                     id="name"
                     placeholder="Your name"
                     type="text"
@@ -68,7 +68,7 @@ export const ContactForm = () => {
                 </label>
                 <input
                     {...register('email')}
-                    className="w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2 focus:ring-border-focus"
+                    className="focus:ring-border-focus w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2"
                     id="email"
                     placeholder="you@example.com"
                     type="email"
@@ -85,7 +85,7 @@ export const ContactForm = () => {
                 </label>
                 <textarea
                     {...register('message')}
-                    className="w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2 focus:ring-border-focus"
+                    className="focus:ring-border-focus w-full rounded-md border border-border-primary px-md py-sm focus:outline-none focus:ring-2"
                     id="message"
                     placeholder="Your message..."
                     rows={5}

@@ -12,9 +12,14 @@
             "types": "./dist/index.d.ts"
         },
         "./tailwind-plugin": {
-            "import": "./dist/tailwind-plugin.mjs",
-            "require": "./dist/tailwind-plugin.js",
-            "types": "./dist/tailwind-plugin.d.ts"
+            "import": "./dist/tailwind/plugin.mjs",
+            "require": "./dist/tailwind/plugin.js",
+            "types": "./dist/tailwind/plugin.d.ts"
+        },
+        "./plugin": {
+            "import": "./dist/tailwind/plugin.mjs",
+            "require": "./dist/tailwind/plugin.js",
+            "types": "./dist/tailwind/plugin.d.ts"
         },
         "./tailwind.config": {
             "import": "./tailwind.config.js",
@@ -23,7 +28,45 @@
         "./tailwind.config.js": {
             "import": "./tailwind.config.js",
             "require": "./tailwind.config.js"
-        }
+        },
+        "./screens": {
+            "import": "./dist/tailwind/screens.mjs",
+            "require": "./dist/tailwind/screens.js",
+            "types": "./dist/tailwind/screens.d.ts"
+        },
+        "./colors": {
+            "import": "./dist/tailwind/colors.mjs",
+            "require": "./dist/tailwind/colors.js",
+            "types": "./dist/tailwind/colors.d.ts"
+        },
+        "./cssVars": {
+            "import": "./dist/tailwind/cssVars.mjs",
+            "require": "./dist/tailwind/cssVars.js",
+            "types": "./dist/tailwind/cssVars.d.ts"
+        },
+        "./wrapVar": {
+            "import": "./dist/utils/wrapVar.mjs",
+            "require": "./dist/utils/wrapVar.js",
+            "types": "./dist/utils/wrapVar.d.ts"
+        },
+        "./color": {
+            "import": "./dist/utils/color.mjs",
+            "require": "./dist/utils/color.js",
+            "types": "./dist/utils/color.d.ts"
+        },
+        "./brands": {
+            "import": "./dist/themes/brands.mjs",
+            "require": "./dist/themes/brands.js",
+            "types": "./dist/themes/brands.d.ts"
+        },
+        "./cn": {
+            "import": "./dist/utils/cn.mjs",
+            "require": "./dist/utils/cn.js",
+            "types": "./dist/utils/cn.d.ts"
+        },
+        "./css/BasketballTraining.css": "./dist/css/BasketballTraining.css",
+        "./css/ProfessionalBrand.css": "./dist/css/ProfessionalBrand.css",
+        "./css/Default.css": "./dist/css/Default.css"
     },
     "files": [
         "dist",
@@ -60,10 +103,12 @@
         "@dbarrett24/eslint-config-library": "workspace:*",
         "@dbarrett24/prettier-config": "workspace:*",
         "@dbarrett24/typescript-config": "workspace:*",
+        "@types/tinycolor2": "^1.4.6",
         "concurrently": "^8.2.2",
         "eslint": "^8.49.0",
         "prettier": "^3.4.2",
         "tailwindcss": "^3.4.17",
+        "tinycolor2": "^1.6.0",
         "tsup": "^6.6.2",
         "typescript": "^5.8.2"
     },

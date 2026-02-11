@@ -58,13 +58,13 @@ export const CSSVariables: Story = {
             </p>
             
             <div className="space-y-2 bg-background-secondary p-4 rounded-md">
-                <div data-testid="color-test" className="p-2 bg-color-background-primary border border-color-border-primary">
+                <div data-testid="color-test" className="p-2 bg-background-primary border border-border-primary">
                     Background uses --color-background-primary
                 </div>
                 <div data-testid="spacing-test" className="px-sm py-md bg-background-tertiary">
                     Padding: px-sm (16px) py-md (24px)
                 </div>
-                <div data-testid="border-radius-test" className="rounded-button bg-color-link-primary text-white p-4">
+                <div data-testid="border-radius-test" className="rounded-button bg-link-primary text-white p-4">
                     Border radius uses --button-border-radius (8px)
                 </div>
             </div>
@@ -159,19 +159,19 @@ export const FocusStyles: Story = {
                     </label>
                     <button
                         data-testid="focus-standard"
-                        className="hui-focus-visible-outline px-sm py-xs rounded-button bg-color-link-primary text-white"
+                        className="hui-focus-visible-outline px-sm py-xs rounded-button bg-link-primary text-white"
                     >
                         Tab to me - Standard Focus
                     </button>
                 </div>
 
-                <div className="bg-gray-900 p-4 rounded">
-                    <label className="block text-sm font-medium mb-2 text-white">
+                <div className="bg-background-inverse p-4 rounded">
+                    <label className="block text-sm font-medium mb-2 text-text-inverse">
                         Inverse Focus Ring (white, 4px):
                     </label>
                     <button
                         data-testid="focus-inverse"
-                        className="hui-focus-visible-outline-inverse px-sm py-xs rounded-button bg-gray-800 text-white"
+                        className="hui-focus-visible-outline-inverse px-sm py-xs rounded-button bg-background-inverse text-text-inverse border border-border-inverse"
                     >
                         Tab to me - Inverse Focus
                     </button>
@@ -215,13 +215,13 @@ export const SemanticTokens: Story = {
                     <div className="space-y-2">
                         <div
                             data-testid="rounded-button"
-                            className="rounded-button bg-color-link-primary text-white p-4 inline-block"
+                            className="rounded-button bg-link-primary text-white p-4 inline-block"
                         >
                             rounded-button (8px)
                         </div>
                         <div
                             data-testid="rounded-input"
-                            className="rounded-input bg-background-secondary border border-color-border-primary p-4"
+                            className="rounded-input bg-background-secondary border border-border-primary p-4"
                         >
                             rounded-input (6px)
                         </div>
@@ -277,29 +277,29 @@ export const SpacingScale: Story = {
             <h2 className="text-xl font-bold mb-4">Spacing Scale Test</h2>
 
             <div className="space-y-4">
-                <div className="border border-color-border-primary inline-block">
-                    <div data-testid="spacing-sm" className="px-sm bg-blue-100 border-r-4 border-blue-500">
+                <div className="border border-border-primary inline-block">
+                    <div data-testid="spacing-sm" className="px-sm bg-info-100 border-r-4 border-info-500">
                         px-sm
                     </div>
                     <span className="text-xs text-text-secondary ml-2">Should be 16px padding</span>
                 </div>
 
-                <div className="border border-color-border-primary inline-block">
-                    <div data-testid="spacing-md" className="px-md bg-green-100 border-r-4 border-green-500">
+                <div className="border border-border-primary inline-block">
+                    <div data-testid="spacing-md" className="px-md bg-success-100 border-r-4 border-success-500">
                         px-md
                     </div>
                     <span className="text-xs text-text-secondary ml-2">Should be 24px padding</span>
                 </div>
 
-                <div className="border border-color-border-primary inline-block">
-                    <div data-testid="spacing-lg" className="px-lg bg-purple-100 border-r-4 border-purple-500">
+                <div className="border border-border-primary inline-block">
+                    <div data-testid="spacing-lg" className="px-lg bg-warning-100 border-r-4 border-warning-500">
                         px-lg
                     </div>
                     <span className="text-xs text-text-secondary ml-2">Should be 32px padding</span>
                 </div>
 
-                <div className="border border-color-border-primary inline-block">
-                    <div data-testid="spacing-xl" className="px-xl bg-red-100 border-r-4 border-red-500">
+                <div className="border border-border-primary inline-block">
+                    <div data-testid="spacing-xl" className="px-xl bg-critical-100 border-r-4 border-critical-500">
                         px-xl
                     </div>
                     <span className="text-xs text-text-secondary ml-2">Should be 48px padding</span>
@@ -315,6 +315,306 @@ export const SpacingScale: Story = {
                     <li>Or in Styles tab, see <code className="bg-gray-100 px-1">var(--spacing-sm)</code> etc.</li>
                 </ol>
             </div>
+        </div>
+    ),
+};
+
+/**
+ * DS-15b Verification Checklist
+ * 
+ * Complete manual testing checklist for the centralized theme system (DS-15b).
+ * Use this story to verify the modular architecture, CSS generation, and theme switching.
+ * 
+ * ✅ Mark each checkbox as you complete the test
+ */
+export const DS15bVerificationChecklist: Story = {
+    render: () => (
+        <div className="max-w-5xl mx-auto p-8 space-y-8">
+            <div className="bg-blue-50 border-2 border-blue-500 rounded-lg p-6">
+                <h1 className="text-3xl font-bold mb-2">DS-15b: Centralized Theme System Verification</h1>
+                <p className="text-lg text-gray-700">
+                    Complete this checklist to verify the modular Tailwind plugin architecture and centralized CSS generation.
+                </p>
+            </div>
+
+            {/* Section 1: Theme Switching */}
+            <section className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold border-b-2 border-gray-300 pb-2">
+                    ✅ Section 1: Theme Switching
+                </h2>
+                
+                <div className="space-y-3">
+                    <div className="pl-6">
+                        <h3 className="font-semibold text-lg mb-2">Steps:</h3>
+                        <ol className="list-decimal ml-5 space-y-2 text-sm">
+                            <li>Open Storybook toolbar (top of page)</li>
+                            <li>Find the theme switcher dropdown</li>
+                            <li>Switch to <strong>Basketball Training</strong> theme</li>
+                            <li>Switch to <strong>Professional Brand</strong> theme</li>
+                            <li>Switch to <strong>Default</strong> theme</li>
+                        </ol>
+                    </div>
+
+                    <div className="bg-green-50 border border-green-300 rounded p-4">
+                        <h3 className="font-semibold text-green-900 mb-2">✅ Expected Outcomes:</h3>
+                        <ul className="list-disc ml-5 space-y-1 text-sm text-green-900">
+                            <li><strong>Basketball Training</strong>: Orange primary colors (#FF6B35)</li>
+                            <li><strong>Professional Brand</strong>: Blue primary colors (#3B82F6)</li>
+                            <li><strong>Default</strong>: Gray primary colors (#6B7280)</li>
+                            <li>All theme switches happen instantly (no page reload)</li>
+                            <li>No console errors during switching</li>
+                        </ul>
+                    </div>
+                </div>
+
+                {/* Visual Test Cards */}
+                <div className="grid grid-cols-3 gap-4 mt-4">
+                    <div className="bg-primary-500 text-white p-4 rounded-lg text-center">
+                        <div className="font-bold mb-2">Primary Color</div>
+                        <div className="text-xs">bg-primary-500</div>
+                    </div>
+                    <div className="bg-primary-700 text-white p-4 rounded-lg text-center">
+                        <div className="font-bold mb-2">Primary Hover</div>
+                        <div className="text-xs">bg-primary-700</div>
+                    </div>
+                    <div className="bg-primary-900 text-white p-4 rounded-lg text-center">
+                        <div className="font-bold mb-2">Primary Active</div>
+                        <div className="text-xs">bg-primary-900</div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 2: Browser DevTools - CSS Variables */}
+            <section className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold border-b-2 border-gray-300 pb-2">
+                    ✅ Section 2: Browser DevTools - CSS Variables
+                </h2>
+                
+                <div className="space-y-3">
+                    <div className="pl-6">
+                        <h3 className="font-semibold text-lg mb-2">Steps:</h3>
+                        <ol className="list-decimal ml-5 space-y-2 text-sm">
+                            <li>Right-click anywhere on this page → <strong>Inspect</strong></li>
+                            <li>In DevTools, click the <strong>&lt;html&gt;</strong> element</li>
+                            <li>Switch to the <strong>Computed</strong> tab</li>
+                            <li>In the filter box, type: <code className="bg-gray-100 px-1 py-0.5">--color-primary</code></li>
+                            <li>Scroll through the computed styles to see all CSS variables</li>
+                        </ol>
+                    </div>
+
+                    <div className="bg-green-50 border border-green-300 rounded p-4">
+                        <h3 className="font-semibold text-green-900 mb-2">✅ Expected Outcomes:</h3>
+                        <ul className="list-disc ml-5 space-y-1 text-sm text-green-900">
+                            <li><code>--color-primary-500</code>: RGB values matching current theme</li>
+                            <li><strong>Basketball</strong>: <code>255 107 53</code> (orange)</li>
+                            <li><strong>Professional</strong>: <code>59 130 246</code> (blue)</li>
+                            <li><strong>Default</strong>: <code>107 114 128</code> (gray)</li>
+                            <li>All palette shades visible: <code>--color-primary-50</code> through <code>--color-primary-900</code></li>
+                            <li>Surface colors: <code>--color-surface-50</code> through <code>--color-surface-900</code></li>
+                            <li>Semantic tokens: <code>--color-background-primary</code>, <code>--color-text-primary</code></li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-yellow-50 border border-yellow-300 rounded p-4">
+                        <h3 className="font-semibold text-yellow-900 mb-2">📋 Test Element:</h3>
+                        <div 
+                            data-testid="css-var-test"
+                            className="bg-primary-500 text-white p-4 rounded-lg"
+                            style={{ fontSize: '14px' }}
+                        >
+                            Inspect me! Right-click → Inspect → Computed tab → Search <code className="bg-primary-700 px-1 py-0.5">--color-</code>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 3: Tailwind Utilities */}
+            <section className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold border-b-2 border-gray-300 pb-2">
+                    ✅ Section 3: Tailwind Utilities
+                </h2>
+                
+                <div className="space-y-3">
+                    <div className="pl-6">
+                        <h3 className="font-semibold text-lg mb-2">Steps:</h3>
+                        <ol className="list-decimal ml-5 space-y-2 text-sm">
+                            <li>Right-click each colored box below → <strong>Inspect</strong></li>
+                            <li>In DevTools <strong>Styles</strong> tab, find the applied classes</li>
+                            <li>Verify color values resolve to RGB format</li>
+                            <li>Test hover states by hovering over the boxes</li>
+                            <li>Test opacity modifiers on the semi-transparent box</li>
+                        </ol>
+                    </div>
+
+                    <div className="bg-green-50 border border-green-300 rounded p-4">
+                        <h3 className="font-semibold text-green-900 mb-2">✅ Expected Outcomes:</h3>
+                        <ul className="list-disc ml-5 space-y-1 text-sm text-green-900">
+                            <li><code>bg-primary-500</code> resolves to: <code>rgb(var(--color-primary-500))</code></li>
+                            <li><code>hover:bg-primary-700</code> changes color on hover</li>
+                            <li><code>bg-primary-500/50</code> shows 50% opacity: <code>rgb(... / 0.5)</code></li>
+                            <li>All palette utilities work: <code>bg-surface-200</code>, <code>text-critical-500</code></li>
+                            <li>Semantic utilities work: <code>bg-background-primary</code>, <code>text-text-secondary</code></li>
+                        </ul>
+                    </div>
+
+                    {/* Test Elements */}
+                    <div className="grid grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <div className="text-sm font-medium mb-2">Standard Color</div>
+                            <div 
+                                data-testid="tailwind-primary"
+                                className="bg-primary-500 hover:bg-primary-700 text-white p-4 rounded-lg transition-colors cursor-pointer text-center"
+                            >
+                                bg-primary-500
+                                <br />
+                                hover:bg-primary-700
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-sm font-medium mb-2">Opacity Modifier (50%)</div>
+                            <div 
+                                data-testid="tailwind-opacity"
+                                className="bg-primary-500/50 text-gray-900 p-4 rounded-lg text-center border-2 border-primary-500"
+                            >
+                                bg-primary-500/50
+                                <br />
+                                (50% opacity)
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-sm font-medium mb-2">Surface Colors</div>
+                            <div 
+                                data-testid="tailwind-surface"
+                                className="bg-surface-200 text-surface-900 p-4 rounded-lg text-center border border-surface-400"
+                            >
+                                bg-surface-200
+                                <br />
+                                text-surface-900
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-sm font-medium mb-2">Critical Colors</div>
+                            <div 
+                                data-testid="tailwind-critical"
+                                className="bg-critical-500 hover:bg-critical-700 text-white p-4 rounded-lg transition-colors cursor-pointer text-center"
+                            >
+                                bg-critical-500
+                                <br />
+                                hover:bg-critical-700
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 4: Typography Classes */}
+            <section className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold border-b-2 border-gray-300 pb-2">
+                    ✅ Section 4: Typography Classes
+                </h2>
+                
+                <div className="space-y-3">
+                    <div className="pl-6">
+                        <h3 className="font-semibold text-lg mb-2">Steps:</h3>
+                        <ol className="list-decimal ml-5 space-y-2 text-sm">
+                            <li>Visually verify each heading has different size and weight</li>
+                            <li>Right-click <strong>Heading 1</strong> → <strong>Inspect</strong></li>
+                            <li>In <strong>Styles</strong> tab, find <code className="bg-gray-100 px-1">.hui-text-h1</code> rule</li>
+                            <li>Verify it uses CSS variables: <code>var(--font-weight-h1)</code></li>
+                            <li>Resize browser window to test responsive typography</li>
+                        </ol>
+                    </div>
+
+                    <div className="bg-green-50 border border-green-300 rounded p-4">
+                        <h3 className="font-semibold text-green-900 mb-2">✅ Expected Outcomes:</h3>
+                        <ul className="list-disc ml-5 space-y-1 text-sm text-green-900">
+                            <li>H1: 32px on desktop, 24px on mobile (line-height: 48px/36px)</li>
+                            <li>H2: 24px on desktop, 20px on mobile (line-height: 36px/30px)</li>
+                            <li>H3: 20px on desktop, 16px on mobile (line-height: 30px/24px)</li>
+                            <li>H4-H6: 16px/14px (no responsive sizing)</li>
+                            <li>H1-H4 use <code>var(--font-family-secondary)</code></li>
+                            <li>H5-H6 and body text use <code>var(--font-family-primary)</code></li>
+                            <li>Responsive breakpoint at 1023px (smMax) - test by resizing</li>
+                        </ul>
+                    </div>
+
+                    {/* Test Elements */}
+                    <div className="space-y-3 mt-4 p-4 bg-gray-50 rounded">
+                        <h1 className="hui-text-h1" data-testid="typography-h1">Heading 1 (.hui-text-h1)</h1>
+                        <h2 className="hui-text-h2" data-testid="typography-h2">Heading 2 (.hui-text-h2)</h2>
+                        <h3 className="hui-text-h3" data-testid="typography-h3">Heading 3 (.hui-text-h3)</h3>
+                        <p className="hui-text-body-primary" data-testid="typography-body">
+                            Body Primary (.hui-text-body-primary) - This is the standard body text size at 16px
+                        </p>
+                        <p className="hui-text-caption" data-testid="typography-caption">
+                            Caption (.hui-text-caption) - Smaller text at 12px
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 5: Console & Errors */}
+            <section className="bg-white border border-gray-200 rounded-lg p-6 space-y-4">
+                <h2 className="text-2xl font-bold border-b-2 border-gray-300 pb-2">
+                    ✅ Section 5: Console Errors & Warnings
+                </h2>
+                
+                <div className="space-y-3">
+                    <div className="pl-6">
+                        <h3 className="font-semibold text-lg mb-2">Steps:</h3>
+                        <ol className="list-decimal ml-5 space-y-2 text-sm">
+                            <li>Open DevTools → <strong>Console</strong> tab</li>
+                            <li>Clear console (click 🚫 icon)</li>
+                            <li>Switch between all 3 themes</li>
+                            <li>Navigate to different stories</li>
+                            <li>Check console after each action</li>
+                        </ol>
+                    </div>
+
+                    <div className="bg-green-50 border border-green-300 rounded p-4">
+                        <h3 className="font-semibold text-green-900 mb-2">✅ Expected Outcomes:</h3>
+                        <ul className="list-disc ml-5 space-y-1 text-sm text-green-900">
+                            <li><strong>Zero errors</strong> - No red error messages</li>
+                            <li><strong>Zero warnings</strong> about missing CSS variables</li>
+                            <li><strong>Zero warnings</strong> about failed CSS imports</li>
+                            <li>Theme switching should be silent (no logs)</li>
+                            <li>Story navigation should be clean</li>
+                        </ul>
+                    </div>
+
+                    <div className="bg-red-50 border border-red-300 rounded p-4">
+                        <h3 className="font-semibold text-red-900 mb-2">❌ Common Issues to Check For:</h3>
+                        <ul className="list-disc ml-5 space-y-1 text-sm text-red-900">
+                            <li>"Cannot find module '@dbarrett24/theme-system/css/...'" → Build theme-system</li>
+                            <li>"CSS variable --color-* is not defined" → Check CSS import order</li>
+                            <li>"Failed to load resource" → Check dist/css/ files exist</li>
+                            <li>React errors about hooks → Unrelated to theme system</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            {/* Final Summary */}
+            <section className="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-green-500 rounded-lg p-6">
+                <h2 className="text-2xl font-bold mb-4">🎉 Verification Complete!</h2>
+                <p className="mb-4 text-lg">
+                    If all sections above pass, the DS-15b centralized theme system is working correctly.
+                </p>
+                <div className="bg-white rounded p-4 border border-gray-300">
+                    <h3 className="font-semibold mb-2">Architecture Verified:</h3>
+                    <ul className="list-disc ml-5 space-y-1 text-sm">
+                        <li>✅ Modular Tailwind plugin structure (10 files)</li>
+                        <li>✅ Centralized CSS generation (3 brand CSS files)</li>
+                        <li>✅ Build-time CSS generation via tsup</li>
+                        <li>✅ Programmatic color generation with tinycolor2</li>
+                        <li>✅ Type-safe CSS variable constants</li>
+                        <li>✅ Peer dependency model for brand libraries</li>
+                    </ul>
+                </div>
+                <div className="mt-4 text-sm text-gray-600">
+                    See <code className="bg-gray-100 px-2 py-1 rounded">.cursor/plans/DS-15b-verification-guide.md</code> for full documentation.
+                </div>
+            </section>
         </div>
     ),
 };

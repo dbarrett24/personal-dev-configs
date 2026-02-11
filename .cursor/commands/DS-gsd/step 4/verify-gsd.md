@@ -14,7 +14,6 @@ Verify changes against the Spec, run comprehensive quality checks, and prepare f
 - TypeScript compilation
 - Linting rules
 - Test suite execution
-- Codacy security/quality analysis
 - Manual testing checklist
 
 **What you do next**: 
@@ -134,29 +133,7 @@ git diff --cached --name-only
 
 Combine results. If no files found, exit with "No changes to verify."
 
-#### Check 2: Codacy Analysis (MCP-First for committed code)
-
-**For committed/pushed code**:
-- Use `mcp_codacy_codacy_list_repository_issues` to get existing analysis
-- Use `mcp_codacy_codacy_get_repository_with_analysis` for overall status
-
-**For uncommitted/staged changes**:
-- Use `mcp_codacy_codacy_cli_analyze` for each changed file:
-  - `rootPath`: `{PROJECT_ROOT}`
-  - `file`: absolute path to changed file
-  - `tool`: leave empty
-
-**Fix Issues**:
-- For each issue found, analyze and apply fix
-- After fixing, re-run Codacy on that file
-- Continue for up to 5 iterations per file
-
-**Log Results**:
-- Issues found: [count]
-- Issues fixed: [count]
-- Remaining: [count]
-
-#### Check 3: Lint
+#### Check 2: Lint
 
 **Run**:
 ```bash
@@ -175,7 +152,7 @@ cd {PROJECT_ROOT}
 - Warnings: [count found] → [count remaining]
 - Auto-fixed: [count]
 
-#### Check 4: Tests
+#### Check 3: Tests
 
 **Map Changed Files to Tests**:
 - `Component.tsx` → find `Component.spec.tsx` or `Component.test.tsx`
@@ -269,19 +246,6 @@ Append to `.cursor/plans/[TICKET-ID].md`:
 
 ### Quality Checks
 
-#### Codacy Analysis
-- ✅/❌ Status: [PASS/PARTIAL/FAIL]
-- Files checked: [count]
-- Issues found: [count]
-- Issues fixed: [count]
-- Remaining: [count]
-  - [File]: [Issue description]
-
-**Root Cause Analysis**:
-- [Category]: [Number] issues
-  - Root cause: [Analysis]
-  - Fix approach: [What was done]
-
 #### Lint
 - ✅/❌ Status: [PASS/PARTIAL/FAIL]
 - Errors: [count found] → [count remaining]
@@ -306,7 +270,6 @@ Append to `.cursor/plans/[TICKET-ID].md`:
   - Fix approach: [What was done]
 
 ### Iterations Required
-- Codacy: [count] iterations
 - Lint: [count] iterations
 - Tests: [count] iterations
 
@@ -343,12 +306,10 @@ Tests: [Test status]
 
 ### Checks Performed:
 - ✅/❌ Spec Verification: All criteria met
-- ✅/❌ Codacy Analysis: [X issues fixed, Y remaining]
 - ✅/❌ Lint: [status]
 - ✅/❌ Tests: [X tests run, Y passed, Z failed]
 
 ### Iterations Required:
-- Codacy: [count]
 - Lint: [count]
 - Tests: [count]
 
@@ -380,7 +341,6 @@ Recommendation: [Manual fix needed / Review required / etc.]
 
 - **Project Detection**: Automatically detects package manager, test framework, special requirements
 - **Monorepo Support**: Works from individual packages OR monorepo root with Turborepo
-- **Codacy Workspace Rule**: Must analyze after any file edit
 - **Parallel Reads**: Load files in batch, not sequentially
 - **Max Iterations**: 5 per check type to prevent infinite loops
 - **Timezone Handling**: Auto-detected from test scripts

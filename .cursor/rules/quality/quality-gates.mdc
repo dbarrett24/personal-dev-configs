@@ -16,35 +16,39 @@ Not all changes require all quality checks. This rule provides a framework for d
 2. **Prettier** - Always required for formatted code
 3. **ESLint** - Required for new/modified code (may skip if pre-existing config issues)
 4. **Tests** - Required for new features and bug fixes
-5. **Codacy Analysis** - Conditional (see below)
+5. **Manual Code Review** - Required for security-sensitive changes
 
-## Codacy Analysis Decision Tree
+## Quality Gate Decision Framework
 
-### ALWAYS Run Codacy:
+### ALWAYS Required:
 
-- ✅ New feature implementation (new components, new utils)
-- ✅ Bug fixes in existing logic
-- ✅ Security-related changes
-- ✅ Complex refactoring (multiple files, logic changes)
-- ✅ Adding/changing dependencies (npm install, yarn add, pnpm add)
+- ✅ TypeScript compilation for .ts/.tsx files
+- ✅ Prettier formatting for all code
+- ✅ ESLint for new/modified code
+- ✅ Tests for new features and bug fixes
+- ✅ Manual review for security-related changes
 
-### CONDITIONAL - May Skip Codacy:
+### CONDITIONAL - May Skip Some Gates:
 
 - ⚠️ **Configuration-only changes** (jest.config.js, tsconfig.json)
     - Rationale: Config files are validated by the tools themselves
     - Alternative: Verify the tool runs successfully (e.g., `pnpm test` for Jest config)
+    - Skip: Manual review (if tool validation passes)
 
 - ⚠️ **Simple import removals** (removing unused imports, removing `import React`)
     - Rationale: TypeScript compilation already validates import correctness
     - Alternative: Verify TypeScript compilation passes
+    - Skip: Additional linting (if TypeScript passes)
 
 - ⚠️ **Documentation updates** (README.md, .mdc files, comments)
     - Rationale: Markdown/docs don't have code smells or security issues
     - Alternative: Manual review for accuracy
+    - Skip: Code quality tools (not applicable to docs)
 
 - ⚠️ **Dependency removals** (removing packages)
     - Rationale: Removing dependencies reduces attack surface
     - Alternative: Verify tests still pass
+    - Skip: Security scanning (removal is inherently safer)
 
 ## Link Verification (Documentation Changes)
 
@@ -94,35 +98,24 @@ grep -r "deleted-file.md" --include="*.md" --include="*.mdc"
 
 ---
 
-### NEVER Skip Codacy:
+### NEVER Skip Quality Gates For:
 
-- ❌ Adding dependencies (potential security vulnerabilities)
-- ❌ Logic changes (potential bugs or code smells)
-- ❌ New code (establish quality baseline)
-
-## When Codacy CLI Not Installed
-
-If Codacy CLI is not installed:
-
-1. Document the skip with rationale in the plan/verification
-2. Rely on alternative quality gates (TypeScript, tests, Prettier)
-3. Recommend user install Codacy CLI for future sessions
-4. Proceed if other quality gates pass
+- ❌ Adding dependencies (requires security review and testing)
+- ❌ Logic changes (requires tests and manual review)
+- ❌ New code (requires all quality gates)
 
 ## Documentation Pattern
 
-When skipping Codacy, document:
+When documenting quality gates, include:
 
 ```markdown
-### Codacy Analysis
+### Quality Gates
 
-- ⚠️ Status: SKIPPED
-- Reason: [Configuration-only changes | Simple import removals | Documentation updates]
-- Alternative Validation:
-    - ✅ TypeScript compilation: PASS
-    - ✅ Prettier: PASS
-    - ✅ Tests: 50/50 passing
-- Impact: Low (no logic changes)
+- ✅ TypeScript compilation: PASS
+- ✅ Prettier: PASS  
+- ✅ ESLint: PASS
+- ✅ Tests: 50/50 passing
+- ✅ Manual review: [Completed | Not required for this change type]
 ```
 
 ## Example: TEST-SWC-001 Session
@@ -134,18 +127,18 @@ When skipping Codacy, document:
 - Documentation updates (.mdc files, README.md)
 - Dependency changes (removed Babel, added @swc)
 
-**Codacy Decision**: SKIPPED
+**Quality Gates Applied**:
+
+- ✅ TypeScript compilation: PASS
+- ✅ Tests: 50/50 passing (validates config changes)
+- ✅ Prettier: PASS
+- ✅ Manual review: Config changes validated by successful test execution
+
+**Rationale**:
 
 - Jest config: Validated by running `pnpm test` (50/50 pass)
 - Import removals: Validated by TypeScript compilation (no errors)
 - Documentation: Manual review for accuracy
 - Dependency changes: Only dev dependencies, tests validate functionality
 
-**Alternative Quality Gates**:
-
-- ✅ TypeScript compilation: PASS
-- ✅ Tests: 50/50 passing
-- ✅ Prettier: PASS
-- ✅ No security vulnerabilities introduced (dev deps only)
-
-**Result**: Safe to proceed without Codacy analysis.
+**Result**: All quality gates passed.

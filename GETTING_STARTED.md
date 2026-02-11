@@ -1,10 +1,11 @@
 # Getting Started with Personal Dev Configs
 
-## What's Been Built
+## What's Included
 
 A production-ready monorepo containing:
 
-✅ **8 Shared Configuration Packages:**
+✅ **10 Shared Configuration Packages:**
+
 1. `@dbarrett24/prettier-config` - Prettier with Tailwind support
 2. `@dbarrett24/typescript-config` - TypeScript configs (base, react, nextjs, library)
 3. `@dbarrett24/eslint-config` - ESLint for React/Next.js apps
@@ -13,15 +14,27 @@ A production-ready monorepo containing:
 6. `@dbarrett24/jest-config-library` - Jest with 95% coverage (libraries)
 7. `@dbarrett24/testing-utils` - Testing utilities (render, jotaiStore, React Query mocks, FormWrapper)
 8. `@dbarrett24/theme-system` - Semantic tokens and cn() utility
+9. `@dbarrett24/tsup-config` - Smart build wrapper (resolves workspace deps, adds 'use client')
+10. `@dbarrett24/core-components` - Headless base components
 
-✅ **1 Complete Brand Library:**
-- `@dbarrett24/basketball-training-ui` - Full component library with Storybook
+✅ **2 Brand Libraries:**
+
+- `@dbarrett24/basketball-training-ui` - Basketball brand components with Storybook
+- `@dbarrett24/professional-brand-ui` - Professional brand components with Storybook
+
+✅ **2 App Templates:**
+
+- `nextjs-app` - Next.js 15 + App Router template
+- `react-vite` - React + Vite SPA template
 
 ✅ **Repository Infrastructure:**
+
 - pnpm workspaces
 - Turbo for monorepo builds
 - Changesets for version management
-- Comprehensive scripts
+- Comprehensive development scripts
+
+---
 
 ## Installation & Setup
 
@@ -38,11 +51,20 @@ pnpm install
 pnpm build
 ```
 
-### 3. Run Storybook (Basketball UI)
+### 3. Run Storybook
 
 ```bash
-cd brand-libraries/basketball-training-ui
-pnpm storybook
+# Basketball Training UI (port 6006)
+pnpm storybook:basketball
+
+# Professional Brand UI (port 6006)
+pnpm storybook:professional
+
+# Core Components (port 6007)
+pnpm storybook:core
+
+# All Storybooks in parallel
+pnpm storybook:all
 ```
 
 ### 4. Run Tests
@@ -55,65 +77,12 @@ pnpm test
 pnpm test-coverage
 
 # Test specific package
-cd brand-libraries/basketball-training-ui
-pnpm test
+pnpm test:core
+pnpm test:basketball
+pnpm test:professional
 ```
 
-## Next Steps to Complete
-
-### Phase 4: Complete professional-brand-ui
-
-Copy basketball-training-ui structure and customize:
-
-```bash
-# 1. Copy remaining config files
-cp brand-libraries/basketball-training-ui/tsconfig.json brand-libraries/professional-brand-ui/
-cp brand-libraries/basketball-training-ui/tsup.config.ts brand-libraries/professional-brand-ui/
-cp brand-libraries/basketball-training-ui/jest.config.js brand-libraries/professional-brand-ui/
-cp brand-libraries/basketball-training-ui/.eslintrc.js brand-libraries/professional-brand-ui/
-cp brand-libraries/basketball-training-ui/postcss.config.js brand-libraries/professional-brand-ui/
-
-# 2. Update package references
-sed -i '' 's/basketball-training-ui/professional-brand-ui/g' brand-libraries/professional-brand-ui/*.js
-sed -i '' 's/basketball-training-ui/professional-brand-ui/g' brand-libraries/professional-brand-ui/*.ts
-sed -i '' 's/basketball-training-ui/professional-brand-ui/g' brand-libraries/professional-brand-ui/*.json
-
-# 3. Create professional brand theme (blue/gray instead of orange)
-# 4. Create Button component with professional styling
-# 5. Add Storybook config
-```
-
-### Phase 5: Create Project Templates
-
-Create templates for:
-1. **Next.js App Template** - Full stack with all integrations
-2. **React + Vite Template** - SPA with all integrations
-3. **New Brand Library Template** - Scaffold new brands quickly
-
-### Phase 6: Extract Cursor Rules
-
-From `wavebid-a2o/.cursor/rules/` and `hammer-ui/.cursor/rules/`, extract:
-- TypeScript patterns
-- React patterns
-- Testing guidelines
-- Next.js App Router patterns
-- React Hook Form + Zod patterns
-- Jotai state patterns
-- Naming conventions
-- Data layer (React Query) patterns
-
-### Phase 7: Create Automation Scripts
-
-```typescript
-// scripts/create-project.ts
-// Interactive CLI to create new projects from templates
-
-// scripts/create-brand.ts
-// Scaffold new brand libraries
-
-// scripts/update-configs.ts
-// Update all packages to latest configs
-```
+---
 
 ## Using in Your Projects
 
@@ -151,82 +120,115 @@ npm login
 pnpm ci:publish
 ```
 
-### Option 3: Use in Projects
+### Option 3: Use in New Project
 
 ```json
 // my-basketball-app/package.json
 {
-  "name": "my-basketball-app",
-  "dependencies": {
-    "@dbarrett24/basketball-training-ui": "^1.0.0",
-    "@dbarrett24/theme-system": "^1.0.0",
-    "next": "15.5.4",
-    "react": "19.1.0"
-  },
-  "devDependencies": {
-    "@dbarrett24/eslint-config": "^1.0.0",
-    "@dbarrett24/prettier-config": "^1.0.0",
-    "@dbarrett24/typescript-config": "^1.0.0",
-    "@dbarrett24/jest-config": "^1.0.0",
-    "@dbarrett24/testing-utils": "^1.0.0"
-  },
-  "prettier": "@dbarrett24/prettier-config"
+    "name": "my-basketball-app",
+    "dependencies": {
+        "@dbarrett24/basketball-training-ui": "^1.0.0",
+        "@dbarrett24/theme-system": "^1.0.0",
+        "next": "15.5.4",
+        "react": "19.1.0"
+    },
+    "devDependencies": {
+        "@dbarrett24/eslint-config": "^1.0.0",
+        "@dbarrett24/prettier-config": "^1.0.0",
+        "@dbarrett24/typescript-config": "^1.0.0",
+        "@dbarrett24/jest-config": "^1.0.0",
+        "@dbarrett24/testing-utils": "^1.0.0"
+    },
+    "prettier": "@dbarrett24/prettier-config"
 }
 ```
 
+---
+
 ## Essential Scripts
 
+For a complete list of available scripts, see **[CONTRIBUTING.md](./CONTRIBUTING.md)**.
+
+### Development
+
 ```bash
-# Development
-pnpm dev                 # Start all dev servers
-pnpm build              # Build all packages
-pnpm test               # Run all tests
-pnpm lint               # Lint all packages
-pnpm lint-fix           # Fix linting issues
-
-# Pre-commit
-pnpm pc                 # Pre-commit check (build + lint + test)
-pnpm pcf                # Pre-commit fix (auto-fix + update tests + check)
-
-# Changesets
-pnpm cl                 # Create changeset
-pnpm ci:version         # Version packages
-pnpm ci:publish         # Publish to npm
-
-# Maintenance
-pnpm cleanup            # Remove all node_modules
-pnpm full-rebuild       # Complete rebuild
-pnpm upgrade-deps       # Update all dependencies
-pnpm test-update        # Update test snapshots
-pnpm test-coverage      # Run tests with coverage
+pnpm work:core            # Work on core components
+pnpm work:basketball      # Work on basketball brand
+pnpm work:professional    # Work on professional brand
+pnpm dev:nextjs           # Start Next.js template
+pnpm dev:vite             # Start Vite template
 ```
+
+### Testing
+
+```bash
+pnpm test                 # Run all tests
+pnpm test:watch:core      # Watch mode for core
+pnpm test-coverage        # With coverage reports
+pnpm test-update          # Update snapshots
+```
+
+### Quality Checks
+
+```bash
+pnpm pc                   # Pre-commit check
+pnpm pcf                  # Pre-commit fix (auto-fix)
+pnpm prepush              # Full pre-push check
+pnpm lint                 # Lint all packages
+pnpm lint-fix             # Fix linting issues
+```
+
+### Storybook
+
+```bash
+pnpm storybook:core           # Port 6007
+pnpm storybook:basketball     # Port 6006
+pnpm storybook:professional   # Port 6006
+pnpm storybook:all            # All in parallel
+```
+
+### Maintenance
+
+```bash
+pnpm cleanup              # Remove all node_modules
+pnpm clean:dist           # Remove dist folders
+pnpm full-rebuild         # Complete rebuild
+pnpm upgrade-deps         # Update dependencies
+```
+
+---
 
 ## Package Overview
 
 ### @dbarrett24/prettier-config
+
 - Single quotes, 4-space tabs
 - Tailwind CSS class sorting
 - Recognizes `cn()` function
 
 ### @dbarrett24/typescript-config
+
 - **base.json**: Common TypeScript settings
 - **react.json**: React-specific config
 - **nextjs.json**: Next.js App Router config
 - **library.json**: Component library config
 
 ### @dbarrett24/eslint-config
+
 - React + TypeScript rules
 - Testing Library rules
-- Import restrictions
+- Import sorting
 - Prettier integration
 
 ### @dbarrett24/jest-config
+
 - 90% coverage thresholds (apps)
 - Auto mock clearing
-- Path alias support (@/*)
+- Path alias support (@/\*)
 - React Testing Library setup
 
 ### @dbarrett24/testing-utils
+
 - Custom render with providers (React Query + Jotai)
 - Direct Jotai store access
 - React Query mocks (success, loading, error states)
@@ -234,16 +236,34 @@ pnpm test-coverage      # Run tests with coverage
 - userEvent for interactions
 
 ### @dbarrett24/theme-system
+
 - Semantic color tokens (background-primary, text-primary, etc.)
 - Semantic spacing (xs, sm, md, lg, xl)
 - cn() utility for class merging
 - Multi-brand support via CSS variables
 
+### @dbarrett24/tsup-config
+
+- Automatic workspace dependency resolution
+- 'use client' directive injection
+- dist/package.json generation
+- Consistent build configuration
+
 ### @dbarrett24/basketball-training-ui
-- Complete component library example
+
+- Complete component library
 - Orange brand colors
 - Storybook documentation
 - Full test coverage
+
+### @dbarrett24/professional-brand-ui
+
+- Complete component library
+- Blue brand colors
+- Storybook documentation
+- Full test coverage
+
+---
 
 ## Customization
 
@@ -266,6 +286,7 @@ cd brand-libraries/basketball-training-ui/src/components
 ```
 
 Create component files:
+
 1. `ComponentName.tsx` - Component implementation
 2. `ComponentName.stories.tsx` - Storybook stories
 3. `ComponentName.spec.tsx` - Jest tests
@@ -283,30 +304,100 @@ cd brand-libraries/new-brand-ui
 # Update brand-specific colors in tailwind.config.js
 ```
 
+---
+
+## Troubleshooting
+
+### Port Already in Use
+
+```bash
+# Kill process on port 6006
+lsof -ti:6006 | xargs kill -9
+
+# Kill process on port 6007
+lsof -ti:6007 | xargs kill -9
+```
+
+### Module Not Found Errors
+
+```bash
+# Rebuild dependencies
+pnpm build:theme
+pnpm build:core
+# Then try your command again
+```
+
+### Build Fails
+
+```bash
+# Clean rebuild
+pnpm cleanup
+pnpm install
+pnpm build
+```
+
+### Storybook Won't Start
+
+```bash
+cd brand-libraries/basketball-training-ui
+rm -rf node_modules .storybook-cache
+pnpm install
+pnpm storybook
+```
+
+### Tests Failing
+
+```bash
+# Update snapshots
+pnpm test-update
+
+# Run tests sequentially to see which fails
+pnpm test-sequential
+```
+
+### Turbo Cache Issues
+
+```bash
+# Clear cache and rebuild
+pnpm clean:cache
+pnpm build
+```
+
+---
+
 ## What's Valuable
 
-Based on your work experience, this setup captures:
+Based on professional experience, this setup captures:
 
 1. ✅ **Strict TypeScript** with proper configs
 2. ✅ **Consistent code style** (arrow functions, nullish coalescing, naming)
 3. ✅ **High test coverage** (90%+ apps, 95%+ libraries)
 4. ✅ **Testing best practices** (no mocking components, direct queries, FormWrapper)
 5. ✅ **Multi-brand theming** (semantic tokens, CSS variables)
-6. ✅ **Modern tooling** (Vite, Storybook, pnpm, turbo)
-7. ✅ **Version management** (changesets like Hammer UI)
-8. ✅ **Comprehensive scripts** (pc, pcf, test-update, cleanup)
-9. ✅ **React Query patterns** (*Options for SSR, mock helpers)
+6. ✅ **Modern tooling** (Vite, Storybook, pnpm, Turbo)
+7. ✅ **Version management** (Changesets like Hammer UI)
+8. ✅ **Comprehensive scripts** (workflow, quality, maintenance)
+9. ✅ **React Query patterns** (options for SSR, mock helpers)
 10. ✅ **Jotai patterns** (direct store access in tests)
 11. ✅ **React Hook Form** (FormWrapper, Zod validation)
-12. ✅ **Next.js App Router** (proper configs, import restrictions)
+12. ✅ **Next.js App Router** (proper configs, patterns)
+
+---
 
 ## Documentation
 
-Each package includes:
+- **[README.md](./README.md)** - Project overview and quick start
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Development workflow and all scripts
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - System design and architecture decisions
+
+Each package also includes:
+
 - README with usage examples
 - TypeScript types
 - Code examples
 - Best practices
+
+---
 
 ## License
 
@@ -314,6 +405,7 @@ MIT
 
 ---
 
-**Created**: November 2025
-**Based on**: Professional patterns from Hammer UI and Wavebid A2O repositories
+**Ready to build with professional-grade tooling!** 🚀
 
+**Created**: 2025  
+**Based on**: Professional patterns from Hammer UI and Wavebid A2O repositories

@@ -1,5 +1,4 @@
 const { baseTheme } = require('./dist/theme');
-const { themePlugin } = require('./dist/tailwind-plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -13,6 +12,9 @@ module.exports = {
             fontSize: baseTheme.fontSize,
         },
     },
-    plugins: [themePlugin],
+    // NOTE: Plugins are NOT included in the base config
+    // Consuming apps must load themePlugin separately:
+    // const { themePlugin } = require('@dbarrett24/theme-system');
+    // plugins: [themePlugin]
 };
 

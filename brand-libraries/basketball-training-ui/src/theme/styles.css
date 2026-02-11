@@ -1,6 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/**
+ * Basketball Training Brand Theme
+ * 
+ * This file contains ONLY CSS variable definitions.
+ * The consuming app (Storybook, Next.js) handles @tailwind directives.
+ * 
+ * DO NOT add @tailwind directives here - they cause duplicate CSS output!
+ */
 
 /* Class-based selector for Storybook theme switching */
 .brand-basketball {

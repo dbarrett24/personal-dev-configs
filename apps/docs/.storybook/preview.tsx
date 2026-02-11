@@ -2,12 +2,8 @@ import type { Preview, Decorator } from '@storybook/react';
 import React from 'react';
 import { Brand, brandsToCSSClass, brandLabels } from './brands';
 
-// Import theme CSS from published brand packages
-import '@dbarrett24/basketball-training-ui/theme';
-import '@dbarrett24/professional-brand-ui/theme';
-
-// Import default theme
-import './themes/default.css';
+// Import global CSS with Tailwind directives and all theme variables
+import './global.css';
 
 /**
  * Theme decorator - applies brand CSS class to story wrapper

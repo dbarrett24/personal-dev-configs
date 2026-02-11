@@ -1,0 +1,19 @@
+/**
+ * Storybook Global Styles
+ * 
+ * This file contains Tailwind directives and imports brand theme CSS.
+ * It's the single entry point for CSS processing.
+ * 
+ * IMPORTANT: @import statements MUST come before @tailwind directives!
+ * This is a PostCSS/CSS requirement.
+ */
+
+/* Import brand theme CSS variables FIRST (NO @tailwind directives in those files!) */
+@import '@dbarrett24/basketball-training-ui/theme';
+@import '@dbarrett24/professional-brand-ui/theme';
+@import './themes/default.css';
+
+/* Tailwind directives come AFTER imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

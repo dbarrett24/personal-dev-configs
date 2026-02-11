@@ -1,0 +1,220 @@
+---
+description: CSS build pipeline architecture and common pitfalls
+globs: ["**/*.css", "**/tailwind.config.js", "**/postcss.config.js"]
+---
+
+# CSS Build Pipeline Architecture
+
+## Critical Rules
+
+### Rule 1: Brand CSS Files Contain ONLY CSS Variables
+
+Brand theme CSS files must contain ONLY CSS variable definitions. Never include `@tailwind`, `@import`, or utility class definitions.
+
+**Why**: Each `@tailwind utilities` directive generates the FULL set of Tailwind utilities. Multiple brand files with this directive create duplicate output.
+
+✅ **CORRECT** - Brand CSS file:
+```css
+/* brand-libraries/basketball-training-ui/src/theme/styles.css */
+
+/**
+ * Basketball Training Brand Theme
+ * 
+ * This file contains ONLY CSS variable definitions.
+ * The consuming app handles @tailwind directives.
+ */
+
+.brand-basketball {
+    --color-background-primary: #ffffff;
+    --color-text-primary: #1a1a1a;
+    --font-family-primary: 'Inter', sans-serif;
+    /* ... only CSS variables */
+}
+```
+
+❌ **WRONG** - Causes duplicate CSS:
+```css
+/* brand-libraries/basketball-training-ui/src/theme/styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;  /* ← DUPLICATES EVERYTHING! */
+
+.brand-basketball {
+    --color-background-primary: #ffffff;
+}
+```
+
+### Rule 2: @import MUST Precede All Other Statements
+
+PostCSS/CSS specification requires `@import` statements to come BEFORE all other CSS (except `@charset`).
+
+**Why**: This is a CSS specification requirement. Violating it causes PostCSS build errors.
+
+✅ **CORRECT** - Import order:
+```css
+/* apps/docs/.storybook/global.css */
+
+/* @import statements FIRST */
+@import '@dbarrett24/basketball-training-ui/theme';
+@import '@dbarrett24/professional-brand-ui/theme';
+@import './themes/default.css';
+
+/* @tailwind directives AFTER imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+❌ **WRONG** - PostCSS error:
+```css
+@tailwind utilities;
+@import './theme.css';  /* ← ERROR: @import must come first! */
+```
+
+### Rule 3: Single Source of @tailwind Directives
+
+Only ONE file in the application should contain `@tailwind` directives. This is typically the main CSS entry point.
+
+✅ **CORRECT** - Apps:
+```
+apps/docs/
+└── .storybook/
+    ├── global.css       ← @tailwind directives HERE
+    └── preview.tsx      ← import './global.css'
+```
+
+✅ **CORRECT** - Brand packages:
+```
+brand-libraries/basketball-training-ui/
+└── src/
+    └── theme/
+        └── styles.css   ← NO @tailwind directives
+```
+
+### Rule 4: CSS Variable Names Must Match Exactly
+
+CSS variable names in brand files must EXACTLY match the references in `theme-system/src/theme.ts`.
+
+**Common Pattern**: Use `--color-*` prefix for all color variables.
+
+✅ **CORRECT** - Matching names:
+```css
+/* Brand CSS */
+.brand-basketball {
+    --color-background-primary: #ffffff;
+    --color-text-primary: #1a1a1a;
+}
+```
+
+```typescript
+/* theme-system/src/theme.ts */
+export const baseTheme = {
+    colors: {
+        'background-primary': 'var(--color-background-primary)', // ✅ Matches!
+        'text-primary': 'var(--color-text-primary)',             // ✅ Matches!
+    },
+};
+```
+
+❌ **WRONG** - Name mismatch causes silent failure:
+```typescript
+/* theme-system/src/theme.ts */
+export const baseTheme = {
+    colors: {
+        'background-primary': 'var(--background-primary)', // ❌ Missing --color- prefix!
+    },
+};
+```
+
+**Debugging**: If colors aren't applying, open DevTools → Elements → Computed → Search for `--color-` variables to verify they exist.
+
+## Tailwind Plugin Patterns
+
+### Rule 5: Plugins in Consuming Apps Only
+
+Tailwind plugins should be loaded in consuming applications (apps/docs, apps/nextjs-app), NOT in base preset configs.
+
+**Why**: When a config is used as a preset, its plugins array is inherited. If the consuming app also loads the plugin, it gets registered twice, causing duplicate CSS output.
+
+✅ **CORRECT** - Base preset config (NO plugins):
+```javascript
+/* shared-configs/theme-system/tailwind.config.js */
+module.exports = {
+    content: [],
+    theme: {
+        extend: {
+            colors: baseTheme.colors,
+            spacing: baseTheme.spacing,
+        },
+    },
+    // NOTE: NO plugins array here!
+    // Consuming apps load plugins explicitly
+};
+```
+
+✅ **CORRECT** - Consuming app (loads plugins):
+```javascript
+/* apps/docs/tailwind.config.js */
+const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
+const { themePlugin } = require('@dbarrett24/theme-system');
+
+module.exports = {
+    presets: [baseConfig],          // Inherit theme values
+    content: [ /* ... */ ],
+    plugins: [themePlugin],         // Load custom utilities explicitly
+};
+```
+
+### Rule 6: Use Presets for Config Inheritance
+
+Use Tailwind's `presets` array for config inheritance instead of spread operator (`...baseConfig`).
+
+**Why**: Presets prevent plugin duplication and provide proper config merging.
+
+✅ **CORRECT** - Presets pattern:
+```javascript
+module.exports = {
+    presets: [baseConfig],  // ✅ Proper inheritance
+    content: [ /* ... */ ],
+};
+```
+
+❌ **AVOID** - Spread operator:
+```javascript
+module.exports = {
+    ...baseConfig,  // ⚠️ Can cause plugin duplication issues
+    content: [ /* ... */ ],
+};
+```
+
+## Debugging CSS Issues
+
+### Duplicate CSS Rules
+
+**Symptom**: Same class appears twice in DevTools with strikethrough properties.
+
+**Cause**: Multiple files generating Tailwind utilities (`@tailwind utilities`).
+
+**Fix**: Remove `@tailwind` from brand CSS files.
+
+### Missing Colors/Variables
+
+**Symptom**: Elements have no color, CSS variable shows `invalid` in DevTools.
+
+**Debugging**:
+1. Open DevTools → Elements
+2. Select element with missing color
+3. Go to "Computed" tab
+4. Search for `--color-`
+5. Check if variable exists and has value
+
+**Common Causes**:
+- CSS variable name mismatch between brand CSS and theme config
+- Brand CSS not imported
+- Wrong CSS specificity (class selector not applied)
+
+### PostCSS Build Errors
+
+**Error**: `@import must precede all other statements`
+
+**Fix**: Move all `@import` statements above `@tailwind` directives.

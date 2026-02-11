@@ -5,6 +5,59 @@ globs: ["**/theme/**/*.css", "**/*.css", "**/tailwind.config.*"]
 
 # Theme System Infrastructure
 
+## Module Organization Philosophy
+
+### Separation of Concerns
+
+The theme system is split into focused modules for better testability and reusability:
+
+```
+theme-system/
+├── src/
+│   ├── theme.ts           # Pure theme values (colors, spacing, etc.)
+│   ├── tailwind-plugin.ts # Custom Tailwind utilities (.hui-* classes)
+│   ├── cn.ts              # Class name utility (standalone)
+│   └── index.ts           # Main entry point
+└── tailwind.config.js     # Base Tailwind config (preset-ready)
+```
+
+**Benefits of Separation**:
+1. **theme.ts**: Can be imported without loading Tailwind plugin
+2. **tailwind-plugin.ts**: Can be tested independently
+3. **cn.ts**: Standalone utility, no theme dependencies
+4. **tailwind.config.js**: Can be used as preset without plugins
+
+**Comparison to Hammer UI**:
+- Hammer UI: Monolithic plugin with theme values embedded
+- Ours: Modular with explicit separation
+- **Advantage**: Better tree-shaking, easier testing, more flexible composition
+
+### Import Patterns
+
+**For theme values only**:
+```typescript
+import { baseTheme } from '@dbarrett24/theme-system/theme';
+// Use in non-Tailwind contexts
+```
+
+**For Tailwind plugin**:
+```typescript
+const { themePlugin } = require('@dbarrett24/theme-system');
+// Load in consuming app's tailwind.config.js
+```
+
+**For class name utility**:
+```typescript
+import { cn } from '@dbarrett24/theme-system';
+// Use anywhere
+```
+
+**For complete theme system**:
+```typescript
+import { baseTheme, cn } from '@dbarrett24/theme-system';
+const { themePlugin } = require('@dbarrett24/theme-system');
+```
+
 ## Overview
 
 This project uses a comprehensive CSS variable-based theme system with multi-brand support. The theme infrastructure follows industry-standard naming conventions with `--color-*` prefixes for semantic organization.

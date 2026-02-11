@@ -128,3 +128,61 @@ After modifying theme CSS:
 2. Restart dev servers/Storybook
 3. Hard refresh browser (Cmd+Shift+R)
 4. Verify all CSS variables update correctly
+
+## Theme Implementation Validation Checklist
+
+After modifying theme CSS or adding new brands, validate using this checklist:
+
+### Build-Time Checks
+
+- [ ] `pnpm build` succeeds with no PostCSS errors
+- [ ] No `@tailwind` directives in brand CSS files
+- [ ] All `@import` statements come before `@tailwind`
+- [ ] Brand package exports `./theme` path in `package.json`
+- [ ] Theme-system rebuilt if `theme.ts` modified
+
+### Browser DevTools Checks
+
+Open Storybook → ThemeInfrastructure stories → Open DevTools:
+
+**1. CSS Variables Exist**:
+- Right-click element → Inspect → Computed tab
+- Search for `--color-` → Verify all variables present
+- Check values match brand expectations
+
+**2. No Duplicate CSS Rules**:
+- Inspect any heading → Styles tab
+- Search for `.hui-text-` classes
+- Should appear ONCE (not twice with strikethrough)
+
+**3. Colors Apply Correctly**:
+- Background colors visible
+- Text colors readable
+- Border colors showing
+- Focus rings working (Tab through buttons)
+
+**4. Typography Classes Work**:
+- `.hui-text-h1` through `.hui-text-h6` render different sizes
+- Font families apply (`--font-family-primary`, `--font-family-secondary`)
+- Font weights use variables (`--font-weight-h1`, etc.)
+
+**5. Semantic Tokens Work**:
+- `rounded-button` applies correct border radius (8px)
+- `rounded-input` applies correct border radius (6px)
+- `font-primary` uses `--font-family-primary`
+- `font-secondary` uses `--font-family-secondary`
+
+**6. Spacing Scale Correct**:
+- `px-sm` = 16px (not 12px)
+- `px-md` = 24px (not 16px)
+- `px-lg` = 32px (not 24px)
+
+### Common Failures and Fixes
+
+| Symptom | Likely Cause | Fix |
+|---------|--------------|-----|
+| No colors appear | CSS variable name mismatch | Check `--color-*` prefix matches `theme.ts` |
+| Duplicate rules in DevTools | `@tailwind` in brand files | Remove from brand CSS |
+| PostCSS build error | Import order | Move `@import` above `@tailwind` |
+| Focus rings missing | Plugin not loaded | Add `themePlugin` to app's `tailwind.config.js` |
+| Wrong spacing values | Not rebuilt | `cd theme-system && pnpm build` |

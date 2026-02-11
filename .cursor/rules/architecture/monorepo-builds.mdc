@@ -129,3 +129,71 @@ Use root-level scripts for convenience:
 - `pnpm build:core` - Build core-components only
 - `pnpm build:basketball` - Build basketball-training-ui only
 - `pnpm build:professional` - Build professional-brand-ui only
+
+## Package Export Patterns for Config Files
+
+When creating shared config packages (Tailwind, ESLint, tsup, etc.), follow these patterns:
+
+### Exporting Config Files
+
+Config files need special export paths in `package.json`:
+
+```json
+{
+  "name": "@dbarrett24/theme-system",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tailwind.config": {
+      "import": "./tailwind.config.js",
+      "require": "./tailwind.config.js"
+    },
+    "./tailwind.config.js": {
+      "import": "./tailwind.config.js",
+      "require": "./tailwind.config.js"
+    },
+    "./tailwind-plugin": {
+      "import": "./dist/tailwind-plugin.mjs",
+      "require": "./dist/tailwind-plugin.js",
+      "types": "./dist/tailwind-plugin.d.ts"
+    },
+    "./theme": "./dist/theme/styles.css"
+  }
+}
+```
+
+**Key Patterns**:
+1. **Config files** (`.js`): Export both with and without extension
+   - `"./tailwind.config"` AND `"./tailwind.config.js"`
+   - Some tools add `.js`, some don't
+   
+2. **CSS files**: Export directly (not built)
+   - `"./theme": "./dist/theme/styles.css"`
+   - Or source: `"./theme": "./src/theme/styles.css"`
+   
+3. **Built modules**: Export both ESM and CJS
+   - `"import": "./dist/file.mjs"`
+   - `"require": "./dist/file.js"`
+
+### Common Export Errors
+
+**Error**: `Package subpath './tailwind.config' is not defined by "exports"`
+
+**Fix**: Add both paths to exports:
+```json
+"./tailwind.config": { /* ... */ },
+"./tailwind.config.js": { /* ... */ }
+```
+
+**Error**: `Cannot find module './dist/tailwind-plugin'`
+
+**Fix**: Ensure `tsup.config.ts` includes the file in `entry` array:
+```typescript
+export default defineConfig({
+    entry: ['src/index.ts', 'src/tailwind-plugin.ts'],
+    // ...
+});
+```

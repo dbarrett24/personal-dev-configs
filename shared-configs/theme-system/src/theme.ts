@@ -22,51 +22,51 @@ export const baseTheme = {
     },
 
     colors: {
-        'background-inverse': 'var(--background-inverse)',
-        'background-overlay': 'var(--background-overlay)',
         // Background colors
-        'background-primary': 'var(--background-primary)',
-        'background-secondary': 'var(--background-secondary)',
-        'background-tertiary': 'var(--background-tertiary)',
-        'border-critical': 'var(--border-critical)',
-        'border-focus': 'var(--border-focus)',
-        'border-info': 'var(--border-info)',
+        'background-primary': 'var(--color-background-primary)',
+        'background-secondary': 'var(--color-background-secondary)',
+        'background-tertiary': 'var(--color-background-tertiary)',
+        'background-inverse': 'var(--color-background-inverse)',
+        'background-overlay': 'var(--color-background-overlay)',
+
+        // Text colors
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'text-tertiary': 'var(--color-text-tertiary)',
+        'text-inverse': 'var(--color-text-inverse)',
+        'text-disabled': 'var(--color-text-disabled)',
+        'text-link': 'var(--color-text-link)',
+        'text-success': 'var(--color-text-success)',
+        'text-warning': 'var(--color-text-warning)',
+        'text-critical': 'var(--color-text-critical)',
+        'text-info': 'var(--color-text-info)',
 
         // Border colors
-        'border-primary': 'var(--border-primary)',
-        'border-secondary': 'var(--border-secondary)',
-        'border-success': 'var(--border-success)',
-        'border-warning': 'var(--border-warning)',
-        'interactive-disabled': 'var(--interactive-disabled)',
+        'border-primary': 'var(--color-border-primary)',
+        'border-secondary': 'var(--color-border-secondary)',
+        'border-focus': 'var(--color-border-focus)',
+        'border-success': 'var(--color-border-success)',
+        'border-warning': 'var(--color-border-warning)',
+        'border-critical': 'var(--color-border-critical)',
+        'border-info': 'var(--color-border-info)',
 
-        // Interactive colors
-        'interactive-primary': 'var(--interactive-primary)',
-        'interactive-primary-active': 'var(--interactive-primary-active)',
-        'interactive-primary-hover': 'var(--interactive-primary-hover)',
-        'interactive-secondary': 'var(--interactive-secondary)',
-        'interactive-secondary-hover': 'var(--interactive-secondary-hover)',
-        'status-critical': 'var(--status-critical)',
-        'status-critical-background': 'var(--status-critical-background)',
-        'status-info': 'var(--status-info)',
-        'status-info-background': 'var(--status-info-background)',
+        // Link/Interactive colors (using --color-link-* from CSS)
+        'interactive-primary': 'var(--color-link-primary)',
+        'interactive-primary-hover': 'var(--color-link-hover)',
+        'interactive-primary-active': 'var(--color-link-pressed)',
+        'interactive-secondary': 'var(--color-link-secondary)',
+        'interactive-secondary-hover': 'var(--color-link-secondary)',
+        'interactive-disabled': 'var(--color-link-disabled)',
 
         // Status colors
         'status-success': 'var(--status-success)',
         'status-success-background': 'var(--status-success-background)',
         'status-warning': 'var(--status-warning)',
         'status-warning-background': 'var(--status-warning-background)',
-        'text-critical': 'var(--text-critical)',
-        'text-disabled': 'var(--text-disabled)',
-        'text-info': 'var(--text-info)',
-        'text-inverse': 'var(--text-inverse)',
-        'text-link': 'var(--text-link)',
-
-        // Text colors
-        'text-primary': 'var(--text-primary)',
-        'text-secondary': 'var(--text-secondary)',
-        'text-success': 'var(--text-success)',
-        'text-tertiary': 'var(--text-tertiary)',
-        'text-warning': 'var(--text-warning)',
+        'status-critical': 'var(--status-critical)',
+        'status-critical-background': 'var(--status-critical-background)',
+        'status-info': 'var(--status-info)',
+        'status-info-background': 'var(--status-info-background)',
     },
 
     fontFamily: {

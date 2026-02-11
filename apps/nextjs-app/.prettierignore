@@ -1,0 +1,12 @@
+# Build outputs
+.next/
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Misc
+coverage/
+*.log
+.DS_Store

@@ -5,7 +5,7 @@ exports[`Button renders disabled state 1`] = `
   <button
     aria-busy="false"
     aria-disabled="false"
-    class="inline-flex items-center justify-center font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-interactive-primary text-text-inverse hover:bg-interactive-primary-hover focus:ring-interactive-primary active:bg-interactive-primary-active gap-sm px-md py-xs text-base shadow-sm rounded-sm"
+    class="inline-flex items-center justify-center font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-link-primary text-text-inverse hover:bg-link-hover focus:ring-link-primary active:bg-link-pressed gap-sm px-md py-xs text-base shadow-sm rounded-sm"
     disabled=""
     type="button"
   >
@@ -19,7 +19,7 @@ exports[`Button renders with default props 1`] = `
   <button
     aria-busy="false"
     aria-disabled="false"
-    class="inline-flex items-center justify-center font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-interactive-primary text-text-inverse hover:bg-interactive-primary-hover focus:ring-interactive-primary active:bg-interactive-primary-active gap-sm px-md py-xs text-base shadow-sm rounded-sm"
+    class="inline-flex items-center justify-center font-semibold transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 bg-link-primary text-text-inverse hover:bg-link-hover focus:ring-link-primary active:bg-link-pressed gap-sm px-md py-xs text-base shadow-sm rounded-sm"
     type="button"
   >
     Click me

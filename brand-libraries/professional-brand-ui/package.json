@@ -15,8 +15,7 @@
             "import": "./dist/esm/Button.js",
             "require": "./dist/Button.js",
             "types": "./dist/Button.d.ts"
-        },
-        "./theme": "./dist/theme/styles.css"
+        }
     },
     "files": [
         "dist"
@@ -44,15 +43,16 @@
     "license": "MIT",
     "dependencies": {
         "@dbarrett24/core-components": "workspace:*",
-        "@dbarrett24/theme-system": "workspace:*",
         "clsx": "^2.1.1",
         "tailwind-merge": "^3.4.0"
     },
     "peerDependencies": {
+        "@dbarrett24/theme-system": ">=1",
         "react": ">=18",
         "react-dom": ">=18"
     },
     "devDependencies": {
+        "@dbarrett24/theme-system": "workspace:*",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
         "@dbarrett24/eslint-config-library": "workspace:*",

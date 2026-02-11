@@ -12,14 +12,14 @@ pnpm add @dbarrett24/basketball-training-ui
 
 ```tsx
 import { Button } from '@dbarrett24/basketball-training-ui';
-import '@dbarrett24/basketball-training-ui/dist/theme/styles.css';
+import '@dbarrett24/theme-system/css/BasketballTraining.css';
 
 export const App = () => {
     return (
         <div>
-            <Button variant="primary">Start Training</Button>
-            <Button variant="secondary">View Stats</Button>
-            <Button variant="outline">Learn More</Button>
+            <Button variant="solid">Start Training</Button>
+            <Button variant="outline">View Stats</Button>
+            <Button variant="ghost">Learn More</Button>
         </div>
     );
 };

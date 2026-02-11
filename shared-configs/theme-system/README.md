@@ -1,6 +1,6 @@
 # @dbarrett24/theme-system
 
-Base Tailwind CSS theme system with semantic tokens and `cn()` utility function.
+Centralized Tailwind CSS theme system with semantic design tokens, multi-brand support, and `cn()` utility function.
 
 ## Installation
 
@@ -10,107 +10,59 @@ pnpm add @dbarrett24/theme-system tailwindcss clsx tailwind-merge
 
 ## Features
 
-- **Semantic color tokens** - `background-primary`, `text-primary`, `border-primary`, etc.
-- **Semantic spacing** - `xs`, `sm`, `md`, `lg`, `xl`, etc.
+- **Semantic color tokens** - `bg-primary-500`, `text-inverse`, `border-primary`, etc.
+- **Semantic spacing** - `xs`, `sm`, `md`, `lg`, `xl` (Hammer UI-aligned scale)
 - **cn() utility** - Merge Tailwind classes with proper conflict resolution
-- **Multi-brand support** - Extend base theme for different brands
-- **CSS variable-based** - Easy theming and dark mode support
+- **Multi-brand support** - TypeScript brand definitions + build-time CSS generation
+- **CSS variable-based** - Easy theming with runtime flexibility
 
 ## Usage
 
 ### 1. Setup Tailwind Config
 
-Extend the base theme in your `tailwind.config.js`:
+Use the base config as a preset in your `tailwind.config.js`:
 
 ```javascript
 const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    ...baseConfig,
+    presets: [baseConfig],
     content: [
         './src/**/*.{js,ts,jsx,tsx}',
         './app/**/*.{js,ts,jsx,tsx}',
     ],
-    theme: {
-        ...baseConfig.theme,
-        extend: {
-            ...baseConfig.theme.extend,
-            // Add brand-specific overrides
-            colors: {
-                ...baseConfig.theme.extend.colors,
-                'brand-primary': '#FF5733',
-            },
-        },
-    },
+    // No need to duplicate theme config - baseConfig includes the full theme with plugin
 };
 ```
 
-### 2. Define CSS Variables
+### 2. Import Brand CSS
 
-Create a CSS file with your theme variables:
+Import the pre-generated CSS for your brand:
 
 ```css
-/* app/globals.css */
+/* app/globals.css or src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import brand-specific theme CSS (generated at build time) */
+@import '@dbarrett24/theme-system/css/BasketballTraining.css';
+
+/* OR for Professional Brand: */
+/* @import '@dbarrett24/theme-system/css/ProfessionalBrand.css'; */
+```
+
+The imported CSS contains all the CSS variables your brand needs (colors, spacing, typography, etc.). These variables use the `--color-*` naming convention and RGB triplet values for proper opacity support:
+
+```css
+/* Example of what's in the generated CSS: */
 :root {
-    /* Background */
-    --background-primary: #ffffff;
-    --background-secondary: #f5f5f5;
-    --background-tertiary: #e0e0e0;
-    --background-inverse: #1a1a1a;
-    --background-overlay: rgba(0, 0, 0, 0.5);
-
-    /* Text */
-    --text-primary: #1a1a1a;
-    --text-secondary: #666666;
-    --text-tertiary: #999999;
-    --text-inverse: #ffffff;
-    --text-disabled: #cccccc;
-    --text-link: #0066cc;
-    --text-success: #22c55e;
-    --text-warning: #f59e0b;
-    --text-critical: #ef4444;
-    --text-info: #3b82f6;
-
-    /* Border */
-    --border-primary: #d1d5db;
-    --border-secondary: #e5e7eb;
-    --border-focus: #3b82f6;
-    --border-success: #22c55e;
-    --border-warning: #f59e0b;
-    --border-critical: #ef4444;
-    --border-info: #3b82f6;
-
-    /* Interactive */
-    --interactive-primary: #3b82f6;
-    --interactive-primary-hover: #2563eb;
-    --interactive-primary-active: #1d4ed8;
-    --interactive-secondary: #6b7280;
-    --interactive-secondary-hover: #4b5563;
-    --interactive-disabled: #9ca3af;
-
-    /* Status */
-    --status-success: #22c55e;
-    --status-success-background: #f0fdf4;
-    --status-warning: #f59e0b;
-    --status-warning-background: #fffbeb;
-    --status-critical: #ef4444;
-    --status-critical-background: #fef2f2;
-    --status-info: #3b82f6;
-    --status-info-background: #eff6ff;
-}
-
-/* Dark mode example */
-.dark {
-    --background-primary: #1a1a1a;
-    --background-secondary: #2a2a2a;
-    --background-tertiary: #3a3a3a;
-    --background-inverse: #ffffff;
-
-    --text-primary: #ffffff;
-    --text-secondary: #cccccc;
-    --text-tertiary: #999999;
-    --text-inverse: #1a1a1a;
+    --color-primary-500: 255 107 53; /* RGB triplet, not hex */
+    --color-background-primary: 255 255 255;
+    --color-text-primary: 26 26 26;
+    --color-text-inverse: 255 255 255;
+    /* ... many more variables */
 }
 ```
 
@@ -125,7 +77,7 @@ export const Card = ({ variant = 'default', children }) => {
             className={cn(
                 'bg-background-primary border-border-primary',
                 'p-md rounded-md',
-                variant === 'highlighted' && 'border-interactive-primary'
+                variant === 'highlighted' && 'border-primary-500'
             )}
         >
             {children}
@@ -137,10 +89,10 @@ export const Button = ({ variant, disabled, children }) => {
     return (
         <button
             className={cn(
-                'px-lg py-sm rounded-md',
-                'text-text-inverse bg-interactive-primary',
-                'hover:bg-interactive-primary-hover',
-                disabled && 'bg-interactive-disabled cursor-not-allowed'
+                'px-lg py-sm rounded-button',
+                'text-text-inverse bg-primary-500',
+                'hover:bg-primary-700',
+                disabled && 'bg-surface-300 cursor-not-allowed'
             )}
             disabled={disabled}
         >
@@ -166,8 +118,8 @@ cn('button', isActive && 'button-active', isDisabled && 'opacity-50');
 
 // Object syntax
 cn('button', {
-    'bg-interactive-primary': variant === 'primary',
-    'bg-interactive-secondary': variant === 'secondary',
+    'bg-primary-500': variant === 'primary',
+    'bg-secondary-500': variant === 'secondary',
 });
 
 // Tailwind conflict resolution (last wins)
@@ -180,104 +132,198 @@ cn(['flex', 'items-center'], 'gap-md');
 
 ## Multi-Brand Architecture
 
-Create brand-specific themes by extending the base:
+Brands are defined as **TypeScript files** that export theme values. CSS is **generated at build time** via tsup onSuccess hook.
 
-```javascript
-// tailwind.config.basketball.js
-const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
+### Adding a New Brand
 
-module.exports = {
-    ...baseConfig,
-    content: ['./src/**/*.{js,ts,jsx,tsx}'],
-    theme: {
-        extend: {
-            ...baseConfig.theme.extend,
-            colors: {
-                ...baseConfig.theme.extend.colors,
-                // Basketball brand colors
-                'brand-orange': '#FF6B35',
-                'brand-black': '#1A1A1A',
-            },
+1. Create a TypeScript definition in `src/themes/`:
+
+```typescript
+// src/themes/MyBrand.ts
+import type { ThemeDefinition } from './types';
+
+export const MyBrand: ThemeDefinition = {
+    name: 'MyBrand',
+    colors: {
+        primary: {
+            50: { r: 255, g: 245, b: 240 },
+            500: { r: 255, g: 107, b: 53 },
+            900: { r: 153, g: 64, b: 32 },
+            // ... full scale
         },
+        // ... other color families
     },
+    // Typography, spacing overrides (if any), etc.
 };
 ```
 
-Then define brand CSS variables:
+2. Register in `src/themes/index.ts`:
 
-```css
-/* basketball-theme.css */
-:root {
-    --interactive-primary: #FF6B35;
-    --interactive-primary-hover: #E55A25;
-    --text-link: #FF6B35;
-    /* ... other brand-specific values */
-}
+```typescript
+export { MyBrand } from './MyBrand';
 ```
+
+3. Register in `src/themes/writeToCSSFile.ts`:
+
+```typescript
+import { MyBrand } from './MyBrand';
+// ... other imports
+
+writeToCSSFile(MyBrand);
+writeToCSSFile(BasketballTraining);
+// ... etc.
+```
+
+4. Build the package:
+
+```bash
+pnpm build:theme
+```
+
+This generates `dist/css/MyBrand.css` that apps can import.
+
+### How Build-Time Generation Works
+
+```javascript
+// tsup.config.ts (simplified)
+export default defineConfig({
+    // ... build config
+    async onSuccess() {
+        await import('./src/themes/writeToCSSFile');
+        return undefined;
+    },
+});
+```
+
+**Benefits**:
+- ✅ Single source of truth (TypeScript)
+- ✅ Type-safe theme definitions
+- ✅ No manual CSS maintenance
+- ✅ CSS bundled with package distribution
 
 ## Semantic Token Reference
 
 ### Colors
 
-**Background:**
+**Primary/Secondary/Tertiary Scales** (500 is the main brand color):
+- `bg-primary-50` through `bg-primary-900` - Lightest to darkest
+- `bg-secondary-50` through `bg-secondary-900`
+- `bg-tertiary-50` through `bg-tertiary-900`
+
+**Status Colors**:
+- `bg-success-{50-900}`, `text-success`, `border-success`
+- `bg-critical-{50-900}`, `text-critical`, `border-critical`
+- `bg-warning-{50-900}`, `text-warning`, `border-warning`
+- `bg-info-{50-900}`, `text-info`, `border-info`
+
+**Semantic Background**:
 - `bg-background-primary` - Main background
 - `bg-background-secondary` - Secondary surfaces
 - `bg-background-tertiary` - Tertiary surfaces
-- `bg-background-inverse` - Inverse background
-- `bg-background-overlay` - Overlay/modal backgrounds
+- `bg-background-inverse` - Inverse background (e.g., dark on light theme)
+- `bg-background-hover` - Hover state overlay (5% opacity)
+- `bg-background-pressed` - Pressed state overlay (20% opacity)
 
-**Text:**
+**Semantic Text**:
 - `text-text-primary` - Primary text
 - `text-text-secondary` - Secondary text
-- `text-text-tertiary` - Tertiary text
-- `text-text-inverse` - Inverse text
+- `text-text-inverse` - Inverse text (e.g., white on dark bg)
 - `text-text-disabled` - Disabled text
-- `text-text-link` - Link text
-- `text-text-success/warning/critical/info` - Status text
+- `text-text-inactive` - Inactive text
 
-**Border:**
+**Semantic Border**:
 - `border-border-primary` - Primary borders
 - `border-border-secondary` - Secondary borders
-- `border-border-focus` - Focus states
-- `border-border-success/warning/critical/info` - Status borders
+- `border-border-hover` - Hover state borders
+- `border-border-selected` - Selected state borders
 
-**Interactive:**
-- `bg-interactive-primary` - Primary buttons/actions
-- `bg-interactive-primary-hover` - Hover state
-- `bg-interactive-primary-active` - Active state
-- `bg-interactive-secondary` - Secondary actions
-- `bg-interactive-disabled` - Disabled state
+**Link Colors**:
+- `text-link-primary` - Primary link color
+- `text-link-hover` - Link hover state
+- `text-link-pressed` - Link active/pressed state
+- `text-link-inverse` - Links on dark backgrounds
+
+**Icon Colors**:
+- `text-icon-primary`, `text-icon-secondary` - Icon colors
+- `text-icon-inverse` - Icons on dark backgrounds
+- `text-icon-success/warning/critical/info` - Status icons
+
+**Surface Colors** (neutral grayscale):
+- `bg-surface-{50-900}` - Neutral surface colors
+
+**Focus Outlines**:
+- `outline-focus-primary` - Primary focus outline (typically blue)
+- `outline-focus-inverse` - Inverse focus outline
 
 ### Spacing
 
-- `p-3xs`, `m-3xs` - 2px
-- `p-2xs`, `m-2xs` - 4px
-- `p-xs`, `m-xs` - 8px
-- `p-sm`, `m-sm` - 12px
-- `p-md`, `m-md` - 16px
-- `p-lg`, `m-lg` - 24px
-- `p-xl`, `m-xl` - 32px
-- `p-2xl`, `m-2xl` - 40px
-- `p-3xl`, `m-3xl` - 48px
-- `p-4xl`, `m-4xl` - 64px
+Fixed pixel values (Hammer UI-aligned):
+
+- `p-3xs`, `m-3xs`, `gap-3xs` - 2px
+- `p-2xs`, `m-2xs`, `gap-2xs` - 4px
+- `p-xs`, `m-xs`, `gap-xs` - 8px
+- `p-sm`, `m-sm`, `gap-sm` - 16px
+- `p-md`, `m-md`, `gap-md` - 24px
+- `p-lg`, `m-lg`, `gap-lg` - 32px
+- `p-xl`, `m-xl`, `gap-xl` - 48px
+- `p-2xl`, `m-2xl`, `gap-2xl` - 64px
+- `p-3xl`, `m-3xl`, `gap-3xl` - 128px
 
 ### Border Radius
 
+Fixed and semantic values:
+
+**Fixed Sizes**:
+- `rounded-xs` - 2px
 - `rounded-sm` - 4px
 - `rounded-md` - 8px
-- `rounded-lg` - 12px
-- `rounded-xl` - 16px
-- `rounded-full` - Full circle
+- `rounded-lg` - 16px
+- `rounded-xl` - 32px
+- `rounded-full` - 9999px (fully rounded)
+
+**Semantic Tokens** (CSS variable-based, customizable per brand):
+- `rounded-button` - Button border radius
+- `rounded-input` - Input field border radius
+- `rounded-search-input` - Search input border radius
+- `rounded-checkbox` - Checkbox border radius
+- `rounded-container` - Container/card border radius
+
+### Typography
+
+**Font Families**:
+- `font-primary` - Primary font (typically sans-serif)
+- `font-mono` - Monospace font
+
+**Font Sizes** (Component-specific):
+- `text-[fontSizeButton100]` - Small button text
+- `text-[fontSizeButton200]` - Regular button text
+- _(More component-specific sizes available in cssVars)_
 
 ## Why Semantic Tokens?
 
 1. **Consistency** - Same naming across all brands
-2. **Flexibility** - Easy to theme per brand
-3. **Maintainability** - Change tokens, not every component
-4. **Dark mode** - Just change CSS variables
-5. **Type safety** - Consistent naming in code
+2. **Flexibility** - Easy to theme per brand via CSS variables
+3. **Maintainability** - Change brand theme in one place, components update automatically
+4. **Dark mode ready** - CSS variables can be swapped at runtime
+5. **Type safety** - TypeScript brand definitions prevent errors
+
+## Architecture Benefits
+
+**Centralized Theme System**:
+- All brands share the same Tailwind plugin (consistent utilities)
+- Brand differences expressed via CSS variable values
+- No per-brand Tailwind config needed
+
+**Build-Time Generation**:
+- TypeScript definitions are the source of truth
+- CSS generated automatically during package build
+- Apps just import pre-generated CSS files
+
+**Portability**:
+- Components use semantic tokens (`bg-primary-500`)
+- Same component works across all brands
+- Brand switching is just a CSS import change
 
 ## License
 
 MIT
-

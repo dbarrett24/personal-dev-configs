@@ -112,8 +112,8 @@ import { cn } from '@dbarrett24/theme-system';
 
 <button
     className={cn(
-        'bg-interactive-primary text-text-inverse',
-        'hover:bg-interactive-primary-hover',
+        'bg-primary-500 text-text-inverse',
+        'hover:bg-primary-700',
         'px-lg py-sm rounded-md'
     )}
 >
@@ -327,8 +327,8 @@ brand-library/
 
 1. Install brand library and configs
 2. Import components: `import { Button } from '@dbarrett24/basketball-training-ui'`
-3. Import theme: `import '@dbarrett24/basketball-training-ui/dist/theme/styles.css'`
-4. Use semantic tokens: `className="bg-interactive-primary"`
+3. Import theme: `import '@dbarrett24/theme-system/css/BasketballTraining.css'`
+4. Use semantic tokens: `className="bg-primary-500 text-text-inverse"`
 
 ---
 

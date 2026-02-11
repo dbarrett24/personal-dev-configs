@@ -243,3 +243,225 @@ Before publishing packages:
 5. Verified links after changes (2 broken links fixed)
 
 **Result**: Clear, maintainable documentation ready for npm publish
+
+---
+
+## Documentation Audit Pattern (Post-Architectural Changes)
+
+When architectural changes are implemented, documentation must be audited to prevent drift.
+
+### Trigger Events for Documentation Audit:
+
+- ✅ **Architecture restructure** (files moved, deleted, or renamed)
+- ✅ **API changes** (function signatures, class names, prop names)
+- ✅ **Configuration pattern changes** (setup instructions, import patterns)
+- ✅ **Theme system changes** (CSS variable names, Tailwind classes, spacing values)
+- ✅ **Build process changes** (new steps, tooling changes)
+
+### Documentation Audit Checklist:
+
+#### Step 1: Identify Documentation Scope
+
+**Files to audit**:
+- Root documentation (`README.md`, `ARCHITECTURE.md`, `GETTING_STARTED.md`, `CONTRIBUTING.md`)
+- Package READMEs (all publishable packages)
+- AI context (`.cursor/plans/*.md` - affects future sessions)
+- Cursor rules (`.cursor/rules/*.mdc` - should be updated during architectural change)
+
+#### Step 2: Search for Deleted/Moved File References
+
+```bash
+# Search for references to deleted files
+grep -r "deleted-file-name" --include="*.md" --include="*.mdc" .
+
+# Search for old import paths
+grep -r "old/import/path" --include="*.md" .
+
+# Search for renamed functions/classes
+grep -r "OldClassName" --include="*.md" .
+```
+
+#### Step 3: Verify Technical Accuracy
+
+**CSS Variables**:
+```bash
+# Find old variable naming (example: without --color- prefix)
+grep -r "\-\-background-primary" --include="*.md" .
+# Should be: --color-background-primary
+```
+
+**Tailwind Classes**:
+```bash
+# Find references to old/invalid class names
+grep -r "bg-interactive-primary" --include="*.md" .
+# Verify against current theme (e.g., src/tailwind/colors.ts)
+```
+
+**Spacing/Layout Values**:
+```bash
+# Find old spacing values
+grep -r "sm: 12px" --include="*.md" .
+# Verify against current theme (e.g., src/tailwind/spacing.ts)
+```
+
+**File Paths**:
+```bash
+# Check for references to old file structure
+grep -r "src/theme.ts" --include="*.md" .
+# Update to new structure
+```
+
+#### Step 4: Update Documentation Content
+
+**For each file with inaccuracies**:
+1. **Read current file** to understand context
+2. **Identify all inaccurate sections** (not just first occurrence)
+3. **Update with current architecture** (reference source files for accuracy)
+4. **Update code examples** to use current APIs/patterns
+5. **Verify internal consistency** within the file
+
+#### Step 5: Verification
+
+**Final checks**:
+- [ ] No grep results for deleted file references
+- [ ] All CSS variable examples match current theme
+- [ ] All Tailwind class examples exist in theme
+- [ ] All code examples use current syntax
+- [ ] All file paths reference existing files
+- [ ] Internal links still work
+
+**Document verification in plan file**:
+```markdown
+### Quality Phase: Documentation Verification
+
+**Verification Checks Run**:
+1. ✅ References to deleted files - [count] found, [count] fixed
+2. ✅ Old class names - [count] found, [count] fixed
+3. ✅ CSS variable naming - Consistent
+4. ✅ Spacing values - Consistent
+5. ✅ File paths - All valid
+
+**Grep Results Summary**:
+[Paste relevant grep output showing 0 results or fixed issues]
+```
+
+### Example: DS-17 Session
+
+**Architectural Change**: DS-15b restructured theme system  
+**Documentation Impact**: 8 files needed updates (references to deleted files, old variable names, incorrect class names)
+
+**Process**:
+1. Identified scope: Root docs + package READMEs + DS-14 planning docs
+2. Grep searches found:
+   - Deleted file references (`theme.ts`, `tailwind-plugin.ts`, brand `styles.css`)
+   - Old CSS variable naming (without `--color-` prefix)
+   - Invalid Tailwind classes (`bg-interactive-primary` → `bg-primary-500`)
+   - Incorrect spacing values (old: `sm: 12px` → new: `sm: 16px`)
+3. Updated 8 files, deleted 1 outdated comparison doc
+4. Verification: 0 references to deleted files, all class names valid
+
+**Result**: Zero documentation drift, zero user corrections needed
+
+---
+
+### When to Audit Documentation:
+
+**Include doc audit in architectural change scope** (don't defer):
+- Makes documentation update explicit in planning phase
+- Prevents drift between code and documentation
+- Ensures published packages have accurate docs
+
+**Defer doc audit to separate task** (if appropriate):
+- Large architectural changes where doc scope is huge
+- Want to validate architecture before updating all docs
+- Create explicit follow-up task (e.g., "DS-X: Documentation Audit for DS-Y")
+
+---
+
+## Common Verification Grep Patterns
+
+Quick reference for documentation verification commands.
+
+### File Reference Verification
+
+```bash
+# Find references to deleted/moved files
+grep -r "filename.ts" --include="*.md" --include="*.mdc" .
+
+# Find references to old directory structure
+grep -r "old/directory/path" --include="*.md" .
+
+# Find references to old import paths
+grep -r "@old/package-name" --include="*.md" .
+```
+
+### Theme System Verification
+
+```bash
+# Find old CSS variable naming (without --color- prefix)
+grep -r "\-\-background-" --include="*.md" .
+grep -r "\-\-text-primary" --include="*.md" .
+grep -r "\-\-interactive-" --include="*.md" .
+
+# Find old Tailwind class names
+grep -r "bg-interactive-primary" --include="*.md" .
+grep -r "text-text-link" --include="*.md" .
+
+# Find old spacing values
+grep -r "sm: 12px" --include="*.md" .
+grep -r "md: 16px" --include="*.md" .
+
+# Find old border radius values
+grep -r "rounded-md: 8px" --include="*.md" .
+```
+
+### Configuration Pattern Verification
+
+```bash
+# Find old config patterns (spreading vs presets)
+grep -r "...baseConfig" --include="*.md" .
+
+# Find old plugin patterns
+grep -r "plugins: \[themePlugin\]" --include="*.md" .
+
+# Find references to manual CSS variable definition
+grep -r ":root {" --include="*.md" .
+```
+
+### Import Pattern Verification
+
+```bash
+# Find old package import paths
+grep -r "brand-libraries/.*/theme" --include="*.md" .
+
+# Find old CSS import locations
+grep -r "@import.*brand-libraries" --include="*.md" .
+```
+
+### Usage Pattern
+
+1. **After architectural changes**: Run relevant grep patterns
+2. **Document results**: Include grep output in verification section
+3. **Fix issues**: Update documentation where patterns match
+4. **Re-verify**: Run greps again to confirm 0 results
+
+### Example Output Format
+
+```markdown
+### Verification Results
+
+**Grep Results Summary**:
+```bash
+# Deleted file references (excluding .cursor/plans/)
+theme.ts: 0 references in user docs ✅
+tailwind-plugin.ts: 0 references ✅
+brand CSS files: 0 references ✅
+
+# Old class names
+bg-interactive-primary: 0 references ✅
+text-text-link: 0 references ✅
+
+# New patterns verified
+@dbarrett24/theme-system/css: 8 references (consistent) ✅
+```
+```

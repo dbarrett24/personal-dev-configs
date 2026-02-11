@@ -76,7 +76,75 @@ Ensure the plan will comply with:
 - Plan for lint compliance
 - Consider quality patterns from project history
 
-### 4. Create Implementation Plan
+### 4. Architecture Validation
+
+**Before finalizing plan**, validate architectural decisions if this change involves:
+
+- [ ] Adding new config/theme files?
+- [ ] Restructuring existing file organization?
+- [ ] Changing how packages import from each other?
+- [ ] Adding build-time code generation?
+- [ ] Mirroring external library architecture (Hammer UI, etc.)?
+
+If YES to any, complete architecture validation:
+
+#### Step 1: Identify Reference Architecture
+
+If mirroring external library (Hammer UI, etc.):
+1. Document THEIR file structure
+2. Document THEIR dependency model
+3. Document THEIR build process
+4. Compare to OUR current structure
+
+#### Step 2: Check Existing Rules
+
+Search cursor rules for relevant patterns:
+```bash
+ls .cursor/rules/architecture/
+ls .cursor/rules/design-system/
+grep -r "pattern-keyword" .cursor/rules/
+```
+
+#### Step 3: Create Comparison Table
+
+| Aspect | Reference (Hammer UI) | Our Planned Approach | Match? |
+|--------|----------------------|---------------------|---------|
+| File structure | src/tailwind/*.ts | ??? | ??? |
+| Dependency model | Peer deps | ??? | ??? |
+| Build process | onSuccess hook | ??? | ??? |
+
+**RED FLAG**: If Match column has ❌ entries and goal is to mirror reference, revise plan.
+
+#### Step 4: Document Architecture Decisions
+
+Add to plan:
+```markdown
+## Architecture Decisions
+
+### Decision 1: [Title]
+**Pattern**: [Reference pattern we're following]
+**Rationale**: [Why this approach]
+**Files Affected**: [List]
+**Build Impact**: [What needs to be rebuilt]
+```
+
+#### Example: DS-15b Architecture Validation
+
+**What went wrong**:
+- Plan focused on "which tokens to add" but not "how to structure code"
+- Original Phase 3 called for monolithic `theme.ts` + `tailwind-plugin.ts`
+- Should have been modular from start (10 files in `src/tailwind/`)
+- Caught only after building prototype, required Section 17 Plan Amendment
+
+**What should have happened**:
+- Architecture validation during PLAN stage
+- Comparison table: Hammer UI structure vs planned structure
+- Identify mismatch BEFORE building
+- Revise plan to use modular structure from start
+
+**Lesson**: Always validate architecture decisions before BUILD phase.
+
+### 5. Create Implementation Plan
 
 Append this section to `.cursor/plans/[TICKET-ID].md`:
 

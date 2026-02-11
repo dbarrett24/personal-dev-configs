@@ -290,9 +290,6 @@ importers:
       '@dbarrett24/core-components':
         specifier: workspace:*
         version: link:../../shared-configs/core-components
-      '@dbarrett24/theme-system':
-        specifier: workspace:*
-        version: link:../../shared-configs/theme-system
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -312,6 +309,9 @@ importers:
       '@dbarrett24/testing-utils':
         specifier: workspace:*
         version: link:../../shared-configs/testing-utils
+      '@dbarrett24/theme-system':
+        specifier: workspace:*
+        version: link:../../shared-configs/theme-system
       '@dbarrett24/tsup-config':
         specifier: workspace:*
         version: link:../../shared-configs/tsup-config
@@ -369,9 +369,6 @@ importers:
       '@dbarrett24/core-components':
         specifier: workspace:*
         version: link:../../shared-configs/core-components
-      '@dbarrett24/theme-system':
-        specifier: workspace:*
-        version: link:../../shared-configs/theme-system
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -391,6 +388,9 @@ importers:
       '@dbarrett24/testing-utils':
         specifier: workspace:*
         version: link:../../shared-configs/testing-utils
+      '@dbarrett24/theme-system':
+        specifier: workspace:*
+        version: link:../../shared-configs/theme-system
       '@dbarrett24/tsup-config':
         specifier: workspace:*
         version: link:../../shared-configs/tsup-config
@@ -733,6 +733,9 @@ importers:
       '@dbarrett24/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@types/tinycolor2':
+        specifier: ^1.4.6
+        version: 1.4.6
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -745,6 +748,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.18(tsx@4.20.6)
+      tinycolor2:
+        specifier: ^1.6.0
+        version: 1.6.0
       tsup:
         specifier: ^6.6.2
         version: 6.7.0(@swc/core@1.15.11)(postcss@8.5.6)(typescript@5.9.3)
@@ -2203,6 +2209,9 @@ packages:
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
+
+  '@types/tinycolor2@1.4.6':
+    resolution: {integrity: sha512-iEN8J0BoMnsWBqjVbWH/c0G0Hh7O21lpR2/+PrvAVgWdzL7eexIFm4JN/Wn10PTcmNdtS6U67r499mlWMXOxNw==}
 
   '@types/tough-cookie@4.0.5':
     resolution: {integrity: sha512-/Ad8+nIOV7Rl++6f1BdKxFSMgmoqEoYbHRpPcx3JEfv8VRsQe9Z4mCXeJBzxs7mbHY/XOZZuXlRNfhpVPbs6ZA==}
@@ -4996,6 +5005,9 @@ packages:
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
 
+  tinycolor2@1.6.0:
+    resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
+
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
@@ -6824,6 +6836,8 @@ snapshots:
   '@types/semver@7.7.1': {}
 
   '@types/stack-utils@2.0.3': {}
+
+  '@types/tinycolor2@1.4.6': {}
 
   '@types/tough-cookie@4.0.5': {}
 
@@ -10104,6 +10118,8 @@ snapshots:
       readable-stream: 3.6.2
 
   tiny-invariant@1.3.3: {}
+
+  tinycolor2@1.6.0: {}
 
   tinyexec@0.3.2: {}
 

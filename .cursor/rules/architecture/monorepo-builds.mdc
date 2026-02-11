@@ -7,35 +7,64 @@ globs: ["**/*.ts", "**/*.tsx", "**/*.css", "**/*.json"]
 
 This project is a pnpm monorepo with workspace packages. Understanding build dependencies is critical.
 
-## Build Artifacts vs Source Files
+## Build Artifacts vs Source Files (Updated 2026-02-11)
 
 ### Key Distinction
-- **Source files**: Located in `src/` directories (e.g., `src/theme/styles.css`)
-- **Build artifacts**: Generated in `dist/` directories (e.g., `dist/theme/styles.css`)
-- **Imports reference build artifacts**: When package.json exports `"./theme": "./dist/theme/styles.css"`, consumers import from dist/
+- **Source files**: Located in `src/` directories (e.g., `src/themes/BasketballTraining.ts`)
+- **Build artifacts**: Generated in `dist/` directories (e.g., `dist/css/BasketballTraining.css`)
+- **Imports reference build artifacts**: When package.json exports `"./css/BasketballTraining.css": "./dist/css/BasketballTraining.css"`, consumers import from dist/
 
-### When Builds Are Required
+### Theme CSS Build Flow
 
-**After modifying these files, rebuild the package**:
-- Any file in `src/` directory
-- `package.json` changes
-- `tsconfig.json` or `tsup.config.ts` changes
-- Any file listed in package.json `files` array
+**OLD FLOW** (Pre-DS-15b, DEPRECATED):
+```
+brand-libraries/basketball-training-ui/src/theme/styles.css (source)
+    ↓ pnpm build (copies CSS)
+brand-libraries/basketball-training-ui/dist/theme/styles.css (artifact)
+    ↓ consumer imports
+apps/docs imports from: '@dbarrett24/basketball-training-ui/theme'
+```
+
+**NEW FLOW** (DS-15b+):
+```
+theme-system/src/themes/BasketballTraining.ts (TypeScript definition)
+    ↓ pnpm build (tsup onSuccess hook generates CSS)
+theme-system/dist/css/BasketballTraining.css (generated artifact)
+    ↓ consumer imports
+apps/docs imports from: '@dbarrett24/theme-system/css/BasketballTraining.css'
+```
+
+### When Builds Are Required (Updated)
+
+**Theme changes require theme-system rebuild**:
+- Modify `theme-system/src/themes/*.ts` → Rebuild theme-system
+- Modify `theme-system/src/tailwind/*.ts` → Rebuild theme-system
+- Modify `theme-system/src/utils/wrapVar.ts` or `color.ts` → Rebuild theme-system
+
+**Brand component changes require brand rebuild**:
+- Modify `brand-libraries/*/src/components/*.tsx` → Rebuild that brand
+- ❌ NO CSS rebuild needed (CSS comes from theme-system)
+
+**General rule**:
+- Any file in `src/` directory → Rebuild the package containing it
+- `package.json` changes → Rebuild
+- `tsconfig.json` or `tsup.config.ts` changes → Rebuild
 
 **Example**:
 ```bash
-# You modified: brand-libraries/basketball-training-ui/src/theme/styles.css
+# You modified: theme-system/src/themes/BasketballTraining.ts
 # Before testing, run:
-cd brand-libraries/basketball-training-ui && pnpm build
+cd shared-configs/theme-system && pnpm build
+# This regenerates dist/css/BasketballTraining.css
 ```
 
-## Cross-Package Dependencies
+## Cross-Package Dependencies (Updated 2026-02-11)
 
 ### Dependency Chain
 ```
-theme-system (base tokens)
+theme-system (generates brand CSS at build time)
     ↓
-brand-libraries/* (brand themes)
+brand-libraries/* (components only, import theme-system CSS)
     ↓
 core-components (styled components)
     ↓
@@ -46,19 +75,32 @@ templates/* (applications)
 
 **When changing theme-system**:
 ```bash
+# Rebuild theme-system (generates CSS in dist/css/)
 pnpm build:theme
+
+# Brand libraries DON'T need rebuild (they don't build theme CSS)
+# Just restart consuming apps to pick up new CSS
+
+# Core components may need rebuild if API changed
 pnpm build:core
-pnpm build:basketball
-pnpm build:professional
 ```
 
 **When changing brand-libraries**:
 ```bash
-# Rebuild the specific brand
+# Rebuild the specific brand (components only, no CSS)
 pnpm --filter @dbarrett24/basketball-training-ui build
 
-# If core-components Storybook imports this brand:
-# Restart Storybook to pick up new dist files
+# Restart Storybook to pick up new component dist files
+pnpm storybook:core
+```
+
+**When changing theme definitions (TypeScript)**:
+```bash
+# Modify: theme-system/src/themes/BasketballTraining.ts
+# Rebuild: theme-system (triggers CSS regeneration)
+pnpm build:theme
+
+# Restart: All consuming apps/Storybook
 pnpm storybook:core
 ```
 

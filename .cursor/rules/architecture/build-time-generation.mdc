@@ -1,0 +1,246 @@
+---
+description: Build-time code generation patterns using tsup onSuccess hooks
+globs: ["**/tsup.config.ts", "**/tsup.config.js"]
+---
+
+# Build-Time Code Generation
+
+## When to Use Build-Time Generation
+
+Use build-time code generation when you need to:
+- Generate files from TypeScript definitions (e.g., CSS from brand themes)
+- Transform data at build time (e.g., aggregate multiple sources)
+- Create derived artifacts that should be version-controlled (optional) or ephemeral
+- Ensure consistency between source code and generated output
+
+**Examples in this codebase**:
+- Theme-system: Generates CSS files from TypeScript brand definitions (DS-15b)
+- (Future): Generate icon manifests from SVG sources
+- (Future): Generate type definitions from JSON schemas
+
+## Pattern: tsup onSuccess Hook
+
+### Basic Setup
+
+```typescript
+// shared-configs/theme-system/tsup.config.ts
+import { defineConfig } from 'tsup';
+
+export default defineConfig({
+    entry: ['src/index.ts'],
+    format: ['esm', 'cjs'],
+    dts: true,
+    clean: true,
+    
+    // Build-time generation hook
+    onSuccess: async () => {
+        console.log('🔨 Generating derived artifacts...');
+        
+        // Import source data (must be built first!)
+        const { data } = await import('./dist/source.mjs');
+        
+        // Generate files
+        await generateFiles(data);
+        
+        console.log('✅ Generation complete');
+    },
+});
+```
+
+### Theme CSS Generation Pattern
+
+**Use case**: Generate brand CSS files from TypeScript theme definitions
+
+```typescript
+// tsup.config.ts
+import { defineConfig } from 'tsup';
+
+export default defineConfig({
+    entry: [
+        'src/index.ts',
+        'src/themes/generateCSSVars.ts',  // Must be built BEFORE onSuccess
+        'src/themes/writeToCSSFile.ts',
+    ],
+    format: ['esm', 'cjs'],
+    dts: true,
+    
+    onSuccess: async () => {
+        // Import utilities and brand definitions
+        const { generateCSSVars, makeColorCSSVarsFromObject } = 
+            await import('./dist/themes/generateCSSVars.mjs');
+        const { writeToCSSFile } = 
+            await import('./dist/themes/writeToCSSFile.mjs');
+        
+        // Import brand 1
+        const { nonColorVariables: Basketball, colorAliases: BasketballAliases } = 
+            await import('./dist/themes/BasketballTraining.mjs');
+        
+        // Generate CSS for brand 1
+        writeToCSSFile(
+            generateCSSVars({
+                ...Basketball,
+                ...makeColorCSSVarsFromObject(BasketballAliases),
+            }, 'brand-basketball'),  // CSS class name
+            'dist/css/BasketballTraining.css'
+        );
+        
+        // Repeat for other brands...
+        
+        console.log('✅ Generated theme CSS files in dist/css/');
+    },
+});
+```
+
+### Key Principles
+
+1. **Dependencies Must Be Built First**:
+   ```typescript
+   entry: [
+       'src/index.ts',
+       'src/themes/generateCSSVars.ts',  // ← Must include generator utilities
+       'src/themes/writeToCSSFile.ts',
+   ],
+   ```
+
+2. **Import from dist/, Not src/**:
+   ```typescript
+   // ✅ CORRECT - imports from built files
+   const { util } = await import('./dist/util.mjs');
+   
+   // ❌ WRONG - imports from source (not built yet)
+   const { util } = await import('./src/util.ts');
+   ```
+
+3. **Use Dynamic Imports**:
+   ```typescript
+   // ✅ CORRECT - async import in onSuccess
+   onSuccess: async () => {
+       const { data } = await import('./dist/source.mjs');
+   }
+   
+   // ❌ WRONG - static import at top level (runs before build)
+   import { data } from './dist/source.mjs';  // File doesn't exist yet!
+   ```
+
+4. **Handle Errors Gracefully**:
+   ```typescript
+   onSuccess: async () => {
+       try {
+           await generateFiles();
+           console.log('✅ Generation complete');
+       } catch (error) {
+           console.error('❌ Generation failed:', error);
+           throw error;  // Fail the build
+       }
+   }
+   ```
+
+## File Writer Utility Pattern
+
+Create a reusable file writer utility:
+
+```typescript
+// src/themes/writeToCSSFile.ts
+import { writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+export const writeToCSSFile = (content: string, filePath: string): void => {
+    const fullPath = resolve(process.cwd(), filePath);
+    
+    // Use sync write in onSuccess (async causes issues)
+    writeFileSync(fullPath, content, 'utf-8');
+    
+    console.log(`✅ Wrote ${filePath}`);
+};
+```
+
+## CSS Generator Pattern
+
+```typescript
+// src/themes/generateCSSVars.ts
+export const generateCSSVars = (
+    variables: Record<string, string>,
+    className: string
+): string => {
+    const entries = Object.entries(variables);
+    
+    // Generate class-based selector
+    const classBlock = `.${className} {\n${
+        entries.map(([key, value]) => `    ${key}: ${value};`).join('\n')
+    }\n}\n\n`;
+    
+    // Generate :root fallback
+    const rootBlock = `:root {\n${
+        entries.map(([key, value]) => `    ${key}: ${value};`).join('\n')
+    }\n}\n`;
+    
+    return classBlock + rootBlock;
+};
+```
+
+## Package Exports for Generated Files
+
+Update `package.json` to export generated files:
+
+```json
+{
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./css/BasketballTraining.css": "./dist/css/BasketballTraining.css",
+    "./css/ProfessionalBrand.css": "./dist/css/ProfessionalBrand.css"
+  },
+  "files": [
+    "dist/**/*"
+  ]
+}
+```
+
+## Troubleshooting
+
+### Issue: "Cannot find module './dist/...'"
+
+**Cause**: Trying to import before file is built
+
+**Fix**: Add file to `entry` array:
+```typescript
+entry: ['src/index.ts', 'src/missing-file.ts'],
+```
+
+### Issue: Generated files not in git
+
+**Decision**: Generated files in `dist/` are typically NOT committed (gitignored). They're ephemeral build artifacts.
+
+**Exception**: If consumers need the files without building (e.g., CSS for CDN), commit them.
+
+### Issue: onSuccess doesn't run
+
+**Cause**: Build failed before reaching onSuccess
+
+**Fix**: Check for TypeScript errors, ensure all dependencies exist
+
+### Issue: Import path extensions
+
+**Cause**: Must use `.mjs` extension for ESM imports in Node.js
+
+**Fix**: 
+```typescript
+// ✅ CORRECT
+await import('./dist/file.mjs');
+
+// ❌ WRONG
+await import('./dist/file');
+```
+
+## Related Patterns
+
+- **Peer Dependencies**: `.cursor/rules/architecture/monorepo-builds.mdc`
+- **Theme Architecture**: `.cursor/rules/architecture/theming.mdc`
+- **Package Exports**: `.cursor/rules/documentation/patterns.mdc`
+
+---
+
+**Last Updated**: 2026-02-11 (DS-15b implementation)

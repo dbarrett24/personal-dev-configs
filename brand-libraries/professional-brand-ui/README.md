@@ -12,15 +12,15 @@ pnpm add @dbarrett24/professional-brand-ui
 
 ```tsx
 import { Button } from '@dbarrett24/professional-brand-ui';
-import '@dbarrett24/professional-brand-ui/dist/theme/styles.css';
+import '@dbarrett24/theme-system/css/ProfessionalBrand.css';
 
 export const App = () => {
     return (
         <div>
-            <Button variant="primary">Get Started</Button>
-            <Button variant="secondary">Learn More</Button>
-            <Button variant="outline">Contact Us</Button>
-            <Button variant="ghost">View Details</Button>
+            <Button variant="solid">Get Started</Button>
+            <Button variant="outline">Learn More</Button>
+            <Button variant="ghost">Contact Us</Button>
+            <Button variant="link">View Details</Button>
         </div>
     );
 };

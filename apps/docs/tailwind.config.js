@@ -1,5 +1,10 @@
+const baseConfig = require('@dbarrett24/theme-system/tailwind.config');
+const { themePlugin } = require('@dbarrett24/theme-system');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    // Use base config as a preset to avoid duplication
+    presets: [baseConfig],
     content: [
         './stories/**/*.{ts,tsx,mdx}',
         './components/**/*.{ts,tsx}',
@@ -8,54 +13,12 @@ module.exports = {
         '../../shared-configs/core-components/src/**/*.{ts,tsx}',
         '../../brand-libraries/*/src/**/*.{ts,tsx}',
     ],
+    // Additional Storybook-specific customizations can go here
     theme: {
         extend: {
-            spacing: {
-                '3xs': 'var(--spacing-3xs)',
-                '2xs': 'var(--spacing-2xs)',
-                xs: 'var(--spacing-xs)',
-                sm: 'var(--spacing-sm)',
-                md: 'var(--spacing-md)',
-                lg: 'var(--spacing-lg)',
-                xl: 'var(--spacing-xl)',
-                '2xl': 'var(--spacing-2xl)',
-                '3xl': 'var(--spacing-3xl)',
-                '4xl': 'var(--spacing-4xl)',
-            },
-            borderRadius: {
-                sm: 'var(--radius-sm)',
-                md: 'var(--radius-md)',
-                lg: 'var(--radius-lg)',
-                xl: 'var(--radius-xl)',
-            },
+            // Add Storybook-specific overrides here if needed
             colors: {
-                background: {
-                    primary: 'var(--background-primary)',
-                    secondary: 'var(--background-secondary)',
-                    tertiary: 'var(--background-tertiary)',
-                    inverse: 'var(--background-inverse)',
-                },
-                text: {
-                    primary: 'var(--text-primary)',
-                    secondary: 'var(--text-secondary)',
-                    tertiary: 'var(--text-tertiary)',
-                    inverse: 'var(--text-inverse)',
-                    disabled: 'var(--text-disabled)',
-                    link: 'var(--text-link)',
-                },
-                interactive: {
-                    primary: 'var(--interactive-primary)',
-                    'primary-hover': 'var(--interactive-primary-hover)',
-                    'primary-active': 'var(--interactive-primary-active)',
-                    secondary: 'var(--interactive-secondary)',
-                    'secondary-hover': 'var(--interactive-secondary-hover)',
-                    disabled: 'var(--interactive-disabled)',
-                },
-                border: {
-                    primary: 'var(--border-primary)',
-                    secondary: 'var(--border-secondary)',
-                    focus: 'var(--border-focus)',
-                },
+                // Storybook status colors
                 status: {
                     success: 'var(--status-success)',
                     'success-bg': 'var(--status-success-background)',
@@ -69,5 +32,5 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [themePlugin],
 };

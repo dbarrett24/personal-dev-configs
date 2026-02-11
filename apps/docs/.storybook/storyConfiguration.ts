@@ -25,7 +25,10 @@ type StorybookConfig = {
 const storybookStories: Record<string, StorybookConfig> = {
     core: {
         defaultTheme: 'default',
-        stories: [{ directory: '../stories/Core/SelectionAndInput', titlePrefix: 'Selection and Input' }],
+        stories: [
+            { directory: '../stories/Core/SelectionAndInput', titlePrefix: 'Selection and Input' },
+            { directory: '../stories/Core/Infrastructure', titlePrefix: 'Infrastructure' },
+        ],
     },
     basketball: {
         defaultTheme: 'basketball',
@@ -39,6 +42,7 @@ const storybookStories: Record<string, StorybookConfig> = {
         defaultTheme: 'default',
         stories: [
             { directory: '../stories/Core/SelectionAndInput', titlePrefix: 'Core/Selection and Input' },
+            { directory: '../stories/Core/Infrastructure', titlePrefix: 'Core/Infrastructure' },
             { directory: '../stories/Basketball/Core', titlePrefix: 'Basketball/Core' },
             { directory: '../stories/Professional/Core', titlePrefix: 'Professional/Core' },
         ],

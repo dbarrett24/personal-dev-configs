@@ -47,7 +47,7 @@ git branch --show-current  # Extract ticket ID
 - Section 1-6: SPEC (research, findings, component architecture, risks, success criteria)
 - Section 7: PLAN (implementation plan)
 - Section 8: BUILD PROTOTYPE LOG (execution notes, decisions)
-- Section 9: BUILD QUALITY LOG (tests, linting, codacy fixes)
+- Section 9: BUILD QUALITY LOG (tests, linting fixes)
 - Section 10: VERIFICATION (quality checks, issues found/fixed)
 
 **Review Chat History**:
@@ -90,9 +90,9 @@ Look for critical moments:
 - Business logic explanations
 
 **Quality Issues**:
-- Recurring Codacy issues (e.g., same category across files)
 - Lint patterns that appeared multiple times
 - Test patterns that needed explanation
+- Common code quality patterns
 
 ### 4. Gap Analysis
 
@@ -221,7 +221,6 @@ Rank proposals by impact:
 [List mistakes and what caused them]
 
 ### Iterations Required:
-- Codacy: [count]
 - Lint: [count]
 - Tests: [count]
 

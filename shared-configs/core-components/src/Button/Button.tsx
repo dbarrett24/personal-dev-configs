@@ -1,5 +1,4 @@
 import { ButtonProps } from './Button.types';
-import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { cn } from '@dbarrett24/theme-system';
 
 /**
@@ -119,7 +118,7 @@ export const Button = ({
             {...restProps}
         >
             {iconLeft && !isLoading && <span className="flex-shrink-0">{iconLeft}</span>}
-            {isLoading ? <LoadingSpinner size={size} /> : children}
+            {isLoading ? <span className="text-sm">Loading...</span> : children}
             {iconRight && !isLoading && <span className="flex-shrink-0">{iconRight}</span>}
         </button>
     );

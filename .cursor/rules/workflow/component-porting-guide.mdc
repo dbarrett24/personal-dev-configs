@@ -1,0 +1,663 @@
+# Component Porting Guide
+
+**Purpose**: Step-by-step guide for porting React components from Hammer UI to this monorepo.
+
+**Scope**: UI components, hooks, utilities, and theme infrastructure
+
+**Status**: Active - Use for all DS-* component migration tickets (Ticket 1: Component Migration)
+
+**Note**: This guide covers the **component migration** process. Documentation refinement (de-branding, customization) is handled in separate tickets.
+
+---
+
+## 🎯 **Quick Reference**
+
+### Hammer UI Source Repository
+- **Location**: `/Users/dbarr/Documents/Development/ATG/hammer-ui/`
+- **Package Structure**:
+  - **Components**: `packages/components/src/`
+  - **Theme System**: `packages/theme/src/`
+  - **Hooks**: `packages/hooks/src/`
+  - **Utils**: `packages/utils/src/`
+
+### Target Repository Structure
+- **Core Components**: `shared-configs/core-components/src/`
+- **Theme System**: `shared-configs/theme-system/src/`
+- **Brand Libraries**: `brand-libraries/{brand-name}-ui/src/`
+- **Documentation**: `apps/docs/stories/`
+
+---
+
+## 📋 **Pre-Flight Checklist**
+
+Before porting any component, verify:
+
+- [ ] Theme infrastructure is complete (DS-15)
+- [ ] CSS variables are available in all brand themes
+- [ ] Tailwind utilities (`.hui-*` classes) are exported and working
+- [ ] Storybook is configured and running (`pnpm dev:docs`)
+- [ ] Build system is working (`pnpm build`)
+
+---
+
+## 🎫 **Two-Ticket Workflow**
+
+Each component migration involves **two separate tickets**:
+
+### **Ticket 1: Component Migration + Docs**
+**Goal**: Get the component working in our monorepo
+
+**Scope**:
+- Port component code
+- Update imports and paths
+- Fix tests
+- Create Storybook stories
+- **Copy Hammer docs directly** (README.md as-is)
+
+**Acceptance Criteria**:
+- ✅ Component builds and renders
+- ✅ Tests pass
+- ✅ Works in all themes
+- ✅ Storybook story created
+- ✅ Docs exist (even if copied from Hammer)
+
+**Estimated Effort**: 3-6 hours
+
+---
+
+### **Ticket 2: Refine Documentation**
+**Goal**: Make docs feel native and remove Hammer references
+
+**Scope**:
+- Strip "Hammer UI" references
+- Customize examples for our use cases
+- Update screenshots/demos if needed
+- Add migration notes specific to our system
+- Improve clarity and organization
+
+**Acceptance Criteria**:
+- ✅ No Hammer UI branding in docs
+- ✅ Examples use our component library
+- ✅ Props table matches our implementation
+- ✅ Consistent with other component docs
+
+**Estimated Effort**: 1-2 hours
+
+**Priority**: Can be done later; doesn't block development
+
+---
+
+## 🔄 **Porting Process (5 Phases)**
+
+### **Phase 1: Research & Analysis**
+
+#### 1.1 Locate Source Files in Hammer UI
+```bash
+# Find component in Hammer UI repo
+ls /Users/dbarr/Documents/Development/ATG/hammer-ui/packages/components/src/{ComponentName}/
+
+# Expected files:
+# - {ComponentName}.tsx          # Main component
+# - {ComponentName}.spec.tsx     # Tests
+# - {ComponentName}.types.ts     # Type definitions
+# - README.md                     # Component documentation
+```
+
+#### 1.2 Document Dependencies
+Track all dependencies the component uses:
+- **Theme Variables**: CSS custom properties (e.g., `--color-background-primary`)
+- **Tailwind Utilities**: Custom classes (e.g., `.hui-focus-visible-outline`)
+- **Hooks**: Custom React hooks (e.g., `useClickOutside`)
+- **Utils**: Helper functions (e.g., `cn()`, `formatCurrency()`)
+- **Other Components**: Dependencies on other Hammer components
+
+**Action**: Create dependency list in the Jira ticket or plan file.
+
+#### 1.3 Check Theme Compatibility
+```bash
+# Verify CSS variables exist in your brands
+grep "color-background-primary" brand-libraries/*/src/theme/styles.css
+grep "font-family-primary" apps/docs/.storybook/themes/default.css
+```
+
+**If missing variables found**: Pause and update theme files FIRST.
+
+---
+
+### **Phase 2: File Structure Setup**
+
+#### 2.1 Create Component Directory
+```bash
+# In monorepo
+mkdir -p shared-configs/core-components/src/{ComponentName}
+```
+
+#### 2.2 Copy Source Files
+Copy these files from Hammer UI:
+1. `{ComponentName}.tsx` → Component implementation
+2. `{ComponentName}.types.ts` → Type definitions
+3. `{ComponentName}.spec.tsx` → Tests (requires adaptation)
+
+**Source Pattern** (reference for verification):
+```
+/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/components/src/{ComponentName}/
+```
+
+**DO NOT COPY**:
+- `README.md` (we'll create custom docs)
+- Build artifacts (`.js`, `.d.ts`)
+- Package-specific configs
+
+---
+
+### **Phase 3: Code Adaptation**
+
+#### 3.1 Update Import Paths
+
+**Hammer UI Pattern**:
+```typescript
+import { cn } from '@atg/utils';
+import { useClickOutside } from '@atg/hooks';
+import type { ButtonProps } from './Button.types';
+```
+
+**Monorepo Pattern**:
+```typescript
+import { cn } from '@dbarrett24/theme-system';
+import { useClickOutside } from '@dbarrett24/core-components'; // if ported
+import type { ButtonProps } from './Button.types'; // local imports stay same
+```
+
+**Action**: Replace all `@atg/*` imports with `@dbarrett24/*` equivalents.
+
+#### 3.2 Class Name Preservation
+
+**CRITICAL**: Keep `.hui-*` utility class names EXACTLY as they are in Hammer.
+
+**Examples**:
+```tsx
+// ✅ CORRECT - Keep Hammer class names
+<button className="hui-focus-visible-outline rounded-button">
+
+// ❌ WRONG - Do NOT rename
+<button className="focus-outline rounded-button">
+```
+
+**Reason**: These class names enable seamless integration with third-party component libraries that may expect this naming convention.
+
+#### 3.3 CSS Variable Usage
+
+**Pattern**: All theme colors use `--color-*` prefix.
+
+```tsx
+// ✅ CORRECT
+style={{ backgroundColor: 'var(--color-background-primary)' }}
+
+// ❌ WRONG - Old naming
+style={{ backgroundColor: 'var(--background-primary)' }}
+```
+
+**Reference Source** (for validation):
+- Hammer UI CSS variables: `/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/theme/src/tailwind/cssVars.ts`
+
+#### 3.4 Component Export Pattern
+
+**Always use named exports** (except for Next.js `page.tsx` files):
+
+```typescript
+// ✅ CORRECT
+export const Button = ({ variant, children }: ButtonProps) => {
+    return <button className={cn('rounded-button', variant)}>{children}</button>;
+};
+
+Button.displayName = 'Button';
+
+// ❌ AVOID - Default export
+export default function Button() { /* ... */ }
+```
+
+#### 3.5 TypeScript Adjustments
+
+- **No `as any` assertions** - Fix types properly or ask for help
+- **Use `type` instead of `interface`** for object shapes
+- **Keep strict typing** - All props must be typed
+
+---
+
+### **Phase 4: Testing & Validation**
+
+#### 4.1 Update Test Files
+
+**Common Changes**:
+1. Update import paths (`@atg/*` → `@dbarrett24/*`)
+2. Fix any mocked dependencies
+3. Ensure no React import needed (new JSX transform)
+4. Update test IDs if needed
+
+**Run Tests**:
+```bash
+# Test single component
+pnpm test Button.spec.tsx
+
+# Test entire package
+pnpm test:core
+```
+
+#### 4.2 Build Verification
+
+```bash
+# Rebuild dependencies in order
+pnpm build:theme       # First: theme-system
+pnpm build:brands      # Second: brand libraries
+pnpm build:core        # Third: core-components
+```
+
+**Expected Output**: No TypeScript errors, no build failures.
+
+#### 4.3 Visual Validation in Storybook
+
+Create Storybook stories to test across themes:
+
+**File**: `apps/docs/stories/Core/{Category}/{ComponentName}.stories.tsx`
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '@dbarrett24/core-components';
+
+const meta: Meta<typeof Button> = {
+    title: 'Core/Actions/Button',
+    component: Button,
+    parameters: {
+        layout: 'centered',
+    },
+};
+
+export default meta;
+type Story = StoryObj<typeof Button>;
+
+export const Primary: Story = {
+    args: {
+        variant: 'primary',
+        children: 'Click me',
+    },
+};
+
+export const ThemeComparison: Story = {
+    render: () => (
+        <div className="space-y-4">
+            <div className="brand-basketball p-4">
+                <Button variant="primary">Basketball Theme</Button>
+            </div>
+            <div className="brand-professional p-4">
+                <Button variant="primary">Professional Theme</Button>
+            </div>
+            <div className="p-4">
+                <Button variant="primary">Default Theme</Button>
+            </div>
+        </div>
+    ),
+};
+```
+
+**Test Checklist**:
+- [ ] Component renders in all themes (basketball, professional, default)
+- [ ] Focus states work (keyboard navigation)
+- [ ] Responsive behavior (resize browser)
+- [ ] No console errors
+- [ ] Accessibility: screen reader text, ARIA attributes
+
+---
+
+### **Phase 5: Documentation**
+
+**Strategy**: Two-ticket approach for efficiency
+
+- **Ticket 1 (Component Migration)**: Copy Hammer docs directly, focus on getting component working
+- **Ticket 2 (Docs Refinement)**: Strip Hammer references, customize, make it "ours"
+
+#### 5.1 Create Component README (Initial)
+
+**Action for Component Migration Ticket**: Copy `README.md` from Hammer UI directly.
+
+**Source**:
+```bash
+cp /Users/dbarr/Documents/Development/ATG/hammer-ui/packages/components/src/{ComponentName}/README.md \
+   shared-configs/core-components/src/{ComponentName}/README.md
+```
+
+**Acceptable at this stage**:
+- ✅ Hammer UI references
+- ✅ Original examples
+- ✅ Original descriptions
+
+**Save refinement for dedicated docs ticket.**
+
+---
+
+#### 5.1 (Alternative) Create Custom README Template
+
+**Use this if Hammer component lacks docs or for docs refinement ticket**
+
+**File**: `shared-configs/core-components/src/{ComponentName}/README.md`
+
+**Template**:
+```markdown
+# {ComponentName}
+
+**Category**: {Actions | Layout | Data Display | etc.}
+
+**Status**: ✅ Production Ready
+
+**Source Reference**: Hammer UI `{ComponentName}` component  
+**Internal Source**: `/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/components/src/{ComponentName}/`
+
+---
+
+## Overview
+
+{Brief description of what the component does}
+
+## Usage
+
+\`\`\`tsx
+import { {ComponentName} } from '@dbarrett24/core-components';
+
+export const Example = () => {
+    return (
+        <{ComponentName} variant="primary">
+            Example
+        </{ComponentName}>
+    );
+};
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'primary' \| 'secondary' | 'primary' | Visual style variant |
+| disabled | boolean | false | Disables interaction |
+| children | ReactNode | - | Button content |
+
+## Theme Variables
+
+This component uses the following CSS variables:
+
+- `--color-background-primary`
+- `--color-text-primary`
+- `--font-family-primary`
+
+## Accessibility
+
+- ✅ Keyboard navigable
+- ✅ Focus visible
+- ✅ Screen reader compatible
+
+## Related Components
+
+- {List related components}
+
+## Migration Notes
+
+{Any breaking changes or important notes for developers}
+```
+
+#### 5.2 Update Package Index
+
+**File**: `shared-configs/core-components/src/index.ts`
+
+```typescript
+// Add export
+export { Button } from './Button/Button';
+export type { ButtonProps } from './Button/Button.types';
+```
+
+#### 5.3 Update Architecture Documentation (Optional)
+
+If the component introduces new patterns or has architectural significance, update:
+- `ARCHITECTURE.md`
+- `.cursor/rules/architecture/*` (if relevant)
+
+---
+
+## 📝 **Documentation Refinement Process**
+
+**For Ticket 2 (Docs Refinement)**
+
+### Phase 1: Remove Hammer References
+
+**Find and replace**:
+- `Hammer UI` → (remove or replace with generic description)
+- `@atg/components` → `@dbarrett24/core-components`
+- Package references to `@atg/*` → `@dbarrett24/*`
+- Links to Hammer UI Storybook → Our Storybook
+
+### Phase 2: Customize Examples
+
+**Update code examples**:
+```typescript
+// ❌ Remove Hammer-specific patterns
+import { Button } from '@atg/components';
+
+// ✅ Replace with our patterns
+import { Button } from '@dbarrett24/core-components';
+```
+
+**Add context-specific examples**:
+- Use real use cases from our apps (basketball training, professional services)
+- Show theme variations if relevant
+- Include common patterns from our codebase
+
+### Phase 3: Verify Accuracy
+
+**Check**:
+- [ ] All props in docs match actual implementation
+- [ ] Type definitions are accurate
+- [ ] Examples compile and run
+- [ ] No broken internal links
+- [ ] Screenshots/demos reflect our implementation
+
+### Phase 4: Enhance & Polish
+
+**Optional improvements**:
+- Add "Migration from X" section if replacing existing component
+- Include performance notes
+- Add troubleshooting section
+- Link to related components in our system
+- Add accessibility notes specific to our implementation
+
+### Phase 5: Update Architecture Docs
+
+**If component introduces new patterns**:
+- Update `ARCHITECTURE.md`
+- Add to relevant `.cursor/rules/architecture/*` files
+- Update component category documentation
+
+---
+
+## 🛡️ **Quality Gates**
+
+Before marking a component as complete, ensure:
+
+### Code Quality
+- [ ] All TypeScript types are properly defined (no `any`)
+- [ ] Component follows naming conventions (PascalCase)
+- [ ] Named exports used (not default)
+- [ ] Display name set for debugging
+
+### Testing
+- [ ] Unit tests pass (`pnpm test:core`)
+- [ ] No console errors or warnings
+- [ ] Tests cover main variants and edge cases
+
+### Build & Integration
+- [ ] Component builds successfully (`pnpm build:core`)
+- [ ] No linter errors (`pnpm lint`)
+- [ ] Exported from package index
+- [ ] Storybook story created and working
+
+### Theme Compatibility
+- [ ] Works in all brand themes (basketball, professional, default)
+- [ ] CSS variables properly scoped
+- [ ] No hardcoded colors or spacing values
+- [ ] Focus states use theme-aware classes
+
+### Accessibility
+- [ ] Keyboard navigable (Tab, Enter, Space where appropriate)
+- [ ] Focus visible (`.hui-focus-visible-outline`)
+- [ ] ARIA attributes where needed
+- [ ] Color contrast meets WCAG AA (test in Storybook)
+
+### Documentation (Component Migration Ticket)
+- [ ] Component README exists (copied from Hammer or custom)
+- [ ] Storybook stories demonstrate key variants
+- [ ] Props documented (even if copied)
+- [ ] Usage examples present
+
+**Note**: Documentation refinement (de-branding, customization) is handled in separate ticket.
+
+---
+
+## 🚨 **Common Pitfalls**
+
+### ❌ **Don't Rename `.hui-*` Classes**
+```tsx
+// ❌ WRONG
+<button className="focus-outline">
+
+// ✅ CORRECT
+<button className="hui-focus-visible-outline">
+```
+
+### ❌ **Don't Use Hardcoded Values**
+```tsx
+// ❌ WRONG
+<div style={{ padding: '16px', color: '#333' }}>
+
+// ✅ CORRECT
+<div className="p-sm text-primary">
+```
+
+### ❌ **Don't Skip Theme Testing**
+Always test in ALL themes, not just default.
+
+### ❌ **Don't Forget Display Names**
+```typescript
+// ❌ WRONG
+export const Button = () => { /* ... */ };
+
+// ✅ CORRECT
+export const Button = () => { /* ... */ };
+Button.displayName = 'Button';
+```
+
+### ✅ **Initial Docs Can Copy Hammer Directly**
+During component migration, copy Hammer docs as-is. Create a separate "refine docs" ticket to:
+- Strip Hammer references
+- Customize examples
+- Make it feel like our native system
+
+---
+
+## 📚 **Reference Sources**
+
+### Hammer UI Packages (Internal Reference Only)
+- **Components**: `/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/components/src/`
+- **Theme**: `/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/theme/src/`
+- **Hooks**: `/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/hooks/src/`
+- **Utils**: `/Users/dbarr/Documents/Development/ATG/hammer-ui/packages/utils/src/`
+
+### Monorepo Documentation
+- **Architecture**: `ARCHITECTURE.md`
+- **Naming Conventions**: `.cursor/rules/core/naming-conventions.md`
+- **React Patterns**: `.cursor/rules/core/react-patterns.md`
+- **Testing**: `.cursor/rules/quality/testing.mdc`
+- **Accessibility**: `.cursor/rules/quality/accessibility.mdc`
+
+### Key Implementation Plans
+- **DS-15**: Theme infrastructure port (this provides CSS variables, Tailwind utilities)
+- **DS-14**: Button component (reference example of component porting)
+
+---
+
+## 🔗 **Related Workflows**
+
+- **GSD Workflow**: `.cursor/rules/workflow/gsd.mdc` - Use for structured task execution
+- **Quality Gates**: `.cursor/rules/quality/quality-gates.mdc` - Determine which gates apply
+
+---
+
+## 📝 **Appendix: Dependency Port Priority**
+
+If a component depends on code not yet ported:
+
+### **Priority 1: Theme Dependencies**
+Port these FIRST (block everything):
+- CSS variables (colors, spacing, typography)
+- Tailwind utilities (focus, typography, autofill)
+
+### **Priority 2: Utility Dependencies**
+Port before dependent components:
+- `cn()` utility (class name merging)
+- `formatCurrency()`, `formatDate()` (formatters)
+
+### **Priority 3: Hook Dependencies**
+Port before dependent components:
+- `useClickOutside()`
+- `useMediaQuery()`
+- `useDebounce()`
+
+### **Priority 4: Component Dependencies**
+Port in dependency order:
+- Base components first (Button, Input)
+- Composite components second (Modal, Card)
+
+**Strategy**: If you discover missing dependencies during porting:
+1. **STOP** the current component port
+2. **CREATE** a separate ticket for the dependency
+3. **PORT** the dependency first
+4. **RESUME** the original component port
+
+---
+
+## 📋 **Docs Refinement Ticket Template**
+
+**Use this template for Ticket 2 (Docs Refinement)**
+
+```markdown
+# DS-XX-DOCS: Refine {ComponentName} Documentation
+
+## Summary
+De-brand and customize {ComponentName} documentation to make it feel native to our design system.
+
+## Prerequisites
+- [ ] DS-XX ({ComponentName} migration) is complete
+- [ ] Component is building and working in Storybook
+
+## Scope
+1. Remove all Hammer UI references
+2. Update import paths in examples
+3. Customize code examples for our use cases
+4. Verify all props/types match our implementation
+5. Add migration notes if applicable
+
+## Acceptance Criteria
+- [ ] No "Hammer UI" references in docs
+- [ ] All code examples use `@dbarrett24/*` imports
+- [ ] Examples reflect our theme system (basketball/professional/default)
+- [ ] Props table is accurate
+- [ ] Consistent with other component docs in our system
+
+## Estimated Effort
+1-2 hours
+
+## Reference
+- Component README: `shared-configs/core-components/src/{ComponentName}/README.md`
+- Component Porting Guide: `.cursor/rules/workflow/component-porting-guide.mdc` (Docs Refinement section)
+```
+
+---
+
+**Last Updated**: 2026-02-10  
+**Version**: 1.1  
+**Status**: Active

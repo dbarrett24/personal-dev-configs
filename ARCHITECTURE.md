@@ -198,6 +198,104 @@ basketball-training-ui/
 
 ---
 
+## 🎨 Theme Infrastructure
+
+This project uses a comprehensive CSS variable-based theme system with multi-brand support, following industry-standard naming conventions.
+
+### Key Files
+
+**Core Theme System**:
+- `shared-configs/theme-system/` - Core theme tokens and Tailwind plugin
+  - `src/theme.ts` - TypeScript theme configuration (spacing, colors, border radius, font families)
+  - `src/tailwind-plugin.ts` - Custom Tailwind utilities (typography, focus, autofill)
+  - `src/cn.ts` - Class name utility (clsx + tailwind-merge)
+
+**Brand Theme CSS**:
+- `brand-libraries/basketball-training-ui/src/theme/styles.css` - Basketball brand CSS variables
+- `brand-libraries/professional-brand-ui/src/theme/styles.css` - Professional brand CSS variables
+- `apps/docs/.storybook/themes/default.css` - Neutral default theme for Storybook
+
+### CSS Variable Naming Convention
+
+All color variables use the `--color-*` prefix (industry standard):
+- `--color-background-primary`, `--color-background-secondary`, etc.
+- `--color-text-primary`, `--color-text-secondary`, etc.
+- `--color-border-primary`, `--color-border-focus`, etc.
+- `--color-link-primary`, `--color-link-hover`, etc.
+
+Typography and component variables:
+- `--font-family-primary`, `--font-family-secondary`
+- `--font-weight-h1` through `--font-weight-caption`
+- `--letter-spacing-h1` through `--letter-spacing-label-mini`
+- `--button-border-radius`, `--input-border-radius`, etc.
+
+### Custom Tailwind Utilities
+
+All custom utilities use the `.hui-*` prefix:
+
+**Focus Styles**:
+- `.hui-focus-visible-outline` - Theme-aware focus ring (4px, uses border-focus color)
+- `.hui-focus-visible-outline-inverse` - Inverse focus ring (white, 4px)
+
+**Typography Classes**:
+- `.hui-text-h1` through `.hui-text-h6` - Heading styles (responsive, brand-aware)
+- `.hui-text-body-primary` - Standard body text (16px) - **Also used for inputs**
+- `.hui-text-body-secondary` - Secondary body text (14px)
+- `.hui-text-caption` - Caption text (12px)
+
+**Form Utilities**:
+- `.hui-autofill-transparent` - Removes yellow autofill background
+
+### Spacing Scale
+
+Modern spacing scale with larger values for improved visual hierarchy:
+
+```
+3xs → 2px   |  xs  → 8px   |  md  → 24px  |  xl  → 48px  |  3xl → 128px
+2xs → 4px   |  sm  → 16px  |  lg  → 32px  |  2xl → 64px  |
+```
+
+Usage: `px-sm` (16px), `py-md` (24px), `gap-lg` (32px)
+
+### Semantic Border Radius Tokens
+
+Component-specific border radius:
+- `rounded-button` → 8px
+- `rounded-input` → 6px
+- `rounded-container` → 12px
+- `rounded-checkbox` → 4px
+- `rounded-search-input` → 24px (pill shape)
+
+### Usage Example
+
+```tsx
+import { cn } from '@dbarrett24/theme-system';
+
+export const Button = () => (
+  <button
+    className={cn(
+      'hui-focus-visible-outline',  // Theme-aware focus
+      'rounded-button',              // Semantic border radius
+      'px-sm py-xs',                 // Modern spacing scale
+      'font-primary',                // Brand-aware font
+      'bg-color-link-primary'        // Semantic color naming
+    )}
+  >
+    Click me
+  </button>
+);
+```
+
+### Detailed Documentation
+
+See `.cursor/rules/design-system/theme-infrastructure.mdc` for complete documentation including:
+- All CSS variables with descriptions
+- Migration notes (breaking changes)
+- Usage patterns and examples
+- Architecture decisions and rationale
+
+---
+
 ## 🧪 Testing Architecture
 
 ### Testing Utilities Flow

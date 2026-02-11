@@ -17,7 +17,7 @@ Execute the Implementation Plan step-by-step, writing code to the file system.
 
 **CRITICAL: Two-Phase Process**
 1. **PROTOTYPE Phase** (now): Fast working code
-2. **QUALITY Phase** (after you confirm): Tests + linting + Codacy
+2. **QUALITY Phase** (after you confirm): Tests + linting
 
 **What you do next**: 
 1. I'll stop at a checkpoint with testing instructions
@@ -38,7 +38,7 @@ Execute the Implementation Plan step-by-step, writing code to the file system.
 BUILD now operates in TWO distinct phases:
 
 1. **PROTOTYPE PHASE**: Get working code fast, skip tests/linting
-2. **QUALITY PHASE**: Add tests, fix linting, run Codacy (only after user confirms prototype)
+2. **QUALITY PHASE**: Add tests, fix linting (only after user confirms prototype)
 
 This prevents wasting time polishing code that might need architectural changes.
 
@@ -91,7 +91,6 @@ For each implementation step:
 - ❌ Create new test files (`.spec.ts`, `.test.tsx`)
 - ❌ Update existing test files
 - ❌ Fix pre-existing lint warnings in untouched code
-- ❌ Run Codacy analysis
 - ❌ Add comprehensive error handling
 - ❌ Optimize performance
 
@@ -219,7 +218,6 @@ Once you've confirmed it works correctly, tell me:
 Transform prototype into production-ready code:
 - ✅ Comprehensive test coverage
 - ✅ All linting rules pass
-- ✅ Codacy analysis clean
 - ✅ Edge cases handled
 
 ### Procedure
@@ -258,14 +256,6 @@ pnpm lint-fix      # Auto-fix what's possible
 - Resolve type warnings
 - Remove console.logs/debuggers
 
-#### 3. Codacy Analysis
-
-For EACH modified file:
-```bash
-# Use Codacy MCP tool
-mcp_codacy_codacy_cli_analyze --file [modified-file-path]
-```
-
 **Priority**:
 1. Security vulnerabilities (MUST fix)
 2. Code smells (SHOULD fix)
@@ -295,17 +285,12 @@ Append to `.cursor/plans/[TICKET-ID].md`:
 **Linting Fixed**:
 - Removed unused imports (5 files)
 - Fixed naming conventions (2 files)
-
-**Codacy**: ✅ All Clear
-- Security: 0 issues
-- Code Smells: 2 fixed
 - Coverage: 85%
 
 **Final Quality Gates**:
 - TypeScript: ✅ Pass
 - Linting: ✅ Pass
 - Tests: ✅ [N] passing
-- Codacy: ✅ Clean
 ```
 
 #### 6. Quality Completion
@@ -317,7 +302,6 @@ Append to `.cursor/plans/[TICKET-ID].md`:
 - TypeScript: ✅ No errors
 - Linting: ✅ Clean
 - Tests: ✅ [N]/[N] passing
-- Codacy: ✅ No new issues
 
 **Coverage**:
 - Unit Tests: [N] added/updated

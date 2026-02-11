@@ -6,60 +6,75 @@
 
 export const baseTheme = {
     borderRadius: {
+        // Semantic component tokens
+        button: 'var(--button-border-radius)',
+        checkbox: 'var(--checkbox-border-radius)',
+        container: 'var(--container-border-radius)',
         full: '9999px',
+        input: 'var(--input-border-radius)',
         lg: 'var(--radius-lg, 0.75rem)', // 12px
         md: 'var(--radius-md, 0.5rem)', // 8px
         none: '0',
+        'search-input': 'var(--search-input-border-radius)',
         sm: 'var(--radius-sm, 0.25rem)', // 4px
         xl: 'var(--radius-xl, 1rem)', // 16px
+        xs: '2px',
     },
 
     colors: {
-        'background-inverse': 'var(--background-inverse)',
-        'background-overlay': 'var(--background-overlay)',
         // Background colors
-        'background-primary': 'var(--background-primary)',
-        'background-secondary': 'var(--background-secondary)',
-        'background-tertiary': 'var(--background-tertiary)',
-        'border-critical': 'var(--border-critical)',
-        'border-focus': 'var(--border-focus)',
-        'border-info': 'var(--border-info)',
+        'background-primary': 'var(--color-background-primary)',
+        'background-secondary': 'var(--color-background-secondary)',
+        'background-tertiary': 'var(--color-background-tertiary)',
+        'background-inverse': 'var(--color-background-inverse)',
+        'background-overlay': 'var(--color-background-overlay)',
+
+        // Text colors
+        'text-primary': 'var(--color-text-primary)',
+        'text-secondary': 'var(--color-text-secondary)',
+        'text-tertiary': 'var(--color-text-tertiary)',
+        'text-inverse': 'var(--color-text-inverse)',
+        'text-disabled': 'var(--color-text-disabled)',
+        'text-link': 'var(--color-text-link)',
+        'text-success': 'var(--color-text-success)',
+        'text-warning': 'var(--color-text-warning)',
+        'text-critical': 'var(--color-text-critical)',
+        'text-info': 'var(--color-text-info)',
 
         // Border colors
-        'border-primary': 'var(--border-primary)',
-        'border-secondary': 'var(--border-secondary)',
-        'border-success': 'var(--border-success)',
-        'border-warning': 'var(--border-warning)',
-        'interactive-disabled': 'var(--interactive-disabled)',
+        'border-primary': 'var(--color-border-primary)',
+        'border-secondary': 'var(--color-border-secondary)',
+        'border-focus': 'var(--color-border-focus)',
+        'border-success': 'var(--color-border-success)',
+        'border-warning': 'var(--color-border-warning)',
+        'border-critical': 'var(--color-border-critical)',
+        'border-info': 'var(--color-border-info)',
 
-        // Interactive colors
-        'interactive-primary': 'var(--interactive-primary)',
-        'interactive-primary-active': 'var(--interactive-primary-active)',
-        'interactive-primary-hover': 'var(--interactive-primary-hover)',
-        'interactive-secondary': 'var(--interactive-secondary)',
-        'interactive-secondary-hover': 'var(--interactive-secondary-hover)',
-        'status-critical': 'var(--status-critical)',
-        'status-critical-background': 'var(--status-critical-background)',
-        'status-info': 'var(--status-info)',
-        'status-info-background': 'var(--status-info-background)',
+        // Link/Interactive colors (using --color-link-* from CSS)
+        'interactive-primary': 'var(--color-link-primary)',
+        'interactive-primary-hover': 'var(--color-link-hover)',
+        'interactive-primary-active': 'var(--color-link-pressed)',
+        'interactive-secondary': 'var(--color-link-secondary)',
+        'interactive-secondary-hover': 'var(--color-link-secondary)',
+        'interactive-disabled': 'var(--color-link-disabled)',
 
         // Status colors
         'status-success': 'var(--status-success)',
         'status-success-background': 'var(--status-success-background)',
         'status-warning': 'var(--status-warning)',
         'status-warning-background': 'var(--status-warning-background)',
-        'text-critical': 'var(--text-critical)',
-        'text-disabled': 'var(--text-disabled)',
-        'text-info': 'var(--text-info)',
-        'text-inverse': 'var(--text-inverse)',
-        'text-link': 'var(--text-link)',
+        'status-critical': 'var(--status-critical)',
+        'status-critical-background': 'var(--status-critical-background)',
+        'status-info': 'var(--status-info)',
+        'status-info-background': 'var(--status-info-background)',
+    },
 
-        // Text colors
-        'text-primary': 'var(--text-primary)',
-        'text-secondary': 'var(--text-secondary)',
-        'text-success': 'var(--text-success)',
-        'text-tertiary': 'var(--text-tertiary)',
-        'text-warning': 'var(--text-warning)',
+    fontFamily: {
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        primary: 'var(--font-family-primary)',
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        secondary: 'var(--font-family-secondary)',
+        serif: ['Georgia', 'serif'],
     },
 
     fontSize: {
@@ -75,17 +90,16 @@ export const baseTheme = {
     },
 
     spacing: {
-        '2xl': 'var(--spacing-2xl, 2.5rem)', // 40px
-        '2xs': 'var(--spacing-2xs, 0.25rem)', // 4px
-        '3xl': 'var(--spacing-3xl, 3rem)', // 48px
+        '2xl': 'var(--spacing-2xl, 4rem)', // 64px (was 40px)
+        '2xs': 'var(--spacing-2xs, 0.25rem)', // 4px (unchanged)
+        '3xl': 'var(--spacing-3xl, 8rem)', // 128px (was 48px)
         // Semantic spacing tokens
-        '3xs': 'var(--spacing-3xs, 0.125rem)', // 2px
-        '4xl': 'var(--spacing-4xl, 4rem)', // 64px
-        lg: 'var(--spacing-lg, 1.5rem)', // 24px
-        md: 'var(--spacing-md, 1rem)', // 16px
-        sm: 'var(--spacing-sm, 0.75rem)', // 12px
-        xl: 'var(--spacing-xl, 2rem)', // 32px
-        xs: 'var(--spacing-xs, 0.5rem)', // 8px
+        '3xs': 'var(--spacing-3xs, 0.125rem)', // 2px (unchanged)
+        lg: 'var(--spacing-lg, 2rem)', // 32px (was 24px)
+        md: 'var(--spacing-md, 1.5rem)', // 24px (was 16px)
+        sm: 'var(--spacing-sm, 1rem)', // 16px (was 12px)
+        xl: 'var(--spacing-xl, 3rem)', // 48px (was 32px)
+        xs: 'var(--spacing-xs, 0.5rem)', // 8px (unchanged)
     },
 };
 

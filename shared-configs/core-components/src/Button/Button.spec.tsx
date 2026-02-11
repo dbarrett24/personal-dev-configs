@@ -74,14 +74,13 @@ describe('Button', () => {
         expect(button).toBeDisabled();
     });
 
-    it('should show loading spinner when loading', () => {
+    it('should show loading text when loading', () => {
         render(<Button isLoading>Click me</Button>);
 
         const button = screen.getByRole('button');
         expect(button).toHaveAttribute('aria-busy', 'true');
         expect(screen.queryByText('Click me')).not.toBeInTheDocument();
-        // Spinner is rendered (aria-label for loading state)
-        expect(button).toHaveAttribute('aria-busy', 'true');
+        expect(screen.getByText('Loading...')).toBeInTheDocument();
     });
 
     it('should apply custom className', () => {

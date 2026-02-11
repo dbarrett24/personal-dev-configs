@@ -74,7 +74,7 @@ Ensure the plan will comply with:
 **Quality Gate Integration**:
 - Identify test files that need updates
 - Plan for lint compliance
-- Consider Codacy patterns from project history
+- Consider quality patterns from project history
 
 ### 4. Create Implementation Plan
 
@@ -161,7 +161,7 @@ Append this section to `.cursor/plans/[TICKET-ID].md`:
 
 **Goal**: Pass all automated checks before commit
 
-- [ ] Run Codacy analysis on modified files
+- [ ] Run quality checks on modified files
   - Use `/verify-gsd` command
 
 - [ ] Ensure lint passes

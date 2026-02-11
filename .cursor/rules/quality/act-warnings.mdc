@@ -140,7 +140,7 @@ describe('MyComponent', () => {
         });
         
         await waitFor(() => {
-            expect(screen.getByText('...')).toBeInTheDocument();
+            expect(screen.getByText('...')).toBeVisible();
         });
     });
 });
@@ -173,7 +173,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 ```typescript
 it('test', () => {
     render(<MyComponent />);
-    expect(screen.getByText('...')).toBeInTheDocument(); // May cause warnings
+    expect(screen.getByText('...')).toBeVisible(); // May cause warnings
 });
 ```
 
@@ -184,7 +184,7 @@ it('test', async () => {
     await waitFor(() => {
         expect(container).toBeTruthy();
     });
-    expect(screen.getByText('...')).toBeInTheDocument();
+    expect(screen.getByText('...')).toBeVisible();
 });
 ```
 

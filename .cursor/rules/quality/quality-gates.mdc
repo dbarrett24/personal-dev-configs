@@ -142,3 +142,54 @@ When documenting quality gates, include:
 - Dependency changes: Only dev dependencies, tests validate functionality
 
 **Result**: All quality gates passed.
+
+---
+
+## Root Cause Analysis (Verification Phase)
+
+When issues are found during verification, document root cause to prevent recurrence.
+
+### Root Cause Analysis Pattern:
+
+**For each category of issues found**:
+
+```markdown
+### Root Cause Analysis
+
+**Issue Category**: [Description of issue type]
+- **Root Cause**: [Why this happened]
+- **Fix Approach**: [How it was resolved]
+- **Prevention**: [How to prevent in future sessions]
+```
+
+**Example**:
+
+```markdown
+**Issue Category**: Documentation drift (8 files with outdated references)
+- **Root Cause**: DS-15b updated only `.cursor/rules/*.mdc` files, not public `.md` files
+- **Fix Approach**: Systematic grep searches for deleted files, old variable names, invalid classes
+- **Prevention**: Include doc updates as explicit phase in architectural changes (see `.cursor/rules/documentation/patterns.mdc` - Documentation Audit Pattern)
+```
+
+### When to Include Root Cause Analysis:
+
+**ALWAYS include for**:
+- ✅ Multiple similar issues (pattern detected)
+- ✅ Issues that could recur in future sessions
+- ✅ Issues caused by process gaps
+- ✅ Issues that reveal missing rules/patterns
+
+**OPTIONAL for**:
+- ⚠️ One-off typos or simple errors
+- ⚠️ Issues caused by external factors (library bugs, etc.)
+
+### Example: DS-17 Session
+
+**Root Cause Analysis** (from verification section):
+
+**Issue Category**: Documentation drift
+- **Root Cause**: DS-15b updated only cursor rules (.mdc files) during retro phase, not public documentation (.md files)
+- **Fix Approach**: Systematic audit of all markdown docs with grep verification for deleted files, old variable names, invalid class names
+- **Prevention**: Include doc updates as explicit phase in future architectural changes; don't defer doc sync to separate task
+
+**Impact**: Led to creation of Documentation Audit Pattern rule, preventing future drift

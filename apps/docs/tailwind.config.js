@@ -1,3 +1,5 @@
+const { themePlugin } = require('@dbarrett24/theme-system');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
@@ -20,41 +22,50 @@ module.exports = {
                 xl: 'var(--spacing-xl)',
                 '2xl': 'var(--spacing-2xl)',
                 '3xl': 'var(--spacing-3xl)',
-                '4xl': 'var(--spacing-4xl)',
             },
             borderRadius: {
                 sm: 'var(--radius-sm)',
                 md: 'var(--radius-md)',
                 lg: 'var(--radius-lg)',
                 xl: 'var(--radius-xl)',
+                // Semantic component tokens
+                button: 'var(--button-border-radius)',
+                input: 'var(--input-border-radius)',
+                container: 'var(--container-border-radius)',
+                checkbox: 'var(--checkbox-border-radius)',
+                'search-input': 'var(--search-input-border-radius)',
+            },
+            fontFamily: {
+                primary: 'var(--font-family-primary)',
+                secondary: 'var(--font-family-secondary)',
             },
             colors: {
                 background: {
-                    primary: 'var(--background-primary)',
-                    secondary: 'var(--background-secondary)',
-                    tertiary: 'var(--background-tertiary)',
-                    inverse: 'var(--background-inverse)',
+                    primary: 'var(--color-background-primary)',
+                    secondary: 'var(--color-background-secondary)',
+                    tertiary: 'var(--color-background-tertiary)',
+                    inverse: 'var(--color-background-inverse)',
                 },
                 text: {
-                    primary: 'var(--text-primary)',
-                    secondary: 'var(--text-secondary)',
-                    tertiary: 'var(--text-tertiary)',
-                    inverse: 'var(--text-inverse)',
-                    disabled: 'var(--text-disabled)',
-                    link: 'var(--text-link)',
+                    primary: 'var(--color-text-primary)',
+                    secondary: 'var(--color-text-secondary)',
+                    tertiary: 'var(--color-text-tertiary)',
+                    inverse: 'var(--color-text-inverse)',
+                    disabled: 'var(--color-text-disabled)',
+                    link: 'var(--color-text-link)',
                 },
                 interactive: {
-                    primary: 'var(--interactive-primary)',
-                    'primary-hover': 'var(--interactive-primary-hover)',
-                    'primary-active': 'var(--interactive-primary-active)',
-                    secondary: 'var(--interactive-secondary)',
-                    'secondary-hover': 'var(--interactive-secondary-hover)',
-                    disabled: 'var(--interactive-disabled)',
+                    primary: 'var(--color-link-primary)',
+                    'primary-hover': 'var(--color-link-hover)',
+                    'primary-active': 'var(--color-link-pressed)',
+                    secondary: 'var(--color-link-secondary)',
+                    'secondary-hover': 'var(--color-link-secondary)',
+                    disabled: 'var(--color-link-disabled)',
                 },
                 border: {
-                    primary: 'var(--border-primary)',
-                    secondary: 'var(--border-secondary)',
-                    focus: 'var(--border-focus)',
+                    primary: 'var(--color-border-primary)',
+                    secondary: 'var(--color-border-secondary)',
+                    focus: 'var(--color-border-focus)',
                 },
                 status: {
                     success: 'var(--status-success)',
@@ -69,5 +80,5 @@ module.exports = {
             },
         },
     },
-    plugins: [],
+    plugins: [themePlugin],
 };

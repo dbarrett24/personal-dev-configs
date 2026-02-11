@@ -12,6 +12,14 @@ export const baseTheme = {
         none: '0',
         sm: 'var(--radius-sm, 0.25rem)', // 4px
         xl: 'var(--radius-xl, 1rem)', // 16px
+        xs: '2px',
+
+        // Semantic component tokens
+        button: 'var(--button-border-radius)',
+        checkbox: 'var(--checkbox-border-radius)',
+        container: 'var(--container-border-radius)',
+        input: 'var(--input-border-radius)',
+        'search-input': 'var(--search-input-border-radius)',
     },
 
     colors: {
@@ -74,18 +82,25 @@ export const baseTheme = {
         xs: ['0.75rem', { lineHeight: '1rem' }], // 12px
     },
 
+    fontFamily: {
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        primary: 'var(--font-family-primary)',
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        secondary: 'var(--font-family-secondary)',
+        serif: ['Georgia', 'serif'],
+    },
+
     spacing: {
-        '2xl': 'var(--spacing-2xl, 2.5rem)', // 40px
-        '2xs': 'var(--spacing-2xs, 0.25rem)', // 4px
-        '3xl': 'var(--spacing-3xl, 3rem)', // 48px
+        '2xl': 'var(--spacing-2xl, 4rem)', // 64px (was 40px)
+        '2xs': 'var(--spacing-2xs, 0.25rem)', // 4px (unchanged)
+        '3xl': 'var(--spacing-3xl, 8rem)', // 128px (was 48px)
         // Semantic spacing tokens
-        '3xs': 'var(--spacing-3xs, 0.125rem)', // 2px
-        '4xl': 'var(--spacing-4xl, 4rem)', // 64px
-        lg: 'var(--spacing-lg, 1.5rem)', // 24px
-        md: 'var(--spacing-md, 1rem)', // 16px
-        sm: 'var(--spacing-sm, 0.75rem)', // 12px
-        xl: 'var(--spacing-xl, 2rem)', // 32px
-        xs: 'var(--spacing-xs, 0.5rem)', // 8px
+        '3xs': 'var(--spacing-3xs, 0.125rem)', // 2px (unchanged)
+        lg: 'var(--spacing-lg, 2rem)', // 32px (was 24px)
+        md: 'var(--spacing-md, 1.5rem)', // 24px (was 16px)
+        sm: 'var(--spacing-sm, 1rem)', // 16px (was 12px)
+        xl: 'var(--spacing-xl, 3rem)', // 48px (was 32px)
+        xs: 'var(--spacing-xs, 0.5rem)', // 8px (unchanged)
     },
 };
 

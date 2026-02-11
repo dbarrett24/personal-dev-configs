@@ -5,6 +5,22 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        },
+        "./tailwind-plugin": {
+            "import": "./dist/tailwind-plugin.mjs",
+            "require": "./dist/tailwind-plugin.js",
+            "types": "./dist/tailwind-plugin.d.ts"
+        },
+        "./tailwind.config": {
+            "import": "./tailwind.config.js",
+            "require": "./tailwind.config.js"
+        }
+    },
     "files": [
         "dist",
         "tailwind.config.js"

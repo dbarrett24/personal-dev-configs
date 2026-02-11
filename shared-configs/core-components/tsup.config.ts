@@ -7,6 +7,5 @@ export default makeConfig(
     {
         // Client-side components that need 'use client' directive
         Button: 'src/Button/Button.tsx',
-        Input: 'src/Input/Input.tsx',
     }
 );

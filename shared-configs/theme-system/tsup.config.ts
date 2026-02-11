@@ -1,18 +1,6 @@
 import { defineConfig } from 'tsup';
 import { mkdirSync } from 'fs';
 
-import {
-    nonColorVariables as BasketballTraining,
-    colorAliases as BasketballTrainingAliases,
-} from './src/themes/BasketballTraining';
-import { nonColorVariables as Default, colorAliases as DefaultAliases } from './src/themes/Default';
-import { generateCSSVars, makeColorCSSVarsFromObject } from './src/themes/generateCSSVars';
-import {
-    nonColorVariables as ProfessionalBrand,
-    colorAliases as ProfessionalBrandAliases,
-} from './src/themes/ProfessionalBrand';
-import { writeToCSSFile } from './src/themes/writeToCSSFile';
-
 export default defineConfig({
     entry: [
         'src/index.ts',
@@ -30,6 +18,11 @@ export default defineConfig({
         'src/utils/wrapVar.ts',
         'src/utils/color.ts',
         'src/themes/brands.ts',
+        'src/themes/generateCSSVars.ts',
+        'src/themes/writeToCSSFile.ts',
+        'src/themes/BasketballTraining.ts',
+        'src/themes/ProfessionalBrand.ts',
+        'src/themes/Default.ts',
     ],
     format: ['cjs', 'esm'],
     dts: true,
@@ -40,6 +33,26 @@ export default defineConfig({
     onSuccess: async () => {
         mkdirSync('dist/css', { recursive: true });
 
+        // Construct paths dynamically to prevent esbuild static analysis
+        const distPath = './dist/themes/';
+        const ext = '.mjs';
+
+        // Import utilities from built artifacts
+        const { generateCSSVars, makeColorCSSVarsFromObject } = await import(distPath + 'generateCSSVars' + ext);
+        const { writeToCSSFile } = await import(distPath + 'writeToCSSFile' + ext);
+
+        // Import theme definitions from built artifacts
+        const { nonColorVariables: BasketballTraining, colorAliases: BasketballTrainingAliases } = await import(
+            distPath + 'BasketballTraining' + ext
+        );
+        const { nonColorVariables: ProfessionalBrand, colorAliases: ProfessionalBrandAliases } = await import(
+            distPath + 'ProfessionalBrand' + ext
+        );
+        const { nonColorVariables: Default, colorAliases: DefaultAliases } = await import(
+            distPath + 'Default' + ext
+        );
+
+        // Generate CSS for each brand
         writeToCSSFile(
             generateCSSVars(
                 { ...BasketballTraining, ...makeColorCSSVarsFromObject(BasketballTrainingAliases) },

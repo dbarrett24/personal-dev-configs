@@ -15,6 +15,9 @@ build/
 out/
 storybook-static/
 
+# tsup bundled config artifacts
+*.config.bundled_*.mjs
+
 # Misc
 .DS_Store
 *.pem

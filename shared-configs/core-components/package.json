@@ -20,13 +20,50 @@
             "import": "./dist/esm/Input.js",
             "require": "./dist/Input.js",
             "types": "./dist/Input.d.ts"
+        },
+        "./Icons": {
+            "import": "./dist/esm/Icons/index.js",
+            "require": "./dist/Icons/index.js",
+            "types": "./dist/Icons/index.d.ts"
+        },
+        "./Icons/IconBase": {
+            "import": "./dist/esm/Icons/IconBase.js",
+            "require": "./dist/Icons/IconBase.js",
+            "types": "./dist/Icons/IconBase.d.ts"
+        },
+        "./Icons/anyIcon": {
+            "import": "./dist/esm/Icons/anyIcon.js",
+            "require": "./dist/Icons/anyIcon.js",
+            "types": "./dist/Icons/anyIcon.d.ts"
+        },
+        "./Icons/socialIcons/googleSocialIcon": {
+            "import": "./dist/esm/Icons/socialIcons/googleSocialIcon.js",
+            "require": "./dist/Icons/socialIcons/googleSocialIcon.js",
+            "types": "./dist/Icons/socialIcons/googleSocialIcon.d.ts"
+        },
+        "./Icons/socialIcons/facebookSocialIcon": {
+            "import": "./dist/esm/Icons/socialIcons/facebookSocialIcon.js",
+            "require": "./dist/Icons/socialIcons/facebookSocialIcon.js",
+            "types": "./dist/Icons/socialIcons/facebookSocialIcon.d.ts"
+        },
+        "./Icons/socialIcons/appleSocialIcon": {
+            "import": "./dist/esm/Icons/socialIcons/appleSocialIcon.js",
+            "require": "./dist/Icons/socialIcons/appleSocialIcon.js",
+            "types": "./dist/Icons/socialIcons/appleSocialIcon.d.ts"
+        },
+        "./LoadingSpinner": {
+            "import": "./dist/esm/LoadingSpinner.js",
+            "require": "./dist/LoadingSpinner.js",
+            "types": "./dist/LoadingSpinner.d.ts"
         }
     },
     "files": [
         "dist"
     ],
+    "sideEffects": false,
     "scripts": {
-        "build": "tsup",
+        "build": "pnpm build-icons && tsup",
+        "build-icons": "tsx scripts/copy-phosphor-icons.ts",
         "dev": "tsup --watch",
         "test": "jest",
         "test:watch": "jest --watch",
@@ -59,6 +96,7 @@
         "tailwindcss": ">=3"
     },
     "devDependencies": {
+        "@phosphor-icons/react": "2.1.10",
         "@dbarrett24/eslint-config-library": "workspace:*",
         "@dbarrett24/jest-config-library": "workspace:*",
         "@dbarrett24/prettier-config": "workspace:*",

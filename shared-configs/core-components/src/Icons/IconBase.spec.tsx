@@ -248,6 +248,20 @@ describe('IconBase', () => {
             );
             expect(screen.getByLabelText('H T M L Element')).toBeInTheDocument();
         });
+
+        it('should handle undefined displayName gracefully', () => {
+            const { container } = render(
+                <IconBase
+                    displayName={undefined}
+                    weights={mockWeights}
+                />
+            );
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const svg = container.querySelector('svg');
+            expect(svg).toBeInTheDocument();
+            // When displayName is undefined, getDisplayName returns empty string
+            expect(svg).toHaveAttribute('aria-label', '');
+        });
     });
 
     describe('ref forwarding', () => {

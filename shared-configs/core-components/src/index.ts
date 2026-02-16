@@ -1,6 +1,6 @@
 // Button
 export { Button } from './Button/Button';
-export type { ButtonProps, ButtonVariant, ButtonStyle, ButtonSize } from './Button/Button.types';
+export type { Props as ButtonProps, ButtonVariant, ButtonStyle, InlineStyles } from './Button/Button.types';
 
 // Icons
 export * from './Icons';

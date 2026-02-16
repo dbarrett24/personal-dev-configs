@@ -9,7 +9,7 @@ describe('Generated Icons', () => {
         it('should render without errors', () => {
             render(<HeartStraight />);
             const icon = screen.getByLabelText('Heart Straight');
-            expect(icon).toBeInTheDocument();
+            expect(icon).toBeVisible();
         });
 
         it('should apply size prop', () => {
@@ -27,16 +27,16 @@ describe('Generated Icons', () => {
 
         it('should support all weight styles', () => {
             const { rerender } = render(<HeartStraight style="regular" />);
-            expect(screen.getByLabelText('Heart Straight')).toBeInTheDocument();
+            expect(screen.getByLabelText('Heart Straight')).toBeVisible();
 
             rerender(<HeartStraight style="bold" />);
-            expect(screen.getByLabelText('Heart Straight')).toBeInTheDocument();
+            expect(screen.getByLabelText('Heart Straight')).toBeVisible();
 
             rerender(<HeartStraight style="fill" />);
-            expect(screen.getByLabelText('Heart Straight')).toBeInTheDocument();
+            expect(screen.getByLabelText('Heart Straight')).toBeVisible();
 
             rerender(<HeartStraight style="duotone" />);
-            expect(screen.getByLabelText('Heart Straight')).toBeInTheDocument();
+            expect(screen.getByLabelText('Heart Straight')).toBeVisible();
         });
 
         it('should forward ref', () => {
@@ -50,7 +50,7 @@ describe('Generated Icons', () => {
         it('should render without errors', () => {
             render(<Archive />);
             const icon = screen.getByLabelText('Archive');
-            expect(icon).toBeInTheDocument();
+            expect(icon).toBeVisible();
         });
 
         it('should apply custom className', () => {
@@ -77,7 +77,7 @@ describe('Generated Icons', () => {
             const { container } = render(<Archive $withoutAriaLabel />);
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             const icon = container.querySelector('svg');
-            expect(icon).toBeInTheDocument();
+            expect(icon).toBeVisible();
             expect(icon).not.toHaveAttribute('aria-label');
         });
     });
@@ -86,7 +86,7 @@ describe('Generated Icons', () => {
         it('should render without errors', () => {
             render(<SpinnerGap />);
             const icon = screen.getByLabelText('Spinner Gap');
-            expect(icon).toBeInTheDocument();
+            expect(icon).toBeVisible();
         });
 
         it('should support custom styles', () => {
@@ -122,7 +122,7 @@ describe('Generated Icons', () => {
                 // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
                 const svg = container.querySelector('svg');
 
-                expect(svg).toBeInTheDocument();
+                expect(svg).toBeVisible();
                 expect(svg?.tagName).toBe('svg');
                 expect(svg).toHaveAttribute('viewBox');
                 expect(svg).toHaveAttribute('fill');

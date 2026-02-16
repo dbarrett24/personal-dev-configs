@@ -1,86 +1,79 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { AnyIcon } from '../Icons/anyIcon';
+import type { IconComponent } from '../Icons/IconBase';
+import type { ComponentProps, ElementType, HTMLProps } from 'react';
 
-/**
- * Button visual variant
- */
-export type ButtonVariant = 'filled' | 'outline' | 'ghost';
+export type ButtonStyle = 'primary' | 'critical' | 'neutral' | 'inverse';
+export type ButtonVariant = 'filled' | 'outlined' | 'transparent';
 
-/**
- * Button semantic style
- */
-export type ButtonStyle = 'primary' | 'secondary' | 'neutral' | 'critical';
+export type InlineStyles = {
+    inlineStyles?: HTMLProps<HTMLDivElement>['style'];
+};
 
-/**
- * Button size
- */
-export type ButtonSize = 'sm' | 'md' | 'lg';
-
-export type ButtonProps = {
+export type Props = {
+    as?: ElementType;
     /**
-     * Accessible label for screen readers
+     * Optional test ID for targeting in tests.
+     *
+     * @default 'Button'
+     *
+     * Usage:
+     * ```tsx
+     * <Button dataTestId="submit-form">Submit</Button>
+     * ```
      */
-    ariaLabel?: string;
-
+    dataTestId?: string;
     /**
-     * Button content
+     * Optional icon to show alongside the left of the component.
+     *
+     * Usage:
+     * ```tsx
+     * <Button iconLeft={HeartStraight} />
+     * ```
      */
-    children: ReactNode;
-
+    iconLeft?: AnyIcon;
     /**
-     * Additional CSS classes
+     * Optional icon to show alongside the right of the component.
+     *
+     * Usage:
+     * ```tsx
+     * <Button iconRight={HeartStraight} />
+     * ```
      */
-    className?: string;
-
+    iconRight?: AnyIcon;
     /**
-     * Icon to display on the left side
+     * Optional icon style to show alongside the component.
+     *
+     * Usage:
+     * ```tsx
+     * <Button iconStyle="fill" />
+     * ```
      */
-    iconLeft?: ReactNode;
+    iconStyle?: ComponentProps<IconComponent>['style'];
 
     /**
-     * Icon to display on the right side
+     * Optional loading state trigger. Disables button and adds a loading state.
+     *
+     * @default false
      */
-    iconRight?: ReactNode;
-
+    loading?: boolean;
     /**
-     * Whether the button is disabled
-     */
-    isDisabled?: boolean;
-
-    /**
-     * Whether the button is in a loading state
-     */
-    isLoading?: boolean;
-
-    /**
-     * Callback when button is clicked
-     */
-    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-
-    /**
-     * Size of the button
+     * Button size.
+     *
      * @default 'md'
      */
-    size?: ButtonSize;
-
+    size?: 'md' | 'sm';
     /**
-     * Semantic style of the button
+     * Button style. This matches a color palette in the theme.
+     *
      * @default 'primary'
      */
     style?: ButtonStyle;
-
-    /**
-     * Test ID for testing
-     */
-    testId?: string;
-
-    /**
-     * Button type attribute
-     */
     type?: 'button' | 'submit' | 'reset';
-
     /**
-     * Visual variant of the button
+     * What kind of button to render. `filled`, `outlined`, or `transparent`.
+     *
      * @default 'filled'
      */
     variant?: ButtonVariant;
-} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'disabled' | 'children' | 'onClick' | 'className' | 'style'>;
+} & Omit<HTMLProps<HTMLButtonElement>, 'style' | 'size' | 'as'> &
+    InlineStyles;

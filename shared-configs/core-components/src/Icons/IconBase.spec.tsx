@@ -89,7 +89,7 @@ describe('IconBase', () => {
                     weights={mockWeights}
                 />
             );
-            expect(screen.getByLabelText('Custom Icon')).toBeInTheDocument();
+            expect(screen.getByLabelText('Custom Icon')).toBeVisible();
         });
     });
 
@@ -157,16 +157,16 @@ describe('IconBase', () => {
             const { container } = render(<TestIcon style={weight} />);
             const svg = screen.getByLabelText('Test Icon');
 
-            expect(svg).toBeInTheDocument();
+            expect(svg).toBeVisible();
             // Verify the correct weight element is rendered
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            expect(container.querySelector('path')).toBeInTheDocument();
+            expect(container.querySelector('path')).toBeVisible();
         });
 
         it('should default to regular weight when not specified', () => {
             const { container } = render(<TestIcon />);
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-            expect(container.querySelector('path')).toBeInTheDocument();
+            expect(container.querySelector('path')).toBeVisible();
         });
 
         it('should warn and return null for missing weight', () => {
@@ -203,19 +203,19 @@ describe('IconBase', () => {
     describe('accessibility', () => {
         it('should set aria-label from displayName', () => {
             render(<TestIcon />);
-            expect(screen.getByLabelText('Test Icon')).toBeInTheDocument();
+            expect(screen.getByLabelText('Test Icon')).toBeVisible();
         });
 
         it('should allow custom aria-label', () => {
             render(<TestIcon aria-label="Custom Label" />);
-            expect(screen.getByLabelText('Custom Label')).toBeInTheDocument();
+            expect(screen.getByLabelText('Custom Label')).toBeVisible();
         });
 
         it('should not set aria-label when $withoutAriaLabel is true', () => {
             const { container } = render(<TestIcon $withoutAriaLabel />);
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             const svg = container.querySelector('svg');
-            expect(svg).toBeInTheDocument();
+            expect(svg).toBeVisible();
             expect(svg).not.toHaveAttribute('aria-label');
         });
 
@@ -226,7 +226,7 @@ describe('IconBase', () => {
                     aria-label="Custom Label"
                 />
             );
-            expect(screen.getByLabelText('Custom Label')).toBeInTheDocument();
+            expect(screen.getByLabelText('Custom Label')).toBeVisible();
         });
 
         it('should handle displayName with multiple words', () => {
@@ -236,7 +236,7 @@ describe('IconBase', () => {
                     weights={mockWeights}
                 />
             );
-            expect(screen.getByLabelText('Heart Straight')).toBeInTheDocument();
+            expect(screen.getByLabelText('Heart Straight')).toBeVisible();
         });
 
         it('should handle displayName with consecutive capitals', () => {
@@ -246,7 +246,7 @@ describe('IconBase', () => {
                     weights={mockWeights}
                 />
             );
-            expect(screen.getByLabelText('H T M L Element')).toBeInTheDocument();
+            expect(screen.getByLabelText('H T M L Element')).toBeVisible();
         });
 
         it('should handle undefined displayName gracefully', () => {
@@ -258,7 +258,7 @@ describe('IconBase', () => {
             );
             // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
             const svg = container.querySelector('svg');
-            expect(svg).toBeInTheDocument();
+            expect(svg).toBeVisible();
             // When displayName is undefined, getDisplayName returns empty string
             expect(svg).toHaveAttribute('aria-label', '');
         });

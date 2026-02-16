@@ -969,9 +969,9 @@ const IconStorybook = () => {
             </div>
 
             {/* Search */}
-            <div className="flex w-full pt-md">
+            <div className="pt-md flex w-full">
                 <input
-                    className="border-border-primary text-text-primary bg-background-primary w-full rounded-md border px-sm py-xs text-sm placeholder:text-gray-400"
+                    className="border-border-primary text-text-primary bg-background-primary px-sm py-xs w-full rounded-md border text-sm placeholder:text-gray-400"
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Search icons by name..."
                     type="search"
@@ -980,14 +980,14 @@ const IconStorybook = () => {
             </div>
 
             {/* Controls */}
-            <div className="flex w-full gap-md pb-[2px] pt-md">
+            <div className="gap-md pt-md flex w-full pb-[2px]">
                 <label className="text-text-secondary flex-1 text-xs font-semibold">Style</label>
                 <label className="text-text-secondary flex-1 text-xs font-semibold">Size</label>
                 <label className="text-text-secondary flex-1 text-xs font-semibold">Color</label>
             </div>
-            <div className="flex w-full gap-md">
+            <div className="gap-md flex w-full">
                 <select
-                    className="border-border-primary text-text-primary bg-background-primary flex-1 rounded-md border px-xs py-xs text-sm"
+                    className="border-border-primary text-text-primary bg-background-primary px-xs py-xs flex-1 rounded-md border text-sm"
                     onChange={(e) => setStyle(e.target.value as IconProps['style'])}
                     value={style}
                 >
@@ -1001,7 +1001,7 @@ const IconStorybook = () => {
                     ))}
                 </select>
                 <select
-                    className="border-border-primary text-text-primary bg-background-primary flex-1 rounded-md border px-xs py-xs text-sm"
+                    className="border-border-primary text-text-primary bg-background-primary px-xs py-xs flex-1 rounded-md border text-sm"
                     onChange={(e) => setSize(e.target.value as IconProps['size'])}
                     value={size}
                 >
@@ -1015,7 +1015,7 @@ const IconStorybook = () => {
                     ))}
                 </select>
                 <select
-                    className="border-border-primary text-text-primary bg-background-primary flex-1 rounded-md border px-xs py-xs text-sm"
+                    className="border-border-primary text-text-primary bg-background-primary px-xs py-xs flex-1 rounded-md border text-sm"
                     onChange={(e) => setColor(e.target.value as IconProps['color'])}
                     value={color}
                 >
@@ -1032,7 +1032,7 @@ const IconStorybook = () => {
 
             {/* Copied toast */}
             {copiedIcon && (
-                <div className="bg-success-600 mt-sm rounded-md px-sm py-xs text-center text-sm text-white">
+                <div className="bg-success-600 mt-sm px-sm py-xs rounded-md text-center text-sm text-white">
                     ✓ Import for {copiedIcon} copied to clipboard
                 </div>
             )}
@@ -1044,7 +1044,7 @@ const IconStorybook = () => {
                         return (
                             <button
                                 className={cn(
-                                    'flex cursor-pointer flex-col items-center gap-sm border-none p-sm',
+                                    'gap-sm p-sm flex cursor-pointer flex-col items-center border-none',
                                     color === 'inverse' ? 'bg-background-inverse' : 'bg-background-primary'
                                 )}
                                 key={searchableName}
@@ -1090,7 +1090,17 @@ export default {
             control: 'select',
             defaultValue: { summary: 'inherit' },
             description: 'The color of the icon.',
-            options: ['primary', 'secondary', 'info', 'success', 'warning', 'critical', 'disabled', 'inverse', 'inherit'],
+            options: [
+                'primary',
+                'secondary',
+                'info',
+                'success',
+                'warning',
+                'critical',
+                'disabled',
+                'inverse',
+                'inherit',
+            ],
             type: 'string',
         },
         size: {

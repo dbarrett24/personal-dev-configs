@@ -1,0 +1,449 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link Components InverseLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components InverseLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components InverseLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components InverseLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm underline text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components InverseLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs underline text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components Link should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components Link should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components Link should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components Link should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm underline text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components Link should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs underline text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components MonochromeLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components MonochromeLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components MonochromeLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components MonochromeLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm underline text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components MonochromeLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs underline text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleInverseLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleInverseLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleInverseLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleInverseLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleInverseLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs text-link-inverse hui-focus-visible-outline-inverse"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs text-link-primary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleMonochromeLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleMonochromeLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleMonochromeLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleMonochromeLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleMonochromeLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs text-link-monochrome hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleWeakLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleWeakLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleWeakLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleWeakLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components SubtleWeakLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components WeakLink should handle disabled state 1`] = `
+<DocumentFragment>
+  <a
+    aria-disabled="true"
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components WeakLink should render 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components WeakLink should render with size md 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-md underline text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components WeakLink should render with size sm 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-sm underline text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;
+
+exports[`Link Components WeakLink should render with size xs 1`] = `
+<DocumentFragment>
+  <a
+    class="cursor-pointer outline-offset-2 transition-colors hover:underline aria-disabled:cursor-not-allowed aria-disabled:text-link-disabled hui-link-xs underline text-link-secondary hover:text-link-hover active:text-link-pressed hui-focus-visible-outline"
+    tabindex="0"
+  >
+    Click this link
+  </a>
+</DocumentFragment>
+`;

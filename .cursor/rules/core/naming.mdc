@@ -262,3 +262,149 @@ export const AuctionStatus = {
 | **Data/API**        | `kebab-case/` | `kebab-case.ts`          | Named exports   | `kebab-case.spec.ts`  |
 | **Utils**           | `kebab-case/` | `kebab-case.ts`          | Named exports   | `kebab-case.spec.ts`  |
 | **Types**           | `kebab-case/` | `kebab-case-types.ts`    | Named exports   | None                  |
+
+## Component Organization within Packages
+
+### Flat vs Nested Structure
+
+**Use flat structure** for independent components:
+```
+src/
+├── Button/
+│   ├── Button.tsx
+│   ├── Button.spec.tsx
+│   └── Button.types.ts
+├── Input/
+│   ├── Input.tsx
+│   ├── Input.spec.tsx
+│   └── Input.types.ts
+└── Card/
+    ├── Card.tsx
+    ├── Card.spec.tsx
+    └── Card.types.ts
+```
+
+**Use nested structure** for related component groups:
+```
+src/
+├── Typography/                      # Related group
+│   ├── Text/
+│   │   ├── Text.tsx                # 12 text components (H1-H6, Body, Labels)
+│   │   └── Text.spec.tsx
+│   ├── Links/
+│   │   ├── Links.tsx               # 8 link variants
+│   │   └── Links.spec.tsx
+│   └── InlineButton/
+│       ├── InlineButton.tsx
+│       └── InlineButton.spec.tsx
+└── Icons/                          # Related group
+    ├── CreditCardIcon/
+    │   ├── CreditCardIcon.tsx
+    │   ├── CreditCardIcon.spec.tsx
+    │   └── cardIcons.tsx
+    └── socialIcons/
+        ├── googleSocialIcon.tsx
+        ├── facebookSocialIcon.tsx
+        └── appleSocialIcon.tsx
+```
+
+### When to Create Component Groups
+
+**Create a subdirectory when**:
+- ✅ 3+ components share a common purpose (Typography, Icons, Forms)
+- ✅ Components are frequently used together
+- ✅ Components share types or utilities
+- ✅ Logical grouping improves discoverability
+
+**Keep flat when**:
+- ❌ Components are unrelated
+- ❌ Only 1-2 components in category
+- ❌ Grouping would add navigation overhead
+
+### Group Naming
+
+**Use PascalCase for component groups**:
+- `Typography/` - Text components, links, inline buttons
+- `Icons/` - Icon components and systems
+- `Forms/` - Form inputs, labels, validation
+- `Layout/` - Containers, grids, spacing
+
+### Package Exports for Grouped Components
+
+**tsup.config.ts**:
+```typescript
+entry: {
+    // Grouped components - subpath exports
+    'Typography/Text': 'src/Typography/Text/Text.tsx',
+    'Typography/Links': 'src/Typography/Links/Links.tsx',
+    'Typography/InlineButton': 'src/Typography/InlineButton/InlineButton.tsx',
+    
+    // Flat components - direct exports
+    'Button': 'src/Button/Button.tsx',
+    'Input': 'src/Input/Input.tsx',
+}
+```
+
+**package.json**:
+```json
+{
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./Typography/Text": {
+      "import": "./dist/Typography/Text.mjs",
+      "require": "./dist/Typography/Text.js",
+      "types": "./dist/Typography/Text.d.ts"
+    },
+    "./Typography/Links": {
+      "import": "./dist/Typography/Links.mjs",
+      "require": "./dist/Typography/Links.js",
+      "types": "./dist/Typography/Links.d.ts"
+    },
+    "./Button": {
+      "import": "./dist/Button.mjs",
+      "require": "./dist/Button.js",
+      "types": "./dist/Button.d.ts"
+    }
+  }
+}
+```
+
+### Import Patterns
+
+**Subpath imports** (for grouped components):
+```typescript
+import { H1, H2, BodyPrimary } from '@dbarrett24/core-components/Typography/Text';
+import { Link, WeakLink } from '@dbarrett24/core-components/Typography/Links';
+import { InlineButton } from '@dbarrett24/core-components/Typography/InlineButton';
+```
+
+**Barrel imports** (for flat components):
+```typescript
+import { Button } from '@dbarrett24/core-components/Button';
+import { Input } from '@dbarrett24/core-components/Input';
+
+// Or from root barrel
+import { Button, Input } from '@dbarrett24/core-components';
+```
+
+### Examples from DS-19
+
+**Typography Group** (nested structure):
+- Created `src/Typography/` parent directory
+- 3 subdirectories: `Text/`, `Links/`, `InlineButton/`
+- Reason: All typography-related, frequently used together
+- Total: 22 exported components across 3 modules
+
+**Icons** (already grouped):
+- `Icons/CreditCardIcon/` - Card brand icons
+- `Icons/socialIcons/` - Social platform icons
+- `Icons/generatedIcons/` - Phosphor icons
+- Reason: All icons, benefit from grouped organization
+
+---
+
+**Last Updated**: 2026-02-16 (DS-19 component organization pattern)

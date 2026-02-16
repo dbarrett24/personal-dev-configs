@@ -1,0 +1,337 @@
+---
+description: Polymorphic component patterns for flexible element rendering
+globs: ["**/*.tsx"]
+---
+
+# Polymorphic Component Pattern
+
+## Overview
+
+Polymorphic components accept an `as` prop that allows consumers to change the rendered element type while preserving component styling and behavior.
+
+**Use cases**:
+- Link components that work with routing libraries
+- Button components that can render as links
+- Heading components with flexible semantic levels
+- Container components with flexible HTML semantics
+
+## Basic Pattern
+
+### TypeScript Implementation
+
+```typescript
+// Component.types.ts
+type PolymorphicProps<T extends React.ElementType> = {
+    as?: T;
+    className?: string;
+    children: React.ReactNode;
+} & React.ComponentPropsWithoutRef<T>;
+
+export type ComponentProps<T extends React.ElementType = 'div'> = PolymorphicProps<T>;
+```
+
+### Component Implementation
+
+```typescript
+// Component.tsx
+import { forwardRef } from 'react';
+import { cn } from '@dbarrett24/theme-system';
+import type { ComponentProps } from './Component.types';
+
+export const Component = forwardRef(<T extends React.ElementType = 'div'>(
+    { as, className, children, ...props }: ComponentProps<T>,
+    ref: React.Ref<Element>
+) => {
+    const Element = as || 'div';
+    
+    return (
+        <Element
+            ref={ref}
+            className={cn('base-styles', className)}
+            {...props}
+        >
+            {children}
+        </Element>
+    );
+}) as <T extends React.ElementType = 'div'>(
+    props: ComponentProps<T> & { ref?: React.Ref<Element> }
+) => React.ReactElement;
+
+Component.displayName = 'Component';
+```
+
+## Link Component Pattern (DS-19)
+
+### Architecture Decision: No LinkProvider
+
+**Context**: DS-19 migrated Link components from Hammer UI which used a LinkProvider context for routing integration.
+
+**Decision**: Use polymorphic `as` prop instead of provider pattern.
+
+**Rationale**:
+- This is a Next.js-only monorepo (no need for framework-agnostic routing abstraction)
+- Next.js provides superior Link handling (prefetching, scroll restoration)
+- No provider setup required (simpler DX)
+- Follows Chakra UI / Shadcn patterns used by modern Next.js design systems
+
+### Implementation
+
+```typescript
+// Links.types.ts
+type BaseLinkProps<T extends React.ElementType> = {
+    as?: T;
+    size?: 'xs' | 'sm' | 'md';
+    disabled?: boolean;
+    className?: string;
+    children: React.ReactNode;
+};
+
+export type LinkProps<T extends React.ElementType = 'a'> = 
+    BaseLinkProps<T> & 
+    Omit<React.ComponentPropsWithoutRef<T>, keyof BaseLinkProps<T>>;
+
+// Links.tsx
+const createLink = (baseClasses: string) => {
+    const LinkComponent = forwardRef(<T extends React.ElementType = 'a'>(
+        { as, size = 'md', disabled = false, className, onClick, ...props }: LinkProps<T>,
+        ref: React.Ref<HTMLAnchorElement>
+    ) => {
+        const Element = as || 'a';
+        
+        const handleClick = (event: React.MouseEvent) => {
+            if (disabled) {
+                event.preventDefault();
+                return;
+            }
+            onClick?.(event);
+        };
+        
+        return (
+            <Element
+                ref={ref}
+                className={cn(
+                    baseClasses,
+                    sizeClasses[size],
+                    disabled && 'pointer-events-none opacity-50',
+                    className
+                )}
+                onClick={handleClick}
+                aria-disabled={disabled}
+                {...props}
+            />
+        );
+    }) as <T extends React.ElementType = 'a'>(
+        props: LinkProps<T> & { ref?: React.Ref<HTMLAnchorElement> }
+    ) => React.ReactElement;
+    
+    return LinkComponent;
+};
+
+export const Link = createLink('hui-link-primary');
+export const WeakLink = createLink('hui-link-weak');
+// ... 6 more variants
+```
+
+### Usage Patterns
+
+**Default (Standard Anchor)**:
+```tsx
+<Link href="/about">About Us</Link>
+```
+
+**With Next.js Router**:
+```tsx
+import NextLink from 'next/link';
+import { Link } from '@dbarrett24/core-components/Typography/Links';
+
+<Link as={NextLink} href="/about">About Us</Link>
+```
+
+**As Button**:
+```tsx
+<Link as="button" type="button" onClick={handleClick}>
+    Show More
+</Link>
+```
+
+**Brand-Level Wrapper** (Recommended for consistency):
+```tsx
+// brand-libraries/*/src/components/Link.tsx
+import NextLink from 'next/link';
+import { Link as CoreLink } from '@dbarrett24/core-components/Typography/Links';
+
+export const Link = (props) => <CoreLink as={NextLink} {...props} />;
+```
+
+## Testing Polymorphic Components
+
+### Basic Rendering Test
+
+```typescript
+it('renders as default element', () => {
+    render(<Link href="/test">Click me</Link>);
+    
+    const link = screen.getByText('Click me');
+    expect(link.tagName).toBe('A');
+    expect(link).toHaveAttribute('href', '/test');
+});
+```
+
+### Polymorphic `as` Prop Test
+
+```typescript
+it('renders as custom element via as prop', () => {
+    render(
+        <Link as="button" type="button" onClick={jest.fn()}>
+            Click me
+        </Link>
+    );
+    
+    const button = screen.getByText('Click me');
+    expect(button.tagName).toBe('BUTTON');
+    expect(button).toHaveAttribute('type', 'button');
+});
+```
+
+### Props Spreading Test
+
+```typescript
+it('forwards element-specific props correctly', () => {
+    const handleClick = jest.fn();
+    
+    render(
+        <Link as="button" type="submit" onClick={handleClick}>
+            Submit
+        </Link>
+    );
+    
+    const button = screen.getByText('Submit');
+    fireEvent.click(button);
+    
+    expect(handleClick).toHaveBeenCalledTimes(1);
+    expect(button).toHaveAttribute('type', 'submit');
+});
+```
+
+### Disabled State with Polymorphic Element
+
+```typescript
+it('prevents interaction when disabled (anchor)', () => {
+    const handleClick = jest.fn();
+    
+    render(
+        <Link href="/test" disabled onClick={handleClick}>
+            Disabled Link
+        </Link>
+    );
+    
+    const link = screen.getByText('Disabled Link');
+    fireEvent.click(link);
+    
+    expect(handleClick).not.toHaveBeenCalled();
+    expect(link).toHaveClass('pointer-events-none');
+});
+
+it('prevents interaction when disabled (button)', () => {
+    const handleClick = jest.fn();
+    
+    render(
+        <Link as="button" disabled onClick={handleClick}>
+            Disabled Button
+        </Link>
+    );
+    
+    const button = screen.getByText('Disabled Button');
+    fireEvent.click(button);
+    
+    expect(handleClick).not.toHaveBeenCalled();
+});
+```
+
+## TypeScript Type Safety
+
+### Pragmatic Typing Approach
+
+**Good** - Simple, maintainable:
+```typescript
+type LinkProps<T extends React.ElementType = 'a'> = {
+    as?: T;
+    size?: 'xs' | 'sm' | 'md';
+    disabled?: boolean;
+    // ... component-specific props
+} & React.ComponentPropsWithoutRef<T>;
+```
+
+**Avoid** - Complex type inference (harder to maintain):
+```typescript
+type PolymorphicComponentPropsWithRef<
+    T extends React.ElementType,
+    Props = {}
+> = (
+    Props & 
+    Omit<React.ComponentPropsWithRef<T>, keyof Props | 'as'>
+) & {
+    as?: T;
+};
+```
+
+**Reason**: Simple typing is sufficient for most use cases. Complex type gymnastics add maintenance burden without significant benefit.
+
+### Type Safety Limitations
+
+**Accepted Trade-off**: TypeScript won't deeply validate props for all possible `as` values.
+
+Example:
+```typescript
+// This won't error even though buttons don't have href
+<Link as="button" href="/invalid" />
+```
+
+**Mitigation**: Runtime validation or tests can catch these issues. The simplicity benefit outweighs perfect type safety.
+
+## When to Use Polymorphic Pattern
+
+**✅ Use polymorphic pattern when**:
+- Component needs routing library integration (Link with next/link, react-router)
+- Semantic HTML flexibility needed (heading levels, button vs link)
+- Component wraps another polymorphic component
+- Strong visual styling that applies to multiple elements
+
+**❌ Don't use polymorphic pattern when**:
+- Single-purpose component (always renders same element)
+- Complex conditional logic based on element type
+- Performance-critical rendering (adds slight overhead)
+- Type safety is critical and complex typing needed
+
+## Factory Function Pattern
+
+For components with multiple variants (like Links in DS-19):
+
+```typescript
+const createLink = (baseClasses: string) => {
+    const LinkComponent = forwardRef(/* implementation */);
+    return LinkComponent;
+};
+
+export const Link = createLink('hui-link-primary');
+export const WeakLink = createLink('hui-link-weak');
+export const MonochromeLink = createLink('hui-link-monochrome');
+```
+
+**Display Names with Factory**:
+```typescript
+const LinkComponent = createLink('hui-link-primary');
+LinkComponent.displayName = 'Link';
+export const Link = LinkComponent;
+```
+
+## Related Patterns
+
+- **Component Structure**: `.cursor/rules/core/naming.mdc`
+- **React Patterns**: `.cursor/rules/core/react.mdc`
+- **Testing**: `.cursor/rules/quality/testing.mdc`
+- **Link Components**: DS-19 implementation reference
+
+---
+
+**Last Updated**: 2026-02-16 (DS-19 retrospective)

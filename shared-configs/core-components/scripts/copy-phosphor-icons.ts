@@ -1,3 +1,4 @@
+import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import { phosphorIcons } from '../src/Icons/importedIcons';
 import path from 'path';
@@ -51,6 +52,22 @@ ${iconName}.displayName = '${iconName}';
 
     // eslint-disable-next-line no-console
     console.log(`✅ Generated ${successfulIcons.length} icon components`);
+
+    // Only auto-format if explicitly requested via env var (to avoid race conditions with lint tasks)
+    if (process.env.AUTO_FORMAT_ICONS === 'true') {
+        // Auto-format generated files with Prettier
+        // eslint-disable-next-line no-console
+        console.log('🎨 Formatting generated files with Prettier...');
+        execSync(`prettier --write "${OUTPUT_PATH}/**/*.{ts,tsx}" "${INDEX_PATH}/index.ts"`, { stdio: 'inherit' });
+
+        // Auto-fix linting issues with ESLint
+        // eslint-disable-next-line no-console
+        console.log('🔧 Fixing linting issues with ESLint...');
+        execSync(`eslint --fix "${OUTPUT_PATH}/**/*.{ts,tsx}" "${INDEX_PATH}/index.ts"`, { stdio: 'inherit' });
+
+        // eslint-disable-next-line no-console
+        console.log('✅ All icon files formatted and linted!');
+    }
 }
 
 function extractWeights(content: string): string {

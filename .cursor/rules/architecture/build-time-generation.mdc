@@ -232,48 +232,115 @@ Update `package.json` to export generated files:
 
 Standalone build scripts run **before** tsup compilation and generate source code in `src/` rather than build artifacts in `dist/`.
 
-### Icon Generation Pattern (DS-18)
+### Icon Generation Pattern (DS-18, DS-19)
 
-**Use Case**: Generate React components from third-party SVG library
+**Use Case**: Generate React components from third-party SVG library (@phosphor-icons/react)
 
-```typescript
-// scripts/copy-phosphor-icons.ts
-import { writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+**Key Decision**: Generated icons are **committed to git** and only regenerated manually when needed.
 
-// Read source data from node_modules
-const iconData = extractIconsFromLibrary();
+#### Why Icons Are NOT Regenerated on Every Build
 
-// Generate React component files
-iconData.forEach(icon => {
-    const componentCode = generateIconComponent(icon);
-    const outputPath = resolve(__dirname, `../src/Icons/generatedIcons/${icon.name}.tsx`);
-    writeFileSync(outputPath, componentCode, 'utf-8');
-});
+**Problem**: Original implementation regenerated 149 icon files on every `pnpm build`:
+- ⏱️ Slow builds (generating 149 files every time)
+- 💥 Race conditions with Turborepo lint tasks
+- 🔄 Recurring Prettier/ESLint conflicts
+- 📝 Files were formatted during generation, then immediately checked by lint (race condition)
 
-// Generate barrel export
-const indexCode = iconData.map(icon => 
-    `export { ${icon.name} } from './generatedIcons/${icon.name}';`
-).join('\n');
-writeFileSync(resolve(__dirname, '../src/Icons/index.ts'), indexCode, 'utf-8');
-
-console.log(`✅ Generated ${iconData.length} icon components`);
-```
-
-**package.json Integration**:
-
+**Solution**: Treat generated icons like any committed source code:
 ```json
 {
   "scripts": {
-    "build-icons": "tsx scripts/copy-phosphor-icons.ts",
-    "build": "pnpm build-icons && tsup",
-    "dev": "pnpm build-icons && tsup --watch"
-  },
-  "devDependencies": {
-    "tsx": "^4.7.0"  // Simpler than ts-node, no config needed
+    "build": "tsup",  // ✅ Only compile TypeScript
+    "build-icons": "tsx scripts/copy-phosphor-icons.ts",  // Unformatted
+    "build-icons-formatted": "AUTO_FORMAT_ICONS=true tsx scripts/copy-phosphor-icons.ts"  // With formatting
   }
 }
 ```
+
+#### When to Regenerate Icons
+
+Regenerate icons ONLY when:
+1. **Adding/removing icons** from `src/Icons/importedIcons.ts`
+2. **Updating @phosphor-icons/react** package version
+3. **Icon files are corrupted or deleted**
+
+For 99% of development, just run `pnpm build` (no icon regeneration needed).
+
+#### Icon Generation Script with Optional Formatting
+
+```typescript
+// scripts/copy-phosphor-icons.ts
+import { execSync } from 'child_process';
+import { promises as fs } from 'fs';
+import { phosphorIcons } from '../src/Icons/importedIcons';
+import path from 'path';
+
+const OUTPUT_PATH = path.resolve(__dirname, '../src/Icons/generatedIcons');
+
+async function copyPhosphorIcons() {
+    await fs.mkdir(OUTPUT_PATH, { recursive: true });
+    
+    const successfulIcons: string[] = [];
+    
+    // Generate icon components
+    for (const iconName of phosphorIcons) {
+        const componentContent = generateIconComponent(iconName);
+        await fs.writeFile(
+            path.join(OUTPUT_PATH, `${iconName}.tsx`), 
+            componentContent
+        );
+        successfulIcons.push(iconName);
+    }
+    
+    console.log(`✅ Generated ${successfulIcons.length} icon components`);
+    
+    // Optional: Auto-format generated files (prevents lint conflicts)
+    if (process.env.AUTO_FORMAT_ICONS === 'true') {
+        console.log('🎨 Formatting generated files with Prettier...');
+        execSync(
+            `prettier --write "${OUTPUT_PATH}/**/*.{ts,tsx}"`, 
+            { stdio: 'inherit' }
+        );
+        
+        console.log('🔧 Fixing linting issues with ESLint...');
+        execSync(
+            `eslint --fix "${OUTPUT_PATH}/**/*.{ts,tsx}"`, 
+            { stdio: 'inherit' }
+        );
+        
+        console.log('✅ All icon files formatted and linted!');
+    }
+}
+
+copyPhosphorIcons().catch(console.error);
+```
+
+#### Developer Workflow
+
+```bash
+# Normal development (99% of the time)
+pnpm build              # Just compile TypeScript
+
+# When adding/updating icons (rare)
+pnpm run build-icons-formatted  # Regenerate + auto-format
+pnpm build                       # Compile TypeScript
+git add src/Icons/               # Commit the changes
+```
+
+#### Why Auto-Formatting is Optional
+
+**Without AUTO_FORMAT_ICONS=true**:
+- Generates unformatted code
+- Requires manual `pnpm lint-fix` before commit
+- Simpler script, no dependency on Prettier/ESLint in generation
+
+**With AUTO_FORMAT_ICONS=true**:
+- ✅ Generates properly formatted code
+- ✅ No manual lint-fix needed
+- ✅ Clean git diffs
+- ❌ Could race with Turborepo lint tasks if run during build
+
+**Solution**: Make formatting optional, run it explicitly when regenerating icons
 
 ### Key Differences from tsup onSuccess
 
@@ -407,13 +474,24 @@ writeFileSync(outputPath, generatedCode, 'utf-8');
 
 **DS-18 Experience**: Generated icons were unformatted, requiring manual `pnpm lint-fix` during verification. Would have been cleaner to format during generation.
 
-### Rebuild Triggers
+### Rebuild Triggers (Manual Regeneration)
 
-When using standalone build scripts, rebuild is needed when:
-- ✅ Source dependency changes: `@phosphor-icons/react` version updated
-- ✅ Input list changes: `importedIcons.ts` modified
-- ✅ Build script changes: `copy-phosphor-icons.ts` modified
-- ❌ Wrapper component changes: No regeneration needed (generated files import the wrapper)
+**Important**: Icon generation is **manual**, not automatic. Regenerate ONLY when:
+
+- ✅ **Adding/removing icons**: `importedIcons.ts` modified → Run `pnpm build-icons-formatted`
+- ✅ **Updating library**: `@phosphor-icons/react` version updated → Run `pnpm build-icons-formatted`
+- ✅ **Script changes**: `copy-phosphor-icons.ts` modified → Run `pnpm build-icons-formatted`
+- ❌ **Wrapper changes**: No regeneration needed (generated files import `IconBase` wrapper)
+- ❌ **Every build**: **Never** regenerate on every build (causes lint conflicts)
+
+**Verification After Regeneration**:
+```bash
+pnpm run build-icons-formatted  # Regenerate with auto-formatting
+pnpm test                        # Verify no breakage
+pnpm lint                        # Should pass (files are auto-formatted)
+git diff src/Icons/              # Review changes
+git add src/Icons/               # Commit the regenerated files
+```
 
 ### Example: Type Generation from JSON Schema
 
@@ -490,6 +568,51 @@ await import('./dist/file.mjs');
 await import('./dist/file');
 ```
 
+### Issue: Recurring Prettier/ESLint conflicts on generated files (DS-19)
+
+**Symptom**: `pnpm lint` repeatedly fails with formatting errors on 149 icon files, even after running `pnpm lint-fix`
+
+**Root Cause**: 
+1. Build script regenerates icons on every build → unformatted files
+2. Turborepo runs lint tasks in parallel
+3. Auto-formatting during generation races with lint-prettier task
+4. Cache mismatch between Prettier runs
+
+**Fix (Applied in DS-19)**:
+```json
+{
+  "scripts": {
+    // ❌ OLD - Regenerates on every build (causes conflicts)
+    "build": "pnpm build-icons && tsup",
+    
+    // ✅ NEW - Icons regenerated manually only
+    "build": "tsup",
+    "build-icons-formatted": "AUTO_FORMAT_ICONS=true tsx scripts/copy-phosphor-icons.ts"
+  }
+}
+```
+
+**Key Changes**:
+1. **Removed automatic regeneration** from build process
+2. **Made formatting optional** via env var (prevents race conditions)
+3. **Commit generated files** to git (treat like source code)
+4. **Manual regeneration** only when icons actually change
+
+**Result**: No more lint conflicts, faster builds, deterministic output
+
+### Issue: TypeScript errors in downstream packages after icon regeneration
+
+**Symptom**: Brand libraries fail `ts-check` after regenerating icons in core-components
+
+**Cause**: Stale `.d.ts` files in `dist/` - downstream packages are using old type definitions
+
+**Fix**: Rebuild core-components after icon regeneration:
+```bash
+pnpm run build-icons-formatted  # Regenerate icons
+pnpm run build                   # ← Rebuild to generate fresh .d.ts files
+pnpm run lint                    # Should pass in all packages now
+```
+
 ## Related Patterns
 
 - **Peer Dependencies**: `.cursor/rules/architecture/monorepo-builds.mdc`
@@ -499,4 +622,19 @@ await import('./dist/file');
 
 ---
 
-**Last Updated**: 2026-02-12 (DS-18 standalone script pattern added)
+## Summary: Icon Generation Best Practices (DS-18, DS-19)
+
+✅ **DO**:
+- Commit generated icon files to git
+- Regenerate manually only when icons change
+- Use `build-icons-formatted` for clean, linted output
+- Rebuild core-components after icon regeneration
+
+❌ **DON'T**:
+- Regenerate icons on every build (causes lint conflicts)
+- Run formatting during build (causes race conditions with Turborepo)
+- Forget to rebuild after regeneration (stale .d.ts files)
+
+---
+
+**Last Updated**: 2026-02-16 (DS-19 manual regeneration pattern, race condition fixes)

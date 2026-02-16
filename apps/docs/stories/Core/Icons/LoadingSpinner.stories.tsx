@@ -12,7 +12,17 @@ const meta = {
             control: 'select',
             defaultValue: { summary: 'inverse' },
             description: 'The color of the spinner.',
-            options: ['primary', 'secondary', 'info', 'success', 'warning', 'critical', 'disabled', 'inverse', 'inherit'],
+            options: [
+                'primary',
+                'secondary',
+                'info',
+                'success',
+                'warning',
+                'critical',
+                'disabled',
+                'inverse',
+                'inherit',
+            ],
             type: 'string',
         },
         size: {
@@ -34,10 +44,10 @@ export const Default: Story = {};
 
 export const Sizes: Story = {
     render: (args) => (
-        <div className="flex items-center gap-lg">
+        <div className="gap-lg flex items-center">
             {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
                 <div
-                    className="flex flex-col items-center gap-sm"
+                    className="gap-sm flex flex-col items-center"
                     key={size}
                 >
                     <LoadingSpinner
@@ -54,32 +64,32 @@ export const Sizes: Story = {
 
 export const Colors: Story = {
     render: (args) => (
-        <div className="flex items-center gap-lg">
-            {(
-                ['primary', 'secondary', 'info', 'success', 'warning', 'critical', 'disabled', 'inherit'] as const
-            ).map((color) => (
-                <div
-                    className="flex flex-col items-center gap-sm"
-                    key={color}
-                >
-                    <LoadingSpinner
-                        {...args}
-                        color={color}
-                        size="md"
-                    />
-                    <span className="text-text-secondary text-xs">{color}</span>
-                </div>
-            ))}
+        <div className="gap-lg flex items-center">
+            {(['primary', 'secondary', 'info', 'success', 'warning', 'critical', 'disabled', 'inherit'] as const).map(
+                (color) => (
+                    <div
+                        className="gap-sm flex flex-col items-center"
+                        key={color}
+                    >
+                        <LoadingSpinner
+                            {...args}
+                            color={color}
+                            size="md"
+                        />
+                        <span className="text-text-secondary text-xs">{color}</span>
+                    </div>
+                )
+            )}
         </div>
     ),
 };
 
 export const OnDarkBackground: Story = {
     render: (args) => (
-        <div className="bg-background-inverse flex items-center gap-lg rounded-md p-lg">
+        <div className="bg-background-inverse gap-lg p-lg flex items-center rounded-md">
             {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
                 <div
-                    className="flex flex-col items-center gap-sm"
+                    className="gap-sm flex flex-col items-center"
                     key={size}
                 >
                     <LoadingSpinner

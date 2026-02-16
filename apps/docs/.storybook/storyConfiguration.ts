@@ -27,6 +27,7 @@ const storybookStories: Record<string, StorybookConfig> = {
         defaultTheme: 'default',
         stories: [
             { directory: '../stories/Core/Icons', titlePrefix: 'Icons' },
+            { directory: '../stories/Core/Typography', titlePrefix: 'Typography' },
             { directory: '../stories/Core/SelectionAndInput', titlePrefix: 'Selection and Input' },
             { directory: '../stories/Core/Infrastructure', titlePrefix: 'Infrastructure' },
         ],
@@ -43,6 +44,7 @@ const storybookStories: Record<string, StorybookConfig> = {
         defaultTheme: 'default',
         stories: [
             { directory: '../stories/Core/Icons', titlePrefix: 'Core/Icons' },
+            { directory: '../stories/Core/Typography', titlePrefix: 'Core/Typography' },
             { directory: '../stories/Core/SelectionAndInput', titlePrefix: 'Core/Selection and Input' },
             { directory: '../stories/Core/Infrastructure', titlePrefix: 'Core/Infrastructure' },
             { directory: '../stories/Basketball/Core', titlePrefix: 'Basketball/Core' },

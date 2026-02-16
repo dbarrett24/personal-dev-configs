@@ -36,6 +36,11 @@
             "require": "./dist/Icons/anyIcon.js",
             "types": "./dist/Icons/anyIcon.d.ts"
         },
+        "./Icons/CreditCardIcon": {
+            "import": "./dist/esm/Icons/CreditCardIcon.js",
+            "require": "./dist/Icons/CreditCardIcon.js",
+            "types": "./dist/Icons/CreditCardIcon.d.ts"
+        },
         "./Icons/socialIcons/googleSocialIcon": {
             "import": "./dist/esm/Icons/socialIcons/googleSocialIcon.js",
             "require": "./dist/Icons/socialIcons/googleSocialIcon.js",
@@ -55,6 +60,21 @@
             "import": "./dist/esm/LoadingSpinner.js",
             "require": "./dist/LoadingSpinner.js",
             "types": "./dist/LoadingSpinner.d.ts"
+        },
+        "./Typography/Text": {
+            "import": "./dist/esm/Typography/Text.js",
+            "require": "./dist/Typography/Text.js",
+            "types": "./dist/Typography/Text.d.ts"
+        },
+        "./Typography/Links": {
+            "import": "./dist/esm/Typography/Links.js",
+            "require": "./dist/Typography/Links.js",
+            "types": "./dist/Typography/Links.d.ts"
+        },
+        "./Typography/InlineButton": {
+            "import": "./dist/esm/Typography/InlineButton.js",
+            "require": "./dist/Typography/InlineButton.js",
+            "types": "./dist/Typography/InlineButton.d.ts"
         }
     },
     "files": [
@@ -62,8 +82,9 @@
     ],
     "sideEffects": false,
     "scripts": {
-        "build": "pnpm build-icons && tsup",
+        "build": "tsup",
         "build-icons": "tsx scripts/copy-phosphor-icons.ts",
+        "build-icons-formatted": "AUTO_FORMAT_ICONS=true tsx scripts/copy-phosphor-icons.ts",
         "dev": "tsup --watch",
         "test": "jest",
         "test:watch": "jest --watch",

@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text Components BodyPrimary should render 1`] = `
+<DocumentFragment>
+  <span
+    class="hui-text-body-primary text-text-primary"
+  >
+    Test
+  </span>
+</DocumentFragment>
+`;
+
+exports[`Text Components BodySecondary should render 1`] = `
+<DocumentFragment>
+  <span
+    class="hui-text-body-secondary text-text-primary"
+  >
+    Test
+  </span>
+</DocumentFragment>
+`;
+
+exports[`Text Components Caption should render 1`] = `
+<DocumentFragment>
+  <span
+    class="hui-text-caption text-text-primary"
+  >
+    Test
+  </span>
+</DocumentFragment>
+`;
+
+exports[`Text Components H1 should render 1`] = `
+<DocumentFragment>
+  <h1
+    class="hui-text-h1 text-text-primary"
+  >
+    Test
+  </h1>
+</DocumentFragment>
+`;
+
+exports[`Text Components H1 should render with custom color 1`] = `
+<DocumentFragment>
+  <h1
+    class="hui-text-h1 text-text-critical"
+  >
+    Test
+  </h1>
+</DocumentFragment>
+`;
+
+exports[`Text Components H2 should render 1`] = `
+<DocumentFragment>
+  <h2
+    class="hui-text-h2 text-text-primary"
+  >
+    Test
+  </h2>
+</DocumentFragment>
+`;
+
+exports[`Text Components H3 should render 1`] = `
+<DocumentFragment>
+  <h3
+    class="hui-text-h3 text-text-primary"
+  >
+    Test
+  </h3>
+</DocumentFragment>
+`;
+
+exports[`Text Components H4 should render 1`] = `
+<DocumentFragment>
+  <h4
+    class="hui-text-h4 text-text-primary"
+  >
+    Test
+  </h4>
+</DocumentFragment>
+`;
+
+exports[`Text Components H5 should render 1`] = `
+<DocumentFragment>
+  <h5
+    class="hui-text-h5 text-text-primary"
+  >
+    Test
+  </h5>
+</DocumentFragment>
+`;
+
+exports[`Text Components H6 should render 1`] = `
+<DocumentFragment>
+  <h6
+    class="hui-text-h6 text-text-primary"
+  >
+    Test
+  </h6>
+</DocumentFragment>
+`;
+
+exports[`Text Components LabelMini should render 1`] = `
+<DocumentFragment>
+  <label
+    class="hui-text-label-mini text-text-primary"
+  >
+    Test
+  </label>
+</DocumentFragment>
+`;
+
+exports[`Text Components LabelMiniStrong should render 1`] = `
+<DocumentFragment>
+  <label
+    class="hui-text-label-mini-strong text-text-primary"
+  >
+    Test
+  </label>
+</DocumentFragment>
+`;
+
+exports[`Text Components LabelStrong should render 1`] = `
+<DocumentFragment>
+  <label
+    class="hui-text-label-strong text-text-primary"
+  >
+    Test
+  </label>
+</DocumentFragment>
+`;

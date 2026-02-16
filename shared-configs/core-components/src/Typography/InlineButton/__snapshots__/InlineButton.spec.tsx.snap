@@ -1,0 +1,235 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InlineButton should match snapshot for critical style 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-text-critical hover:text-critical-700 active:text-critical-900"
+    data-hui-id="InlineButton"
+  >
+    inline button test
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton should match snapshot for inverse style 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline focus-visible:hui-focus-visible-outline-inverse hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-text-inverse hover:text-surface-100 active:text-surface-200"
+    data-hui-id="InlineButton"
+  >
+    inline button test
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton should match snapshot for neutral style 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-link-secondary hover:text-surface-700 active:text-surface-900"
+    data-hui-id="InlineButton"
+  >
+    inline button test
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton should match snapshot for primary style 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    inline button test
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton should render with icon and custom iconStyle 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    <svg
+      aria-label="Heart Straight"
+      fill="currentColor"
+      height="20"
+      style="min-height: 20px; min-width: 20px;"
+      viewBox="0 0 256 256"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M225.84,54.13A62.07,62.07,0,0,0,138.32,54L128,63.58,117.68,54a62,62,0,0,0-87.58,87.8l89.35,90.65a12,12,0,0,0,17.1,0l89.29-90.59a62,62,0,0,0,0-87.7Zm-17,70.79L128,206.9,47.13,124.85a38,38,0,0,1,53.74-53.74c.1.1.2.2.31.29l18.64,17.36a12,12,0,0,0,16.36,0L154.82,71.4c.11-.09.21-.19.31-.29a38,38,0,1,1,53.68,53.81Z"
+      />
+    </svg>
+    inline button test
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton size md should put icons on the left 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    <svg
+      aria-label="Heart Straight"
+      fill="currentColor"
+      height="20"
+      style="min-height: 20px; min-width: 20px;"
+      viewBox="0 0 256 256"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M223,57a58.07,58.07,0,0,0-81.92-.1L128,69.05,114.91,56.86A58,58,0,0,0,33,139l89.35,90.66a8,8,0,0,0,11.4,0L223,139a58,58,0,0,0,0-82Zm-11.35,70.76L128,212.6,44.3,127.68a42,42,0,0,1,59.4-59.4l.2.2,18.65,17.35a8,8,0,0,0,10.9,0L152.1,68.48l.2-.2a42,42,0,1,1,59.36,59.44Z"
+      />
+    </svg>
+    I am a wonderful inline button
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton size md should put icons on the right 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[24px] text-base text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    I am a wonderful inline button
+    <svg
+      aria-label="Lock"
+      fill="currentColor"
+      height="20"
+      style="min-height: 20px; min-width: 20px;"
+      viewBox="0 0 256 256"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"
+      />
+    </svg>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton size sm should put icons on the left 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[22px] text-sm leading-5 text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    <svg
+      aria-label="Heart Straight"
+      fill="currentColor"
+      height="14"
+      style="min-height: 14px; min-width: 14px;"
+      viewBox="0 0 256 256"
+      width="14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M223,57a58.07,58.07,0,0,0-81.92-.1L128,69.05,114.91,56.86A58,58,0,0,0,33,139l89.35,90.66a8,8,0,0,0,11.4,0L223,139a58,58,0,0,0,0-82Zm-11.35,70.76L128,212.6,44.3,127.68a42,42,0,0,1,59.4-59.4l.2.2,18.65,17.35a8,8,0,0,0,10.9,0L152.1,68.48l.2-.2a42,42,0,1,1,59.36,59.44Z"
+      />
+    </svg>
+    I am a wonderful inline button
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton size sm should put icons on the right 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[22px] text-sm leading-5 text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    I am a wonderful inline button
+    <svg
+      aria-label="Lock"
+      fill="currentColor"
+      height="14"
+      style="min-height: 14px; min-width: 14px;"
+      viewBox="0 0 256 256"
+      width="14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"
+      />
+    </svg>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton size xs should put icons on the left 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[20px] text-xs leading-4 text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    <svg
+      aria-label="Heart Straight"
+      fill="currentColor"
+      height="14"
+      style="min-height: 14px; min-width: 14px;"
+      viewBox="0 0 256 256"
+      width="14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M223,57a58.07,58.07,0,0,0-81.92-.1L128,69.05,114.91,56.86A58,58,0,0,0,33,139l89.35,90.66a8,8,0,0,0,11.4,0L223,139a58,58,0,0,0,0-82Zm-11.35,70.76L128,212.6,44.3,127.68a42,42,0,0,1,59.4-59.4l.2.2,18.65,17.35a8,8,0,0,0,10.9,0L152.1,68.48l.2-.2a42,42,0,1,1,59.36,59.44Z"
+      />
+    </svg>
+    I am a wonderful inline button
+  </button>
+</DocumentFragment>
+`;
+
+exports[`InlineButton size xs should put icons on the right 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-live="polite"
+    class="hui-text-body-primary inline-flex w-min cursor-pointer items-center gap-2xs whitespace-nowrap border-none bg-transparent p-0 tracking-[0.5px] outline-none focus-visible:hui-focus-visible-outline focus-visible:underline hover:underline disabled:cursor-not-allowed disabled:text-text-disabled h-[20px] text-xs leading-4 text-link-primary hover:text-primary-700 active:text-primary-900"
+    data-hui-id="InlineButton"
+  >
+    I am a wonderful inline button
+    <svg
+      aria-label="Lock"
+      fill="currentColor"
+      height="14"
+      style="min-height: 14px; min-width: 14px;"
+      viewBox="0 0 256 256"
+      width="14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Zm-68-56a12,12,0,1,1-12-12A12,12,0,0,1,140,152Z"
+      />
+    </svg>
+  </button>
+</DocumentFragment>
+`;

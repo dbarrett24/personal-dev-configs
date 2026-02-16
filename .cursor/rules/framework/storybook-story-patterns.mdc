@@ -1,0 +1,346 @@
+---
+description: Storybook story structure patterns and best practices
+globs: ["apps/docs/stories/**/*.stories.tsx"]
+---
+
+# Storybook Story Structure Patterns
+
+## Story File Organization
+
+### Standard Story Structure
+
+Every story file should follow this pattern:
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/react';
+import { ComponentName } from '@dbarrett24/core-components/ComponentName';
+
+const meta: Meta<typeof ComponentName> = {
+    title: 'CategoryPath/ComponentName',
+    component: ComponentName,
+    parameters: {
+        layout: 'centered', // or 'fullscreen', 'padded'
+    },
+    argTypes: {
+        // Interactive controls
+        variant: {
+            control: 'select',
+            options: ['primary', 'secondary', 'neutral'],
+        },
+        size: {
+            control: 'radio',
+            options: ['xs', 'sm', 'md', 'lg'],
+        },
+    },
+};
+
+export default meta;
+type Story = StoryObj<typeof ComponentName>;
+
+// 1. Default Story - Interactive controls
+export const Default: Story = {
+    args: {
+        variant: 'primary',
+        children: 'Example',
+    },
+};
+
+// 2. All Variants Story - Visual overview
+export const AllVariants: Story = {
+    render: () => (
+        <div className="space-y-4">
+            {variants.map(variant => (
+                <ComponentName key={variant} variant={variant}>
+                    {variant}
+                </ComponentName>
+            ))}
+        </div>
+    ),
+};
+
+// 3. Real-World Example - Demonstrates actual usage
+export const RealWorldExample: Story = {
+    render: () => (
+        <form className="space-y-4">
+            <ComponentName variant="primary">Submit</ComponentName>
+            <ComponentName variant="secondary">Cancel</ComponentName>
+        </form>
+    ),
+};
+```
+
+### Story Naming Conventions
+
+**Story Names**:
+- `Default` - Interactive story with controls
+- `AllVariants` / `AllSizes` / `AllStyles` - Overview of all options
+- `{RealWorldContext}` - Usage examples (e.g., `PaymentForm`, `SocialLoginForm`, `DataTableActions`)
+
+**File Names**:
+- Component stories: `{ComponentName}.stories.tsx`
+- Component category: `{Category}/{ComponentName}.stories.tsx`
+
+### Story Categories (meta.title)
+
+**Standard Categories**:
+- `Core/Actions/` - Buttons, links, inline actions
+- `Core/Inputs/` - Form inputs, textareas, selects
+- `Core/Layout/` - Containers, grids, spacing
+- `Core/Typography/` - Text components, headings
+- `Core/Icons/` - Icon systems
+- `Core/Feedback/` - Alerts, toasts, modals
+- `Core/Navigation/` - Menus, breadcrumbs, tabs
+- `Core/Data Display/` - Tables, lists, cards
+
+### Required Stories (Minimum)
+
+Every component story file should include:
+
+1. ✅ **Default Story** - With interactive controls (argTypes)
+2. ✅ **All Variants Story** - Shows all visual variations
+3. ✅ **Real-World Example** - Demonstrates actual usage context
+
+### Optional Stories (When Applicable)
+
+Add these stories when relevant:
+
+- **States** - Loading, error, empty states
+- **Accessibility** - Keyboard navigation demo
+- **Theme Comparison** - Shows component across brands
+- **Interactive Demo** - Complex interactions (expandable content, etc.)
+- **Edge Cases** - Long text, overflow, responsive behavior
+
+## Interactive Controls (argTypes)
+
+### Control Types
+
+**Common Controls**:
+```typescript
+argTypes: {
+    // Text input
+    label: { control: 'text' },
+    
+    // Select dropdown
+    variant: {
+        control: 'select',
+        options: ['primary', 'secondary', 'neutral'],
+    },
+    
+    // Radio buttons (for 3-4 options)
+    size: {
+        control: 'radio',
+        options: ['xs', 'sm', 'md', 'lg'],
+    },
+    
+    // Boolean toggle
+    disabled: { control: 'boolean' },
+    
+    // Number slider
+    maxLength: {
+        control: { type: 'number', min: 1, max: 100 },
+    },
+    
+    // Color picker
+    backgroundColor: { control: 'color' },
+    
+    // Multi-select
+    tags: {
+        control: 'check',
+        options: ['urgent', 'important', 'low-priority'],
+    },
+}
+```
+
+### When to Use Each Control
+
+- **select** - 5+ options, searchable dropdown
+- **radio** - 2-4 options, immediate visibility
+- **inline-radio** - 2-4 options, horizontal layout
+- **boolean** - Toggle switches
+- **text** - Free-form text input
+- **number** - Numeric values (can add min/max/step)
+- **color** - Color values (opens color picker)
+- **date** - Date values (opens date picker)
+
+## Real-World Example Patterns
+
+### Pattern: Form Context
+
+Shows component in realistic form usage:
+
+```typescript
+export const FormContext: Story = {
+    render: () => (
+        <form className="max-w-md space-y-4">
+            <div>
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" placeholder="you@example.com" />
+            </div>
+            <div>
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" type="password" />
+            </div>
+            <Button type="submit">Sign In</Button>
+        </form>
+    ),
+};
+```
+
+### Pattern: Data Display Context
+
+Shows component in list/table context:
+
+```typescript
+export const DataTableActions: Story = {
+    render: () => (
+        <table className="w-full">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.map(item => (
+                    <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>
+                            <InlineButton size="sm">Edit</InlineButton>
+                            <InlineButton size="sm" style="critical">Delete</InlineButton>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    ),
+};
+```
+
+### Pattern: Theme Comparison
+
+Shows component across brand themes:
+
+```typescript
+export const ThemeComparison: Story = {
+    render: () => (
+        <div className="space-y-8">
+            <div className="brand-basketball p-4">
+                <h3 className="hui-text-h4 mb-2">Basketball Training</h3>
+                <Button variant="primary">Primary Action</Button>
+            </div>
+            <div className="brand-professional p-4">
+                <h3 className="hui-text-h4 mb-2">Professional Brand</h3>
+                <Button variant="primary">Primary Action</Button>
+            </div>
+            <div className="p-4">
+                <h3 className="hui-text-h4 mb-2">Default Theme</h3>
+                <Button variant="primary">Primary Action</Button>
+            </div>
+        </div>
+    ),
+};
+```
+
+## Accessibility Demonstration
+
+For components with keyboard/screen reader features:
+
+```typescript
+export const AccessibilityDemo: Story = {
+    render: () => (
+        <div className="space-y-4">
+            <p className="text-sm text-secondary">
+                Press Tab to navigate, Enter/Space to activate
+            </p>
+            <div role="toolbar" aria-label="Text formatting">
+                <InlineButton icon={BoldIcon} aria-label="Bold text">
+                    Bold
+                </InlineButton>
+                <InlineButton icon={ItalicIcon} aria-label="Italic text">
+                    Italic
+                </InlineButton>
+            </div>
+        </div>
+    ),
+};
+```
+
+## Documentation in Stories
+
+### Adding Usage Notes
+
+Use Storybook's parameters for inline documentation:
+
+```typescript
+export const Example: Story = {
+    args: { /* ... */ },
+    parameters: {
+        docs: {
+            description: {
+                story: 'This example demonstrates how to use the component with external routing libraries like next/link.',
+            },
+        },
+    },
+};
+```
+
+### Code Examples
+
+Show import statements in real-world examples:
+
+```typescript
+export const NextJSIntegration: Story = {
+    render: () => (
+        <div className="space-y-4">
+            <pre className="bg-surface-100 p-4 rounded text-sm">
+{`import NextLink from 'next/link';
+import { Link } from '@dbarrett24/core-components/Typography/Links';
+
+<Link as={NextLink} href="/about">
+    About Us
+</Link>`}
+            </pre>
+            <Link as="a" href="#demo">
+                Demo Link (rendered as anchor)
+            </Link>
+        </div>
+    ),
+};
+```
+
+## Story Organization by Component Type
+
+### Icon Components
+- Default (single icon with size control)
+- All Icons (grid of all icons)
+- Usage Example (icons with buttons/text)
+
+### Typography Components
+- Default (single component with color control)
+- All Variants (hierarchy demonstration)
+- Semantic Usage (article/blog post layout)
+- Inverse Colors (on dark backgrounds)
+
+### Form Components
+- Default (with controls)
+- All States (default, focus, error, disabled)
+- Form Context (realistic form)
+- Validation Examples
+
+### Action Components (Buttons, Links)
+- Default (with variant control)
+- All Variants (grid of options)
+- All Sizes (comparison)
+- Icon Variations (with/without icons)
+- Loading/Disabled States
+- Real-World Context
+
+## Related Patterns
+
+- **Component Structure**: `.cursor/rules/core/naming.mdc`
+- **Testing**: `.cursor/rules/quality/testing.mdc`
+- **Accessibility**: `.cursor/rules/quality/accessibility.mdc`
+
+---
+
+**Last Updated**: 2026-02-16 (DS-19 retrospective)

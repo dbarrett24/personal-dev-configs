@@ -94,7 +94,7 @@ export const ContactForm = () => {
             </div>
 
             <Button
-                isDisabled={isSubmitting}
+                disabled={isSubmitting}
                 style="primary"
                 type="submit"
             >

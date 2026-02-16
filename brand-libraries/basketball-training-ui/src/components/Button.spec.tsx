@@ -1,85 +1,90 @@
 import { Button } from './Button';
-import { render, screen, userEvent } from '@dbarrett24/testing-utils';
+import { render, screen } from '@dbarrett24/testing-utils';
 
-describe('Button', () => {
-    it('renders with default props', () => {
-        const { asFragment } = render(<Button>Click me</Button>);
+describe('Basketball Button', () => {
+    it('should render with shadow-md className', () => {
+        render(<Button>Click me</Button>);
 
-        expect(screen.getByText('Click me')).toBeVisible();
-        expect(asFragment()).toMatchSnapshot();
+        const button = screen.getByRole('button');
+        expect(button).toHaveClass('shadow-md');
     });
 
-    it('renders with primary variant', () => {
-        render(<Button variant="primary">Primary</Button>);
-
-        expect(screen.getByText('Primary')).toBeVisible();
-    });
-
-    it('renders with secondary variant', () => {
-        render(<Button variant="secondary">Secondary</Button>);
-
-        expect(screen.getByText('Secondary')).toBeVisible();
-    });
-
-    it('renders with outline variant', () => {
-        render(<Button variant="outline">Outline</Button>);
-
-        expect(screen.getByText('Outline')).toBeVisible();
-    });
-
-    it('renders with small size', () => {
-        render(<Button size="sm">Small</Button>);
-
-        expect(screen.getByText('Small')).toBeVisible();
-    });
-
-    it('renders with large size', () => {
-        render(<Button size="lg">Large</Button>);
-
-        expect(screen.getByText('Large')).toBeVisible();
-    });
-
-    it('handles click events', async () => {
-        const handleClick = jest.fn();
-
-        render(<Button onClick={handleClick}>Click me</Button>);
-
-        await userEvent.click(screen.getByText('Click me'));
-
-        expect(handleClick).toHaveBeenCalledTimes(1);
-    });
-
-    it('renders disabled state', () => {
-        const { asFragment } = render(<Button disabled>Disabled</Button>);
-
-        const button = screen.getByText('Disabled');
-
-        expect(button).toBeDisabled();
-        expect(asFragment()).toMatchSnapshot();
-    });
-
-    it('does not call onClick when disabled', async () => {
-        const handleClick = jest.fn();
+    it('should forward all props to CoreButton', () => {
+        const onClick = jest.fn();
 
         render(
             <Button
-                disabled
-                onClick={handleClick}
+                dataTestId="test-button"
+                onClick={onClick}
             >
-                Disabled
+                Test Button
             </Button>
         );
 
-        await userEvent.click(screen.getByText('Disabled'));
-
-        expect(handleClick).not.toHaveBeenCalled();
+        const button = screen.getByTestId('test-button');
+        expect(button).toBeVisible();
+        expect(button).toHaveTextContent('Test Button');
     });
 
-    it('applies custom className', () => {
-        render(<Button className="custom-class">Custom</Button>);
+    it('should work with filled variant and primary style', () => {
+        render(
+            <Button
+                style="primary"
+                variant="filled"
+            >
+                Primary Filled
+            </Button>
+        );
 
-        const button = screen.getByText('Custom');
+        expect(screen.getByRole('button')).toBeVisible();
+    });
 
+    it('should work with outlined variant and critical style', () => {
+        render(
+            <Button
+                style="critical"
+                variant="outlined"
+            >
+                Critical Outlined
+            </Button>
+        );
+
+        expect(screen.getByRole('button')).toBeVisible();
+    });
+
+    it('should work with transparent variant and neutral style', () => {
+        render(
+            <Button
+                style="neutral"
+                variant="transparent"
+            >
+                Neutral Transparent
+            </Button>
+        );
+
+        expect(screen.getByRole('button')).toBeVisible();
+    });
+
+    it('should handle disabled state', () => {
+        render(<Button disabled>Disabled Button</Button>);
+
+        const button = screen.getByRole('button');
+        expect(button).toBeDisabled();
+    });
+
+    it('should handle loading state', () => {
+        render(<Button loading>Loading Button</Button>);
+
+        const button = screen.getByRole('button');
+        expect(button).toHaveAttribute('aria-busy', 'true');
+        expect(screen.getByTestId('loading-spinner-animation')).toBeVisible();
+    });
+
+    it('should merge custom className with shadow-md', () => {
+        render(<Button className="custom-class">Custom Button</Button>);
+
+        const button = screen.getByRole('button');
+        expect(button).toHaveClass('shadow-md');
         expect(button).toHaveClass('custom-class');
     });
 });

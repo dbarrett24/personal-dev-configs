@@ -10,10 +10,10 @@ export const App = () => {
                 </p>
                 <div className="flex justify-center gap-md">
                     <Button style="primary">Get Started</Button>
-                    <Button style="secondary">Learn More</Button>
+                    <Button style="neutral">Learn More</Button>
                     <Button
                         style="primary"
-                        variant="outline"
+                        variant="outlined"
                     >
                         View Docs
                     </Button>

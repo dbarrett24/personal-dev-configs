@@ -1,0 +1,378 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button icons md size should render icons on both sides 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 20px;"
+    >
+      <svg
+        aria-label="Heart Straight"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="20"
+        style="min-height: 20px; min-width: 20px;"
+        viewBox="0 0 256 256"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M225.84,54.13A62.07,62.07,0,0,0,138.32,54L128,63.58,117.68,54a62,62,0,0,0-87.58,87.8l89.35,90.65a12,12,0,0,0,17.1,0l89.29-90.59a62,62,0,0,0,0-87.7Zm-17,70.79L128,206.9,47.13,124.85a38,38,0,0,1,53.74-53.74c.1.1.2.2.31.29l18.64,17.36a12,12,0,0,0,16.36,0L154.82,71.4c.11-.09.21-.19.31-.29a38,38,0,1,1,53.68,53.81Z"
+        />
+      </svg>
+    </div>
+    Button with both icons
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 20px;"
+    >
+      <svg
+        aria-label="Lock"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="20"
+        style="min-height: 20px; min-width: 20px;"
+        viewBox="0 0 256 256"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Zm-60-52a16,16,0,1,1-16-16A16,16,0,0,1,144,152Z"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button icons md size should render icons on the left 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 20px;"
+    >
+      <svg
+        aria-label="Heart Straight"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="20"
+        style="min-height: 20px; min-width: 20px;"
+        viewBox="0 0 256 256"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M225.84,54.13A62.07,62.07,0,0,0,138.32,54L128,63.58,117.68,54a62,62,0,0,0-87.58,87.8l89.35,90.65a12,12,0,0,0,17.1,0l89.29-90.59a62,62,0,0,0,0-87.7Zm-17,70.79L128,206.9,47.13,124.85a38,38,0,0,1,53.74-53.74c.1.1.2.2.31.29l18.64,17.36a12,12,0,0,0,16.36,0L154.82,71.4c.11-.09.21-.19.31-.29a38,38,0,1,1,53.68,53.81Z"
+        />
+      </svg>
+    </div>
+    Button with left icon
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button icons md size should render icons on the right 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    Button with right icon
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 20px;"
+    >
+      <svg
+        aria-label="Lock"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="20"
+        style="min-height: 20px; min-width: 20px;"
+        viewBox="0 0 256 256"
+        width="20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Zm-60-52a16,16,0,1,1-16-16A16,16,0,0,1,144,152Z"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button icons sm size should render icons on both sides 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[4px] px-sm py-[13px] leading-[8px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 14px;"
+    >
+      <svg
+        aria-label="Heart Straight"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="14"
+        style="min-height: 14px; min-width: 14px;"
+        viewBox="0 0 256 256"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M225.84,54.13A62.07,62.07,0,0,0,138.32,54L128,63.58,117.68,54a62,62,0,0,0-87.58,87.8l89.35,90.65a12,12,0,0,0,17.1,0l89.29-90.59a62,62,0,0,0,0-87.7Zm-17,70.79L128,206.9,47.13,124.85a38,38,0,0,1,53.74-53.74c.1.1.2.2.31.29l18.64,17.36a12,12,0,0,0,16.36,0L154.82,71.4c.11-.09.21-.19.31-.29a38,38,0,1,1,53.68,53.81Z"
+        />
+      </svg>
+    </div>
+    Button with both icons
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 14px;"
+    >
+      <svg
+        aria-label="Lock"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="14"
+        style="min-height: 14px; min-width: 14px;"
+        viewBox="0 0 256 256"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Zm-60-52a16,16,0,1,1-16-16A16,16,0,0,1,144,152Z"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button icons sm size should render icons on the left 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[4px] px-sm py-[13px] leading-[8px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 14px;"
+    >
+      <svg
+        aria-label="Heart Straight"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="14"
+        style="min-height: 14px; min-width: 14px;"
+        viewBox="0 0 256 256"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M225.84,54.13A62.07,62.07,0,0,0,138.32,54L128,63.58,117.68,54a62,62,0,0,0-87.58,87.8l89.35,90.65a12,12,0,0,0,17.1,0l89.29-90.59a62,62,0,0,0,0-87.7Zm-17,70.79L128,206.9,47.13,124.85a38,38,0,0,1,53.74-53.74c.1.1.2.2.31.29l18.64,17.36a12,12,0,0,0,16.36,0L154.82,71.4c.11-.09.21-.19.31-.29a38,38,0,1,1,53.68,53.81Z"
+        />
+      </svg>
+    </div>
+    Button with left icon
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button icons sm size should render icons on the right 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[4px] px-sm py-[13px] leading-[8px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    Button with right icon
+    <div
+      class="relative flex items-center justify-center"
+      style="width: 14px;"
+    >
+      <svg
+        aria-label="Lock"
+        class="absolute group-aria-busy:text-transparent"
+        fill="currentColor"
+        height="14"
+        style="min-height: 14px; min-width: 14px;"
+        viewBox="0 0 256 256"
+        width="14"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M208,76H180V56A52,52,0,0,0,76,56V76H48A20,20,0,0,0,28,96V208a20,20,0,0,0,20,20H208a20,20,0,0,0,20-20V96A20,20,0,0,0,208,76ZM100,56a28,28,0,0,1,56,0V76H100ZM204,204H52V100H204Zm-60-52a16,16,0,1,1-16-16A16,16,0,0,1,144,152Z"
+        />
+      </svg>
+    </div>
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button sizes should render md size correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button sizes should render sm size correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[4px] px-sm py-[13px] leading-[8px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button styles should render critical style correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-critical-500 text-text-inverse outline-transparent hover:bg-critical-700 active:bg-critical-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-critical-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button styles should render inverse style correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-surface-50 text-primary-500 outline-transparent focus:hui-focus-visible-outline-inverse hover:bg-surface-100 active:bg-surface-200 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button styles should render neutral style correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-surface-500 text-text-inverse outline-transparent hover:bg-surface-700 active:bg-surface-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-surface-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button styles should render primary style correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button variants should render filled variant correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-primary-500 text-text-inverse outline-transparent hover:bg-primary-700 active:bg-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled aria-busy:cursor-not-allowed aria-busy:bg-primary-500 aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button variants should render outlined variant correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] -outline-offset-1 transition-colors disabled:text-text-disabled bg-background-primary text-primary-500 outline outline-1 outline-current hover:bg-primary-100 hover:text-primary-700 active:bg-primary-200 active:text-primary-900 disabled:cursor-not-allowed disabled:bg-background-disabled disabled:outline-border-disabled aria-busy:cursor-not-allowed aria-busy:bg-background-primary aria-busy:text-transparent aria-busy:outline-primary-500 gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;
+
+exports[`Button variants should render transparent variant correctly 1`] = `
+<DocumentFragment>
+  <button
+    aria-busy="false"
+    aria-label=""
+    aria-live="polite"
+    class="hui-focus-visible-outline relative flex max-w-full items-center justify-center whitespace-nowrap rounded-button text-center font-primary tracking-[var(--letter-spacing-button)] outline outline-1 -outline-offset-1 transition-colors disabled:text-text-disabled bg-transparent text-primary-500 outline-transparent hover:bg-background-hover hover:text-primary-700 active:bg-background-pressed active:text-primary-900 disabled:cursor-not-allowed disabled:bg-transparent aria-busy:cursor-not-allowed aria-busy:bg-background-pressed aria-busy:text-transparent gap-[6px] px-md py-sm align-text-bottom leading-[10px]"
+    data-testid="Button"
+    style="font-weight: var(--font-weight-button); text-transform: var(--text-transform-button);"
+  >
+    design systemmmmm
+  </button>
+</DocumentFragment>
+`;

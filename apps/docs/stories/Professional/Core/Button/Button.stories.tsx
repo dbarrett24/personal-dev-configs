@@ -1,32 +1,55 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { Button } from '@dbarrett24/professional-brand-ui/Button';
+import { Info } from '@dbarrett24/core-components/Icons';
 
 const meta: Meta<typeof Button> = {
-    title: 'Professional/Core Components/Button',
+    title: 'Professional/Core/Button',
     component: Button,
     parameters: {
         layout: 'centered',
     },
-    tags: ['autodocs'],
+    decorators: [
+        (Story) => (
+            <div className="brand-professional p-8">
+                <Story />
+            </div>
+        ),
+    ],
+    args: {
+        children: 'Button',
+        disabled: false,
+        loading: false,
+        size: 'md',
+        style: 'primary',
+        variant: 'filled',
+    },
     argTypes: {
-        variant: {
-            control: 'select',
-            options: ['filled', 'outline', 'ghost'],
-            description: 'Button variant style',
+        children: {
+            description: 'Text on the Button',
+            control: 'text',
         },
-        style: {
-            control: 'select',
-            options: ['primary', 'secondary', 'neutral', 'critical'],
-            description: 'Semantic style of the button',
+        disabled: {
+            description: 'Disable button styles / onClick disabled',
+            control: 'boolean',
+        },
+        loading: {
+            description: 'Disables the button and adds a loading state',
+            control: 'boolean',
         },
         size: {
+            description: 'Size of the button',
             control: 'select',
-            options: ['sm', 'md', 'lg'],
-            description: 'Button size',
+            options: ['md', 'sm'],
         },
-        isDisabled: {
-            control: 'boolean',
-            description: 'Disabled state',
+        style: {
+            description: 'The style of the button (color palette)',
+            control: 'select',
+            options: ['primary', 'critical', 'neutral', 'inverse'],
+        },
+        variant: {
+            description: 'The variant of the button',
+            control: 'select',
+            options: ['filled', 'outlined', 'transparent'],
         },
     },
 };
@@ -34,118 +57,168 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Filled: Story = {
-    args: {
-        variant: 'filled',
-        style: 'primary',
-        children: 'Get Started',
-    },
-};
-
-export const Outline: Story = {
-    args: {
-        variant: 'outline',
-        style: 'primary',
-        children: 'Contact Us',
-    },
-};
-
-export const Ghost: Story = {
-    args: {
-        variant: 'ghost',
-        style: 'primary',
-        children: 'View Details',
-    },
-};
-
-export const Small: Story = {
-    args: {
-        size: 'sm',
-        children: 'Small Button',
-    },
-};
-
-export const Large: Story = {
-    args: {
-        size: 'lg',
-        children: 'Large Button',
-    },
-};
-
-export const Disabled: Story = {
-    args: {
-        isDisabled: true,
-        children: 'Disabled Button',
-    },
+export const Default: Story = {
+    render: (args) => (
+        <>
+            {args.style === 'inverse' ? (
+                <div className="bg-background-info-dark p-md">
+                    <Button {...args} />
+                </div>
+            ) : (
+                <Button {...args} />
+            )}
+        </>
+    ),
 };
 
 export const AllVariants: Story = {
     render: () => (
-        <div className="gap-lg flex flex-col">
-            <div className="gap-md flex">
-                <Button
-                    variant="filled"
-                    style="primary"
-                >
-                    Filled Primary
-                </Button>
-                <Button
-                    variant="filled"
-                    style="secondary"
-                >
-                    Filled Secondary
-                </Button>
-                <Button
-                    variant="outline"
-                    style="primary"
-                >
-                    Outline
-                </Button>
-                <Button
-                    variant="ghost"
-                    style="primary"
-                >
-                    Ghost
-                </Button>
+        <div className="flex flex-col gap-lg">
+            <div>
+                <h3 className="mb-md text-lg font-semibold">Filled Buttons (with sharp corners)</h3>
+                <div className="flex gap-md">
+                    <Button
+                        style="primary"
+                        variant="filled"
+                    >
+                        Primary
+                    </Button>
+                    <Button
+                        style="critical"
+                        variant="filled"
+                    >
+                        Critical
+                    </Button>
+                    <Button
+                        style="neutral"
+                        variant="filled"
+                    >
+                        Neutral
+                    </Button>
+                </div>
             </div>
-            <div className="gap-md flex">
-                <Button
-                    variant="filled"
-                    style="primary"
-                    size="sm"
-                >
-                    Small
-                </Button>
-                <Button
-                    variant="filled"
-                    style="primary"
-                >
-                    Medium
-                </Button>
-                <Button
-                    variant="filled"
-                    style="primary"
-                    size="lg"
-                >
-                    Large
-                </Button>
+
+            <div>
+                <h3 className="mb-md text-lg font-semibold">Outlined Buttons (with sharp corners)</h3>
+                <div className="flex gap-md">
+                    <Button
+                        style="primary"
+                        variant="outlined"
+                    >
+                        Primary
+                    </Button>
+                    <Button
+                        style="critical"
+                        variant="outlined"
+                    >
+                        Critical
+                    </Button>
+                    <Button
+                        style="neutral"
+                        variant="outlined"
+                    >
+                        Neutral
+                    </Button>
+                </div>
             </div>
-            <div className="gap-md flex">
-                <Button
-                    variant="filled"
-                    style="primary"
-                    isDisabled
-                >
-                    Disabled Filled
-                </Button>
-                <Button
-                    variant="outline"
-                    style="primary"
-                    isDisabled
-                >
-                    Disabled Outline
-                </Button>
+
+            <div>
+                <h3 className="mb-md text-lg font-semibold">Transparent Buttons (with sharp corners)</h3>
+                <div className="flex gap-md">
+                    <Button
+                        style="primary"
+                        variant="transparent"
+                    >
+                        Primary
+                    </Button>
+                    <Button
+                        style="critical"
+                        variant="transparent"
+                    >
+                        Critical
+                    </Button>
+                    <Button
+                        style="neutral"
+                        variant="transparent"
+                    >
+                        Neutral
+                    </Button>
+                </div>
+            </div>
+
+            <div className="bg-background-info-dark p-md">
+                <h3 className="mb-md text-lg font-semibold text-white">Inverse Buttons</h3>
+                <div className="flex gap-md">
+                    <Button
+                        style="inverse"
+                        variant="filled"
+                    >
+                        Filled
+                    </Button>
+                    <Button
+                        style="inverse"
+                        variant="outlined"
+                    >
+                        Outlined
+                    </Button>
+                    <Button
+                        style="inverse"
+                        variant="transparent"
+                    >
+                        Transparent
+                    </Button>
+                </div>
             </div>
         </div>
+    ),
+};
+
+export const WithIcons: Story = {
+    render: () => (
+        <div className="flex gap-md">
+            <Button iconLeft={Info}>Icon Left</Button>
+            <Button iconRight={Info}>Icon Right</Button>
+            <Button
+                iconLeft={Info}
+                iconRight={Info}
+            >
+                Both Icons
+            </Button>
+        </div>
+    ),
+};
+
+export const FormExample: Story = {
+    render: () => (
+        <form
+            className="rounded-container bg-background-secondary p-lg"
+            onSubmit={(e) => {
+                e.preventDefault();
+                alert('Professional form submitted!');
+            }}
+        >
+            <h3 className="mb-md text-lg font-semibold">Business Contact Form</h3>
+            <div className="flex flex-col gap-md">
+                <input
+                    className="rounded-container border-2 border-border-primary px-md py-sm"
+                    placeholder="Company Name"
+                    type="text"
+                />
+                <input
+                    className="rounded-container border-2 border-border-primary px-md py-sm"
+                    placeholder="Email Address"
+                    type="email"
+                />
+                <div className="flex gap-md">
+                    <Button type="submit">Submit Inquiry</Button>
+                    <Button
+                        type="button"
+                        variant="outlined"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </div>
+        </form>
     ),
 };

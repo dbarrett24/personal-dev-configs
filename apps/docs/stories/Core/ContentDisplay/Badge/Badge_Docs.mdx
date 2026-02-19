@@ -1,0 +1,52 @@
+import { Canvas, Controls, Meta } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './Badge.stories.tsx';
+import { ElevatedSection, Code, ComponentStatus } from 'components';
+
+<Meta title="Badge/Badge Docs" />
+
+# Badge
+
+<ComponentStatus
+    completed
+    jiraUrl="https://auctiontechnologygroup.atlassian.net/browse/DS-952"
+    figmaUrl="https://www.figma.com/design/ahXQIuI2ayJ3MC0OHaLV35/LiveAuctioneers-Components?node-id=13613-67840&t=TtRSGqPJK1quaSUd-0"
+/>
+
+## Overview
+
+The badge component is effectively a styled `span`.
+It is used to display a small amount of information, such as "live", in a visually appealing way.
+It is often placed absolutely.
+
+<Canvas
+    of={BadgeStories.DefaultBadge}
+    sourceState="none"
+/>
+
+<Controls of={BadgeStories.DefaultBadge} />
+
+### Basic Usage
+
+This shows how you could overlay it over a (mocked) image.
+
+import { ExampleComponent as Basic } from './Basic.example.js';
+import BasicText from './Basic.example.tsx?raw';
+
+<ElevatedSection>
+    <Basic />
+</ElevatedSection>
+
+<Code className="language-tsx">{BasicText}</Code>
+
+### With icons
+
+You can place an icon inside the component with either the `iconLeft` or `iconRight` props.
+
+import { ExampleComponent as WithIcon } from './WithIcon.example.js';
+import WithIconText from './WithIcon.example.tsx?raw';
+
+<ElevatedSection>
+    <WithIcon />
+</ElevatedSection>
+
+<Code className="language-tsx">{WithIconText}</Code>

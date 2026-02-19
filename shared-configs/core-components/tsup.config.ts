@@ -25,6 +25,10 @@ export const clientEntries = {
     Button: 'src/Button/Button.tsx',
     'Typography/Links': 'src/Typography/Links/Links.tsx',
     'Typography/InlineButton': 'src/Typography/InlineButton/InlineButton.tsx',
+    // Badge (uses useMemo → client-side)
+    'Badge/Badge': 'src/Badge/Badge.tsx',
+    'Badge/ItemBadge': 'src/Badge/ItemBadge.tsx',
+    'Badge/AuctionBadge': 'src/Badge/AuctionBadge.tsx',
 };
 
 export default makeConfig(entries, clientEntries);

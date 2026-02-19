@@ -1,0 +1,156 @@
+import { ElevatedSection, Code, ComponentStatus } from 'components';
+import { Canvas, Controls, Meta, DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+import * as AuctionBadgeStories from './AuctionBadge.stories.tsx';
+import { AuctionBadge } from '@dbarrett24/core-components/Badge/AuctionBadge';
+
+<Meta
+    title="Badge/AuctionBadge/AuctionBadge Docs"
+    component={AuctionBadge}
+    parameters={{
+        docs: {
+            container: DocsContainer,
+            page: DocsPage,
+        },
+    }}
+/>
+
+# AuctionBadge Documentation
+
+<ComponentStatus
+    jiraUrl="https://auctiontechnologygroup.atlassian.net/browse/LAAC-1028"
+    figmaUrl="https://www.figma.com/design/ahXQIuI2ayJ3MC0OHaLV35/LiveAuctioneers-Components?node-id=27221-27242&p=f&t=LROyMea8hVvH7Wmu-0"
+/>
+
+## Overview
+
+The AuctionBadge component displays the live or paused status of an auction with viewer count. This component shows a badge with auction status (LIVE/PAUSED/CLOSING), optional video camera icon, viewer count with dot separator, and appropriate state indicators. Built with Hammer UI components for consistency with the design system.
+
+<Canvas
+    of={AuctionBadgeStories._AuctionBadge}
+    sourceState="none"
+/>
+
+<Controls of={AuctionBadgeStories._AuctionBadge} />
+
+### Props
+
+- `className`: Optional className for custom styling and positioning
+- `hasVideo`: Whether the auction has video streaming capabilities
+- `isClosing`: Whether the auction is currently closing
+- `isPaused`: Whether the auction is currently paused
+- `viewers`: Number of viewers currently watching the auction
+
+### Code Example
+
+This is a basic example of the component with default settings:
+
+```tsx
+import { AuctionBadge } from '@dbarrett24/core-components/Badge/AuctionBadge';
+
+const ExampleComponent = () => {
+    return (
+        <AuctionBadge
+            hasVideo={false}
+            isClosing={false}
+            isPaused={false}
+            viewers={126}
+        />
+    );
+};
+```
+
+## Usage Examples
+
+### Live Auction
+
+Display a live auction status:
+
+```tsx
+import { AuctionBadge } from '@dbarrett24/core-components/Badge/AuctionBadge';
+
+const ExampleComponent = () => {
+    return (
+        <AuctionBadge
+            isClosing={false}
+            isPaused={false}
+            viewers={126}
+        />
+    );
+};
+```
+
+### Live Auction with Video
+
+Display a live auction with video streaming:
+
+```tsx
+import { AuctionBadge } from '@dbarrett24/core-components/Badge/AuctionBadge';
+
+const ExampleComponent = () => {
+    return (
+        <AuctionBadge
+            hasVideo
+            isClosing={false}
+            isPaused={false}
+            viewers={245}
+        />
+    );
+};
+```
+
+### Paused Auction
+
+Display a paused auction:
+
+```tsx
+import { AuctionBadge } from '@dbarrett24/core-components/Badge/AuctionBadge';
+
+const ExampleComponent = () => {
+    return (
+        <AuctionBadge
+            isClosing={false}
+            isPaused
+            viewers={132}
+        />
+    );
+};
+```
+
+### Closing Auction
+
+Display an auction that is closing (no viewer count shown):
+
+```tsx
+import { AuctionBadge } from '@dbarrett24/core-components/Badge/AuctionBadge';
+
+const ExampleComponent = () => {
+    return (
+        <AuctionBadge
+            isClosing
+            isPaused={false}
+            viewers={0}
+        />
+    );
+};
+```
+
+## Visual States
+
+The AuctionBadge displays different visual states based on the auction status:
+
+- **LIVE**: Shows "LIVE" text with viewer count and dot separator
+- **LIVE with Video**: Includes a video camera icon before the "LIVE" text
+- **PAUSED**: Shows pause icon and "PAUSED" text with viewer count
+- **CLOSING**: Shows "CLOSING" text without icons or viewer count
+
+## All Variants
+
+<Canvas
+    of={AuctionBadgeStories.AllVariants}
+    sourceState="none"
+/>
+
+## Related Components
+
+- [Badge](content-display-badge--default-badge)
+- [ItemBadge](itembadge-itembadge-docs--component-docs)

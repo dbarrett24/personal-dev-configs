@@ -1,0 +1,638 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Badge renders emphasis: bold, color: critical, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-sm bg-background-critical-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: critical, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-critical-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: critical, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-sm bg-background-critical-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: critical, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-xl bg-background-critical-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: critical, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-xl bg-background-critical-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: critical, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-xl bg-background-critical-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: info, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-sm bg-background-info-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: info, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-info-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: info, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-sm bg-background-info-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: info, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-xl bg-background-info-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: info, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-xl bg-background-info-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: info, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-xl bg-background-info-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: neutral, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-sm bg-surface-500"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: neutral, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-surface-500"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: neutral, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-sm bg-surface-500"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: neutral, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-xl bg-surface-500"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: neutral, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-xl bg-surface-500"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: neutral, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-xl bg-surface-500"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: success, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-sm bg-background-success-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: success, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-success-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: success, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-sm bg-background-success-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: success, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs text-text-inverse rounded-xl bg-background-success-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: success, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-xl bg-background-success-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: success, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs text-text-inverse rounded-xl bg-background-success-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: warning, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border-transparent text-text-primary rounded-sm bg-background-warning-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: warning, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border-transparent text-text-primary rounded-sm bg-background-warning-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: warning, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border-transparent text-text-primary rounded-sm bg-background-warning-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: warning, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border-transparent text-text-primary rounded-xl bg-background-warning-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: warning, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border-transparent text-text-primary rounded-xl bg-background-warning-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: bold, color: warning, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border-transparent text-text-primary rounded-xl bg-background-warning-dark"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: critical, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-critical text-text-critical rounded-sm bg-background-critical-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: critical, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-critical text-text-critical rounded-sm bg-background-critical-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: critical, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-critical text-text-critical rounded-sm bg-background-critical-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: critical, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-critical text-text-critical rounded-xl bg-background-critical-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: critical, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-critical text-text-critical rounded-xl bg-background-critical-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: critical, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-critical text-text-critical rounded-xl bg-background-critical-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: info, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-info text-background-info-dark rounded-sm bg-background-info-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: info, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-info text-background-info-dark rounded-sm bg-background-info-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: info, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-info text-background-info-dark rounded-sm bg-background-info-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: info, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-info text-background-info-dark rounded-xl bg-background-info-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: info, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-info text-background-info-dark rounded-xl bg-background-info-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: info, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-info text-background-info-dark rounded-xl bg-background-info-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: neutral, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-secondary text-surface-500 rounded-sm bg-surface-100"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: neutral, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-secondary text-surface-500 rounded-sm bg-surface-100"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: neutral, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-secondary text-surface-500 rounded-sm bg-surface-100"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: neutral, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-secondary text-surface-500 rounded-xl bg-surface-100"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: neutral, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-secondary text-surface-500 rounded-xl bg-surface-100"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: neutral, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-secondary text-surface-500 rounded-xl bg-surface-100"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: success, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-success text-background-success-dark rounded-sm bg-background-success-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: success, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-success text-background-success-dark rounded-sm bg-background-success-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: success, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-success text-background-success-dark rounded-sm bg-background-success-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: success, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-success text-background-success-dark rounded-xl bg-background-success-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: success, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-success text-background-success-dark rounded-xl bg-background-success-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: success, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-success text-background-success-dark rounded-xl bg-background-success-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: warning, round: false, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-warning text-text-warning rounded-sm bg-background-warning-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: warning, round: false, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-warning text-text-warning rounded-sm bg-background-warning-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: warning, round: false, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-warning text-text-warning rounded-sm bg-background-warning-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: warning, round: true, size: md 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-warning text-text-warning rounded-xl bg-background-warning-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: warning, round: true, size: sm 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-warning text-text-warning rounded-xl bg-background-warning-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge renders emphasis: subtle, color: warning, round: true, size: xs 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-caption h-[18px] px-xs border border-solid border-border-warning text-text-warning rounded-xl bg-background-warning-light"
+  >
+    Badge
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Badge should work with default values and single icon 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-primary h-[30px] px-xs border border-solid border-border-secondary text-surface-500 rounded-sm bg-surface-100"
+  >
+    <svg
+      aria-label="Heart Straight"
+      class=""
+      fill="currentColor"
+      height="20"
+      style="min-height: 20px; min-width: 20px;"
+      viewBox="0 0 256 256"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M223,57a58.07,58.07,0,0,0-81.92-.1L128,69.05,114.91,56.86A58,58,0,0,0,33,139l89.35,90.66a8,8,0,0,0,11.4,0L223,139a58,58,0,0,0,0-82Zm-11.35,70.76L128,212.6,44.3,127.68a42,42,0,0,1,59.4-59.4l.2.2,18.65,17.35a8,8,0,0,0,10.9,0L152.1,68.48l.2-.2a42,42,0,1,1,59.36,59.44Z"
+      />
+    </svg>
+    <svg
+      aria-label="Share Network"
+      class=""
+      fill="currentColor"
+      height="20"
+      style="min-height: 20px; min-width: 20px;"
+      viewBox="0 0 256 256"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M176,160a39.89,39.89,0,0,0-28.62,12.09l-46.1-29.63a39.8,39.8,0,0,0,0-28.92l46.1-29.63a40,40,0,1,0-8.66-13.45l-46.1,29.63a40,40,0,1,0,0,55.82l46.1,29.63A40,40,0,1,0,176,160Zm0-128a24,24,0,1,1-24,24A24,24,0,0,1,176,32ZM64,152a24,24,0,1,1,24-24A24,24,0,0,1,64,152Zm112,72a24,24,0,1,1,24-24A24,24,0,0,1,176,224Z"
+      />
+    </svg>
+  </div>
+</DocumentFragment>
+`;

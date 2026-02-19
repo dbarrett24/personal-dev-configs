@@ -1,0 +1,161 @@
+import { ElevatedSection, Code, ComponentStatus } from 'components';
+import { Canvas, Controls, Meta, DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+import * as ItemBadgeStories from './ItemBadge.stories.tsx';
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+<Meta
+    title="Badge/ItemBadge/ItemBadge Docs"
+    component={ItemBadge}
+    parameters={{
+        docs: {
+            container: DocsContainer,
+            page: DocsPage,
+        },
+    }}
+/>
+
+# ItemBadge Documentation
+
+<ComponentStatus
+    jiraUrl="https://auctiontechnologygroup.atlassian.net/browse/LAAC-1028"
+    figmaUrl="https://www.figma.com/design/ahXQIuI2ayJ3MC0OHaLV35/LiveAuctioneers-Components?node-id=27235-94&m=dev"
+/>
+
+## Overview
+
+The ItemBadge component displays the status of an auction item. This component shows a badge with item status (FEATURED/LIVE/EXTENDED/SOLD), optional viewer count for live items, and appropriate styling based on the status.
+
+**Priority order:** isSold > isExtended > isLive > isFeatured
+
+<Canvas
+    of={ItemBadgeStories._ItemBadge}
+    sourceState="none"
+/>
+
+<Controls of={ItemBadgeStories._ItemBadge} />
+
+### Props
+
+- `className`: Optional className for custom styling and positioning
+- `isFeatured`: Whether the item is featured
+- `isLive`: Whether the item is currently live
+- `viewers`: Number of viewers currently watching (only shown when isLive and > 0)
+- `isExtended`: Whether the item bidding has been extended
+- `isSold`: Whether the item has been sold
+
+### Code Example
+
+This is a basic example of the component with default settings:
+
+```tsx
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+const ExampleComponent = () => {
+    return (
+        <ItemBadge
+            isLive
+            viewers={126}
+        />
+    );
+};
+```
+
+## Usage Examples
+
+### Featured Item
+
+Display a featured item badge:
+
+```tsx
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+const ExampleComponent = () => {
+    return <ItemBadge isFeatured />;
+};
+```
+
+### Live Item
+
+Display a live item without viewer count:
+
+```tsx
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+const ExampleComponent = () => {
+    return <ItemBadge isLive />;
+};
+```
+
+### Live Item with Viewers
+
+Display a live item with viewer count (shown only when viewers > 0):
+
+```tsx
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+const ExampleComponent = () => {
+    return (
+        <ItemBadge
+            isLive
+            viewers={126}
+        />
+    );
+};
+```
+
+### Extended Item
+
+Display an item with extended bidding:
+
+```tsx
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+const ExampleComponent = () => {
+    return <ItemBadge isExtended />;
+};
+```
+
+### Sold Item
+
+Display a sold item:
+
+```tsx
+import { ItemBadge } from '@dbarrett24/core-components/Badge/ItemBadge';
+
+const ExampleComponent = () => {
+    return <ItemBadge isSold />;
+};
+```
+
+## Priority Order
+
+When multiple status props are set to true, the component displays badges in the following priority order:
+
+1. **Sold** (highest priority) - `isSold`
+2. **Extended** - `isExtended`
+3. **Live** - `isLive`
+4. **Featured** (lowest priority) - `isFeatured`
+
+Example: If both `isSold` and `isLive` are true, only the "SOLD" badge will be displayed.
+
+## Visual States
+
+The ItemBadge displays different visual states with appropriate styling:
+
+- **FEATURED**: Neutral colors with subtle emphasis and rounded corners
+- **LIVE**: Critical red with bold emphasis and rounded corners
+- **LIVE with viewers**: Includes dot separator and viewer count when viewers > 0
+- **EXTENDED**: Critical red with bold emphasis and rounded corners
+- **SOLD**: Neutral gray with bold emphasis and rounded corners
+
+## All Variants
+
+<Canvas
+    of={ItemBadgeStories._ItemBadgeVariants}
+    sourceState="none"
+/>
+
+## Related Components
+
+- [Badge](content-display-badge--default-badge)
+- [AuctionBadge](auctionbadge-auctionbadge-docs--component-docs)

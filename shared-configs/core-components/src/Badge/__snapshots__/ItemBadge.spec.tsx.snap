@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemBadge does not show viewers when viewers is 0 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-critical-dark hui-text-label-strong"
+    data-testid="item-badge"
+  >
+    LIVE
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemBadge renders extended state 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-critical-dark hui-text-label-strong"
+    data-testid="item-badge"
+  >
+    EXTENDED
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemBadge renders featured state 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs border border-solid border-border-secondary text-surface-500 rounded-sm bg-surface-100 hui-text-label-strong"
+    data-testid="item-badge"
+  >
+    FEATURED
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemBadge renders live state with viewers when viewers > 0 1`] = `
+<DocumentFragment>
+  <div
+    class="w-fit min-w-fit justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-critical-dark hui-text-label-strong flex items-center gap-2xs"
+    data-testid="item-badge"
+  >
+    LIVE
+    <svg
+      aria-label="Dot Outline"
+      class="-mx-2xs"
+      fill="currentColor"
+      height="20"
+      style="min-height: 20px; min-width: 20px;"
+      viewBox="0 0 256 256"
+      width="20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M156,128a28,28,0,1,1-28-28A28,28,0,0,1,156,128Z"
+      />
+    </svg>
+    <span>
+      126
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemBadge renders live state without viewers 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-background-critical-dark hui-text-label-strong"
+    data-testid="item-badge"
+  >
+    LIVE
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ItemBadge renders sold state 1`] = `
+<DocumentFragment>
+  <div
+    class="flex w-fit min-w-fit items-center justify-center hui-text-body-secondary h-[24px] px-xs text-text-inverse rounded-sm bg-surface-500 hui-text-label-strong"
+    data-testid="item-badge"
+  >
+    SOLD
+  </div>
+</DocumentFragment>
+`;

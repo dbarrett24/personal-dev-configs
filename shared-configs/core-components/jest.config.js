@@ -14,6 +14,7 @@ module.exports = {
         '!src/Icons/socialIcons/**',
         '!src/Icons/importedIcons.ts',
         '!src/Button/**', // Pre-existing, not part of DS-18
+        // Badge/** is included (DS-32) - no exclusion needed
     ],
     // Strict thresholds for DS-18 code (Icons + LoadingSpinner)
     coverageThreshold: {

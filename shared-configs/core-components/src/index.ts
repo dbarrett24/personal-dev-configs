@@ -1,3 +1,9 @@
+// Badge
+export { Badge } from './Badge/Badge';
+export { ItemBadge } from './Badge/ItemBadge';
+export { AuctionBadge } from './Badge/AuctionBadge';
+export type { BadgeProps, BadgeColor, BadgeEmphasis, BadgeSize } from './Badge/Badge.types';
+
 // Button
 export { Button } from './Button/Button';
 export type { Props as ButtonProps, ButtonVariant, ButtonStyle, InlineStyles } from './Button/Button.types';

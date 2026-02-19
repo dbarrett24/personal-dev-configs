@@ -75,6 +75,21 @@
             "import": "./dist/esm/Typography/InlineButton.js",
             "require": "./dist/Typography/InlineButton.js",
             "types": "./dist/Typography/InlineButton.d.ts"
+        },
+        "./Badge": {
+            "import": "./dist/esm/Badge/Badge.js",
+            "require": "./dist/Badge/Badge.js",
+            "types": "./dist/Badge/Badge.d.ts"
+        },
+        "./Badge/ItemBadge": {
+            "import": "./dist/esm/Badge/ItemBadge.js",
+            "require": "./dist/Badge/ItemBadge.js",
+            "types": "./dist/Badge/ItemBadge.d.ts"
+        },
+        "./Badge/AuctionBadge": {
+            "import": "./dist/esm/Badge/AuctionBadge.js",
+            "require": "./dist/Badge/AuctionBadge.js",
+            "types": "./dist/Badge/AuctionBadge.d.ts"
         }
     },
     "files": [
